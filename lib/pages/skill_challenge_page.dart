@@ -312,7 +312,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               final isCurrent = day == _currentDay;
 
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: GestureDetector(
                   onTap: () {
                     if (day <= _currentDay) {
@@ -467,60 +467,63 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
   }
 
   Widget _buildPathIcons(int dayIndex) {
-    // Create a diagonal zigzag pattern flowing down
+    // Create a smooth diagonal zigzag pattern
     final isEven = dayIndex % 2 == 0;
     final day = dayIndex + 1;
     final isCompleted = day < _currentDay;
     final isMilestone = (dayIndex + 1) % 4 == 0;
 
-    return SizedBox(
-      height: 140,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          // Icon 1 - start position
-          Positioned(
-            top: 15,
-            left: isEven ? 80 : null,
-            right: isEven ? null : 80,
-            child: _buildFloatingIcon(
-              icon: Icons.menu_book,
-              isCompleted: isCompleted,
-            ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        final centerX = width / 2;
+        final offset = 70.0; // How far icons spread from center
+
+        return SizedBox(
+          height: 150,
+          child: Stack(
+            children: [
+              // Icon 1
+              Positioned(
+                top: 15,
+                left: isEven ? centerX - offset - 25 : centerX + offset - 25,
+                child: _buildFloatingIcon(
+                  icon: Icons.menu_book,
+                  isCompleted: isCompleted,
+                ),
+              ),
+              // Icon 2
+              Positioned(
+                top: 50,
+                left: isEven ? centerX + 20 - 25 : centerX - 20 - 25,
+                child: _buildFloatingIcon(
+                  icon: Icons.menu_book,
+                  isCompleted: isCompleted,
+                ),
+              ),
+              // Icon 3
+              Positioned(
+                top: 85,
+                left: isEven ? centerX + offset - 25 : centerX - offset - 25,
+                child: _buildFloatingIcon(
+                  icon: Icons.menu_book,
+                  isCompleted: isCompleted,
+                ),
+              ),
+              // Icon 4 - milestone crown at certain intervals
+              Positioned(
+                top: 115,
+                left: centerX - 25,
+                child: _buildFloatingIcon(
+                  icon: isMilestone ? Icons.workspace_premium : Icons.menu_book,
+                  isCompleted: isCompleted,
+                  isMilestone: isMilestone,
+                ),
+              ),
+            ],
           ),
-          // Icon 2 - diagonal move
-          Positioned(
-            top: 45,
-            left: isEven ? null : 140,
-            right: isEven ? 140 : null,
-            child: _buildFloatingIcon(
-              icon: Icons.menu_book,
-              isCompleted: isCompleted,
-            ),
-          ),
-          // Icon 3 - continue diagonal
-          Positioned(
-            top: 75,
-            left: isEven ? 200 : null,
-            right: isEven ? null : 200,
-            child: _buildFloatingIcon(
-              icon: Icons.menu_book,
-              isCompleted: isCompleted,
-            ),
-          ),
-          // Icon 4 - end (crown for milestones)
-          Positioned(
-            top: 105,
-            left: isEven ? null : 260,
-            right: isEven ? 260 : null,
-            child: _buildFloatingIcon(
-              icon: isMilestone ? Icons.workspace_premium : Icons.menu_book,
-              isCompleted: isCompleted,
-              isMilestone: isMilestone,
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 
