@@ -68,9 +68,8 @@ class InvestorProfilePage extends StatefulWidget {
 
 class _InvestorProfilePageState extends State<InvestorProfilePage>
     with TickerProviderStateMixin {
-  int _step = 0; // Start at 0 for progress/calendar page
+  int _step = 0;
   bool _goingForward = true;
-  int _currentDay = 2; // Current challenge day (D2 in the image)
   int _totalXP = 0;
   int _currentLevel = 1;
   bool _showXPGain = false;
@@ -212,7 +211,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
   void _handleNext() {
     if (_step < totalQuestions) {
-      // Don't award XP for the calendar page (step 0)
+      // Don't award XP for the intro page (step 0)
       if (_step > 0) {
         final xpReward = questionMetadata[_step]?.xpReward ?? 40;
         _awardXP(xpReward);
@@ -264,9 +263,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
   Widget _buildQuestion(QuestionnaireAnswers answers) {
     switch (_step) {
-      // Progress/Calendar Page (before questions start)
+      // Intro page before questions start
       case 0:
-        return _buildProgressCalendarPage();
+        return _buildIntroPage();
 
       // SECTION 1 — Personal & Financial Profile
       case 1:
@@ -539,241 +538,161 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
     }
   }
 
-  Widget _buildProgressCalendarPage() {
-    // Sample data for completed days (D1, D5 completed)
-    final completedDays = {1, 5};
-    const totalDays = 28;
-    const currentChallengeDay = 11;
-
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header row
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget _buildIntroPage() {
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Column(
             children: [
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Day $currentChallengeDay ',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF6366F1),
+              const Spacer(flex: 2),
+              // Checklist icon in peach circle
+              Container(
+                width: 160,
+                height: 160,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFEEBD6),
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      // Background papers
+                      Transform.translate(
+                        offset: const Offset(8, 8),
+                        child: Container(
+                          width: 70,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFD6E4F0),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
                       ),
-                    ),
-                    TextSpan(
-                      text: 'out of $totalDays',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white.withValues(alpha: 0.8),
+                      // Main checklist paper
+                      Container(
+                        width: 70,
+                        height: 90,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFE8F0F8),
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: const Color(0xFFB8D4E8),
+                            width: 1,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: List.generate(4, (index) {
+                              return Row(
+                                children: [
+                                  Icon(
+                                    Icons.check,
+                                    size: 12,
+                                    color: const Color(0xFFE07A5F),
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Expanded(
+                                    child: Container(
+                                      height: 6,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFFB8D4E8),
+                                        borderRadius: BorderRadius.circular(3),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }),
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
+              const Spacer(),
+              // Title
               const Text(
-                'Your progress',
+                'Before you start...',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 28,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 40),
+              // Info items
+              _buildInfoItem(
+                'Your answers are anonymized, and we do not sell your data.',
+              ),
+              const SizedBox(height: 24),
+              _buildInfoItem(
+                'So make sure to answer each question honestly for most accurate results.',
+              ),
+              const Spacer(flex: 2),
+              // Start button
+              GestureDetector(
+                onTap: _handleNext,
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 18),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1B5E4B),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'Start Test',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 24),
-
-          // Calendar Card
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.1),
-                  blurRadius: 20,
-                  offset: const Offset(0, 10),
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                // Calendar header with navigation
-                Row(
-                  children: [
-                    // Left arrow
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF6366F1),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: const Icon(
-                        Icons.chevron_right,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const Expanded(
-                      child: Center(
-                        child: Text(
-                          'Calendar',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black87,
-                          ),
-                        ),
-                      ),
-                    ),
-                    // Right arrow
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Icon(
-                        Icons.chevron_left,
-                        color: Colors.grey.shade400,
-                      ),
-                    ),
-                  ],
-                ),
-                const Divider(height: 30),
-
-                // Days grid
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: List.generate(9, (index) {
-                      final dayNum = 9 - index; // D9 to D1
-                      final isCompleted = completedDays.contains(dayNum);
-                      final isCurrentDay = dayNum == _currentDay;
-
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 6),
-                        child: _buildDayCell(dayNum, isCompleted, isCurrentDay),
-                      );
-                    }),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          const Spacer(),
-
-          // Start/Continue button
-          GestureDetector(
-            onTap: _handleNext,
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 18),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.cyan, Colors.blue.shade600],
-                ),
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.cyan.withValues(alpha: 0.4),
-                    blurRadius: 20,
-                    offset: const Offset(0, 8),
-                  ),
-                ],
-              ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Start Questionnaire',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  Icon(
-                    Icons.arrow_forward_rounded,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _buildDayCell(int dayNum, bool isCompleted, bool isCurrentDay) {
-    return Container(
-      width: 60,
-      height: 80,
-      decoration: BoxDecoration(
-        color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(12),
-        border: isCurrentDay
-            ? Border.all(color: const Color(0xFF6366F1), width: 2)
-            : null,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'D$dayNum',
-            style: TextStyle(
+  Widget _buildInfoItem(String text) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 28,
+          height: 28,
+          decoration: BoxDecoration(
+            color: const Color(0xFF1B5E4B),
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(
+            Icons.check,
+            color: Colors.white,
+            size: 18,
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Text(
+            text,
+            style: const TextStyle(
               fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: isCurrentDay ? const Color(0xFF6366F1) : Colors.grey.shade600,
+              color: Colors.black87,
+              height: 1.4,
             ),
           ),
-          const SizedBox(height: 8),
-          if (isCompleted)
-            Container(
-              width: 16,
-              height: 16,
-              decoration: const BoxDecoration(
-                color: Color(0xFF22C55E),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.check,
-                color: Colors.white,
-                size: 10,
-              ),
-            )
-          else if (isCurrentDay)
-            Container(
-              width: 10,
-              height: 10,
-              decoration: const BoxDecoration(
-                color: Color(0xFF6366F1),
-                shape: BoxShape.circle,
-              ),
-            )
-          else
-            Container(
-              width: 10,
-              height: 10,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.grey.shade300, width: 1.5),
-              ),
-            ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -806,14 +725,11 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
               builder: (context, provider, child) {
                 return Column(
                   children: [
-                    // Game Header with XP and Level (hide on calendar page)
+                    // Game Header with XP and Level (hide on intro page)
                     if (_step > 0) _buildGameHeader(xpProgress),
 
-                    // Progress Quest Bar (hide on calendar page)
+                    // Progress Quest Bar (hide on intro page)
                     if (_step > 0) _buildQuestProgress(),
-
-                    // Safe area padding for calendar page
-                    if (_step == 0) SafeArea(child: const SizedBox(height: 10)),
 
                     // Question Content
                     Expanded(
@@ -1071,7 +987,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   }
 
   Widget _buildQuestProgress() {
-    // Calculate progress excluding step 0 (calendar page)
+    // Calculate progress excluding intro page (step 0)
     final questionStep = _step > 0 ? _step : 0;
     final progress = questionStep / totalQuestions;
 
