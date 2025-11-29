@@ -19,6 +19,42 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
   final PageController _cardController = PageController();
   final PageController _sponsorController = PageController();
 
+  // 28-day challenge state
+  int _currentDay = 2;
+  final int _totalDays = 28;
+  Set<int> _expandedLessons = {};
+
+  final List<Map<String, dynamic>> _lessons = [
+    {'day': 1, 'emoji': '🏪', 'title': 'How to Start the Challenge in the Quantrook Portfolio', 'completed': true},
+    {'day': 2, 'emoji': '🚪', 'title': 'Entering the Investor\'s Gate', 'completed': false, 'current': true},
+    {'day': 3, 'emoji': '🕯️', 'title': 'Money Rules: Saving, Investing, and Building Wealth', 'completed': false},
+    {'day': 4, 'emoji': '🎯', 'title': 'Financial Markets: Stocks, Bonds, Options, and More', 'completed': false},
+    {'day': 5, 'emoji': '🏰', 'title': 'Commodity & Metal Markets (Gold, Silver, Oil)', 'completed': false},
+    {'day': 6, 'emoji': '📐', 'title': 'Global Currency Markets (Forex)', 'completed': false},
+    {'day': 7, 'emoji': '🏆', 'title': 'Financial Derivatives', 'completed': false},
+    {'day': 8, 'emoji': '📊', 'title': 'Cryptocurrencies & Blockchain Technology', 'completed': false},
+    {'day': 9, 'emoji': '📈', 'title': 'Understanding Web3, DeFi, and NFTs', 'completed': false},
+    {'day': 10, 'emoji': '📉', 'title': 'Risk Management & Financial Discipline', 'completed': false},
+    {'day': 11, 'emoji': '💹', 'title': 'Technical Analysis Fundamentals', 'completed': false},
+    {'day': 12, 'emoji': '📋', 'title': 'Fundamental Analysis Deep Dive', 'completed': false},
+    {'day': 13, 'emoji': '🔮', 'title': 'Market Psychology & Behavioral Finance', 'completed': false},
+    {'day': 14, 'emoji': '⚖️', 'title': 'Portfolio Diversification Strategies', 'completed': false},
+    {'day': 15, 'emoji': '🎪', 'title': 'Trading Strategies for Beginners', 'completed': false},
+    {'day': 16, 'emoji': '🛡️', 'title': 'Hedging & Risk Mitigation', 'completed': false},
+    {'day': 17, 'emoji': '📱', 'title': 'Trading Platforms & Tools', 'completed': false},
+    {'day': 18, 'emoji': '🌐', 'title': 'Global Economic Indicators', 'completed': false},
+    {'day': 19, 'emoji': '📰', 'title': 'News Trading & Market Events', 'completed': false},
+    {'day': 20, 'emoji': '🔄', 'title': 'Swing Trading Techniques', 'completed': false},
+    {'day': 21, 'emoji': '⚡', 'title': 'Day Trading Essentials', 'completed': false},
+    {'day': 22, 'emoji': '🏦', 'title': 'Understanding ETFs & Index Funds', 'completed': false},
+    {'day': 23, 'emoji': '💰', 'title': 'Dividend Investing Strategies', 'completed': false},
+    {'day': 24, 'emoji': '🚀', 'title': 'Growth vs Value Investing', 'completed': false},
+    {'day': 25, 'emoji': '📊', 'title': 'Building Your First Portfolio', 'completed': false},
+    {'day': 26, 'emoji': '🎯', 'title': 'Setting Investment Goals', 'completed': false},
+    {'day': 27, 'emoji': '📝', 'title': 'Creating a Trading Plan', 'completed': false},
+    {'day': 28, 'emoji': '🏅', 'title': 'Challenge Completion & Next Steps', 'completed': false},
+  ];
+
   final List<Map<String, dynamic>> _globalLeaderboard = [
     {'rank': 1, 'name': 'Emma Davis', 'profit': '+22.3%', 'trades': 45, 'country': 'US', 'profitAmount': '\$66,900', 'equity': '\$366,900'},
     {'rank': 2, 'name': 'Mike Johnson', 'profit': '+16.8%', 'trades': 38, 'country': 'GB', 'profitAmount': '\$50,400', 'equity': '\$350,400'},
@@ -90,22 +126,10 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                     _buildTabs(),
                     const SizedBox(height: 16),
                     if (_activeTab == 'training') ...[
-                      _buildLeaderboardCard(
-                        title: 'Skill Leaderboard',
-                        gradientColors: [const Color(0xFF065F46), const Color(0xFF064E3B)],
-                        leaderboard: _trainingViewMode == 'global' ? _globalLeaderboard : _groupLeaderboard,
-                        viewMode: _trainingViewMode,
-                        onViewModeChanged: (mode) => setState(() => _trainingViewMode = mode),
-                        expanded: _expandedTraining,
-                        onExpandToggle: () => setState(() => _expandedTraining = !_expandedTraining),
-                      ),
-                      const SizedBox(height: 24),
-                      _buildSectionTitle('Quantrock Championship Stages'),
-                      _buildChallengeCarousel(),
-                      const SizedBox(height: 24),
-                      _buildSectionTitle('Sponsors'),
-                      _buildSponsorTabs(),
-                      _buildSponsorCarousel(),
+                      _buildProgressHeader(),
+                      _buildDayCalendar(),
+                      _build28DayChallengeTitle(),
+                      _buildLessonsList(),
                     ],
                     if (_activeTab == 'challenge') ...[
                       _buildLeaderboardCard(
@@ -228,6 +252,536 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
         ),
       ),
     );
+  }
+
+  // 28-day Skill Challenge Methods
+  Widget _buildProgressHeader() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF8B5CF6).withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Icon(
+                      Icons.calendar_today,
+                      color: Color(0xFF8B5CF6),
+                      size: 20,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Text(
+                    'Day $_currentDay out of $_totalDays',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFF10B981), Color(0xFF059669)],
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: const Row(
+              children: [
+                Icon(Icons.trending_up, color: Colors.white, size: 16),
+                SizedBox(width: 6),
+                Text(
+                  'Your progress',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDayCalendar() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.05),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+        ),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: List.generate(9, (index) {
+              final day = index + 1;
+              final isCompleted = day < _currentDay;
+              final isCurrent = day == _currentDay;
+
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6),
+                child: GestureDetector(
+                  onTap: () {
+                    if (day <= _currentDay) {
+                      setState(() => _currentDay = day);
+                    }
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 44,
+                        height: 44,
+                        decoration: BoxDecoration(
+                          gradient: isCurrent
+                              ? const LinearGradient(
+                                  colors: [Color(0xFF8B5CF6), Color(0xFF6366F1)],
+                                )
+                              : isCompleted
+                                  ? const LinearGradient(
+                                      colors: [Color(0xFF10B981), Color(0xFF059669)],
+                                    )
+                                  : null,
+                          color: !isCurrent && !isCompleted
+                              ? Colors.white.withValues(alpha: 0.1)
+                              : null,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: isCurrent
+                                ? const Color(0xFF8B5CF6)
+                                : isCompleted
+                                    ? const Color(0xFF10B981)
+                                    : Colors.white.withValues(alpha: 0.3),
+                            width: 2,
+                          ),
+                          boxShadow: isCurrent
+                              ? [
+                                  BoxShadow(
+                                    color: const Color(0xFF8B5CF6).withValues(alpha: 0.4),
+                                    blurRadius: 12,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ]
+                              : null,
+                        ),
+                        child: Center(
+                          child: isCompleted
+                              ? const Icon(Icons.check, color: Colors.white, size: 20)
+                              : Text(
+                                  'D$day',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: isCurrent
+                                        ? Colors.white
+                                        : Colors.white.withValues(alpha: 0.6),
+                                  ),
+                                ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _build28DayChallengeTitle() {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFFFBBF24), Color(0xFFF59E0B)],
+              ),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const Icon(Icons.emoji_events, color: Colors.white, size: 24),
+          ),
+          const SizedBox(width: 12),
+          const Expanded(
+            child: Text(
+              '28 day Skill challenge',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  backgroundColor: const Color(0xFF1E293B),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  title: const Text(
+                    '28-Day Skill Challenge',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  content: const Text(
+                    'Complete daily lessons to master investment skills. Each day unlocks new content and builds on previous knowledge.',
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('Got it'),
+                    ),
+                  ],
+                ),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.info_outline, color: Colors.white70, size: 20),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLessonsList() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        children: _lessons.map((lesson) => _buildLessonCard(lesson)).toList(),
+      ),
+    );
+  }
+
+  Widget _buildLessonCard(Map<String, dynamic> lesson) {
+    final day = lesson['day'] as int;
+    final emoji = lesson['emoji'] as String;
+    final title = lesson['title'] as String;
+    final isCompleted = lesson['completed'] as bool;
+    final isCurrent = lesson['current'] == true;
+    final isLocked = day > _currentDay;
+    final isExpanded = _expandedLessons.contains(day);
+
+    return GestureDetector(
+      onTap: () {
+        if (!isLocked) {
+          setState(() {
+            if (isExpanded) {
+              _expandedLessons.remove(day);
+            } else {
+              _expandedLessons.add(day);
+            }
+          });
+        }
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        margin: const EdgeInsets.only(bottom: 12),
+        decoration: BoxDecoration(
+          gradient: isCurrent
+              ? const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xFF312E81), Color(0xFF4C1D95)],
+                )
+              : null,
+          color: isCurrent ? null : Colors.white.withValues(alpha: 0.05),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isCurrent
+                ? const Color(0xFF8B5CF6)
+                : isCompleted
+                    ? const Color(0xFF10B981).withValues(alpha: 0.5)
+                    : Colors.white.withValues(alpha: 0.1),
+            width: isCurrent ? 2 : 1,
+          ),
+          boxShadow: isCurrent
+              ? [
+                  BoxShadow(
+                    color: const Color(0xFF8B5CF6).withValues(alpha: 0.3),
+                    blurRadius: 16,
+                    offset: const Offset(0, 4),
+                  ),
+                ]
+              : null,
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  // Day indicator
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      gradient: isCompleted
+                          ? const LinearGradient(
+                              colors: [Color(0xFF10B981), Color(0xFF059669)],
+                            )
+                          : isCurrent
+                              ? const LinearGradient(
+                                  colors: [Color(0xFF8B5CF6), Color(0xFF6366F1)],
+                                )
+                              : null,
+                      color: !isCompleted && !isCurrent
+                          ? Colors.white.withValues(alpha: 0.1)
+                          : null,
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Center(
+                      child: isCompleted
+                          ? const Icon(Icons.check, color: Colors.white, size: 24)
+                          : Text(
+                              emoji,
+                              style: const TextStyle(fontSize: 24),
+                            ),
+                    ),
+                  ),
+                  const SizedBox(width: 14),
+                  // Title and day info
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 2,
+                              ),
+                              decoration: BoxDecoration(
+                                color: isCurrent
+                                    ? const Color(0xFFFBBF24).withValues(alpha: 0.2)
+                                    : Colors.white.withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                'Day ${day.toString().padLeft(2, '0')}',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                  color: isCurrent
+                                      ? const Color(0xFFFBBF24)
+                                      : Colors.white70,
+                                ),
+                              ),
+                            ),
+                            if (isCurrent) ...[
+                              const SizedBox(width: 8),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 2,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF8B5CF6).withValues(alpha: 0.3),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: const Text(
+                                  'CURRENT',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFFA78BFA),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          title,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: isLocked
+                                ? Colors.white.withValues(alpha: 0.4)
+                                : Colors.white,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  // Status icon
+                  if (isLocked)
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.lock,
+                        color: Colors.white.withValues(alpha: 0.4),
+                        size: 18,
+                      ),
+                    )
+                  else if (isCompleted)
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF10B981),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.check,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                    )
+                  else
+                    AnimatedRotation(
+                      turns: isExpanded ? 0.5 : 0,
+                      duration: const Duration(milliseconds: 200),
+                      child: Icon(
+                        Icons.keyboard_arrow_down,
+                        color: Colors.white.withValues(alpha: 0.6),
+                        size: 24,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+            // Expanded content
+            if (isExpanded && !isLocked)
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Divider(color: Colors.white24),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Lesson Overview',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white.withValues(alpha: 0.7),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      _getLessonDescription(day),
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.white.withValues(alpha: 0.8),
+                        height: 1.5,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              // Start lesson
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [Color(0xFF8B5CF6), Color(0xFF6366F1)],
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    isCompleted ? Icons.replay : Icons.play_arrow,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    isCompleted ? 'Review Lesson' : 'Start Lesson',
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Icon(
+                            Icons.bookmark_border,
+                            color: Colors.white70,
+                            size: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _getLessonDescription(int day) {
+    final descriptions = {
+      1: 'Learn how to set up your Quantrook account and navigate the portfolio dashboard. Understand the basic features and tools available to you.',
+      2: 'Discover the fundamentals of investing and what it takes to become a successful investor. Set your investment goals and mindset.',
+      3: 'Master the core principles of saving, investing, and building long-term wealth. Learn about compound interest and financial planning.',
+      4: 'Explore different financial markets including stocks, bonds, options, and other securities. Understand how each market works.',
+      5: 'Dive into commodity markets and learn about trading precious metals like gold and silver, as well as energy commodities like oil.',
+      6: 'Understand the global foreign exchange market, currency pairs, and how forex trading works in the international economy.',
+      7: 'Learn about financial derivatives including futures, options, swaps, and how they are used for hedging and speculation.',
+      8: 'Explore the world of cryptocurrencies and blockchain technology. Understand Bitcoin, Ethereum, and other digital assets.',
+      9: 'Discover Web3 technologies, decentralized finance (DeFi), NFTs, and the future of digital ownership and finance.',
+      10: 'Master risk management strategies and develop financial discipline to protect your investments and maximize returns.',
+    };
+    return descriptions[day] ?? 'Explore advanced investment concepts and strategies to enhance your trading skills.';
   }
 
   Widget _buildLeaderboardCard({
