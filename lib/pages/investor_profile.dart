@@ -605,21 +605,26 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
               const Spacer(),
               // Title
               const Text(
-                'Before you start...',
+                'QIPA',
                 style: TextStyle(
-                  fontSize: 28,
+                  fontSize: 32,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
                 ),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Quantrock Investment Personality Assessment',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black54,
+                ),
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 40),
               // Bullet points
               _buildBulletPoint(
                 'Your answers are anonymized, and we do not sell your data.',
-              ),
-              const SizedBox(height: 24),
-              _buildBulletPoint(
-                'So make sure to answer each question honestly for most accurate results.',
               ),
               const Spacer(flex: 2),
               // Start Test Button
