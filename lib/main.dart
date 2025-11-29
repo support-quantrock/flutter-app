@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'context/questionnaire_context.dart';
+import 'pages/index_page.dart';
 import 'pages/investor_profile.dart';
 import 'pages/investor_results.dart';
+import 'pages/skill_challenge_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => QuestionnaireProvider(),
       child: MaterialApp(
-        title: 'Investor Profile',
+        title: 'Quantrock',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -24,7 +26,9 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => const InvestorProfilePage(),
+          '/': (context) => const IndexPage(),
+          '/questionnaire': (context) => const InvestorProfilePage(),
+          '/skill-challenge': (context) => const SkillChallengePage(),
           '/dashboard': (context) => const DashboardPage(),
           '/investor-results': (context) => const InvestorResultsPage(),
         },
