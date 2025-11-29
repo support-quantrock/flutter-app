@@ -26,6 +26,8 @@ class QuestionnaireAnswers {
   String? preferredPortfolioSize;
   int? investmentReadiness;
   int? passiveIncomeKnowledge;
+  String? investmentReadinessText;
+  String? passiveIncomeKnowledgeText;
   String? completedAt;
   Map<String, dynamic>? selectedAsset;
 
@@ -55,6 +57,8 @@ class QuestionnaireAnswers {
     this.preferredPortfolioSize,
     this.investmentReadiness,
     this.passiveIncomeKnowledge,
+    this.investmentReadinessText,
+    this.passiveIncomeKnowledgeText,
     this.completedAt,
     this.selectedAsset,
   })  : currentDebts = currentDebts ?? [],
@@ -143,6 +147,12 @@ class QuestionnaireProvider extends ChangeNotifier {
         break;
       case 'passiveIncomeKnowledge':
         _answers.passiveIncomeKnowledge = value;
+        break;
+      case 'investmentReadinessText':
+        _answers.investmentReadinessText = value;
+        break;
+      case 'passiveIncomeKnowledgeText':
+        _answers.passiveIncomeKnowledgeText = value;
         break;
       case 'completedAt':
         _answers.completedAt = value;

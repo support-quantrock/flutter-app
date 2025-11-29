@@ -7,10 +7,10 @@ import '../components/questionnaire/single_choice_grid.dart';
 import '../components/questionnaire/multi_select_chips.dart';
 import '../components/questionnaire/rating_scale.dart';
 
-const int totalQuestions = 25;
+const int totalQuestions = 20;
 
 // Question categories for milestone rewards
-enum QuestionCategory { profile, financial, experience, risk, goals }
+enum QuestionCategory { profile, experience, goals, risk, behavior, interests }
 
 class QuestionData {
   final String title;
@@ -25,31 +25,31 @@ class QuestionData {
 }
 
 final Map<int, QuestionData> questionMetadata = {
+  // Section 1: Personal & Financial Profile
   1: const QuestionData(title: 'Gender', category: QuestionCategory.profile),
   2: const QuestionData(title: 'Age', category: QuestionCategory.profile),
   3: const QuestionData(title: 'Education', category: QuestionCategory.profile),
-  4: const QuestionData(title: 'Income', category: QuestionCategory.financial, xpReward: 50),
-  5: const QuestionData(title: 'Stability', category: QuestionCategory.financial, xpReward: 50),
-  6: const QuestionData(title: 'Source', category: QuestionCategory.financial, xpReward: 50),
-  7: const QuestionData(title: 'Debts', category: QuestionCategory.financial, xpReward: 60),
-  8: const QuestionData(title: 'Account', category: QuestionCategory.experience),
-  9: const QuestionData(title: 'Portfolio', category: QuestionCategory.experience, xpReward: 50),
-  10: const QuestionData(title: 'Knowledge', category: QuestionCategory.experience, xpReward: 50),
-  11: const QuestionData(title: 'Assets', category: QuestionCategory.experience, xpReward: 60),
-  12: const QuestionData(title: 'Goal', category: QuestionCategory.goals, xpReward: 50),
-  13: const QuestionData(title: 'Timeline', category: QuestionCategory.goals, xpReward: 50),
-  14: const QuestionData(title: 'Drop Response', category: QuestionCategory.risk, xpReward: 60),
-  15: const QuestionData(title: 'Fluctuations', category: QuestionCategory.risk, xpReward: 60),
-  16: const QuestionData(title: 'Risk Level', category: QuestionCategory.risk, xpReward: 60),
-  17: const QuestionData(title: 'Risk Attitude', category: QuestionCategory.risk, xpReward: 60),
-  18: const QuestionData(title: 'Stress', category: QuestionCategory.risk, xpReward: 50),
-  19: const QuestionData(title: 'Retirement', category: QuestionCategory.goals, xpReward: 50),
-  20: const QuestionData(title: 'Saving', category: QuestionCategory.financial, xpReward: 50),
-  21: const QuestionData(title: 'Industries', category: QuestionCategory.goals, xpReward: 60),
-  22: const QuestionData(title: 'Quantrock Goal', category: QuestionCategory.goals, xpReward: 50),
-  23: const QuestionData(title: 'Portfolio Size', category: QuestionCategory.goals, xpReward: 50),
-  24: const QuestionData(title: 'Readiness', category: QuestionCategory.experience, xpReward: 70),
-  25: const QuestionData(title: 'Passive Income', category: QuestionCategory.experience, xpReward: 80),
+  4: const QuestionData(title: 'Income Source', category: QuestionCategory.profile, xpReward: 50),
+  // Section 2: Investment Experience
+  5: const QuestionData(title: 'Investment Account', category: QuestionCategory.experience, xpReward: 50),
+  6: const QuestionData(title: 'Knowledge', category: QuestionCategory.experience, xpReward: 50),
+  7: const QuestionData(title: 'Asset Classes', category: QuestionCategory.experience, xpReward: 60),
+  // Section 3: Investment Goals & Risk Profile
+  8: const QuestionData(title: 'Investment Goal', category: QuestionCategory.goals, xpReward: 50),
+  9: const QuestionData(title: 'Drop Response', category: QuestionCategory.risk, xpReward: 60),
+  10: const QuestionData(title: 'Fluctuations', category: QuestionCategory.risk, xpReward: 60),
+  11: const QuestionData(title: 'Risk Tolerance', category: QuestionCategory.risk, xpReward: 60),
+  12: const QuestionData(title: 'Risk Attitude', category: QuestionCategory.risk, xpReward: 60),
+  // Section 4: Behavior & Financial Habits
+  13: const QuestionData(title: 'Financial Stress', category: QuestionCategory.behavior, xpReward: 50),
+  14: const QuestionData(title: 'Retirement', category: QuestionCategory.behavior, xpReward: 50),
+  15: const QuestionData(title: 'Saving Habit', category: QuestionCategory.behavior, xpReward: 50),
+  // Section 5: Investment Interests & Motivation
+  16: const QuestionData(title: 'Industries', category: QuestionCategory.interests, xpReward: 60),
+  17: const QuestionData(title: 'Quantrock Goal', category: QuestionCategory.interests, xpReward: 50),
+  18: const QuestionData(title: 'Portfolio Size', category: QuestionCategory.interests, xpReward: 50),
+  19: const QuestionData(title: 'Readiness', category: QuestionCategory.interests, xpReward: 70),
+  20: const QuestionData(title: 'Passive Income', category: QuestionCategory.interests, xpReward: 80),
 };
 
 class InvestorProfilePage extends StatefulWidget {
@@ -68,8 +68,9 @@ class InvestorProfilePage extends StatefulWidget {
 
 class _InvestorProfilePageState extends State<InvestorProfilePage>
     with TickerProviderStateMixin {
-  int _step = 1;
+  int _step = 0; // Start at 0 for progress/calendar page
   bool _goingForward = true;
+  int _currentDay = 2; // Current challenge day (D2 in the image)
   int _totalXP = 0;
   int _currentLevel = 1;
   bool _showXPGain = false;
@@ -78,7 +79,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   bool _showMilestone = false;
   String _milestoneTitle = '';
 
-  List<String> _selectedDebts = [];
   List<String> _selectedAssets = [];
   List<String> _selectedIndustries = [];
 
@@ -111,7 +111,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<QuestionnaireProvider>();
-      _selectedDebts = List.from(provider.answers.currentDebts);
       _selectedAssets = List.from(provider.answers.assetClasses);
       _selectedIndustries = List.from(provider.answers.industriesInterested);
 
@@ -173,14 +172,14 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   }
 
   void _checkMilestones() {
-    if (_step == 5) {
-      _showMilestonePopup('Profile Complete!', 'You\'ve shared your basics');
-    } else if (_step == 10) {
-      _showMilestonePopup('Halfway Hero!', '50% complete - keep going!');
+    if (_step == 4) {
+      _showMilestonePopup('Profile Complete!', 'Section 1 done!');
+    } else if (_step == 7) {
+      _showMilestonePopup('Experience Unlocked!', 'Section 2 complete!');
+    } else if (_step == 12) {
+      _showMilestonePopup('Risk Master!', 'Section 3 conquered!');
     } else if (_step == 15) {
-      _showMilestonePopup('Risk Master!', 'Risk assessment unlocked');
-    } else if (_step == 20) {
-      _showMilestonePopup('Almost There!', 'Final stretch - you got this!');
+      _showMilestonePopup('Almost There!', 'Just one section left!');
     }
   }
 
@@ -213,8 +212,11 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
   void _handleNext() {
     if (_step < totalQuestions) {
-      final xpReward = questionMetadata[_step]?.xpReward ?? 40;
-      _awardXP(xpReward);
+      // Don't award XP for the calendar page (step 0)
+      if (_step > 0) {
+        final xpReward = questionMetadata[_step]?.xpReward ?? 40;
+        _awardXP(xpReward);
+      }
 
       setState(() {
         _goingForward = true;
@@ -236,17 +238,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   void _handleSingleSelect(String key, String value) {
     context.read<QuestionnaireProvider>().setAnswer(key, value);
     Future.delayed(const Duration(milliseconds: 300), _handleNext);
-  }
-
-  void _toggleDebt(String value) {
-    setState(() {
-      if (_selectedDebts.contains(value)) {
-        _selectedDebts.remove(value);
-      } else {
-        _selectedDebts.add(value);
-      }
-    });
-    context.read<QuestionnaireProvider>().setAnswer('currentDebts', _selectedDebts);
   }
 
   void _toggleAsset(String value) {
@@ -273,6 +264,11 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
   Widget _buildQuestion(QuestionnaireAnswers answers) {
     switch (_step) {
+      // Progress/Calendar Page (before questions start)
+      case 0:
+        return _buildProgressCalendarPage();
+
+      // SECTION 1 — Personal & Financial Profile
       case 1:
         return SingleChoiceGrid(
           title: 'What is your gender?',
@@ -289,9 +285,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           title: 'What is your age?',
           options: const [
             ChoiceOption(label: 'Under 30', value: '<30', icon: '🧑'),
-            ChoiceOption(label: '30 - 39', value: '30-39', icon: '👨'),
-            ChoiceOption(label: '40 - 49', value: '40-49', icon: '👨‍💼'),
-            ChoiceOption(label: '50 - 59', value: '50-59', icon: '👴'),
+            ChoiceOption(label: '30-39', value: '30-39', icon: '👨'),
+            ChoiceOption(label: '40-49', value: '40-49', icon: '👨‍💼'),
+            ChoiceOption(label: '50-59', value: '50-59', icon: '👴'),
             ChoiceOption(label: '60+', value: '60+', icon: '🧓'),
           ],
           selectedValue: answers.ageRange,
@@ -311,36 +307,11 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
         );
 
       case 4:
-        return SingleChoiceCard(
-          title: 'What is your monthly income?',
-          options: const [
-            ChoiceOption(label: 'Less than \$5,000', value: '<5k', icon: '💵'),
-            ChoiceOption(label: '\$5,000 – \$10,000', value: '5k-10k', icon: '💰'),
-            ChoiceOption(label: '\$10,000 – \$25,000', value: '10k-25k', icon: '💎'),
-            ChoiceOption(label: 'More than \$25,000', value: '>25k', icon: '🏆'),
-          ],
-          selectedValue: answers.monthlyIncome,
-          onSelect: (v) => _handleSingleSelect('monthlyIncome', v),
-        );
-
-      case 5:
-        return SingleChoiceCard(
-          title: 'How stable is your income?',
-          options: const [
-            ChoiceOption(label: 'Not stable', value: 'not_stable', icon: '🔴'),
-            ChoiceOption(label: 'Stable', value: 'stable', icon: '🟡'),
-            ChoiceOption(label: 'Very stable', value: 'very_stable', icon: '🟢'),
-          ],
-          selectedValue: answers.incomeStability,
-          onSelect: (v) => _handleSingleSelect('incomeStability', v),
-        );
-
-      case 6:
         return SingleChoiceGrid(
           title: 'What is your current income source?',
           options: const [
             ChoiceOption(label: 'Employee', value: 'employee', icon: '💼'),
-            ChoiceOption(label: 'Business Owner', value: 'business_owner', icon: '🏢'),
+            ChoiceOption(label: 'Business owner / self-employed', value: 'business_owner', icon: '🏢'),
             ChoiceOption(label: 'Retired', value: 'retired', icon: '🌴'),
             ChoiceOption(label: 'Student', value: 'student', icon: '🎓'),
           ],
@@ -348,22 +319,8 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onSelect: (v) => _handleSingleSelect('incomeSource', v),
         );
 
-      case 7:
-        return MultiSelectChips(
-          title: 'Do you currently have any debts?',
-          options: const [
-            ChoiceOption(label: 'Mortgage', value: 'mortgage', icon: '🏠'),
-            ChoiceOption(label: 'Auto loan', value: 'auto_loan', icon: '🚗'),
-            ChoiceOption(label: 'Student loan', value: 'student_loan', icon: '🎓'),
-            ChoiceOption(label: 'Credit card debt', value: 'credit_card', icon: '💳'),
-            ChoiceOption(label: 'No debts', value: 'no_debts', icon: '✅'),
-          ],
-          selectedValues: _selectedDebts,
-          onToggle: _toggleDebt,
-          onContinue: _handleNext,
-        );
-
-      case 8:
+      // SECTION 2 — Investment Experience
+      case 5:
         return SingleChoiceCard(
           title: 'Do you have an investment account?',
           options: const [
@@ -375,21 +332,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onSelect: (v) => _handleSingleSelect('hasInvestmentAccount', v),
         );
 
-      case 9:
-        return SingleChoiceCard(
-          title: 'What is the size of your current investment portfolio?',
-          options: const [
-            ChoiceOption(label: 'Less than \$10,000', value: '<10k', icon: '🪙'),
-            ChoiceOption(label: '\$10,000 – \$25,000', value: '10k-25k', icon: '💰'),
-            ChoiceOption(label: '\$25,000 – \$100,000', value: '25k-100k', icon: '💎'),
-            ChoiceOption(label: '\$100,000 – \$1M', value: '100k-1m', icon: '🏆'),
-            ChoiceOption(label: 'More than \$1M', value: '>1m', icon: '👑'),
-          ],
-          selectedValue: answers.portfolioSize,
-          onSelect: (v) => _handleSingleSelect('portfolioSize', v),
-        );
-
-      case 10:
+      case 6:
         return SingleChoiceCard(
           title: 'How much do you know about investing?',
           options: const [
@@ -402,7 +345,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onSelect: (v) => _handleSingleSelect('investmentKnowledge', v),
         );
 
-      case 11:
+      case 7:
         return MultiSelectChips(
           title: 'Which asset classes have you invested in before?',
           options: const [
@@ -418,7 +361,8 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onContinue: _handleNext,
         );
 
-      case 12:
+      // SECTION 3 — Investment Goals & Risk Profile
+      case 8:
         return SingleChoiceGrid(
           title: 'What is your main goal from investing?',
           options: const [
@@ -431,19 +375,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           columns: 3,
         );
 
-      case 13:
-        return SingleChoiceCard(
-          title: 'When will you need the invested money?',
-          options: const [
-            ChoiceOption(label: 'Less than 3 years', value: '<3y', icon: '⏰'),
-            ChoiceOption(label: '3 – 5 years', value: '3-5y', icon: '📅'),
-            ChoiceOption(label: 'More than 5 years', value: '>5y', icon: '🗓️'),
-          ],
-          selectedValue: answers.investmentTimeline,
-          onSelect: (v) => _handleSingleSelect('investmentTimeline', v),
-        );
-
-      case 14:
+      case 9:
         return SingleChoiceGrid(
           title: 'If your portfolio dropped 20%, what would you do?',
           options: const [
@@ -456,7 +388,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onSelect: (v) => _handleSingleSelect('portfolioDropResponse', v),
         );
 
-      case 15:
+      case 10:
         return SingleChoiceCard(
           title: 'How do market fluctuations affect you?',
           options: const [
@@ -468,7 +400,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onSelect: (v) => _handleSingleSelect('marketFluctuationImpact', v),
         );
 
-      case 16:
+      case 11:
         return SingleChoiceCard(
           title: 'What is your risk tolerance?',
           options: const [
@@ -480,7 +412,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onSelect: (v) => _handleSingleSelect('riskTolerance', v),
         );
 
-      case 17:
+      case 12:
         return SingleChoiceCard(
           title: 'What is your attitude towards investment risk?',
           options: const [
@@ -492,7 +424,8 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onSelect: (v) => _handleSingleSelect('riskAttitude', v),
         );
 
-      case 18:
+      // SECTION 4 — Behavior & Financial Habits
+      case 13:
         return SingleChoiceGrid(
           title: 'How often do you feel stressed about your financial situation?',
           options: const [
@@ -505,7 +438,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onSelect: (v) => _handleSingleSelect('financialStressFrequency', v),
         );
 
-      case 19:
+      case 14:
         return SingleChoiceCard(
           title: 'Do you plan for your retirement?',
           options: const [
@@ -517,7 +450,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onSelect: (v) => _handleSingleSelect('retirementPlanning', v),
         );
 
-      case 20:
+      case 15:
         return SingleChoiceGrid(
           title: 'Do you have a habit of saving money?',
           options: const [
@@ -530,7 +463,8 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onSelect: (v) => _handleSingleSelect('savingHabit', v),
         );
 
-      case 21:
+      // SECTION 5 — Investment Interests & Motivation
+      case 16:
         return MultiSelectChips(
           title: 'Choose the industries you are interested in',
           options: const [
@@ -546,9 +480,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onContinue: _handleNext,
         );
 
-      case 22:
+      case 17:
         return SingleChoiceGrid(
-          title: 'What is your main goal in trying Quantrock?',
+          title: 'What is your main goal in trying Quantrock App?',
           options: const [
             ChoiceOption(label: 'Join the challenge', value: 'challenge', icon: '🏆'),
             ChoiceOption(label: 'Prepare for real trading', value: 'prepare_trading', icon: '📊'),
@@ -559,7 +493,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onSelect: (v) => _handleSingleSelect('quantrockGoal', v),
         );
 
-      case 23:
+      case 18:
         return SingleChoiceCard(
           title: 'What is your preferred demo portfolio size?',
           subtitle: 'We recommend choosing a trial amount close to what you plan to invest later',
@@ -574,33 +508,273 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onSelect: (v) => _handleSingleSelect('preferredPortfolioSize', v),
         );
 
-      case 24:
-        return RatingScale(
+      case 19:
+        return SingleChoiceCard(
           title: 'Rate your readiness to invest',
-          leftLabel: 'Totally prepared',
-          rightLabel: 'I need more information',
-          selectedValue: answers.investmentReadiness,
-          onSelect: (v) {
-            context.read<QuestionnaireProvider>().setAnswer('investmentReadiness', v);
-          },
-          onContinue: _handleNext,
+          options: const [
+            ChoiceOption(label: 'Totally prepared', value: 'totally_prepared', icon: '🎯'),
+            ChoiceOption(label: 'Somewhat prepared', value: 'somewhat_prepared', icon: '📊'),
+            ChoiceOption(label: 'Neutral', value: 'neutral', icon: '😐'),
+            ChoiceOption(label: 'I need more information', value: 'need_info', icon: '📚'),
+          ],
+          selectedValue: answers.investmentReadinessText,
+          onSelect: (v) => _handleSingleSelect('investmentReadinessText', v),
         );
 
-      case 25:
-        return RatingScale(
+      case 20:
+        return SingleChoiceCard(
           title: 'Rate your knowledge about passive income',
-          leftLabel: 'Totally prepared',
-          rightLabel: 'I need more information',
-          selectedValue: answers.passiveIncomeKnowledge,
-          onSelect: (v) {
-            context.read<QuestionnaireProvider>().setAnswer('passiveIncomeKnowledge', v);
-          },
-          onContinue: _handleNext,
+          options: const [
+            ChoiceOption(label: 'Totally prepared', value: 'totally_prepared', icon: '🎯'),
+            ChoiceOption(label: 'Somewhat prepared', value: 'somewhat_prepared', icon: '📊'),
+            ChoiceOption(label: 'Neutral', value: 'neutral', icon: '😐'),
+            ChoiceOption(label: 'I need more information', value: 'need_info', icon: '📚'),
+          ],
+          selectedValue: answers.passiveIncomeKnowledgeText,
+          onSelect: (v) => _handleSingleSelect('passiveIncomeKnowledgeText', v),
         );
 
       default:
         return const SizedBox.shrink();
     }
+  }
+
+  Widget _buildProgressCalendarPage() {
+    // Sample data for completed days (D1, D5 completed)
+    final completedDays = {1, 5};
+    const totalDays = 28;
+    const currentChallengeDay = 11;
+
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header row
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Day $currentChallengeDay ',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF6366F1),
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'out of $totalDays',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white.withValues(alpha: 0.8),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Text(
+                'Your progress',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+
+          // Calendar Card
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.1),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                // Calendar header with navigation
+                Row(
+                  children: [
+                    // Left arrow
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF6366F1),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Icon(
+                        Icons.chevron_right,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const Expanded(
+                      child: Center(
+                        child: Text(
+                          'Calendar',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Right arrow
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Icon(
+                        Icons.chevron_left,
+                        color: Colors.grey.shade400,
+                      ),
+                    ),
+                  ],
+                ),
+                const Divider(height: 30),
+
+                // Days grid
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(9, (index) {
+                      final dayNum = 9 - index; // D9 to D1
+                      final isCompleted = completedDays.contains(dayNum);
+                      final isCurrentDay = dayNum == _currentDay;
+
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        child: _buildDayCell(dayNum, isCompleted, isCurrentDay),
+                      );
+                    }),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const Spacer(),
+
+          // Start/Continue button
+          GestureDetector(
+            onTap: _handleNext,
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 18),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.cyan, Colors.blue.shade600],
+                ),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.cyan.withValues(alpha: 0.4),
+                    blurRadius: 20,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
+              ),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Start Questionnaire',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Icon(
+                    Icons.arrow_forward_rounded,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDayCell(int dayNum, bool isCompleted, bool isCurrentDay) {
+    return Container(
+      width: 60,
+      height: 80,
+      decoration: BoxDecoration(
+        color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(12),
+        border: isCurrentDay
+            ? Border.all(color: const Color(0xFF6366F1), width: 2)
+            : null,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'D$dayNum',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: isCurrentDay ? const Color(0xFF6366F1) : Colors.grey.shade600,
+            ),
+          ),
+          const SizedBox(height: 8),
+          if (isCompleted)
+            Container(
+              width: 16,
+              height: 16,
+              decoration: const BoxDecoration(
+                color: Color(0xFF22C55E),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.check,
+                color: Colors.white,
+                size: 10,
+              ),
+            )
+          else if (isCurrentDay)
+            Container(
+              width: 10,
+              height: 10,
+              decoration: const BoxDecoration(
+                color: Color(0xFF6366F1),
+                shape: BoxShape.circle,
+              ),
+            )
+          else
+            Container(
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.grey.shade300, width: 1.5),
+              ),
+            ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -632,11 +806,14 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
               builder: (context, provider, child) {
                 return Column(
                   children: [
-                    // Game Header with XP and Level
-                    _buildGameHeader(xpProgress),
+                    // Game Header with XP and Level (hide on calendar page)
+                    if (_step > 0) _buildGameHeader(xpProgress),
 
-                    // Progress Quest Bar
-                    _buildQuestProgress(),
+                    // Progress Quest Bar (hide on calendar page)
+                    if (_step > 0) _buildQuestProgress(),
+
+                    // Safe area padding for calendar page
+                    if (_step == 0) SafeArea(child: const SizedBox(height: 10)),
 
                     // Question Content
                     Expanded(
@@ -894,7 +1071,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   }
 
   Widget _buildQuestProgress() {
-    final progress = _step / totalQuestions;
+    // Calculate progress excluding step 0 (calendar page)
+    final questionStep = _step > 0 ? _step : 0;
+    final progress = questionStep / totalQuestions;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
@@ -922,7 +1101,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                 ],
               ),
               Text(
-                '$_step / $totalQuestions',
+                '$questionStep / $totalQuestions',
                 style: const TextStyle(
                   color: Colors.cyan,
                   fontSize: 12,
