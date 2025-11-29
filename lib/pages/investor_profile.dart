@@ -5,7 +5,6 @@ import '../context/questionnaire_context.dart';
 import '../components/questionnaire/single_choice_card.dart';
 import '../components/questionnaire/single_choice_grid.dart';
 import '../components/questionnaire/multi_select_chips.dart';
-import '../components/questionnaire/rating_scale.dart';
 
 const int totalQuestions = 20;
 
@@ -203,10 +202,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
         _step--;
       });
     }
-  }
-
-  void _handleSkip() {
-    Navigator.of(context).pushReplacementNamed('/dashboard');
   }
 
   void _handleNext() {

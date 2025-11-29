@@ -122,6 +122,7 @@ class _GameOptionCardState extends State<_GameOptionCard>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
+  // ignore: unused_field - used for setState triggers
   bool _isPressed = false;
 
   @override
