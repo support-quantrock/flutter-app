@@ -332,7 +332,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: List.generate(9, (index) {
+            children: List.generate(28, (index) {
               final day = index + 1;
               final isCompleted = day < _currentDay;
               final isCurrent = day == _currentDay;
