@@ -68,7 +68,7 @@ class InvestorProfilePage extends StatefulWidget {
 
 class _InvestorProfilePageState extends State<InvestorProfilePage>
     with TickerProviderStateMixin {
-  int _step = 0;
+  int _step = 1;
   bool _goingForward = true;
   int _totalXP = 0;
   int _currentLevel = 1;
@@ -211,11 +211,8 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
   void _handleNext() {
     if (_step < totalQuestions) {
-      // Don't award XP for the intro page (step 0)
-      if (_step > 0) {
-        final xpReward = questionMetadata[_step]?.xpReward ?? 40;
-        _awardXP(xpReward);
-      }
+      final xpReward = questionMetadata[_step]?.xpReward ?? 40;
+      _awardXP(xpReward);
 
       setState(() {
         _goingForward = true;
@@ -263,10 +260,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
   Widget _buildQuestion(QuestionnaireAnswers answers) {
     switch (_step) {
-      // Intro page before questions start
-      case 0:
-        return _buildIntroPage();
-
       // SECTION 1 — Personal & Financial Profile
       case 1:
         return SingleChoiceGrid(
@@ -538,164 +531,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
     }
   }
 
-  Widget _buildIntroPage() {
-    return Container(
-      color: Colors.white,
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            children: [
-              const Spacer(flex: 2),
-              // Checklist icon in peach circle
-              Container(
-                width: 160,
-                height: 160,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFEEBD6),
-                  shape: BoxShape.circle,
-                ),
-                child: Center(
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      // Background papers
-                      Transform.translate(
-                        offset: const Offset(8, 8),
-                        child: Container(
-                          width: 70,
-                          height: 90,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFD6E4F0),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                      ),
-                      // Main checklist paper
-                      Container(
-                        width: 70,
-                        height: 90,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFE8F0F8),
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: const Color(0xFFB8D4E8),
-                            width: 1,
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: List.generate(4, (index) {
-                              return Row(
-                                children: [
-                                  Icon(
-                                    Icons.check,
-                                    size: 12,
-                                    color: const Color(0xFFE07A5F),
-                                  ),
-                                  const SizedBox(width: 6),
-                                  Expanded(
-                                    child: Container(
-                                      height: 6,
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFFB8D4E8),
-                                        borderRadius: BorderRadius.circular(3),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            }),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const Spacer(),
-              // Title
-              const Text(
-                'Before you start...',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 40),
-              // Info items
-              _buildInfoItem(
-                'Your answers are anonymized, and we do not sell your data.',
-              ),
-              const SizedBox(height: 24),
-              _buildInfoItem(
-                'So make sure to answer each question honestly for most accurate results.',
-              ),
-              const Spacer(flex: 2),
-              // Start button
-              GestureDetector(
-                onTap: _handleNext,
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(vertical: 18),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF1B5E4B),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Start Test',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildInfoItem(String text) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 28,
-          height: 28,
-          decoration: BoxDecoration(
-            color: const Color(0xFF1B5E4B),
-            shape: BoxShape.circle,
-          ),
-          child: const Icon(
-            Icons.check,
-            color: Colors.white,
-            size: 18,
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Colors.black87,
-              height: 1.4,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final xpForCurrentLevel = (_currentLevel - 1) * 200;
@@ -725,11 +560,11 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
               builder: (context, provider, child) {
                 return Column(
                   children: [
-                    // Game Header with XP and Level (hide on intro page)
-                    if (_step > 0) _buildGameHeader(xpProgress),
+                    // Game Header with XP and Level
+                    _buildGameHeader(xpProgress),
 
-                    // Progress Quest Bar (hide on intro page)
-                    if (_step > 0) _buildQuestProgress(),
+                    // Progress Quest Bar
+                    _buildQuestProgress(),
 
                     // Question Content
                     Expanded(
@@ -987,9 +822,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   }
 
   Widget _buildQuestProgress() {
-    // Calculate progress excluding intro page (step 0)
-    final questionStep = _step > 0 ? _step : 0;
-    final progress = questionStep / totalQuestions;
+    final progress = _step / totalQuestions;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
@@ -1017,7 +850,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                 ],
               ),
               Text(
-                '$questionStep / $totalQuestions',
+                '$_step / $totalQuestions',
                 style: const TextStyle(
                   color: Colors.cyan,
                   fontSize: 12,
