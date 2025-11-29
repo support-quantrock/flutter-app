@@ -472,23 +472,23 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
   }
 
   Widget _buildPathIcons(int dayIndex) {
-    // Create a smooth diagonal zigzag pattern
+    // Create a zigzag pattern with 5 lesson icons and 1 test icon
     final isEven = dayIndex % 2 == 0;
     final day = dayIndex + 1;
     final isCompleted = day < _currentDay;
-    final isMilestone = (dayIndex + 1) % 4 == 0;
+    final isTestDay = (dayIndex + 1) % 6 == 0; // Every 6th position is a test
 
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
         final centerX = width / 2;
-        final offset = 70.0; // How far icons spread from center
+        final offset = 60.0; // How far icons spread from center
 
         return SizedBox(
-          height: 150,
+          height: 280,
           child: Stack(
             children: [
-              // Icon 1
+              // Lesson Icon 1
               Positioned(
                 top: 15,
                 left: isEven ? centerX - offset - 25 : centerX + offset - 25,
@@ -497,32 +497,50 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                   isCompleted: isCompleted,
                 ),
               ),
-              // Icon 2
+              // Lesson Icon 2
               Positioned(
-                top: 50,
-                left: isEven ? centerX + 20 - 25 : centerX - 20 - 25,
+                top: 55,
+                left: isEven ? centerX + 15 - 25 : centerX - 15 - 25,
                 child: _buildFloatingIcon(
                   icon: Icons.menu_book,
                   isCompleted: isCompleted,
                 ),
               ),
-              // Icon 3
+              // Lesson Icon 3
               Positioned(
-                top: 85,
+                top: 95,
                 left: isEven ? centerX + offset - 25 : centerX - offset - 25,
                 child: _buildFloatingIcon(
                   icon: Icons.menu_book,
                   isCompleted: isCompleted,
                 ),
               ),
-              // Icon 4 - milestone crown at certain intervals
+              // Lesson Icon 4
               Positioned(
-                top: 115,
-                left: centerX - 25,
+                top: 135,
+                left: isEven ? centerX - 25 : centerX - 25,
                 child: _buildFloatingIcon(
-                  icon: isMilestone ? Icons.workspace_premium : Icons.menu_book,
+                  icon: Icons.menu_book,
                   isCompleted: isCompleted,
-                  isMilestone: isMilestone,
+                ),
+              ),
+              // Lesson Icon 5
+              Positioned(
+                top: 175,
+                left: isEven ? centerX - offset - 25 : centerX + offset - 25,
+                child: _buildFloatingIcon(
+                  icon: Icons.menu_book,
+                  isCompleted: isCompleted,
+                ),
+              ),
+              // Test Icon (crown/quiz)
+              Positioned(
+                top: 215,
+                left: isEven ? centerX + 30 - 25 : centerX - 30 - 25,
+                child: _buildFloatingIcon(
+                  icon: isTestDay ? Icons.quiz : Icons.workspace_premium,
+                  isCompleted: isCompleted,
+                  isMilestone: true,
                 ),
               ),
             ],
