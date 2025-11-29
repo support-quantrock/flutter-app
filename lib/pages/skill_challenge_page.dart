@@ -478,7 +478,110 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
-        children: _lessons.map((lesson) => _buildLessonCard(lesson)).toList(),
+        children: List.generate(_lessons.length, (index) {
+          final lesson = _lessons[index];
+          final isLast = index == _lessons.length - 1;
+          return Column(
+            children: [
+              _buildLessonCard(lesson),
+              if (!isLast) _buildPathIcons(index),
+            ],
+          );
+        }),
+      ),
+    );
+  }
+
+  Widget _buildPathIcons(int dayIndex) {
+    // Create a zigzag pattern of 3-4 floating icons between days
+    final isEven = dayIndex % 2 == 0;
+    final day = dayIndex + 1;
+    final isCompleted = day < _currentDay;
+
+    return SizedBox(
+      height: 160,
+      child: Stack(
+        children: [
+          // Icon 1 - top
+          Positioned(
+            top: 10,
+            left: isEven ? null : 60,
+            right: isEven ? 60 : null,
+            child: _buildFloatingIcon(
+              icon: Icons.menu_book,
+              isCompleted: isCompleted,
+            ),
+          ),
+          // Icon 2 - middle left/right
+          Positioned(
+            top: 50,
+            left: isEven ? 80 : null,
+            right: isEven ? null : 80,
+            child: _buildFloatingIcon(
+              icon: Icons.menu_book,
+              isCompleted: isCompleted,
+            ),
+          ),
+          // Icon 3 - middle
+          Positioned(
+            top: 90,
+            left: isEven ? null : 120,
+            right: isEven ? 120 : null,
+            child: _buildFloatingIcon(
+              icon: Icons.menu_book,
+              isCompleted: isCompleted,
+            ),
+          ),
+          // Icon 4 - bottom (crown for milestones)
+          Positioned(
+            top: 120,
+            left: isEven ? 60 : null,
+            right: isEven ? null : 60,
+            child: _buildFloatingIcon(
+              icon: (dayIndex + 1) % 4 == 0 ? Icons.workspace_premium : Icons.menu_book,
+              isCompleted: isCompleted,
+              isMilestone: (dayIndex + 1) % 4 == 0,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFloatingIcon({
+    required IconData icon,
+    required bool isCompleted,
+    bool isMilestone = false,
+  }) {
+    final color = isCompleted
+        ? const Color(0xFF10B981)
+        : const Color(0xFF6366F1);
+
+    return Container(
+      width: 50,
+      height: 50,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: isMilestone
+              ? [const Color(0xFF8B5CF6), const Color(0xFF6366F1)]
+              : [color, color.withValues(alpha: 0.8)],
+        ),
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: (isMilestone ? const Color(0xFF8B5CF6) : color).withValues(alpha: 0.5),
+            blurRadius: 16,
+            spreadRadius: 2,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Icon(
+        icon,
+        color: Colors.white,
+        size: 24,
       ),
     );
   }
@@ -506,30 +609,16 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        margin: const EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(
-          gradient: isCurrent
-              ? const LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [Color(0xFF312E81), Color(0xFF4C1D95)],
-                )
-              : null,
-          color: isCurrent ? null : Colors.white.withValues(alpha: 0.05),
+          color: isLocked
+              ? Colors.white.withValues(alpha: 0.05)
+              : Colors.white,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isCurrent
-                ? const Color(0xFF8B5CF6)
-                : isCompleted
-                    ? const Color(0xFF10B981).withValues(alpha: 0.5)
-                    : Colors.white.withValues(alpha: 0.1),
-            width: isCurrent ? 2 : 1,
-          ),
-          boxShadow: isCurrent
+          boxShadow: !isLocked
               ? [
                   BoxShadow(
-                    color: const Color(0xFF8B5CF6).withValues(alpha: 0.3),
-                    blurRadius: 16,
+                    color: Colors.black.withValues(alpha: 0.1),
+                    blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
                 ]
@@ -538,133 +627,77 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(14),
               child: Row(
                 children: [
-                  // Day indicator
+                  // Emoji icon
                   Container(
-                    width: 50,
-                    height: 50,
+                    width: 44,
+                    height: 44,
                     decoration: BoxDecoration(
-                      gradient: isCompleted
-                          ? const LinearGradient(
-                              colors: [Color(0xFF10B981), Color(0xFF059669)],
-                            )
-                          : isCurrent
-                              ? const LinearGradient(
-                                  colors: [Color(0xFF8B5CF6), Color(0xFF6366F1)],
-                                )
-                              : null,
-                      color: !isCompleted && !isCurrent
-                          ? Colors.white.withValues(alpha: 0.1)
-                          : null,
-                      borderRadius: BorderRadius.circular(14),
+                      color: isLocked
+                          ? Colors.grey.withValues(alpha: 0.2)
+                          : const Color(0xFFF0F4FF),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
-                      child: isCompleted
-                          ? const Icon(Icons.check, color: Colors.white, size: 24)
-                          : Text(
-                              emoji,
-                              style: const TextStyle(fontSize: 24),
-                            ),
+                      child: Text(
+                        emoji,
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: isLocked ? Colors.grey : null,
+                        ),
+                      ),
                     ),
                   ),
-                  const SizedBox(width: 14),
-                  // Title and day info
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 2,
-                              ),
-                              decoration: BoxDecoration(
-                                color: isCurrent
-                                    ? const Color(0xFFFBBF24).withValues(alpha: 0.2)
-                                    : Colors.white.withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                'Day ${day.toString().padLeft(2, '0')}',
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w600,
-                                  color: isCurrent
-                                      ? const Color(0xFFFBBF24)
-                                      : Colors.white70,
-                                ),
-                              ),
-                            ),
-                            if (isCurrent) ...[
-                              const SizedBox(width: 8),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 2,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF8B5CF6).withValues(alpha: 0.3),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: const Text(
-                                  'CURRENT',
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFFA78BFA),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ],
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: isLocked
-                                ? Colors.white.withValues(alpha: 0.4)
-                                : Colors.white,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
+                  const SizedBox(width: 12),
+                  // Day badge
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: isLocked
+                          ? Colors.grey.withValues(alpha: 0.2)
+                          : isCurrent
+                              ? const Color(0xFFFEF3C7)
+                              : const Color(0xFFE0E7FF),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      'Day ${day.toString().padLeft(2, '0')}',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: isLocked
+                            ? Colors.grey
+                            : isCurrent
+                                ? const Color(0xFFD97706)
+                                : const Color(0xFF4338CA),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 8),
-                  // Status icon
+                  // Title
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: isLocked
+                            ? Colors.grey
+                            : const Color(0xFF1F2937),
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  // Arrow or lock icon
                   if (isLocked)
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.lock,
-                        color: Colors.white.withValues(alpha: 0.4),
-                        size: 18,
-                      ),
-                    )
-                  else if (isCompleted)
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF10B981),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.check,
-                        color: Colors.white,
-                        size: 18,
-                      ),
+                    Icon(
+                      Icons.lock,
+                      color: Colors.grey.withValues(alpha: 0.5),
+                      size: 20,
                     )
                   else
                     AnimatedRotation(
@@ -672,7 +705,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                       duration: const Duration(milliseconds: 200),
                       child: Icon(
                         Icons.keyboard_arrow_down,
-                        color: Colors.white.withValues(alpha: 0.6),
+                        color: Colors.grey.shade600,
                         size: 24,
                       ),
                     ),
@@ -683,18 +716,25 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
             if (isExpanded && !isLocked)
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                padding: const EdgeInsets.fromLTRB(14, 0, 14, 14),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                  ),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Divider(color: Colors.white24),
+                    Divider(color: Colors.grey.shade200),
                     const SizedBox(height: 12),
                     Text(
                       'Lesson Overview',
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: Colors.white.withValues(alpha: 0.7),
+                        color: Colors.grey.shade600,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -702,7 +742,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                       _getLessonDescription(day),
                       style: TextStyle(
                         fontSize: 13,
-                        color: Colors.white.withValues(alpha: 0.8),
+                        color: Colors.grey.shade700,
                         height: 1.5,
                       ),
                     ),
@@ -718,7 +758,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               decoration: BoxDecoration(
                                 gradient: const LinearGradient(
-                                  colors: [Color(0xFF8B5CF6), Color(0xFF6366F1)],
+                                  colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
                                 ),
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -748,12 +788,12 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                         Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.1),
+                            color: Colors.grey.shade100,
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.bookmark_border,
-                            color: Colors.white70,
+                            color: Colors.grey.shade600,
                             size: 20,
                           ),
                         ),
