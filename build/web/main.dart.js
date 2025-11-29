@@ -61730,11 +61730,11 @@ l(){this.Q.l()
 this.as.l()
 this.ar()},
 L(a){var s,r,q,p,o=this,n=null,m=o.Rg(),l=A.V("Quantrock Investment Championship",n,n,B.fw,n),k=B.e.J(0.1),j=A.af(12),i=t.p
-j=A.c([new A.bw(B.eC,l,n),new A.bw(B.eB,A.a5(n,A.aI(A.c([o.Cw("Learn Challenge","training"),o.Cw("Invest Challenge","challenge")],i),B.n,B.l,B.k,n),B.i,n,n,new A.U(k,n,n,j,n,n,B.o),n,n,n,n,n,n,n),n),B.ao],i)
+j=A.c([new A.bw(B.eC,l,n),new A.bw(B.eB,A.a5(n,A.aI(A.c([o.Cw("Skill Challenge","training"),o.Cw("Invest Challenge","challenge")],i),B.n,B.l,B.k,n),B.i,n,n,new A.U(k,n,n,j,n,n,B.o),n,n,n,n,n,n,n),n),B.ao],i)
 if(o.d==="training"){l=A.c([B.kG,B.kL],t.O)
 k=o.e
 s=k==="global"?o.at:o.ax
-k=o.Cs(o.r,l,s,new A.a6O(o),new A.a6P(o),"Learning Leaderboard",k)
+k=o.Cs(o.r,l,s,new A.a6O(o),new A.a6P(o),"Skill Leaderboard",k)
 s=A.V("Quantrock Championship Stages",n,n,B.fw,n)
 l=o.Rc()
 r=A.V("Sponsors",n,n,B.fw,n)

@@ -91,7 +91,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                     const SizedBox(height: 16),
                     if (_activeTab == 'training') ...[
                       _buildLeaderboardCard(
-                        title: 'Learning Leaderboard',
+                        title: 'Skill Leaderboard',
                         gradientColors: [const Color(0xFF065F46), const Color(0xFF064E3B)],
                         leaderboard: _trainingViewMode == 'global' ? _globalLeaderboard : _groupLeaderboard,
                         viewMode: _trainingViewMode,
@@ -197,7 +197,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
         ),
         child: Row(
           children: [
-            _buildTab('Learn Challenge', 'training'),
+            _buildTab('Skill Challenge', 'training'),
             _buildTab('Invest Challenge', 'challenge'),
           ],
         ),
