@@ -27,12 +27,26 @@ class PortfolioSuggestion {
   PortfolioSuggestion({required this.size, required this.color});
 }
 
+// Portfolio Allocation Model
+class AssetAllocation {
+  final String name;
+  final double percentage;
+  final Color color;
+  final IconData icon;
+
+  AssetAllocation({
+    required this.name,
+    required this.percentage,
+    required this.color,
+    required this.icon,
+  });
+}
+
 // Scoring Calculations
 class InvestorScoring {
   static ScoreResult calculatePersonality(QuestionnaireAnswers answers) {
     int score = 0;
 
-    // Portfolio drop response
     switch (answers.portfolioDropResponse) {
       case 'sell':
         score += 0;
@@ -48,7 +62,6 @@ class InvestorScoring {
         break;
     }
 
-    // Market fluctuation impact
     switch (answers.marketFluctuationImpact) {
       case 'worry_too_much':
         score += 0;
@@ -61,7 +74,6 @@ class InvestorScoring {
         break;
     }
 
-    // Risk tolerance
     switch (answers.riskTolerance) {
       case 'low':
         score += 0;
@@ -74,7 +86,6 @@ class InvestorScoring {
         break;
     }
 
-    // Risk attitude
     switch (answers.riskAttitude) {
       case 'prefer_safety':
         score += 0;
@@ -121,7 +132,6 @@ class InvestorScoring {
   static ScoreResult calculateLiteracy(QuestionnaireAnswers answers) {
     int score = 0;
 
-    // Investment knowledge (max 12)
     switch (answers.investmentKnowledge) {
       case 'nothing':
         score += 0;
@@ -137,17 +147,14 @@ class InvestorScoring {
         break;
     }
 
-    // Asset classes (max 10)
     final assetClasses = answers.assetClasses;
     if (!assetClasses.contains('none')) {
       score += math.min(assetClasses.length * 2, 10);
     }
 
-    // Passive income knowledge (max 4)
     final passiveKnowledge = answers.passiveIncomeKnowledge ?? 5;
     score += (5 - passiveKnowledge).clamp(0, 4);
 
-    // Investment readiness (max 4)
     final readiness = answers.investmentReadiness ?? 5;
     score += (5 - readiness).clamp(0, 4);
 
@@ -181,7 +188,6 @@ class InvestorScoring {
   static ScoreResult calculateStrength(QuestionnaireAnswers answers) {
     int score = 0;
 
-    // Monthly income (max 6)
     switch (answers.monthlyIncome) {
       case '<5k':
         score += 0;
@@ -197,7 +203,6 @@ class InvestorScoring {
         break;
     }
 
-    // Income stability (max 4)
     switch (answers.incomeStability) {
       case 'not_stable':
         score += 0;
@@ -210,7 +215,6 @@ class InvestorScoring {
         break;
     }
 
-    // Debts (max 5)
     final debts = answers.currentDebts;
     if (debts.contains('no_debts')) {
       score += 5;
@@ -252,7 +256,6 @@ class InvestorScoring {
   static ScoreResult calculateReadiness(QuestionnaireAnswers answers) {
     int score = 0;
 
-    // Quantrock goal (max 4)
     switch (answers.quantrockGoal) {
       case 'challenge':
         score += 4;
@@ -268,7 +271,6 @@ class InvestorScoring {
         break;
     }
 
-    // Preferred portfolio size (max 7)
     switch (answers.preferredPortfolioSize) {
       case '1k':
         score += 0;
@@ -287,7 +289,6 @@ class InvestorScoring {
         break;
     }
 
-    // Investment readiness (max 4)
     final readiness = answers.investmentReadiness ?? 5;
     score += (5 - readiness).clamp(0, 4);
 
@@ -335,6 +336,117 @@ class InvestorScoring {
       return PortfolioSuggestion(size: '\$50k – \$100k', color: const Color(0xFF22C55E));
     }
     return PortfolioSuggestion(size: '\$10k – \$25k', color: const Color(0xFF3B82F6));
+  }
+
+  // Robo-advisor style allocation based on risk profile
+  static List<AssetAllocation> getPortfolioAllocation(ScoreResult personality, QuestionnaireAnswers answers) {
+    // Base allocations by investor type
+    double stocks = 0;
+    double bonds = 0;
+    double etfs = 0;
+    double crypto = 0;
+    double cash = 0;
+    double realEstate = 0;
+
+    switch (personality.label) {
+      case 'Conservative Investor':
+        stocks = 20;
+        bonds = 40;
+        etfs = 15;
+        crypto = 0;
+        cash = 20;
+        realEstate = 5;
+        break;
+      case 'Balanced Investor':
+        stocks = 35;
+        bonds = 25;
+        etfs = 20;
+        crypto = 5;
+        cash = 10;
+        realEstate = 5;
+        break;
+      case 'Growth Investor':
+        stocks = 45;
+        bonds = 15;
+        etfs = 20;
+        crypto = 10;
+        cash = 5;
+        realEstate = 5;
+        break;
+      case 'Aggressive Trader':
+        stocks = 50;
+        bonds = 5;
+        etfs = 15;
+        crypto = 20;
+        cash = 5;
+        realEstate = 5;
+        break;
+    }
+
+    // Adjust based on user's interested industries
+    final industries = answers.industriesInterested;
+    if (industries.contains('crypto')) {
+      crypto += 5;
+      bonds -= 5;
+    }
+    if (industries.contains('tech')) {
+      stocks += 5;
+      bonds -= 5;
+    }
+
+    // Normalize to 100%
+    final total = stocks + bonds + etfs + crypto + cash + realEstate;
+    stocks = (stocks / total * 100).roundToDouble();
+    bonds = (bonds / total * 100).roundToDouble();
+    etfs = (etfs / total * 100).roundToDouble();
+    crypto = (crypto / total * 100).roundToDouble();
+    cash = (cash / total * 100).roundToDouble();
+    realEstate = 100 - stocks - bonds - etfs - crypto - cash;
+
+    return [
+      if (stocks > 0)
+        AssetAllocation(
+          name: 'Stocks',
+          percentage: stocks,
+          color: const Color(0xFF3B82F6),
+          icon: Icons.trending_up,
+        ),
+      if (bonds > 0)
+        AssetAllocation(
+          name: 'Bonds',
+          percentage: bonds,
+          color: const Color(0xFF22C55E),
+          icon: Icons.account_balance,
+        ),
+      if (etfs > 0)
+        AssetAllocation(
+          name: 'ETFs',
+          percentage: etfs,
+          color: const Color(0xFF8B5CF6),
+          icon: Icons.pie_chart,
+        ),
+      if (crypto > 0)
+        AssetAllocation(
+          name: 'Crypto',
+          percentage: crypto,
+          color: const Color(0xFFF59E0B),
+          icon: Icons.currency_bitcoin,
+        ),
+      if (cash > 0)
+        AssetAllocation(
+          name: 'Cash',
+          percentage: cash,
+          color: const Color(0xFF6B7280),
+          icon: Icons.account_balance_wallet,
+        ),
+      if (realEstate > 0)
+        AssetAllocation(
+          name: 'Real Estate',
+          percentage: realEstate,
+          color: const Color(0xFFEC4899),
+          icon: Icons.home_work,
+        ),
+    ];
   }
 }
 
@@ -461,6 +573,109 @@ final Map<String, InfoCategory> infoContent = {
   ),
 };
 
+// Helper functions for display
+String _getRiskToleranceLabel(String? value) {
+  switch (value) {
+    case 'low':
+      return 'Low Risk';
+    case 'medium':
+      return 'Medium Risk';
+    case 'high':
+      return 'High Risk';
+    default:
+      return 'Not Set';
+  }
+}
+
+String _getInvestingGoalLabel(String? value) {
+  switch (value) {
+    case 'growth':
+      return 'Capital Growth';
+    case 'income':
+      return 'Extra Income';
+    case 'protection':
+      return 'Capital Protection';
+    default:
+      return 'Not Set';
+  }
+}
+
+String _getIndustryLabel(String value) {
+  switch (value) {
+    case 'tech':
+      return 'Tech';
+    case 'ev':
+      return 'EV';
+    case 'energy':
+      return 'Energy';
+    case 'healthcare':
+      return 'Healthcare';
+    case 'retail':
+      return 'Retail';
+    case 'crypto':
+      return 'Crypto';
+    default:
+      return value;
+  }
+}
+
+String _getAssetLabel(String value) {
+  switch (value) {
+    case 'stocks':
+      return 'Stocks';
+    case 'etfs':
+      return 'ETFs';
+    case 'crypto':
+      return 'Crypto';
+    case 'bonds':
+      return 'Bonds';
+    case 'real_estate':
+      return 'Real Estate';
+    case 'none':
+      return 'None';
+    default:
+      return value;
+  }
+}
+
+IconData _getIndustryIcon(String value) {
+  switch (value) {
+    case 'tech':
+      return Icons.computer;
+    case 'ev':
+      return Icons.electric_car;
+    case 'energy':
+      return Icons.bolt;
+    case 'healthcare':
+      return Icons.local_hospital;
+    case 'retail':
+      return Icons.shopping_cart;
+    case 'crypto':
+      return Icons.currency_bitcoin;
+    default:
+      return Icons.business;
+  }
+}
+
+IconData _getAssetIcon(String value) {
+  switch (value) {
+    case 'stocks':
+      return Icons.trending_up;
+    case 'etfs':
+      return Icons.pie_chart;
+    case 'crypto':
+      return Icons.currency_bitcoin;
+    case 'bonds':
+      return Icons.account_balance;
+    case 'real_estate':
+      return Icons.home_work;
+    case 'none':
+      return Icons.block;
+    default:
+      return Icons.attach_money;
+  }
+}
+
 class InvestorResultsPage extends StatefulWidget {
   const InvestorResultsPage({super.key});
 
@@ -558,6 +773,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
     final strength = InvestorScoring.calculateStrength(answers);
     final readiness = InvestorScoring.calculateReadiness(answers);
     final portfolio = InvestorScoring.getSuggestedPortfolio(strength, personality, readiness);
+    final allocations = InvestorScoring.getPortfolioAllocation(personality, answers);
 
     return Scaffold(
       body: Stack(
@@ -639,11 +855,67 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
 
                   const SizedBox(height: 20),
 
-                  // Score Cards
                   if (_showContent) ...[
+                    // Risk Profile & Investment Goal
                     _AnimatedSlideIn(
                       controller: _mainController,
-                      delay: 0.2,
+                      delay: 0.15,
+                      child: _RiskAndGoalSection(
+                        riskTolerance: answers.riskTolerance,
+                        investingGoal: answers.investingGoal,
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // Interested Industries
+                    if (answers.industriesInterested.isNotEmpty)
+                      _AnimatedSlideIn(
+                        controller: _mainController,
+                        delay: 0.2,
+                        child: _InterestsSection(
+                          title: 'Interested Industries',
+                          icon: Icons.factory_outlined,
+                          items: answers.industriesInterested,
+                          getLabel: _getIndustryLabel,
+                          getIcon: _getIndustryIcon,
+                        ),
+                      ),
+
+                    const SizedBox(height: 16),
+
+                    // Asset Classes
+                    if (answers.assetClasses.isNotEmpty && !answers.assetClasses.contains('none'))
+                      _AnimatedSlideIn(
+                        controller: _mainController,
+                        delay: 0.25,
+                        child: _InterestsSection(
+                          title: 'Asset Experience',
+                          icon: Icons.account_balance_wallet_outlined,
+                          items: answers.assetClasses,
+                          getLabel: _getAssetLabel,
+                          getIcon: _getAssetIcon,
+                        ),
+                      ),
+
+                    const SizedBox(height: 20),
+
+                    // Robo-Advisor Portfolio Allocation
+                    _AnimatedSlideIn(
+                      controller: _mainController,
+                      delay: 0.3,
+                      child: _RoboAdvisorSection(
+                        allocations: allocations,
+                        personalityLabel: personality.label,
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // Score Cards
+                    _AnimatedSlideIn(
+                      controller: _mainController,
+                      delay: 0.35,
                       child: _ScoreCard(
                         title: 'Financial Literacy (QLS)',
                         result: literacy,
@@ -653,7 +925,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                     const SizedBox(height: 12),
                     _AnimatedSlideIn(
                       controller: _mainController,
-                      delay: 0.3,
+                      delay: 0.4,
                       child: _ScoreCard(
                         title: 'Financial Strength',
                         result: strength,
@@ -663,7 +935,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                     const SizedBox(height: 12),
                     _AnimatedSlideIn(
                       controller: _mainController,
-                      delay: 0.4,
+                      delay: 0.45,
                       child: _ScoreCard(
                         title: 'Challenge Readiness',
                         result: readiness,
@@ -685,7 +957,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                     // Action Buttons
                     _AnimatedSlideIn(
                       controller: _mainController,
-                      delay: 0.6,
+                      delay: 0.55,
                       child: Row(
                         children: [
                           Expanded(
@@ -693,7 +965,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                               label: 'Share Results',
                               icon: Icons.share_rounded,
                               isPrimary: false,
-                              onTap: () => _shareResults(personality, literacy, strength, readiness, portfolio),
+                              onTap: () => _shareResults(personality, literacy, strength, readiness, portfolio, allocations),
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -714,7 +986,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                     // Score Breakdown
                     _AnimatedSlideIn(
                       controller: _mainController,
-                      delay: 0.7,
+                      delay: 0.6,
                       child: _ScoreBreakdown(
                         personality: personality,
                         literacy: literacy,
@@ -740,7 +1012,9 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
     ScoreResult strength,
     ScoreResult readiness,
     PortfolioSuggestion portfolio,
+    List<AssetAllocation> allocations,
   ) {
+    final allocationText = allocations.map((a) => '${a.name}: ${a.percentage.toInt()}%').join(', ');
     final message = '''
 🎯 My Quantrock Investor Profile
 
@@ -748,6 +1022,9 @@ ${personality.emoji} Investor Type: ${personality.label}
 ${literacy.emoji} Financial Literacy: ${literacy.label}
 ${strength.emoji} Financial Strength: ${strength.label}
 ${readiness.emoji} Challenge Readiness: ${readiness.label}
+
+📊 Robo-Advisor Allocation:
+$allocationText
 
 💼 Suggested Portfolio: ${portfolio.size}
 
@@ -759,6 +1036,463 @@ Start your investment journey with Quantrock!
       SnackBar(
         content: Text('Share: $message'),
         duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+}
+
+// Risk and Goal Section
+class _RiskAndGoalSection extends StatelessWidget {
+  final String? riskTolerance;
+  final String? investingGoal;
+
+  const _RiskAndGoalSection({
+    required this.riskTolerance,
+    required this.investingGoal,
+  });
+
+  Color _getRiskColor(String? risk) {
+    switch (risk) {
+      case 'low':
+        return const Color(0xFF22C55E);
+      case 'medium':
+        return const Color(0xFFF59E0B);
+      case 'high':
+        return const Color(0xFFEF4444);
+      default:
+        return Colors.grey;
+    }
+  }
+
+  IconData _getGoalIcon(String? goal) {
+    switch (goal) {
+      case 'growth':
+        return Icons.trending_up;
+      case 'income':
+        return Icons.attach_money;
+      case 'protection':
+        return Icons.shield;
+      default:
+        return Icons.flag;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        // Risk Profile
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        color: _getRiskColor(riskTolerance).withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Icon(
+                        Icons.speed,
+                        color: _getRiskColor(riskTolerance),
+                        size: 20,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Risk Profile',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.white.withValues(alpha: 0.6),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  _getRiskToleranceLabel(riskTolerance),
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: _getRiskColor(riskTolerance),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(width: 12),
+        // Investment Goal
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF8B5CF6).withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Icon(
+                        _getGoalIcon(investingGoal),
+                        color: const Color(0xFF8B5CF6),
+                        size: 20,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Goal',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.white.withValues(alpha: 0.6),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  _getInvestingGoalLabel(investingGoal),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF8B5CF6),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// Interests Section (Industries & Assets)
+class _InterestsSection extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final List<String> items;
+  final String Function(String) getLabel;
+  final IconData Function(String) getIcon;
+
+  const _InterestsSection({
+    required this.title,
+    required this.icon,
+    required this.items,
+    required this.getLabel,
+    required this.getIcon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, color: Colors.cyan, size: 20),
+              const SizedBox(width: 8),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.white.withValues(alpha: 0.8),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: items.map((item) {
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.cyan.withValues(alpha: 0.3),
+                      Colors.blue.withValues(alpha: 0.2),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.cyan.withValues(alpha: 0.5)),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(getIcon(item), color: Colors.cyan, size: 16),
+                    const SizedBox(width: 6),
+                    Text(
+                      getLabel(item),
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Robo-Advisor Section
+class _RoboAdvisorSection extends StatelessWidget {
+  final List<AssetAllocation> allocations;
+  final String personalityLabel;
+
+  const _RoboAdvisorSection({
+    required this.allocations,
+    required this.personalityLabel,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            const Color(0xFF1E3A5F).withValues(alpha: 0.8),
+            const Color(0xFF0F3460).withValues(alpha: 0.9),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.cyan.withValues(alpha: 0.3)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.cyan.withValues(alpha: 0.1),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header
+          Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF00D4FF), Color(0xFF0099FF)],
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(Icons.smart_toy, color: Colors.white, size: 24),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Robo-Advisor Allocation',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      'Optimized for $personalityLabel',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.cyan.withValues(alpha: 0.8),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 20),
+
+          // Allocation Bar
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: SizedBox(
+              height: 24,
+              child: Row(
+                children: allocations.map((allocation) {
+                  return Expanded(
+                    flex: allocation.percentage.toInt(),
+                    child: Container(
+                      color: allocation.color,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 20),
+
+          // Allocation Details
+          ...allocations.map((allocation) => _AllocationRow(allocation: allocation)),
+        ],
+      ),
+    );
+  }
+}
+
+class _AllocationRow extends StatefulWidget {
+  final AssetAllocation allocation;
+
+  const _AllocationRow({required this.allocation});
+
+  @override
+  State<_AllocationRow> createState() => _AllocationRowState();
+}
+
+class _AllocationRowState extends State<_AllocationRow>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 1200),
+      vsync: this,
+    );
+    _animation = Tween<double>(begin: 0, end: widget.allocation.percentage / 100)
+        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
+
+    Future.delayed(const Duration(milliseconds: 300), () {
+      if (mounted) _controller.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        children: [
+          Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: widget.allocation.color.withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(
+              widget.allocation.icon,
+              color: widget.allocation.color,
+              size: 18,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      widget.allocation.name,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      '${widget.allocation.percentage.toInt()}%',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: widget.allocation.color,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                AnimatedBuilder(
+                  animation: _animation,
+                  builder: (context, child) {
+                    return Container(
+                      height: 6,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(3),
+                      ),
+                      child: FractionallySizedBox(
+                        alignment: Alignment.centerLeft,
+                        widthFactor: _animation.value,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: widget.allocation.color,
+                            borderRadius: BorderRadius.circular(3),
+                            boxShadow: [
+                              BoxShadow(
+                                color: widget.allocation.color.withValues(alpha: 0.5),
+                                blurRadius: 4,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -827,7 +1561,6 @@ class _MainPersonalityCard extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          // Info Button
           Positioned(
             top: 0,
             right: 0,
@@ -851,7 +1584,6 @@ class _MainPersonalityCard extends StatelessWidget {
 
           Column(
             children: [
-              // Animated Emoji
               AnimatedBuilder(
                 animation: pulseAnimation,
                 builder: (context, child) {
@@ -866,7 +1598,6 @@ class _MainPersonalityCard extends StatelessWidget {
               ),
               const SizedBox(height: 12),
 
-              // Label
               Text(
                 result.label,
                 style: TextStyle(
@@ -877,7 +1608,6 @@ class _MainPersonalityCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
 
-              // Score
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -976,7 +1706,6 @@ class _ScoreCardState extends State<_ScoreCard> with SingleTickerProviderStateMi
       ),
       child: Stack(
         children: [
-          // Info Button
           Positioned(
             top: 0,
             right: 0,
@@ -1000,7 +1729,6 @@ class _ScoreCardState extends State<_ScoreCard> with SingleTickerProviderStateMi
 
           Row(
             children: [
-              // Icon
               Container(
                 width: 48,
                 height: 48,
@@ -1014,7 +1742,6 @@ class _ScoreCardState extends State<_ScoreCard> with SingleTickerProviderStateMi
               ),
               const SizedBox(width: 16),
 
-              // Content
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1038,7 +1765,6 @@ class _ScoreCardState extends State<_ScoreCard> with SingleTickerProviderStateMi
                     ),
                     const SizedBox(height: 12),
 
-                    // Progress Bar
                     Row(
                       children: [
                         Expanded(
