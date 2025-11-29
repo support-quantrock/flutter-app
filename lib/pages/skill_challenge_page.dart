@@ -18,34 +18,39 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
   final Set<int> _expandedLessons = {};
 
   final List<Map<String, dynamic>> _lessons = [
-    {'day': 1, 'emoji': '🏪', 'title': 'How to Start the Challenge in the Quantrook Portfolio', 'completed': true},
-    {'day': 2, 'emoji': '🚪', 'title': 'Entering the Investor\'s Gate', 'completed': false, 'current': true},
-    {'day': 3, 'emoji': '🕯️', 'title': 'Money Rules: Saving, Investing, and Building Wealth', 'completed': false},
-    {'day': 4, 'emoji': '🎯', 'title': 'Financial Markets: Stocks, Bonds, Options, and More', 'completed': false},
-    {'day': 5, 'emoji': '🏰', 'title': 'Commodity & Metal Markets (Gold, Silver, Oil)', 'completed': false},
-    {'day': 6, 'emoji': '📐', 'title': 'Global Currency Markets (Forex)', 'completed': false},
-    {'day': 7, 'emoji': '🏆', 'title': 'Financial Derivatives', 'completed': false},
-    {'day': 8, 'emoji': '📊', 'title': 'Cryptocurrencies & Blockchain Technology', 'completed': false},
-    {'day': 9, 'emoji': '📈', 'title': 'Understanding Web3, DeFi, and NFTs', 'completed': false},
-    {'day': 10, 'emoji': '📉', 'title': 'Risk Management & Financial Discipline', 'completed': false},
-    {'day': 11, 'emoji': '💹', 'title': 'Technical Analysis Fundamentals', 'completed': false},
-    {'day': 12, 'emoji': '📋', 'title': 'Fundamental Analysis Deep Dive', 'completed': false},
-    {'day': 13, 'emoji': '🔮', 'title': 'Market Psychology & Behavioral Finance', 'completed': false},
-    {'day': 14, 'emoji': '⚖️', 'title': 'Portfolio Diversification Strategies', 'completed': false},
-    {'day': 15, 'emoji': '🎪', 'title': 'Trading Strategies for Beginners', 'completed': false},
-    {'day': 16, 'emoji': '🛡️', 'title': 'Hedging & Risk Mitigation', 'completed': false},
-    {'day': 17, 'emoji': '📱', 'title': 'Trading Platforms & Tools', 'completed': false},
-    {'day': 18, 'emoji': '🌐', 'title': 'Global Economic Indicators', 'completed': false},
-    {'day': 19, 'emoji': '📰', 'title': 'News Trading & Market Events', 'completed': false},
-    {'day': 20, 'emoji': '🔄', 'title': 'Swing Trading Techniques', 'completed': false},
-    {'day': 21, 'emoji': '⚡', 'title': 'Day Trading Essentials', 'completed': false},
-    {'day': 22, 'emoji': '🏦', 'title': 'Understanding ETFs & Index Funds', 'completed': false},
-    {'day': 23, 'emoji': '💰', 'title': 'Dividend Investing Strategies', 'completed': false},
-    {'day': 24, 'emoji': '🚀', 'title': 'Growth vs Value Investing', 'completed': false},
-    {'day': 25, 'emoji': '📊', 'title': 'Building Your First Portfolio', 'completed': false},
-    {'day': 26, 'emoji': '🎯', 'title': 'Setting Investment Goals', 'completed': false},
-    {'day': 27, 'emoji': '📝', 'title': 'Creating a Trading Plan', 'completed': false},
-    {'day': 28, 'emoji': '🏅', 'title': 'Challenge Completion & Next Steps', 'completed': false},
+    // Week 1: Lessons 1-5 + Test
+    {'day': 1, 'emoji': '🏪', 'title': 'How to Start the Challenge in the Quantrook Portfolio', 'completed': true, 'type': 'lesson'},
+    {'day': 2, 'emoji': '🚪', 'title': 'Entering the Investor\'s Gate', 'completed': false, 'current': true, 'type': 'lesson'},
+    {'day': 3, 'emoji': '🕯️', 'title': 'Money Rules: Saving, Investing, and Building Wealth', 'completed': false, 'type': 'lesson'},
+    {'day': 4, 'emoji': '🎯', 'title': 'Financial Markets: Stocks, Bonds, Options, and More', 'completed': false, 'type': 'lesson'},
+    {'day': 5, 'emoji': '🏰', 'title': 'Commodity & Metal Markets (Gold, Silver, Oil)', 'completed': false, 'type': 'lesson'},
+    {'day': 6, 'emoji': '📝', 'title': 'Week 1 Assessment: Foundation Basics', 'completed': false, 'type': 'test'},
+    // Week 2: Lessons 7-11 + Test
+    {'day': 7, 'emoji': '📐', 'title': 'Global Currency Markets (Forex)', 'completed': false, 'type': 'lesson'},
+    {'day': 8, 'emoji': '🏆', 'title': 'Financial Derivatives', 'completed': false, 'type': 'lesson'},
+    {'day': 9, 'emoji': '📊', 'title': 'Cryptocurrencies & Blockchain Technology', 'completed': false, 'type': 'lesson'},
+    {'day': 10, 'emoji': '📈', 'title': 'Understanding Web3, DeFi, and NFTs', 'completed': false, 'type': 'lesson'},
+    {'day': 11, 'emoji': '📉', 'title': 'Risk Management & Financial Discipline', 'completed': false, 'type': 'lesson'},
+    {'day': 12, 'emoji': '📝', 'title': 'Week 2 Assessment: Markets & Assets', 'completed': false, 'type': 'test'},
+    // Week 3: Lessons 13-17 + Test
+    {'day': 13, 'emoji': '💹', 'title': 'Technical Analysis Fundamentals', 'completed': false, 'type': 'lesson'},
+    {'day': 14, 'emoji': '📋', 'title': 'Fundamental Analysis Deep Dive', 'completed': false, 'type': 'lesson'},
+    {'day': 15, 'emoji': '🔮', 'title': 'Market Psychology & Behavioral Finance', 'completed': false, 'type': 'lesson'},
+    {'day': 16, 'emoji': '⚖️', 'title': 'Portfolio Diversification Strategies', 'completed': false, 'type': 'lesson'},
+    {'day': 17, 'emoji': '🎪', 'title': 'Trading Strategies for Beginners', 'completed': false, 'type': 'lesson'},
+    {'day': 18, 'emoji': '📝', 'title': 'Week 3 Assessment: Analysis & Strategy', 'completed': false, 'type': 'test'},
+    // Week 4: Lessons 19-23 + Test
+    {'day': 19, 'emoji': '🛡️', 'title': 'Hedging & Risk Mitigation', 'completed': false, 'type': 'lesson'},
+    {'day': 20, 'emoji': '📱', 'title': 'Trading Platforms & Tools', 'completed': false, 'type': 'lesson'},
+    {'day': 21, 'emoji': '🌐', 'title': 'Global Economic Indicators', 'completed': false, 'type': 'lesson'},
+    {'day': 22, 'emoji': '📰', 'title': 'News Trading & Market Events', 'completed': false, 'type': 'lesson'},
+    {'day': 23, 'emoji': '🔄', 'title': 'Swing Trading Techniques', 'completed': false, 'type': 'lesson'},
+    {'day': 24, 'emoji': '📝', 'title': 'Week 4 Assessment: Advanced Trading', 'completed': false, 'type': 'test'},
+    // Final Days: Lessons 25-27 + Final Test
+    {'day': 25, 'emoji': '⚡', 'title': 'Day Trading Essentials', 'completed': false, 'type': 'lesson'},
+    {'day': 26, 'emoji': '🏦', 'title': 'Building Your First Portfolio', 'completed': false, 'type': 'lesson'},
+    {'day': 27, 'emoji': '🚀', 'title': 'Setting Investment Goals & Trading Plan', 'completed': false, 'type': 'lesson'},
+    {'day': 28, 'emoji': '🏅', 'title': 'Final Challenge Assessment', 'completed': false, 'type': 'test'},
   ];
 
   final List<Map<String, dynamic>> _groupLeaderboard = [
@@ -312,7 +317,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               final isCurrent = day == _currentDay;
 
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 14),
                 child: GestureDetector(
                   onTap: () {
                     if (day <= _currentDay) {
@@ -573,6 +578,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     final isCurrent = lesson['current'] == true;
     final isLocked = day > _currentDay;
     final isExpanded = _expandedLessons.contains(day);
+    final isTest = lesson['type'] == 'test';
 
     return GestureDetector(
       onTap: () {
@@ -589,14 +595,28 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
+          gradient: isTest && !isLocked
+              ? const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xFFFEF3C7), Color(0xFFFDE68A)],
+                )
+              : null,
           color: isLocked
               ? Colors.white.withValues(alpha: 0.05)
-              : Colors.white,
+              : isTest
+                  ? null
+                  : Colors.white,
           borderRadius: BorderRadius.circular(16),
+          border: isTest && !isLocked
+              ? Border.all(color: const Color(0xFFF59E0B), width: 2)
+              : null,
           boxShadow: !isLocked
               ? [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.1),
+                    color: isTest
+                        ? const Color(0xFFF59E0B).withValues(alpha: 0.3)
+                        : Colors.black.withValues(alpha: 0.1),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -616,17 +636,21 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                     decoration: BoxDecoration(
                       color: isLocked
                           ? Colors.grey.withValues(alpha: 0.2)
-                          : const Color(0xFFF0F4FF),
+                          : isTest
+                              ? const Color(0xFFF59E0B).withValues(alpha: 0.2)
+                              : const Color(0xFFF0F4FF),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
-                      child: Text(
-                        emoji,
-                        style: TextStyle(
-                          fontSize: 22,
-                          color: isLocked ? Colors.grey : null,
-                        ),
-                      ),
+                      child: isTest && !isLocked
+                          ? const Icon(Icons.quiz, color: Color(0xFFF59E0B), size: 24)
+                          : Text(
+                              emoji,
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: isLocked ? Colors.grey : null,
+                              ),
+                            ),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -636,21 +660,25 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                     decoration: BoxDecoration(
                       color: isLocked
                           ? Colors.grey.withValues(alpha: 0.2)
-                          : isCurrent
-                              ? const Color(0xFFFEF3C7)
-                              : const Color(0xFFE0E7FF),
+                          : isTest
+                              ? const Color(0xFFF59E0B).withValues(alpha: 0.3)
+                              : isCurrent
+                                  ? const Color(0xFFFEF3C7)
+                                  : const Color(0xFFE0E7FF),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      'Day ${day.toString().padLeft(2, '0')}',
+                      isTest ? 'TEST' : 'Day ${day.toString().padLeft(2, '0')}',
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.bold,
                         color: isLocked
                             ? Colors.grey
-                            : isCurrent
-                                ? const Color(0xFFD97706)
-                                : const Color(0xFF4338CA),
+                            : isTest
+                                ? const Color(0xFFB45309)
+                                : isCurrent
+                                    ? const Color(0xFFD97706)
+                                    : const Color(0xFF4338CA),
                       ),
                     ),
                   ),
@@ -661,10 +689,12 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                       title,
                       style: TextStyle(
                         fontSize: 13,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: isTest ? FontWeight.w600 : FontWeight.w500,
                         color: isLocked
                             ? Colors.grey
-                            : const Color(0xFF1F2937),
+                            : isTest
+                                ? const Color(0xFFB45309)
+                                : const Color(0xFF1F2937),
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -684,7 +714,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                       duration: const Duration(milliseconds: 200),
                       child: Icon(
                         Icons.keyboard_arrow_down,
-                        color: Colors.grey.shade600,
+                        color: isTest ? const Color(0xFFB45309) : Colors.grey.shade600,
                         size: 24,
                       ),
                     ),
@@ -736,8 +766,10 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+                                gradient: LinearGradient(
+                                  colors: isTest
+                                      ? [const Color(0xFFF59E0B), const Color(0xFFD97706)]
+                                      : [const Color(0xFF6366F1), const Color(0xFF8B5CF6)],
                                 ),
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -745,13 +777,19 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
-                                    isCompleted ? Icons.replay : Icons.play_arrow,
+                                    isCompleted
+                                        ? Icons.replay
+                                        : isTest
+                                            ? Icons.quiz
+                                            : Icons.play_arrow,
                                     color: Colors.white,
                                     size: 20,
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
-                                    isCompleted ? 'Review Lesson' : 'Start Lesson',
+                                    isCompleted
+                                        ? (isTest ? 'Review Test' : 'Review Lesson')
+                                        : (isTest ? 'Start Test' : 'Start Lesson'),
                                     style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
