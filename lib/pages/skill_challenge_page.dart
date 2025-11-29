@@ -450,24 +450,14 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
 
   Widget _buildLessonsList() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: List.generate(_lessons.length, (index) {
           final lesson = _lessons[index];
           final isLast = index == _lessons.length - 1;
-          final isEven = index % 2 == 0;
           return Column(
             children: [
-              Row(
-                children: [
-                  if (!isEven) const Spacer(flex: 1),
-                  Expanded(
-                    flex: 3,
-                    child: _buildLessonCard(lesson),
-                  ),
-                  if (isEven) const Spacer(flex: 1),
-                ],
-              ),
+              _buildLessonCard(lesson),
               if (!isLast) _buildPathIcons(index),
             ],
           );
@@ -477,28 +467,20 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
   }
 
   Widget _buildPathIcons(int dayIndex) {
-    // Create a zigzag pattern of 3-4 floating icons between days
+    // Create a diagonal zigzag pattern flowing down
     final isEven = dayIndex % 2 == 0;
     final day = dayIndex + 1;
     final isCompleted = day < _currentDay;
+    final isMilestone = (dayIndex + 1) % 4 == 0;
 
     return SizedBox(
-      height: 160,
+      height: 140,
       child: Stack(
+        alignment: Alignment.center,
         children: [
-          // Icon 1 - top
+          // Icon 1 - start position
           Positioned(
-            top: 10,
-            left: isEven ? null : 60,
-            right: isEven ? 60 : null,
-            child: _buildFloatingIcon(
-              icon: Icons.menu_book,
-              isCompleted: isCompleted,
-            ),
-          ),
-          // Icon 2 - middle left/right
-          Positioned(
-            top: 50,
+            top: 15,
             left: isEven ? 80 : null,
             right: isEven ? null : 80,
             child: _buildFloatingIcon(
@@ -506,25 +488,35 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               isCompleted: isCompleted,
             ),
           ),
-          // Icon 3 - middle
+          // Icon 2 - diagonal move
           Positioned(
-            top: 90,
-            left: isEven ? null : 120,
-            right: isEven ? 120 : null,
+            top: 45,
+            left: isEven ? null : 140,
+            right: isEven ? 140 : null,
             child: _buildFloatingIcon(
               icon: Icons.menu_book,
               isCompleted: isCompleted,
             ),
           ),
-          // Icon 4 - bottom (crown for milestones)
+          // Icon 3 - continue diagonal
           Positioned(
-            top: 120,
-            left: isEven ? 60 : null,
-            right: isEven ? null : 60,
+            top: 75,
+            left: isEven ? 200 : null,
+            right: isEven ? null : 200,
             child: _buildFloatingIcon(
-              icon: (dayIndex + 1) % 4 == 0 ? Icons.workspace_premium : Icons.menu_book,
+              icon: Icons.menu_book,
               isCompleted: isCompleted,
-              isMilestone: (dayIndex + 1) % 4 == 0,
+            ),
+          ),
+          // Icon 4 - end (crown for milestones)
+          Positioned(
+            top: 105,
+            left: isEven ? null : 260,
+            right: isEven ? 260 : null,
+            child: _buildFloatingIcon(
+              icon: isMilestone ? Icons.workspace_premium : Icons.menu_book,
+              isCompleted: isCompleted,
+              isMilestone: isMilestone,
             ),
           ),
         ],
