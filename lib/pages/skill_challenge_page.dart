@@ -450,14 +450,24 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
 
   Widget _buildLessonsList() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Column(
         children: List.generate(_lessons.length, (index) {
           final lesson = _lessons[index];
           final isLast = index == _lessons.length - 1;
+          final isEven = index % 2 == 0;
           return Column(
             children: [
-              _buildLessonCard(lesson),
+              Row(
+                children: [
+                  if (!isEven) const Spacer(flex: 1),
+                  Expanded(
+                    flex: 3,
+                    child: _buildLessonCard(lesson),
+                  ),
+                  if (isEven) const Spacer(flex: 1),
+                ],
+              ),
               if (!isLast) _buildPathIcons(index),
             ],
           );
