@@ -70191,7 +70191,7 @@ $2(a,b){var s,r,q=null,p=A.bD(a,q,t.w).w.a.a
 if(p<400)s=180
 else s=p<600?220:280
 r=A.P(16)
-return A.E(q,A.aid(A.P(16),A.d1(B.al,A.b([new A.po(A.aof(q,q,new A.pN("https://images.unsplash.com/photo-1535320903710-d993d3d77d29?w=800&q=80",1,q,B.a__)),new A.aba(),B.lq,q),A.E(q,q,B.h,q,q,new A.C(q,q,q,q,q,new A.bh(B.bz,B.by,B.B,A.b([B.p.t(0.3),B.p.t(0.6)],t.O),q,q),B.k),q,q,q,q,q,q,q),A.amF("assets/images/qiqt_hero.png",new A.abb(),B.Aq)],t.p),B.E,B.S6,q)),B.h,q,q,new A.C(q,q,q,r,q,q,B.k),q,s,q,q,q,q,1/0)},
+return A.E(q,A.aid(A.P(16),A.d1(B.al,A.b([new A.po(A.aof(q,q,new A.pN("https://cdn.pixabay.com/photo/2017/09/07/08/54/money-2724241_1280.jpg",1,q,B.a__)),new A.aba(),B.lq,q),A.E(q,q,B.h,q,q,new A.C(q,q,q,q,q,new A.bh(B.bz,B.by,B.B,A.b([B.p.t(0.3),B.p.t(0.6)],t.O),q,q),B.k),q,q,q,q,q,q,q),A.amF("assets/images/qiqt_hero.png",new A.abb(),B.Aq)],t.p),B.E,B.S6,q)),B.h,q,q,new A.C(q,q,q,r,q,q,B.k),q,s,q,q,q,q,1/0)},
 $S:481}
 A.aba.prototype={
 $3(a,b,c){var s=null

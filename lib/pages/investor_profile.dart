@@ -977,7 +977,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
               children: [
                 // Background golden bull/bear stock market image
                 Image.network(
-                  'https://images.unsplash.com/photo-1535320903710-d993d3d77d29?w=800&q=80',
+                  'https://cdn.pixabay.com/photo/2017/09/07/08/54/money-2724241_1280.jpg',
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     // Fallback gradient if network image fails
