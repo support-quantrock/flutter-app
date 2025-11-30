@@ -60,7 +60,7 @@ class _DashboardPageState extends State<DashboardPage>
 
   // Info descriptions for dashboard items
   static const Map<String, String> _infoDescriptions = {
-    'Net Assets': 'Your total account value including all cash and investments. This represents your overall portfolio worth.',
+    'Net Assets': 'Beginner (0-10)\nIntermediate (11-20)\nExpert (21-30)',
     'Cash Available': 'The amount of liquid cash in your account that is available for new trades or withdrawals.',
     'Invest Value': 'The total cost basis of your current investments - the original amount you paid for your positions.',
     'Market Value': 'The current market value of all your open positions based on real-time prices.',
