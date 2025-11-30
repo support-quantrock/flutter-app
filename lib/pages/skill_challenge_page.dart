@@ -284,7 +284,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                 Icon(Icons.trending_up, color: Colors.white, size: 16),
                 SizedBox(width: 6),
                 Text(
-                  'Your progress',
+                  'QIPA',
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,

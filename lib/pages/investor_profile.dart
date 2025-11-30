@@ -549,24 +549,15 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
             child: Column(
               children: [
                 const SizedBox(height: 16),
-                // Logo
-                const Text(
-                  'Quantrock',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF22C55E),
-                  ),
-                ),
-                const SizedBox(height: 20),
                 // Top Badges
                 Row(
                   children: [
                     Expanded(
-                      child: _buildIntroBadge(
+                      child: _buildIntroBadgeWithInfo(
                         Icons.verified,
                         'OECD, MIT & CFA',
                         'Global Trusted Standards',
+                        () => _showStandardsInfoPopup(context),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -784,6 +775,152 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildIntroBadgeWithInfo(IconData icon, String title, String subtitle, VoidCallback onInfoTap) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: const Color(0xFF22C55E),
+          width: 1.5,
+        ),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: const Color(0xFF22C55E), size: 20),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    color: Color(0xFF9CA3AF),
+                    fontSize: 9,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: onInfoTap,
+            child: const Icon(
+              Icons.info_outline,
+              color: Color(0xFF22C55E),
+              size: 18,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showStandardsInfoPopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: const Color(0xFF1E293B),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        title: const Text(
+          'OECD, MIT & CFA',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'The test is based on globally recognized standards:',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(height: 16),
+              _buildStandardItem(
+                '🔹',
+                'OECD',
+                'The Organization for Economic Co-operation and Development\nThe international standard for measuring financial literacy and financial behavior.',
+              ),
+              const SizedBox(height: 12),
+              _buildStandardItem(
+                '🔹',
+                'MIT Learning Readiness Model',
+                'Used to measure educational readiness and motivation.',
+              ),
+              const SizedBox(height: 12),
+              _buildStandardItem(
+                '🔹',
+                'CFA Investment Knowledge Framework',
+                'Used to measure the level of financial and investment knowledge and experience.',
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text(
+              'Got it',
+              style: TextStyle(color: Color(0xFF22C55E)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStandardItem(String emoji, String title, String description) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(emoji, style: const TextStyle(fontSize: 14)),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                description,
+                style: const TextStyle(
+                  color: Colors.white70,
+                  fontSize: 12,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
