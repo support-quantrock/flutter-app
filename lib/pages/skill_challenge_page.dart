@@ -493,12 +493,12 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
         final offset = 60.0; // How far icons spread from center
 
         return SizedBox(
-          height: 280,
+          height: 360,
           child: Stack(
             children: [
               // Lesson Icon 1
               Positioned(
-                top: 15,
+                top: 20,
                 left: isEven ? centerX - offset - 25 : centerX + offset - 25,
                 child: _buildFloatingIcon(
                   icon: Icons.menu_book,
@@ -507,7 +507,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               ),
               // Lesson Icon 2 - Day 2's lesson appears here after Day 1
               Positioned(
-                top: 55,
+                top: 75,
                 left: isEven ? centerX + 15 - 25 : centerX - 15 - 25,
                 child: showDay2AtSecondIcon
                     ? _buildInteractiveLessonIcon(
@@ -521,7 +521,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               ),
               // Lesson Icon 3
               Positioned(
-                top: 95,
+                top: 130,
                 left: isEven ? centerX + offset - 25 : centerX - offset - 25,
                 child: _buildFloatingIcon(
                   icon: Icons.menu_book,
@@ -530,7 +530,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               ),
               // Lesson Icon 4
               Positioned(
-                top: 135,
+                top: 185,
                 left: isEven ? centerX - 25 : centerX - 25,
                 child: _buildFloatingIcon(
                   icon: Icons.menu_book,
@@ -539,7 +539,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               ),
               // Lesson Icon 5
               Positioned(
-                top: 175,
+                top: 240,
                 left: isEven ? centerX - offset - 25 : centerX + offset - 25,
                 child: _buildFloatingIcon(
                   icon: Icons.menu_book,
@@ -548,7 +548,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               ),
               // Test Icon (crown/quiz)
               Positioned(
-                top: 215,
+                top: 295,
                 left: isEven ? centerX + 30 - 25 : centerX - 30 - 25,
                 child: _buildFloatingIcon(
                   icon: isTestDay ? Icons.quiz : Icons.workspace_premium,
