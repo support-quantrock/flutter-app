@@ -159,6 +159,8 @@ class _DashboardPageState extends State<DashboardPage>
                 _buildProgressBar(),
                 const SizedBox(height: 8),
                 _buildExpandButton(),
+                const SizedBox(height: 16),
+                _buildOverviewTab(),
               ],
             ),
           ),
@@ -423,10 +425,6 @@ class _DashboardPageState extends State<DashboardPage>
           const Divider(color: Color(0xFF374151), height: 1),
           const SizedBox(height: 20),
 
-          // Overview Tab
-          _buildOverviewTab(),
-          const SizedBox(height: 20),
-
           // Stage Slider
           _buildStageSlider(),
           const SizedBox(height: 24),
@@ -436,11 +434,11 @@ class _DashboardPageState extends State<DashboardPage>
           const SizedBox(height: 24),
 
           // Net Profit
-          _buildReturnCircle(),
+          Center(child: _buildReturnCircle()),
           const SizedBox(height: 16),
 
           // Risk Level
-          _buildRiskLevel(),
+          Center(child: _buildRiskLevel()),
           const SizedBox(height: 24),
 
           // Objectives
@@ -723,7 +721,7 @@ class _DashboardPageState extends State<DashboardPage>
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text(
             'Risk Level',
@@ -806,17 +804,15 @@ class _DashboardPageState extends State<DashboardPage>
         ),
         const SizedBox(height: 16),
         // Second row: Profit, Daily Loss, Max Loss
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              _buildObjectiveCircle('Profit', '\$1200', 0.65, const Color(0xFF3B82F6), subtitle: '8%'),
-              const SizedBox(width: 12),
-              _buildObjectiveCircle('Daily Loss', '\$500', 0.5, const Color(0xFFEF4444), subtitle: '5%'),
-              const SizedBox(width: 12),
-              _buildObjectiveCircle('Max Loss', '\$1500', 0.7, const Color(0xFFF97316), subtitle: '10%'),
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildObjectiveCircle('Profit', '\$1200', 0.65, const Color(0xFF3B82F6), subtitle: '8%'),
+            const SizedBox(width: 12),
+            _buildObjectiveCircle('Daily Loss', '\$500', 0.5, const Color(0xFFEF4444), subtitle: '5%'),
+            const SizedBox(width: 12),
+            _buildObjectiveCircle('Max Loss', '\$1500', 0.7, const Color(0xFFF97316), subtitle: '10%'),
+          ],
         ),
       ],
     );

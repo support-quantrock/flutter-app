@@ -1724,31 +1724,45 @@ class _MainPersonalityCard extends StatelessWidget {
             ),
           ),
 
-          Column(
-            children: [
-              AnimatedBuilder(
-                animation: pulseAnimation,
-                builder: (context, child) {
-                  return Transform.scale(
-                    scale: pulseAnimation.value,
-                    child: Text(
-                      result.emoji,
-                      style: const TextStyle(fontSize: 64),
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: 12),
-
-              Text(
-                result.label,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
-                  color: result.color,
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                AnimatedBuilder(
+                  animation: pulseAnimation,
+                  builder: (context, child) {
+                    return Transform.scale(
+                      scale: pulseAnimation.value,
+                      child: Text(
+                        result.emoji,
+                        style: const TextStyle(fontSize: 64),
+                      ),
+                    );
+                  },
                 ),
-              ),
-            ],
+                const SizedBox(height: 12),
+
+                Text(
+                  result.label,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w800,
+                    color: result.color,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  '${result.score}/${result.maxScore}',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white.withValues(alpha: 0.8),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
