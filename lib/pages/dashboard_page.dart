@@ -480,52 +480,129 @@ class _DashboardPageState extends State<DashboardPage>
   }
 
   Widget _buildStageSlider() {
+    // Current stage: 0 = Learn, 1 = Skills, 2 = Invest
+    const int currentStage = 1; // Skills stage
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Challenge Stage',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        const SizedBox(height: 12),
+        // Stage labels
         Row(
           children: [
-            _buildStageBlock('Learn', const Color(0xFF3B82F6), true),
-            const SizedBox(width: 8),
-            _buildStageBlock('Skills', const Color(0xFFA855F7), false),
-            const SizedBox(width: 8),
-            _buildStageBlock('Invest', const Color(0xFF22C55E), false),
+            Expanded(
+              child: Center(
+                child: Text(
+                  'Learn',
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.9),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Text(
+                  'Skills',
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.9),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Text(
+                  'Invest',
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.9),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        // Gradient progress bar
+        Container(
+          height: 16,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(2),
+          ),
+          child: Row(
+            children: [
+              // Learn section (teal/green gradient)
+              Expanded(
+                child: _buildGradientSection(
+                  [const Color(0xFF0D9488), const Color(0xFF22C55E)],
+                  isFirst: true,
+                ),
+              ),
+              // Skills section (orange gradient)
+              Expanded(
+                child: _buildGradientSection(
+                  [const Color(0xFFF97316), const Color(0xFFEA580C)],
+                ),
+              ),
+              // Invest section (blue gradient)
+              Expanded(
+                child: _buildGradientSection(
+                  [const Color(0xFF60A5FA), const Color(0xFF3B82F6)],
+                  isLast: true,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8),
+        // Stage indicator
+        Row(
+          children: [
+            // Position the indicator based on current stage
+            Expanded(
+              flex: currentStage == 0 ? 1 : (currentStage == 1 ? 3 : 5),
+              child: const SizedBox(),
+            ),
+            Column(
+              children: [
+                CustomPaint(
+                  size: const Size(12, 8),
+                  painter: _TrianglePainter(color: const Color(0xFF3B82F6)),
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  'STAGE',
+                  style: TextStyle(
+                    color: Color(0xFF9CA3AF),
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1,
+                  ),
+                ),
+              ],
+            ),
+            Expanded(
+              flex: currentStage == 0 ? 5 : (currentStage == 1 ? 3 : 1),
+              child: const SizedBox(),
+            ),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildStageBlock(String label, Color color, bool isActive) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        decoration: BoxDecoration(
-          color: isActive ? color : color.withValues(alpha: 0.2),
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: color,
-            width: isActive ? 2 : 1,
-          ),
-        ),
-        child: Center(
-          child: Text(
-            label,
-            style: TextStyle(
-              color: isActive ? Colors.white : color,
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+  Widget _buildGradientSection(List<Color> colors, {bool isFirst = false, bool isLast = false}) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(colors: colors),
+        borderRadius: BorderRadius.horizontal(
+          left: isFirst ? const Radius.circular(2) : Radius.zero,
+          right: isLast ? const Radius.circular(2) : Radius.zero,
         ),
       ),
     );
@@ -1250,5 +1327,31 @@ class DonutChartPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant DonutChartPainter oldDelegate) {
     return oldDelegate.segments != segments;
+  }
+}
+
+class _TrianglePainter extends CustomPainter {
+  final Color color;
+
+  _TrianglePainter({required this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill;
+
+    final path = Path()
+      ..moveTo(size.width / 2, 0)
+      ..lineTo(0, size.height)
+      ..lineTo(size.width, size.height)
+      ..close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _TrianglePainter oldDelegate) {
+    return oldDelegate.color != color;
   }
 }
