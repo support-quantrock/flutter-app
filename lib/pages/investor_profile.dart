@@ -529,165 +529,392 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
   Widget _buildIntroScreen() {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFF0A0A0A),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            children: [
-              const Spacer(flex: 2),
-              // Illustration
-              Container(
-                width: 180,
-                height: 180,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFF3E0),
-                  shape: BoxShape.circle,
-                ),
-                child: Center(
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      // Back paper
-                      Transform.translate(
-                        offset: const Offset(8, 8),
-                        child: Container(
-                          width: 80,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFBBDEFB),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                      ),
-                      // Front paper with checklist
-                      Container(
-                        width: 80,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFE3F2FD),
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: const Color(0xFF90CAF9),
-                            width: 1,
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: List.generate(4, (index) => Row(
-                              children: [
-                                Icon(
-                                  Icons.check,
-                                  size: 14,
-                                  color: Colors.red.shade300,
-                                ),
-                                const SizedBox(width: 6),
-                                Expanded(
-                                  child: Container(
-                                    height: 6,
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xFF90CAF9),
-                                      borderRadius: BorderRadius.circular(3),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )),
-                          ),
-                        ),
-                      ),
-                    ],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                const SizedBox(height: 16),
+                // Logo
+                const Text(
+                  'Quantrock',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF22C55E),
                   ),
                 ),
-              ),
-              const Spacer(),
-              // Title
-              const Text(
-                'QIPA',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Quantrock Investment Personality Assessment',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 40),
-              // Bullet points
-              _buildBulletPoint(
-                'Your answers are anonymized, and we do not sell your data.',
-              ),
-              const Spacer(flex: 2),
-              // Start Test Button
-              SizedBox(
-                width: double.infinity,
-                height: 56,
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _showIntro = false;
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1B5E20),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                const SizedBox(height: 20),
+                // Top Badges
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildIntroBadge(
+                        Icons.verified,
+                        'OECD, MIT & CFA',
+                        'Trusted Standards',
+                      ),
                     ),
-                    elevation: 0,
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: _buildIntroBadge(
+                        Icons.star,
+                        'SMART CLASSIFICATION',
+                        'Beginner to Advanced',
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                // Candlestick Chart with Character
+                _buildChartIllustration(),
+                const SizedBox(height: 32),
+                // Title
+                const Text(
+                  'QUANTROCK INVESTOR',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    letterSpacing: 1,
                   ),
-                  child: const Text(
-                    'Start Test',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                ),
+                const Text(
+                  'QUALIFICATION TEST',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    letterSpacing: 1,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      '⭐ ',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    const Text(
+                      'QIQT',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF22C55E),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                // Description
+                _buildQIQTDescription(),
+                const SizedBox(height: 32),
+                // Start Test Button
+                SizedBox(
+                  width: double.infinity,
+                  height: 56,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _showIntro = false;
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF22C55E),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'START TEST',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        const Icon(Icons.arrow_forward, color: Colors.white),
+                      ],
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 32),
-            ],
+                const SizedBox(height: 20),
+                // Footer
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  children: [
+                    const Text(
+                      'By proceeding, you agree with ',
+                      style: TextStyle(
+                        color: Color(0xFF9CA3AF),
+                        fontSize: 12,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Text(
+                        'Terms and Conditions',
+                        style: TextStyle(
+                          color: Color(0xFF22C55E),
+                          fontSize: 12,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      ', ',
+                      style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 12),
+                    ),
+                  ],
+                ),
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Text(
+                        'Privacy Policy',
+                        style: TextStyle(
+                          color: Color(0xFF22C55E),
+                          fontSize: 12,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'QUANTROCK LTD, Dubai, United Arab Emirates',
+                  style: TextStyle(
+                    color: Color(0xFF6B7280),
+                    fontSize: 11,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 24),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildBulletPoint(String text) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: const EdgeInsets.only(top: 2),
-          child: const Icon(
-            Icons.check_circle,
-            color: Color(0xFF2E7D32),
-            size: 24,
-          ),
+  Widget _buildIntroBadge(IconData icon, String title, String subtitle) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: const Color(0xFF22C55E),
+          width: 1.5,
         ),
-        const SizedBox(width: 16),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: const Color(0xFF22C55E), size: 20),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    color: Color(0xFF9CA3AF),
+                    fontSize: 9,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildChartIllustration() {
+    return Container(
+      height: 220,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1A2E),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Stack(
+        children: [
+          // Candlestick chart background
+          Positioned.fill(
+            child: CustomPaint(
+              painter: CandlestickChartPainter(),
+            ),
+          ),
+          // Price overlay
+          Positioned(
+            top: 16,
+            left: 16,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  '130.81',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF22C55E).withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: const Text(
+                        '↑ 13.6%',
+                        style: TextStyle(
+                          color: Color(0xFF22C55E),
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    const Text(
+                      '+9.00',
+                      style: TextStyle(
+                        color: Color(0xFF22C55E),
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          // Y-axis labels
+          Positioned(
+            left: 8,
+            top: 70,
+            bottom: 30,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('61.8', style: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontSize: 10)),
+                Text('38.6', style: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontSize: 10)),
+                Text('23.6', style: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontSize: 10)),
+                Text('0', style: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontSize: 10)),
+              ],
+            ),
+          ),
+          // Character avatar
+          Positioned(
+            bottom: 20,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF8B5CF6), Color(0xFF6366F1)],
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF8B5CF6).withValues(alpha: 0.4),
+                      blurRadius: 20,
+                    ),
+                  ],
+                ),
+                child: const Icon(
+                  Icons.person,
+                  color: Colors.white,
+                  size: 40,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQIQTDescription() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        children: [
+          _buildDescriptionItem(
+            Icons.psychology,
+            'Measures investment experience, literacy & readiness',
+          ),
+          const SizedBox(height: 12),
+          _buildDescriptionItem(
+            Icons.school,
+            'Built on OECD, MIT, and CFA standards',
+          ),
+          const SizedBox(height: 12),
+          _buildDescriptionItem(
+            Icons.trending_up,
+            'Classifies: Beginner / Intermediate / Advanced',
+          ),
+          const SizedBox(height: 12),
+          _buildDescriptionItem(
+            Icons.route,
+            'Determines your ideal path in Quantrock',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDescriptionItem(IconData icon, String text) {
+    return Row(
+      children: [
+        Icon(icon, color: const Color(0xFF22C55E), size: 20),
+        const SizedBox(width: 12),
         Expanded(
           child: Text(
             text,
             style: const TextStyle(
-              fontSize: 16,
-              color: Colors.black87,
-              height: 1.4,
+              color: Colors.white,
+              fontSize: 13,
             ),
           ),
         ),
       ],
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -1297,4 +1524,60 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       },
     );
   }
+}
+
+class CandlestickChartPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final greenPaint = Paint()..color = const Color(0xFF22C55E);
+    final redPaint = Paint()..color = const Color(0xFFEF4444);
+    final wickPaint = Paint()
+      ..color = Colors.white.withValues(alpha: 0.5)
+      ..strokeWidth = 1;
+
+    // Sample candlestick data (x position, isGreen, height ratio)
+    final candles = [
+      {'x': 0.1, 'green': true, 'h': 0.3, 'wickH': 0.15},
+      {'x': 0.18, 'green': false, 'h': 0.25, 'wickH': 0.1},
+      {'x': 0.26, 'green': true, 'h': 0.4, 'wickH': 0.2},
+      {'x': 0.34, 'green': true, 'h': 0.35, 'wickH': 0.15},
+      {'x': 0.42, 'green': false, 'h': 0.2, 'wickH': 0.1},
+      {'x': 0.50, 'green': true, 'h': 0.5, 'wickH': 0.2},
+      {'x': 0.58, 'green': true, 'h': 0.45, 'wickH': 0.18},
+      {'x': 0.66, 'green': false, 'h': 0.3, 'wickH': 0.12},
+      {'x': 0.74, 'green': true, 'h': 0.55, 'wickH': 0.25},
+      {'x': 0.82, 'green': true, 'h': 0.6, 'wickH': 0.2},
+      {'x': 0.90, 'green': false, 'h': 0.35, 'wickH': 0.15},
+    ];
+
+    final candleWidth = size.width * 0.04;
+
+    for (final candle in candles) {
+      final x = size.width * (candle['x'] as double);
+      final isGreen = candle['green'] as bool;
+      final heightRatio = candle['h'] as double;
+      final wickRatio = candle['wickH'] as double;
+
+      final bodyHeight = size.height * heightRatio;
+      final baseY = size.height * (0.3 + (1 - heightRatio) * 0.5);
+
+      // Draw wick
+      final wickHeight = size.height * wickRatio;
+      canvas.drawLine(
+        Offset(x, baseY - wickHeight),
+        Offset(x, baseY + bodyHeight + wickHeight * 0.5),
+        wickPaint,
+      );
+
+      // Draw body
+      final bodyRect = RRect.fromRectAndRadius(
+        Rect.fromLTWH(x - candleWidth / 2, baseY, candleWidth, bodyHeight),
+        const Radius.circular(2),
+      );
+      canvas.drawRRect(bodyRect, isGreen ? greenPaint : redPaint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

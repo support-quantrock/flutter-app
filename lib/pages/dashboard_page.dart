@@ -11,7 +11,7 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage>
     with SingleTickerProviderStateMixin {
   bool _isExpanded = false;
-  String _selectedTab = 'Overview';
+  final String _selectedTab = 'Overview';
   String _selectedTimePeriod = 'All';
   String _selectedBottomTab = 'watchlist';
   late AnimationController _expandController;
