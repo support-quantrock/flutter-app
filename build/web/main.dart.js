@@ -66384,7 +66384,7 @@ p=B.c.t(0.1)
 q=A.S(12)
 l.push(A.E(n,A.af(A.b([B.Hw,B.hy,A.L(""+o.r,n,n,B.kP,n)],m),B.k,B.i,B.h,n),B.f,n,n,new A.D(p,n,n,q,n,n,B.l),n,n,n,B.mH,n,n,n))
 return A.dj(!1,A.E(n,A.Z(A.b([A.af(l,B.k,B.i,B.h,n)],m),B.k,B.i,B.h),B.f,n,n,n,n,n,n,B.fD,n,n,n),!0)},
-TM(){var s=this,r=null,q=s.e/20,p=t.p,o=A.af(A.b([A.af(A.b([B.H7,B.cR,A.L("Quest Progress",r,r,A.ah(r,r,B.c.t(0.8),r,r,r,r,r,r,r,r,12,r,r,B.E,r,r,!0,r,r,r,r,r,r,r,r),r)],p),B.k,B.i,B.h,r),A.L(""+s.e+" / 20",r,r,B.Tw,r)],p),B.k,B.b8,B.h,r),n=A.E(r,r,B.f,r,r,new A.D(B.c.t(0.1),r,r,A.S(6),r,r,B.l),r,12,r,r,r,r,r),m=s.c
+TM(){var s=this,r=null,q=s.e/20,p=t.p,o=A.af(A.b([A.af(A.b([B.H7,B.cR,A.L("QIQT Qualification Test",r,r,A.ah(r,r,B.c.t(0.8),r,r,r,r,r,r,r,r,12,r,r,B.E,r,r,!0,r,r,r,r,r,r,r,r),r)],p),B.k,B.i,B.h,r),A.L(""+s.e+" / 20",r,r,B.Tw,r)],p),B.k,B.b8,B.h,r),n=A.E(r,r,B.f,r,r,new A.D(B.c.t(0.1),r,r,A.S(6),r,r,B.l),r,12,r,r,r,r,r),m=s.c
 m.toString
 m=A.bB(m,r,t.w).w
 m=A.b([n,A.h4(r,B.e2,new A.D(r,r,r,A.S(6),A.b([new A.bI(0,B.a1,B.aa.t(0.5),B.o,8)],t.V),B.Ir,B.l),B.ck,12,r,(m.a.a-48)*q)],p)

@@ -1229,7 +1229,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   ),
                   const SizedBox(width: 6),
                   Text(
-                    'Quest Progress',
+                    'QIQT Qualification Test',
                     style: TextStyle(
                       color: Colors.white.withValues(alpha: 0.8),
                       fontSize: 12,
