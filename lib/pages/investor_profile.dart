@@ -780,86 +780,24 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       height: 220,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: const Color(0xFF1A1A2E),
+        gradient: const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0xFF1A1A2E), Color(0xFF16213E)],
+        ),
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Stack(
-        children: [
-          // Candlestick chart background
-          Positioned.fill(
-            child: CustomPaint(
-              painter: CandlestickChartPainter(),
-            ),
-          ),
-          // Price overlay
-          Positioned(
-            top: 16,
-            left: 16,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  '130.81',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF22C55E).withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: const Text(
-                        '↑ 13.6%',
-                        style: TextStyle(
-                          color: Color(0xFF22C55E),
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    const Text(
-                      '+9.00',
-                      style: TextStyle(
-                        color: Color(0xFF22C55E),
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          // Y-axis labels
-          Positioned(
-            left: 8,
-            top: 70,
-            bottom: 30,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('61.8', style: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontSize: 10)),
-                Text('38.6', style: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontSize: 10)),
-                Text('23.6', style: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontSize: 10)),
-                Text('0', style: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontSize: 10)),
-              ],
-            ),
-          ),
-          // Character mascot
-          Positioned(
-            bottom: 10,
-            left: 0,
-            right: 0,
-            child: Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Image.asset(
+          'assets/images/qiqt_hero.png',
+          fit: BoxFit.contain,
+          errorBuilder: (context, error, stackTrace) {
+            // Fallback to mascot image if hero image fails
+            return Center(
               child: Container(
-                width: 120,
-                height: 120,
+                width: 140,
+                height: 140,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -869,31 +807,31 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   ],
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(60),
+                  borderRadius: BorderRadius.circular(70),
                   child: Image.asset(
                     'assets/images/mascot.png',
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
+                    errorBuilder: (ctx, err, stack) {
                       return Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          gradient: const LinearGradient(
+                          gradient: LinearGradient(
                             colors: [Color(0xFF8B5CF6), Color(0xFF6366F1)],
                           ),
                         ),
                         child: const Icon(
                           Icons.person,
                           color: Colors.white,
-                          size: 40,
+                          size: 50,
                         ),
                       );
                     },
                   ),
                 ),
               ),
-            ),
-          ),
-        ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -906,25 +844,153 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildDescriptionItem(
-            Icons.psychology,
-            'Measures investment experience, literacy & readiness',
+          // Main intro text
+          Text(
+            'QIQT is an intelligent qualification test built on OECD, MIT, and CFA standards, designed to measure your investment experience, financial literacy, motivations, and readiness to learn.',
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.9),
+              fontSize: 13,
+              height: 1.5,
+            ),
           ),
           const SizedBox(height: 12),
-          _buildDescriptionItem(
-            Icons.school,
-            'Built on OECD, MIT, and CFA standards',
+          Text(
+            'QIQT helps you assess your financial knowledge, investment background, and determine your ideal path inside Quantrock—whether in challenges, daily lessons, or selecting the appropriate demo portfolio size.',
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.8),
+              fontSize: 13,
+              height: 1.5,
+            ),
+          ),
+          const SizedBox(height: 20),
+          // Purpose section header
+          Row(
+            children: [
+              const Text(
+                '🎯',
+                style: TextStyle(fontSize: 18),
+              ),
+              const SizedBox(width: 8),
+              const Expanded(
+                child: Text(
+                  'What is the purpose of QIQT?',
+                  style: TextStyle(
+                    color: Color(0xFF22C55E),
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 12),
-          _buildDescriptionItem(
-            Icons.trending_up,
-            'Classifies: Beginner / Intermediate / Advanced',
+          Text(
+            'The test aims to accurately classify the user into one of the following levels:',
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.8),
+              fontSize: 13,
+            ),
+          ),
+          const SizedBox(height: 8),
+          // Classification levels
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: const Color(0xFF22C55E).withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: const Color(0xFF22C55E).withValues(alpha: 0.3),
+              ),
+            ),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  'Beginner',
+                  style: TextStyle(
+                    color: Color(0xFF22C55E),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
+                ),
+                Text(
+                  '/',
+                  style: TextStyle(color: Color(0xFF9CA3AF)),
+                ),
+                Text(
+                  'Intermediate',
+                  style: TextStyle(
+                    color: Color(0xFF3B82F6),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
+                ),
+                Text(
+                  '/',
+                  style: TextStyle(color: Color(0xFF9CA3AF)),
+                ),
+                Text(
+                  'Advanced',
+                  style: TextStyle(
+                    color: Color(0xFFA855F7),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'It works on identifying:',
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.8),
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           const SizedBox(height: 12),
-          _buildDescriptionItem(
-            Icons.route,
-            'Determines your ideal path in Quantrock',
+          // Identification items
+          _buildIdentificationItem('Actual investment experience'),
+          _buildIdentificationItem('Financial background and basic financial knowledge'),
+          _buildIdentificationItem('Investment objectives and personal motivations'),
+          _buildIdentificationItem('Level of readiness and willingness to learn'),
+          _buildIdentificationItem('The most suitable learning path for the user'),
+          _buildIdentificationItem('The appropriate challenge level within Quantrock'),
+          _buildIdentificationItem('The recommended demo portfolio size'),
+          _buildIdentificationItem('Understanding the user\'s motivations for using Quantrock'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildIdentificationItem(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 6),
+            width: 6,
+            height: 6,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color(0xFF22C55E),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.75),
+                fontSize: 12,
+                height: 1.4,
+              ),
+            ),
           ),
         ],
       ),
@@ -1560,58 +1626,3 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   }
 }
 
-class CandlestickChartPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final greenPaint = Paint()..color = const Color(0xFF22C55E);
-    final redPaint = Paint()..color = const Color(0xFFEF4444);
-    final wickPaint = Paint()
-      ..color = Colors.white.withValues(alpha: 0.5)
-      ..strokeWidth = 1;
-
-    // Sample candlestick data (x position, isGreen, height ratio)
-    final candles = [
-      {'x': 0.1, 'green': true, 'h': 0.3, 'wickH': 0.15},
-      {'x': 0.18, 'green': false, 'h': 0.25, 'wickH': 0.1},
-      {'x': 0.26, 'green': true, 'h': 0.4, 'wickH': 0.2},
-      {'x': 0.34, 'green': true, 'h': 0.35, 'wickH': 0.15},
-      {'x': 0.42, 'green': false, 'h': 0.2, 'wickH': 0.1},
-      {'x': 0.50, 'green': true, 'h': 0.5, 'wickH': 0.2},
-      {'x': 0.58, 'green': true, 'h': 0.45, 'wickH': 0.18},
-      {'x': 0.66, 'green': false, 'h': 0.3, 'wickH': 0.12},
-      {'x': 0.74, 'green': true, 'h': 0.55, 'wickH': 0.25},
-      {'x': 0.82, 'green': true, 'h': 0.6, 'wickH': 0.2},
-      {'x': 0.90, 'green': false, 'h': 0.35, 'wickH': 0.15},
-    ];
-
-    final candleWidth = size.width * 0.04;
-
-    for (final candle in candles) {
-      final x = size.width * (candle['x'] as double);
-      final isGreen = candle['green'] as bool;
-      final heightRatio = candle['h'] as double;
-      final wickRatio = candle['wickH'] as double;
-
-      final bodyHeight = size.height * heightRatio;
-      final baseY = size.height * (0.3 + (1 - heightRatio) * 0.5);
-
-      // Draw wick
-      final wickHeight = size.height * wickRatio;
-      canvas.drawLine(
-        Offset(x, baseY - wickHeight),
-        Offset(x, baseY + bodyHeight + wickHeight * 0.5),
-        wickPaint,
-      );
-
-      // Draw body
-      final bodyRect = RRect.fromRectAndRadius(
-        Rect.fromLTWH(x - candleWidth / 2, baseY, candleWidth, bodyHeight),
-        const Radius.circular(2),
-      );
-      canvas.drawRRect(bodyRect, isGreen ? greenPaint : redPaint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
