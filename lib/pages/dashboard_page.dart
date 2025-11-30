@@ -345,7 +345,7 @@ class _DashboardPageState extends State<DashboardPage>
         const Spacer(),
         GestureDetector(
           onTap: () {
-            // Navigate to qchat
+            Navigator.pushReplacementNamed(context, '/skill-challenge');
           },
           child: Container(
             width: 44,
