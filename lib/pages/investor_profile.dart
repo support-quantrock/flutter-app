@@ -554,7 +554,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                       child: _buildIntroBadge(
                         Icons.verified,
                         'OECD, MIT & CFA',
-                        'Trusted Standards',
+                        'Global Trusted Standards',
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -571,47 +571,99 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                 // Candlestick Chart with Character
                 _buildChartIllustration(),
                 const SizedBox(height: 32),
-                // Title
-                const Text(
-                  'QUANTROCK INVESTOR',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    letterSpacing: 1,
-                  ),
-                ),
-                const Text(
-                  'QUALIFICATION TEST',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    letterSpacing: 1,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      '⭐ ',
-                      style: TextStyle(fontSize: 18),
+                // Title with gradient effect
+                ShaderMask(
+                  shaderCallback: (bounds) => const LinearGradient(
+                    colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+                  ).createShader(bounds),
+                  child: const Text(
+                    'QUANTROCK INVESTOR',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      letterSpacing: 2,
                     ),
-                    const Text(
-                      'QIQT',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF22C55E),
+                  ),
+                ),
+                ShaderMask(
+                  shaderCallback: (bounds) => const LinearGradient(
+                    colors: [Color(0xFFA855F7), Color(0xFF3B82F6), Color(0xFF22C55E)],
+                  ).createShader(bounds),
+                  child: const Text(
+                    'QUALIFICATION TEST',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      letterSpacing: 2,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF22C55E).withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: const Color(0xFF22C55E).withValues(alpha: 0.3),
+                    ),
+                  ),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '⭐ ',
+                        style: TextStyle(fontSize: 16),
                       ),
-                    ),
-                  ],
+                      Text(
+                        'QIQT',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF22C55E),
+                          letterSpacing: 2,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 24),
                 // Description
                 _buildQIQTDescription(),
-                const SizedBox(height: 32),
+                const SizedBox(height: 24),
+                // Privacy Notice
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.03),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.1),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.lock_outline,
+                        color: const Color(0xFF22C55E),
+                        size: 20,
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          'Your answers are anonymized, and we do not sell your data.',
+                          style: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.7),
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
                 // Start Test Button
                 SizedBox(
                   width: double.infinity,
