@@ -7,6 +7,7 @@ import 'pages/investor_results.dart';
 import 'pages/skill_challenge_page.dart';
 import 'pages/lesson_page.dart';
 import 'pages/challenge_home_page.dart';
+import 'pages/challenge_signup_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,6 +42,13 @@ class MyApp extends StatelessWidget {
             final day = args?['day'] as int? ?? 1;
             return MaterialPageRoute(
               builder: (context) => LessonPage(day: day),
+            );
+          }
+          if (settings.name == '/challenge-signup') {
+            final args = settings.arguments as Map<String, dynamic>?;
+            final mode = args?['mode'] as String? ?? 'free';
+            return MaterialPageRoute(
+              builder: (context) => ChallengeSignupPage(mode: mode),
             );
           }
           return null;

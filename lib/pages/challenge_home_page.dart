@@ -282,7 +282,11 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/skill-challenge');
+                    Navigator.pushNamed(
+                      context,
+                      '/challenge-signup',
+                      arguments: {'mode': 'free'},
+                    );
                   },
                   child: Container(
                     width: double.infinity,
@@ -461,7 +465,11 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: GestureDetector(
                   onTap: () {
-                    // Navigate to investment challenge signup
+                    Navigator.pushNamed(
+                      context,
+                      '/challenge-signup',
+                      arguments: {'mode': 'premium'},
+                    );
                   },
                   child: Container(
                     width: double.infinity,
