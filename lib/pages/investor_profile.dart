@@ -830,31 +830,44 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
               ],
             ),
           ),
-          // Character avatar
+          // Character mascot
           Positioned(
-            bottom: 20,
+            bottom: 10,
             left: 0,
             right: 0,
             child: Center(
               child: Container(
-                width: 80,
-                height: 80,
+                width: 120,
+                height: 120,
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF8B5CF6), Color(0xFF6366F1)],
-                  ),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF8B5CF6).withValues(alpha: 0.4),
+                      color: const Color(0xFF8B5CF6).withValues(alpha: 0.3),
                       blurRadius: 20,
                     ),
                   ],
                 ),
-                child: const Icon(
-                  Icons.person,
-                  color: Colors.white,
-                  size: 40,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(60),
+                  child: Image.asset(
+                    'assets/images/mascot.png',
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFF8B5CF6), Color(0xFF6366F1)],
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.person,
+                          color: Colors.white,
+                          size: 40,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
