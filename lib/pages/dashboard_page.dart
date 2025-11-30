@@ -435,15 +435,12 @@ class _DashboardPageState extends State<DashboardPage>
           _buildPortfolioPerformance(),
           const SizedBox(height: 24),
 
-          // Return Circle and Risk Level
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(child: _buildReturnCircle()),
-              const SizedBox(width: 16),
-              Expanded(child: _buildRiskLevel()),
-            ],
-          ),
+          // Net Profit
+          _buildReturnCircle(),
+          const SizedBox(height: 16),
+
+          // Risk Level
+          _buildRiskLevel(),
           const SizedBox(height: 24),
 
           // Objectives
