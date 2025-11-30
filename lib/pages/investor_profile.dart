@@ -571,63 +571,32 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                 // Candlestick Chart with Character
                 _buildChartIllustration(),
                 const SizedBox(height: 32),
-                // Title with gradient effect
+                // QIQT Badge (large, above title)
                 ShaderMask(
                   shaderCallback: (bounds) => const LinearGradient(
                     colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
                   ).createShader(bounds),
                   child: const Text(
-                    'QUANTROCK INVESTOR',
+                    'QIQT',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 42,
                       fontWeight: FontWeight.w900,
                       color: Colors.white,
-                      letterSpacing: 2,
+                      letterSpacing: 4,
                     ),
                   ),
                 ),
-                ShaderMask(
-                  shaderCallback: (bounds) => const LinearGradient(
-                    colors: [Color(0xFFA855F7), Color(0xFF3B82F6), Color(0xFF22C55E)],
-                  ).createShader(bounds),
-                  child: const Text(
-                    'QUALIFICATION TEST',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white,
-                      letterSpacing: 2,
-                    ),
+                const SizedBox(height: 8),
+                // Subtitle (smaller, one line)
+                const Text(
+                  'Quantrock Investor Qualification Test',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF9CA3AF),
+                    letterSpacing: 0.5,
                   ),
-                ),
-                const SizedBox(height: 12),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF22C55E).withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: const Color(0xFF22C55E).withValues(alpha: 0.3),
-                    ),
-                  ),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        '⭐ ',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      Text(
-                        'QIQT',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF22C55E),
-                          letterSpacing: 2,
-                        ),
-                      ),
-                    ],
-                  ),
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 24),
                 // Description
