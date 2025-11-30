@@ -5,11 +5,12 @@ import '../context/questionnaire_context.dart';
 import '../components/questionnaire/single_choice_card.dart';
 import '../components/questionnaire/single_choice_grid.dart';
 import '../components/questionnaire/multi_select_chips.dart';
+import '../components/questionnaire/knowledge_rating_card.dart';
 
 const int totalQuestions = 20;
 
 // Question categories for milestone rewards
-enum QuestionCategory { profile, experience, goals, risk, behavior, interests }
+enum QuestionCategory { profile, literacy, goals, readiness }
 
 class QuestionData {
   final String title;
@@ -24,31 +25,30 @@ class QuestionData {
 }
 
 final Map<int, QuestionData> questionMetadata = {
-  // Section 1: Personal & Financial Profile
+  // SECTION 1 — Personal Information & Investment Background
   1: const QuestionData(title: 'Gender', category: QuestionCategory.profile),
-  2: const QuestionData(title: 'Age', category: QuestionCategory.profile),
-  3: const QuestionData(title: 'Education', category: QuestionCategory.profile),
-  4: const QuestionData(title: 'Income Source', category: QuestionCategory.profile, xpReward: 50),
-  // Section 2: Investment Experience
-  5: const QuestionData(title: 'Investment Account', category: QuestionCategory.experience, xpReward: 50),
-  6: const QuestionData(title: 'Knowledge', category: QuestionCategory.experience, xpReward: 50),
-  7: const QuestionData(title: 'Asset Classes', category: QuestionCategory.experience, xpReward: 60),
-  // Section 3: Investment Goals & Risk Profile
-  8: const QuestionData(title: 'Investment Goal', category: QuestionCategory.goals, xpReward: 50),
-  9: const QuestionData(title: 'Drop Response', category: QuestionCategory.risk, xpReward: 60),
-  10: const QuestionData(title: 'Fluctuations', category: QuestionCategory.risk, xpReward: 60),
-  11: const QuestionData(title: 'Risk Tolerance', category: QuestionCategory.risk, xpReward: 60),
-  12: const QuestionData(title: 'Risk Attitude', category: QuestionCategory.risk, xpReward: 60),
-  // Section 4: Behavior & Financial Habits
-  13: const QuestionData(title: 'Financial Stress', category: QuestionCategory.behavior, xpReward: 50),
-  14: const QuestionData(title: 'Retirement', category: QuestionCategory.behavior, xpReward: 50),
-  15: const QuestionData(title: 'Saving Habit', category: QuestionCategory.behavior, xpReward: 50),
-  // Section 5: Investment Interests & Motivation
-  16: const QuestionData(title: 'Industries', category: QuestionCategory.interests, xpReward: 60),
-  17: const QuestionData(title: 'Quantrock Goal', category: QuestionCategory.interests, xpReward: 50),
-  18: const QuestionData(title: 'Portfolio Size', category: QuestionCategory.interests, xpReward: 50),
-  19: const QuestionData(title: 'Readiness', category: QuestionCategory.interests, xpReward: 70),
-  20: const QuestionData(title: 'Passive Income', category: QuestionCategory.interests, xpReward: 80),
+  2: const QuestionData(title: 'Age Group', category: QuestionCategory.profile),
+  3: const QuestionData(title: 'Investment Account', category: QuestionCategory.profile, xpReward: 50),
+  4: const QuestionData(title: 'Active Portfolio', category: QuestionCategory.profile, xpReward: 50),
+  5: const QuestionData(title: 'Portfolio Size', category: QuestionCategory.profile, xpReward: 50),
+  6: const QuestionData(title: 'Knowledge Rating', category: QuestionCategory.profile, xpReward: 80),
+  7: const QuestionData(title: 'Asset Classes', category: QuestionCategory.profile, xpReward: 60),
+  8: const QuestionData(title: 'Chart Reading', category: QuestionCategory.profile, xpReward: 50),
+  9: const QuestionData(title: 'Time Horizon', category: QuestionCategory.profile, xpReward: 50),
+  // SECTION 2 — Financial Literacy & Personal Readiness
+  10: const QuestionData(title: 'Market Risk', category: QuestionCategory.literacy, xpReward: 50),
+  11: const QuestionData(title: 'Saving Discipline', category: QuestionCategory.literacy, xpReward: 50),
+  12: const QuestionData(title: 'Emergency Savings', category: QuestionCategory.literacy, xpReward: 50),
+  13: const QuestionData(title: 'Retirement', category: QuestionCategory.literacy, xpReward: 50),
+  14: const QuestionData(title: 'Risk Tolerance', category: QuestionCategory.literacy, xpReward: 60),
+  // SECTION 3 — Investment Objectives & User Motivation
+  15: const QuestionData(title: 'Investment Goal', category: QuestionCategory.goals, xpReward: 50),
+  16: const QuestionData(title: 'Quantrock Goal', category: QuestionCategory.goals, xpReward: 50),
+  17: const QuestionData(title: 'Industries', category: QuestionCategory.goals, xpReward: 60),
+  // SECTION 4 — Learning Readiness & Portfolio Preferences
+  18: const QuestionData(title: 'Readiness', category: QuestionCategory.readiness, xpReward: 60),
+  19: const QuestionData(title: 'Passive Income', category: QuestionCategory.readiness, xpReward: 60),
+  20: const QuestionData(title: 'Demo Portfolio', category: QuestionCategory.readiness, xpReward: 80),
 };
 
 class InvestorProfilePage extends StatefulWidget {
@@ -80,6 +80,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
   List<String> _selectedAssets = [];
   List<String> _selectedIndustries = [];
+  final Map<String, int> _knowledgeRatings = {};
 
   late AnimationController _xpAnimationController;
   late AnimationController _pulseController;
@@ -171,14 +172,12 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   }
 
   void _checkMilestones() {
-    if (_step == 4) {
-      _showMilestonePopup('Profile Complete!', 'Section 1 done!');
-    } else if (_step == 7) {
-      _showMilestonePopup('Experience Unlocked!', 'Section 2 complete!');
-    } else if (_step == 12) {
-      _showMilestonePopup('Risk Master!', 'Section 3 conquered!');
-    } else if (_step == 15) {
-      _showMilestonePopup('Almost There!', 'Just one section left!');
+    if (_step == 9) {
+      _showMilestonePopup('Background Complete!', 'Section 1 done!');
+    } else if (_step == 14) {
+      _showMilestonePopup('Literacy Assessed!', 'Section 2 complete!');
+    } else if (_step == 17) {
+      _showMilestonePopup('Goals Defined!', 'Section 3 conquered!');
     }
   }
 
@@ -256,13 +255,14 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
   Widget _buildQuestion(QuestionnaireAnswers answers) {
     switch (_step) {
-      // SECTION 1 — Personal & Financial Profile
+      // SECTION 1 — Personal Information & Investment Background
       case 1:
-        return SingleChoiceGrid(
+        return SingleChoiceCard(
           title: 'What is your gender?',
           options: const [
             ChoiceOption(label: 'Male', value: 'male', icon: '👨'),
             ChoiceOption(label: 'Female', value: 'female', icon: '👩'),
+            ChoiceOption(label: 'Prefer not to say', value: 'prefer_not_to_say', icon: '🤐'),
           ],
           selectedValue: answers.gender,
           onSelect: (v) => _handleSingleSelect('gender', v),
@@ -270,13 +270,15 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
       case 2:
         return SingleChoiceCard(
-          title: 'What is your age?',
+          title: 'What is your age group?',
           options: const [
-            ChoiceOption(label: 'Under 30', value: '<30', icon: '🧑'),
-            ChoiceOption(label: '30-39', value: '30-39', icon: '👨'),
-            ChoiceOption(label: '40-49', value: '40-49', icon: '👨‍💼'),
-            ChoiceOption(label: '50-59', value: '50-59', icon: '👴'),
-            ChoiceOption(label: '60+', value: '60+', icon: '🧓'),
+            ChoiceOption(label: 'Under 18', value: 'under_18', icon: '🧒'),
+            ChoiceOption(label: '18–24', value: '18-24', icon: '🧑'),
+            ChoiceOption(label: '25–34', value: '25-34', icon: '👨'),
+            ChoiceOption(label: '35–44', value: '35-44', icon: '👨‍💼'),
+            ChoiceOption(label: '45–54', value: '45-54', icon: '👴'),
+            ChoiceOption(label: '55–64', value: '55-64', icon: '🧓'),
+            ChoiceOption(label: '65+', value: '65+', icon: '👵'),
           ],
           selectedValue: answers.ageRange,
           onSelect: (v) => _handleSingleSelect('ageRange', v),
@@ -284,33 +286,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
       case 3:
         return SingleChoiceCard(
-          title: 'What is your education level?',
-          options: const [
-            ChoiceOption(label: 'High school or below', value: 'high_school', icon: '📚'),
-            ChoiceOption(label: 'University degree', value: 'university', icon: '🎓'),
-            ChoiceOption(label: 'Postgraduate studies', value: 'postgraduate', icon: '🎯'),
-          ],
-          selectedValue: answers.educationLevel,
-          onSelect: (v) => _handleSingleSelect('educationLevel', v),
-        );
-
-      case 4:
-        return SingleChoiceGrid(
-          title: 'What is your current income source?',
-          options: const [
-            ChoiceOption(label: 'Employee', value: 'employee', icon: '💼'),
-            ChoiceOption(label: 'Business owner / self-employed', value: 'business_owner', icon: '🏢'),
-            ChoiceOption(label: 'Retired', value: 'retired', icon: '🌴'),
-            ChoiceOption(label: 'Student', value: 'student', icon: '🎓'),
-          ],
-          selectedValue: answers.incomeSource,
-          onSelect: (v) => _handleSingleSelect('incomeSource', v),
-        );
-
-      // SECTION 2 — Investment Experience
-      case 5:
-        return SingleChoiceCard(
-          title: 'Do you have an investment account?',
+          title: 'Do you currently have an investment account?',
           options: const [
             ChoiceOption(label: 'Yes', value: 'yes', icon: '✅'),
             ChoiceOption(label: 'No', value: 'no', icon: '❌'),
@@ -320,17 +296,49 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onSelect: (v) => _handleSingleSelect('hasInvestmentAccount', v),
         );
 
-      case 6:
+      case 4:
         return SingleChoiceCard(
-          title: 'How much do you know about investing?',
+          title: 'Do you have an active investment portfolio?',
           options: const [
-            ChoiceOption(label: 'Nothing at all', value: 'nothing', icon: '🌱'),
-            ChoiceOption(label: 'A little knowledge', value: 'little', icon: '📖'),
-            ChoiceOption(label: 'Good knowledge', value: 'good', icon: '🧠'),
-            ChoiceOption(label: 'Expert level', value: 'expert', icon: '🎯'),
+            ChoiceOption(label: 'Yes', value: 'yes', icon: '✅'),
+            ChoiceOption(label: 'No', value: 'no', icon: '❌'),
+            ChoiceOption(label: 'I used to have one but not anymore', value: 'used_to', icon: '📉'),
           ],
-          selectedValue: answers.investmentKnowledge,
-          onSelect: (v) => _handleSingleSelect('investmentKnowledge', v),
+          selectedValue: answers.hasActivePortfolio,
+          onSelect: (v) => _handleSingleSelect('hasActivePortfolio', v),
+        );
+
+      case 5:
+        return SingleChoiceCard(
+          title: 'What is the approximate size of your current or latest portfolio?',
+          options: const [
+            ChoiceOption(label: 'Less than \$1,000', value: 'less_1k', icon: '💵'),
+            ChoiceOption(label: '\$1,000–\$10,000', value: '1k-10k', icon: '💰'),
+            ChoiceOption(label: '\$10,000–\$25,000', value: '10k-25k', icon: '💎'),
+            ChoiceOption(label: '\$25,000–\$100,000', value: '25k-100k', icon: '🏆'),
+            ChoiceOption(label: '\$100,000–\$500,000', value: '100k-500k', icon: '👑'),
+            ChoiceOption(label: 'More than \$500,000', value: 'more_500k', icon: '🚀'),
+          ],
+          selectedValue: answers.portfolioSize,
+          onSelect: (v) => _handleSingleSelect('portfolioSize', v),
+        );
+
+      case 6:
+        return KnowledgeRatingCard(
+          title: 'Rate your knowledge in the following areas',
+          areas: const ['Stocks', 'Risk management', 'Technical analysis', 'Portfolio diversification'],
+          ratings: _knowledgeRatings,
+          onRatingChanged: (area, rating) {
+            setState(() {
+              _knowledgeRatings[area] = rating;
+            });
+            final provider = context.read<QuestionnaireProvider>();
+            if (area == 'Stocks') provider.setAnswer('stocksKnowledge', rating);
+            if (area == 'Risk management') provider.setAnswer('riskManagementKnowledge', rating);
+            if (area == 'Technical analysis') provider.setAnswer('technicalAnalysisKnowledge', rating);
+            if (area == 'Portfolio diversification') provider.setAnswer('portfolioDiversificationKnowledge', rating);
+          },
+          onContinue: _handleNext,
         );
 
       case 7:
@@ -341,7 +349,8 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
             ChoiceOption(label: 'ETFs', value: 'etfs', icon: '📊'),
             ChoiceOption(label: 'Crypto', value: 'crypto', icon: '₿'),
             ChoiceOption(label: 'Bonds', value: 'bonds', icon: '📜'),
-            ChoiceOption(label: 'Real Estate', value: 'real_estate', icon: '🏢'),
+            ChoiceOption(label: 'Real Estate', value: 'real_estate', icon: '🏠'),
+            ChoiceOption(label: 'Commodities', value: 'commodities', icon: '🛢️'),
             ChoiceOption(label: 'None', value: 'none', icon: '🚫'),
           ],
           selectedValues: _selectedAssets,
@@ -349,49 +358,87 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onContinue: _handleNext,
         );
 
-      // SECTION 3 — Investment Goals & Risk Profile
       case 8:
-        return SingleChoiceGrid(
-          title: 'What is your main goal from investing?',
+        return SingleChoiceCard(
+          title: 'How comfortable are you reading financial charts?',
           options: const [
-            ChoiceOption(label: 'Capital growth', value: 'growth', icon: '📈'),
-            ChoiceOption(label: 'Extra income', value: 'income', icon: '💰'),
-            ChoiceOption(label: 'Capital protection', value: 'protection', icon: '🛡️'),
+            ChoiceOption(label: 'Not comfortable', value: 'not_comfortable', icon: '😰'),
+            ChoiceOption(label: 'Slightly comfortable', value: 'slightly_comfortable', icon: '🤔'),
+            ChoiceOption(label: 'Comfortable', value: 'comfortable', icon: '😊'),
+            ChoiceOption(label: 'Very comfortable', value: 'very_comfortable', icon: '😎'),
           ],
-          selectedValue: answers.investingGoal,
-          onSelect: (v) => _handleSingleSelect('investingGoal', v),
-          columns: 3,
+          selectedValue: answers.chartReadingComfort,
+          onSelect: (v) => _handleSingleSelect('chartReadingComfort', v),
         );
 
       case 9:
-        return SingleChoiceGrid(
-          title: 'If your portfolio dropped 20%, what would you do?',
+        return SingleChoiceCard(
+          title: 'What is your investment time horizon?',
           options: const [
-            ChoiceOption(label: 'Sell immediately', value: 'sell', icon: '😰'),
-            ChoiceOption(label: 'Reduce and wait', value: 'reduce', icon: '😐'),
-            ChoiceOption(label: 'Do nothing', value: 'nothing', icon: '😎'),
-            ChoiceOption(label: 'Buy more', value: 'buy_more', icon: '💪'),
+            ChoiceOption(label: 'Less than 1 year', value: 'less_1_year', icon: '⏱️'),
+            ChoiceOption(label: '1–3 years', value: '1-3_years', icon: '📅'),
+            ChoiceOption(label: '3–7 years', value: '3-7_years', icon: '📆'),
+            ChoiceOption(label: '7+ years', value: '7+_years', icon: '🗓️'),
           ],
-          selectedValue: answers.portfolioDropResponse,
-          onSelect: (v) => _handleSingleSelect('portfolioDropResponse', v),
+          selectedValue: answers.investmentTimeHorizon,
+          onSelect: (v) => _handleSingleSelect('investmentTimeHorizon', v),
         );
 
+      // SECTION 2 — Financial Literacy & Personal Readiness
       case 10:
         return SingleChoiceCard(
-          title: 'How do market fluctuations affect you?',
+          title: 'How well do you understand market risk?',
           options: const [
-            ChoiceOption(label: 'I worry too much', value: 'worry_too_much', icon: '😟'),
-            ChoiceOption(label: 'I worry sometimes', value: 'worry_sometimes', icon: '😐'),
-            ChoiceOption(label: "I don't worry at all", value: 'no_worry', icon: '😌'),
+            ChoiceOption(label: 'Poor', value: 'poor', icon: '😟'),
+            ChoiceOption(label: 'Basic', value: 'basic', icon: '🤔'),
+            ChoiceOption(label: 'Good', value: 'good', icon: '😊'),
+            ChoiceOption(label: 'Excellent', value: 'excellent', icon: '🌟'),
           ],
-          selectedValue: answers.marketFluctuationImpact,
-          onSelect: (v) => _handleSingleSelect('marketFluctuationImpact', v),
+          selectedValue: answers.marketRiskUnderstanding,
+          onSelect: (v) => _handleSingleSelect('marketRiskUnderstanding', v),
         );
 
       case 11:
         return SingleChoiceCard(
+          title: 'How disciplined are you with saving money?',
+          options: const [
+            ChoiceOption(label: "I don't save", value: 'dont_save', icon: '🙈'),
+            ChoiceOption(label: 'I save sometimes', value: 'save_sometimes', icon: '🤷'),
+            ChoiceOption(label: 'I save regularly', value: 'save_regularly', icon: '💪'),
+            ChoiceOption(label: 'I save a fixed percentage every month', value: 'save_fixed', icon: '🎯'),
+          ],
+          selectedValue: answers.savingHabit,
+          onSelect: (v) => _handleSingleSelect('savingHabit', v),
+        );
+
+      case 12:
+        return SingleChoiceGrid(
+          title: 'Do you have emergency savings (3–6 months of expenses)?',
+          options: const [
+            ChoiceOption(label: 'Yes', value: 'yes', icon: '✅'),
+            ChoiceOption(label: 'No', value: 'no', icon: '❌'),
+          ],
+          selectedValue: answers.hasEmergencySavings,
+          onSelect: (v) => _handleSingleSelect('hasEmergencySavings', v),
+        );
+
+      case 13:
+        return SingleChoiceCard(
+          title: 'Do you plan for your retirement?',
+          options: const [
+            ChoiceOption(label: 'Not yet', value: 'not_yet', icon: '🤔'),
+            ChoiceOption(label: 'I save regularly', value: 'save_regularly', icon: '🐷'),
+            ChoiceOption(label: 'I rely on a pension fund', value: 'rely_pension', icon: '🏦'),
+          ],
+          selectedValue: answers.retirementPlanning,
+          onSelect: (v) => _handleSingleSelect('retirementPlanning', v),
+        );
+
+      case 14:
+        return SingleChoiceGrid(
           title: 'What is your risk tolerance?',
           options: const [
+            ChoiceOption(label: 'Very low', value: 'very_low', icon: '🛡️'),
             ChoiceOption(label: 'Low', value: 'low', icon: '🟢'),
             ChoiceOption(label: 'Medium', value: 'medium', icon: '🟡'),
             ChoiceOption(label: 'High', value: 'high', icon: '🔴'),
@@ -400,91 +447,83 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           onSelect: (v) => _handleSingleSelect('riskTolerance', v),
         );
 
-      case 12:
-        return SingleChoiceCard(
-          title: 'What is your attitude towards investment risk?',
-          options: const [
-            ChoiceOption(label: 'Seek highest returns even with high risk', value: 'seek_highest', icon: '🚀'),
-            ChoiceOption(label: 'Accept moderate risk for better returns', value: 'accept_moderate', icon: '⚖️'),
-            ChoiceOption(label: 'Prefer safety even with lower returns', value: 'prefer_safety', icon: '🛡️'),
-          ],
-          selectedValue: answers.riskAttitude,
-          onSelect: (v) => _handleSingleSelect('riskAttitude', v),
-        );
-
-      // SECTION 4 — Behavior & Financial Habits
-      case 13:
-        return SingleChoiceGrid(
-          title: 'How often do you feel stressed about your financial situation?',
-          options: const [
-            ChoiceOption(label: 'Most of the time', value: 'most_time', icon: '🤕'),
-            ChoiceOption(label: 'Always', value: 'always', icon: '😫'),
-            ChoiceOption(label: 'Rarely', value: 'rarely', icon: '😌'),
-            ChoiceOption(label: 'Sometimes', value: 'sometimes', icon: '😐'),
-          ],
-          selectedValue: answers.financialStressFrequency,
-          onSelect: (v) => _handleSingleSelect('financialStressFrequency', v),
-        );
-
-      case 14:
-        return SingleChoiceCard(
-          title: 'Do you plan for your retirement?',
-          options: const [
-            ChoiceOption(label: 'Not yet, but I want to', value: 'not_yet', icon: '🤔'),
-            ChoiceOption(label: 'I save regularly for retirement', value: 'save_regularly', icon: '🐷'),
-            ChoiceOption(label: 'Relying on pension fund', value: 'rely_pension', icon: '🏦'),
-          ],
-          selectedValue: answers.retirementPlanning,
-          onSelect: (v) => _handleSingleSelect('retirementPlanning', v),
-        );
-
+      // SECTION 3 — Investment Objectives & User Motivation
       case 15:
-        return SingleChoiceGrid(
-          title: 'Do you have a habit of saving money?',
+        return SingleChoiceCard(
+          title: 'What is your main goal from investing?',
           options: const [
-            ChoiceOption(label: "I want to save but I can't", value: 'want_but_cant', icon: '😔'),
-            ChoiceOption(label: "I don't save", value: 'dont_save', icon: '🙈'),
-            ChoiceOption(label: 'I save regularly', value: 'save_regularly', icon: '💪'),
-            ChoiceOption(label: 'I save sometimes', value: 'save_sometimes', icon: '🤷'),
+            ChoiceOption(label: 'Capital growth', value: 'growth', icon: '📈'),
+            ChoiceOption(label: 'Extra income', value: 'income', icon: '💰'),
+            ChoiceOption(label: 'Capital protection', value: 'protection', icon: '🛡️'),
+            ChoiceOption(label: 'Short-term speculation', value: 'speculation', icon: '⚡'),
+            ChoiceOption(label: 'Long-term wealth building', value: 'wealth_building', icon: '🏰'),
           ],
-          selectedValue: answers.savingHabit,
-          onSelect: (v) => _handleSingleSelect('savingHabit', v),
+          selectedValue: answers.investingGoal,
+          onSelect: (v) => _handleSingleSelect('investingGoal', v),
         );
 
-      // SECTION 5 — Investment Interests & Motivation
       case 16:
-        return MultiSelectChips(
-          title: 'Choose the industries you are interested in',
-          options: const [
-            ChoiceOption(label: 'Tech (Apple, Microsoft, Google)', value: 'tech', icon: '💻'),
-            ChoiceOption(label: 'Electric Vehicles (Tesla)', value: 'ev', icon: '🚗'),
-            ChoiceOption(label: 'Energy (Shell, Exxon)', value: 'energy', icon: '⚡'),
-            ChoiceOption(label: 'Healthcare (Pfizer)', value: 'healthcare', icon: '💊'),
-            ChoiceOption(label: "Retail (Amazon, McDonald's)", value: 'retail', icon: '🛒'),
-            ChoiceOption(label: 'Crypto (Bitcoin)', value: 'crypto', icon: '₿'),
-          ],
-          selectedValues: _selectedIndustries,
-          onToggle: _toggleIndustry,
-          onContinue: _handleNext,
-        );
-
-      case 17:
-        return SingleChoiceGrid(
+        return SingleChoiceCard(
           title: 'What is your main goal in trying Quantrock App?',
           options: const [
             ChoiceOption(label: 'Join the challenge', value: 'challenge', icon: '🏆'),
             ChoiceOption(label: 'Prepare for real trading', value: 'prepare_trading', icon: '📊'),
             ChoiceOption(label: 'Test my own strategy', value: 'test_strategy', icon: '🎯'),
             ChoiceOption(label: 'Learn and build skills', value: 'learn', icon: '📚'),
+            ChoiceOption(label: 'Explore automated investing concepts', value: 'explore_auto', icon: '🤖'),
           ],
           selectedValue: answers.quantrockGoal,
           onSelect: (v) => _handleSingleSelect('quantrockGoal', v),
         );
 
+      case 17:
+        return MultiSelectChips(
+          title: 'Which industries or sectors are you interested in?',
+          options: const [
+            ChoiceOption(label: 'Technology', value: 'tech', icon: '💻'),
+            ChoiceOption(label: 'Electric Vehicles', value: 'ev', icon: '🚗'),
+            ChoiceOption(label: 'Energy', value: 'energy', icon: '⚡'),
+            ChoiceOption(label: 'Healthcare', value: 'healthcare', icon: '💊'),
+            ChoiceOption(label: 'Retail', value: 'retail', icon: '🛒'),
+            ChoiceOption(label: 'Crypto', value: 'crypto', icon: '₿'),
+            ChoiceOption(label: 'AI & Robotics', value: 'ai_robotics', icon: '🤖'),
+            ChoiceOption(label: 'Finance', value: 'finance', icon: '🏦'),
+          ],
+          selectedValues: _selectedIndustries,
+          onToggle: _toggleIndustry,
+          onContinue: _handleNext,
+        );
+
+      // SECTION 4 — Learning Readiness & Portfolio Preferences
       case 18:
         return SingleChoiceCard(
-          title: 'What is your preferred demo portfolio size?',
-          subtitle: 'We recommend choosing a trial amount close to what you plan to invest later',
+          title: 'How prepared do you feel to start investing?',
+          options: const [
+            ChoiceOption(label: 'I need a lot of help', value: 'need_help', icon: '🆘'),
+            ChoiceOption(label: 'Somewhat prepared', value: 'somewhat_prepared', icon: '🤔'),
+            ChoiceOption(label: 'Fully prepared', value: 'fully_prepared', icon: '💪'),
+            ChoiceOption(label: 'Very confident', value: 'very_confident', icon: '🌟'),
+          ],
+          selectedValue: answers.investmentReadinessText,
+          onSelect: (v) => _handleSingleSelect('investmentReadinessText', v),
+        );
+
+      case 19:
+        return SingleChoiceCard(
+          title: 'How would you rate your understanding of passive income?',
+          options: const [
+            ChoiceOption(label: "I don't understand it", value: 'dont_understand', icon: '🤷'),
+            ChoiceOption(label: 'Basic understanding', value: 'basic', icon: '📖'),
+            ChoiceOption(label: 'Good understanding', value: 'good', icon: '🧠'),
+            ChoiceOption(label: 'Excellent understanding', value: 'excellent', icon: '🎯'),
+          ],
+          selectedValue: answers.passiveIncomeKnowledgeText,
+          onSelect: (v) => _handleSingleSelect('passiveIncomeKnowledgeText', v),
+        );
+
+      case 20:
+        return SingleChoiceCard(
+          title: 'What is your preferred demo portfolio size inside Quantrock?',
           options: const [
             ChoiceOption(label: '\$1,000', value: '1k', icon: '💵'),
             ChoiceOption(label: '\$10,000', value: '10k', icon: '💰'),
@@ -494,32 +533,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           ],
           selectedValue: answers.preferredPortfolioSize,
           onSelect: (v) => _handleSingleSelect('preferredPortfolioSize', v),
-        );
-
-      case 19:
-        return SingleChoiceCard(
-          title: 'Rate your readiness to invest',
-          options: const [
-            ChoiceOption(label: 'Totally prepared', value: 'totally_prepared', icon: '🎯'),
-            ChoiceOption(label: 'Somewhat prepared', value: 'somewhat_prepared', icon: '📊'),
-            ChoiceOption(label: 'Neutral', value: 'neutral', icon: '😐'),
-            ChoiceOption(label: 'I need more information', value: 'need_info', icon: '📚'),
-          ],
-          selectedValue: answers.investmentReadinessText,
-          onSelect: (v) => _handleSingleSelect('investmentReadinessText', v),
-        );
-
-      case 20:
-        return SingleChoiceCard(
-          title: 'Rate your knowledge about passive income',
-          options: const [
-            ChoiceOption(label: 'Totally prepared', value: 'totally_prepared', icon: '🎯'),
-            ChoiceOption(label: 'Somewhat prepared', value: 'somewhat_prepared', icon: '📊'),
-            ChoiceOption(label: 'Neutral', value: 'neutral', icon: '😐'),
-            ChoiceOption(label: 'I need more information', value: 'need_info', icon: '📚'),
-          ],
-          selectedValue: answers.passiveIncomeKnowledgeText,
-          onSelect: (v) => _handleSingleSelect('passiveIncomeKnowledgeText', v),
         );
 
       default:
@@ -996,25 +1009,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       ),
     );
   }
-
-  Widget _buildDescriptionItem(IconData icon, String text) {
-    return Row(
-      children: [
-        Icon(icon, color: const Color(0xFF22C55E), size: 20),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Text(
-            text,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 13,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
 
   @override
   Widget build(BuildContext context) {
