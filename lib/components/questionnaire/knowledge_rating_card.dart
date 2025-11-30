@@ -28,33 +28,32 @@ class _KnowledgeRatingCardState extends State<KnowledgeRatingCard> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            widget.title,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            '1 = No knowledge, 5 = Excellent',
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.white.withValues(alpha: 0.6),
-            ),
-          ),
-          const SizedBox(height: 24),
           Expanded(
-            child: ListView.builder(
-              itemCount: widget.areas.length,
-              itemBuilder: (context, index) {
-                final area = widget.areas[index];
-                final rating = widget.ratings[area] ?? 0;
-                return _buildRatingRow(area, rating);
-              },
+            child: ListView(
+              children: [
+                Text(
+                  widget.title,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  '1 = No knowledge, 5 = Excellent',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white.withValues(alpha: 0.6),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                ...widget.areas.map((area) {
+                  final rating = widget.ratings[area] ?? 0;
+                  return _buildRatingRow(area, rating);
+                }),
+              ],
             ),
           ),
           const SizedBox(height: 16),

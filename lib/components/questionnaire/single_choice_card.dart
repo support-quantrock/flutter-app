@@ -32,8 +32,7 @@ class SingleChoiceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
         children: [
           // Question badge
           Container(
@@ -78,23 +77,21 @@ class SingleChoiceCard extends StatelessWidget {
             ),
           ],
           const SizedBox(height: 24),
-          Expanded(
-            child: ListView.separated(
-              itemCount: options.length,
-              separatorBuilder: (_, __) => const SizedBox(height: 12),
-              itemBuilder: (context, index) {
-                final option = options[index];
-                final isSelected = selectedValue == option.value;
+          ...options.asMap().entries.map((entry) {
+            final index = entry.key;
+            final option = entry.value;
+            final isSelected = selectedValue == option.value;
 
-                return _GameOptionCard(
-                  option: option,
-                  isSelected: isSelected,
-                  onTap: () => onSelect(option.value),
-                  index: index,
-                );
-              },
-            ),
-          ),
+            return Padding(
+              padding: EdgeInsets.only(bottom: index < options.length - 1 ? 12 : 0),
+              child: _GameOptionCard(
+                option: option,
+                isSelected: isSelected,
+                onTap: () => onSelect(option.value),
+                index: index,
+              ),
+            );
+          }),
         ],
       ),
     );
