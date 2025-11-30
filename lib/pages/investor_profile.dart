@@ -73,7 +73,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   int _totalXP = 0;
   int _currentLevel = 1;
   bool _showXPGain = false;
-  int _lastXPGain = 0;
   bool _showLevelUp = false;
   bool _showMilestone = false;
   String _milestoneTitle = '';
@@ -148,7 +147,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
     final newLevel = _calculateLevel(newXP);
 
     setState(() {
-      _lastXPGain = xp;
       _showXPGain = true;
       _totalXP = newXP;
 
@@ -967,17 +965,36 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           borderRadius: BorderRadius.circular(20),
         ),
         title: const Text(
-          'QIQT',
+          'Quantrock Investor Qualification Test (QIQT)',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
+            fontSize: 18,
           ),
         ),
-        content: const Text(
-          'Quantrock Investor Qualification Test',
-          style: TextStyle(
-            color: Colors.white70,
-            fontSize: 16,
+        content: const SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'QIQT is an intelligent qualification test built on OECD, MIT, and CFA standards, designed to measure your investment experience, financial literacy, motivations, and readiness to learn.',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 14,
+                  height: 1.5,
+                ),
+              ),
+              SizedBox(height: 12),
+              Text(
+                'QIQT helps you assess your financial knowledge, investment background, and determine your ideal path inside Quantrock whether in challenges, daily lessons, or selecting the appropriate demo portfolio size.',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 14,
+                  height: 1.5,
+                ),
+              ),
+            ],
           ),
         ),
         actions: [
@@ -1113,7 +1130,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           ),
           const SizedBox(height: 12),
           Text(
-            'QIQT helps you assess your financial knowledge, investment background, and determine your ideal path inside Quantrock—whether in challenges, daily lessons, or selecting the appropriate demo portfolio size.',
+            'QIQT helps you assess your financial knowledge, investment background, and determine your ideal path inside Quantrock whether in challenges, daily lessons, or selecting the appropriate demo portfolio size.',
             style: TextStyle(
               color: Colors.white.withValues(alpha: 0.8),
               fontSize: 15,
@@ -1430,7 +1447,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                             const Icon(
                               Icons.star,
                               color: Colors.white,
-                              size: 16,
+                              size: 18,
                             ),
                             const SizedBox(width: 4),
                             Text(
@@ -1438,7 +1455,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 12,
+                                fontSize: 14,
                               ),
                             ),
                           ],
@@ -1459,7 +1476,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                         _getLevelTitle(_currentLevel),
                         style: TextStyle(
                           color: Colors.white.withValues(alpha: 0.7),
-                          fontSize: 10,
+                          fontSize: 12,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -1624,69 +1641,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildXPGainPopup() {
-    return AnimatedBuilder(
-      animation: _xpAnimationController,
-      builder: (context, child) {
-        final progress = Curves.easeOutBack.transform(_xpAnimationController.value);
-        return Positioned(
-          top: 100,
-          left: 0,
-          right: 0,
-          child: Center(
-            child: Opacity(
-              opacity: (1 - _xpAnimationController.value * 0.5).clamp(0.0, 1.0),
-              child: Transform.translate(
-                offset: Offset(0, -50 * progress),
-                child: Transform.scale(
-                  scale: 0.5 + progress * 0.5,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Colors.amber, Colors.orange],
-                      ),
-                      borderRadius: BorderRadius.circular(30),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.amber.withValues(alpha: 0.6),
-                          blurRadius: 20,
-                          spreadRadius: 2,
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          Icons.bolt,
-                          color: Colors.white,
-                          size: 24,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          '+$_lastXPGain XP',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 
