@@ -822,8 +822,8 @@ class _DashboardPageState extends State<DashboardPage>
           ),
           const SizedBox(height: 12),
           SizedBox(
-            width: 100,
-            height: 100,
+            width: 140,
+            height: 140,
             child: CustomPaint(
               painter: CircularProgressPainter(
                 progress: 0.65,
@@ -838,7 +838,7 @@ class _DashboardPageState extends State<DashboardPage>
                       '+\$500',
                       style: TextStyle(
                         color: Color(0xFF22C55E),
-                        fontSize: 16,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -846,7 +846,7 @@ class _DashboardPageState extends State<DashboardPage>
                       '+5.0%',
                       style: TextStyle(
                         color: Color(0xFF9CA3AF),
-                        fontSize: 12,
+                        fontSize: 14,
                       ),
                     ),
                   ],
@@ -954,83 +954,212 @@ class _DashboardPageState extends State<DashboardPage>
         const SizedBox(height: 16),
         // First row: Trades and Days
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildObjectiveCircle('Trades', '10/10', 1.0, const Color(0xFF22C55E)),
-            const SizedBox(width: 24),
-            _buildObjectiveCircle('Days', '15/15', 1.0, const Color(0xFF22C55E)),
+            _buildObjectiveCircleLarge(
+              label: 'Number of trades',
+              value: '10',
+              progress: 1.0,
+              color: const Color(0xFF22C55E),
+              target: '10',
+            ),
+            _buildObjectiveCircleLarge(
+              label: 'Challenge Days',
+              value: '15',
+              progress: 1.0,
+              color: const Color(0xFF3B82F6),
+              target: '15',
+            ),
           ],
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 20),
         // Second row: Profit, Daily Loss, Max Loss
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildObjectiveCircle('Profit', '\$1200', 0.65, const Color(0xFF3B82F6), subtitle: '8%'),
-            const SizedBox(width: 12),
-            _buildObjectiveCircle('Daily Loss', '\$500', 0.5, const Color(0xFFEF4444), subtitle: '5%'),
-            const SizedBox(width: 12),
-            _buildObjectiveCircle('Max Loss', '\$1500', 0.7, const Color(0xFFF97316), subtitle: '10%'),
+            _buildObjectiveCircleMedium(
+              label: 'Profit Target',
+              value: '\$1200',
+              percentage: '6%',
+              progress: 0.75,
+              color: const Color(0xFF22C55E),
+              targetPercentage: '8%',
+              targetValue: '\$1600',
+            ),
+            _buildObjectiveCircleMedium(
+              label: 'Max Daily Loss',
+              value: '\$500',
+              percentage: '2.5%',
+              progress: 0.5,
+              color: const Color(0xFFEF4444),
+              targetPercentage: '5%',
+              targetValue: '\$1000',
+            ),
+            _buildObjectiveCircleMedium(
+              label: 'Max Loss Limit',
+              value: '\$1500',
+              percentage: '9.4%',
+              progress: 0.94,
+              color: const Color(0xFFEF4444),
+              targetPercentage: '10%',
+              targetValue: '\$1600',
+            ),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildObjectiveCircle(String label, String value, double progress, Color color, {String? subtitle}) {
-    return Column(
-      children: [
-        SizedBox(
-          width: 60,
-          height: 60,
-          child: CustomPaint(
-            painter: CircularProgressPainter(
-              progress: progress,
-              progressColor: color,
-              backgroundColor: const Color(0xFF374151),
-              strokeWidth: 4,
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    value,
-                    style: TextStyle(
-                      color: color,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                    ),
+  Widget _buildObjectiveCircleLarge({
+    required String label,
+    required String value,
+    required double progress,
+    required Color color,
+    required String target,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            width: 100,
+            height: 100,
+            child: CustomPaint(
+              painter: CircularProgressPainter(
+                progress: progress,
+                progressColor: color,
+                backgroundColor: const Color(0xFF374151),
+                strokeWidth: 6,
+              ),
+              child: Center(
+                child: Text(
+                  value,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
                   ),
-                  if (subtitle != null)
-                    Text(
-                      subtitle,
-                      style: const TextStyle(
-                        color: Color(0xFF9CA3AF),
-                        fontSize: 8,
-                      ),
-                    ),
-                ],
+                ),
               ),
             ),
           ),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                label,
+                style: const TextStyle(
+                  color: Color(0xFF9CA3AF),
+                  fontSize: 12,
+                ),
+              ),
+              const SizedBox(width: 4),
+              _buildInfoIcon(label == 'Number of trades' ? 'Trades' : 'Days', size: 12),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            target,
+            style: TextStyle(
+              color: color,
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildObjectiveCircleMedium({
+    required String label,
+    required String value,
+    required String percentage,
+    required double progress,
+    required Color color,
+    required String targetPercentage,
+    required String targetValue,
+  }) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.05),
+          borderRadius: BorderRadius.circular(12),
         ),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisSize: MainAxisSize.min,
+        child: Column(
           children: [
-            Text(
-              label,
-              style: const TextStyle(
-                color: Color(0xFF9CA3AF),
-                fontSize: 10,
+            SizedBox(
+              width: 80,
+              height: 80,
+              child: CustomPaint(
+                painter: CircularProgressPainter(
+                  progress: progress,
+                  progressColor: color,
+                  backgroundColor: const Color(0xFF374151),
+                  strokeWidth: 5,
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        value,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        percentage,
+                        style: TextStyle(
+                          color: color,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
-            const SizedBox(width: 4),
-            _buildInfoIcon(label, size: 10),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Text(
+                    label,
+                    style: const TextStyle(
+                      color: Color(0xFF9CA3AF),
+                      fontSize: 10,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(width: 4),
+                _buildInfoIcon(
+                  label.contains('Profit') ? 'Profit' : (label.contains('Daily') ? 'Daily Loss' : 'Max Loss'),
+                  size: 10,
+                ),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Text(
+              '($targetPercentage) $targetValue',
+              style: const TextStyle(
+                color: Color(0xFF9CA3AF),
+                fontSize: 11,
+              ),
+            ),
           ],
         ),
-      ],
+      ),
     );
   }
 
