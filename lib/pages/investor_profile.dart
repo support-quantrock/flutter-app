@@ -262,7 +262,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           options: const [
             ChoiceOption(label: 'Male', value: 'male', icon: '👨'),
             ChoiceOption(label: 'Female', value: 'female', icon: '👩'),
-            ChoiceOption(label: 'Prefer not to say', value: 'prefer_not_to_say', icon: '🤐'),
           ],
           selectedValue: answers.gender,
           onSelect: (v) => _handleSingleSelect('gender', v),
@@ -1254,7 +1253,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        '${_totalXP % 200} / 200 XP',
+                        'Question $_step of $totalQuestions',
                         style: TextStyle(
                           color: Colors.amber.withValues(alpha: 0.8),
                           fontSize: 10,
@@ -1267,7 +1266,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
                 const SizedBox(width: 12),
 
-                // Total XP Display
+                // Question Number Display
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 10,
@@ -1280,13 +1279,13 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   child: Row(
                     children: [
                       const Icon(
-                        Icons.bolt,
-                        color: Colors.amber,
+                        Icons.quiz_outlined,
+                        color: Colors.cyan,
                         size: 16,
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        '$_totalXP',
+                        '$_step/$totalQuestions',
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -1312,32 +1311,19 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  const Icon(
-                    Icons.map,
-                    color: Colors.cyan,
-                    size: 16,
-                  ),
-                  const SizedBox(width: 6),
-                  Text(
-                    'QIQT Qualification Test',
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.8),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
+              const Icon(
+                Icons.map,
+                color: Colors.cyan,
+                size: 16,
               ),
+              const SizedBox(width: 6),
               Text(
-                '$_step / $totalQuestions',
-                style: const TextStyle(
-                  color: Colors.cyan,
+                'QIQT Qualification Test',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 12,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],

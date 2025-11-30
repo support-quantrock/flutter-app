@@ -900,19 +900,17 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
 
                     const SizedBox(height: 20),
 
-                    // Robo-Advisor Portfolio Allocation
+                    // Score Cards
                     _AnimatedSlideIn(
                       controller: _mainController,
                       delay: 0.3,
-                      child: _RoboAdvisorSection(
-                        allocations: allocations,
-                        personalityLabel: personality.label,
+                      child: _ScoreCard(
+                        title: 'Investment Personality',
+                        result: personality,
+                        onInfoTap: () => _showInfoModal('personality'),
                       ),
                     ),
-
-                    const SizedBox(height: 20),
-
-                    // Score Cards
+                    const SizedBox(height: 12),
                     _AnimatedSlideIn(
                       controller: _mainController,
                       delay: 0.35,
@@ -954,10 +952,22 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
 
                     const SizedBox(height: 20),
 
-                    // Action Buttons
+                    // Portfolio Allocation
                     _AnimatedSlideIn(
                       controller: _mainController,
                       delay: 0.55,
+                      child: _RoboAdvisorSection(
+                        allocations: allocations,
+                        personalityLabel: personality.label,
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // Action Buttons
+                    _AnimatedSlideIn(
+                      controller: _mainController,
+                      delay: 0.6,
                       child: Row(
                         children: [
                           Expanded(
@@ -978,20 +988,6 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                             ),
                           ),
                         ],
-                      ),
-                    ),
-
-                    const SizedBox(height: 24),
-
-                    // Score Breakdown
-                    _AnimatedSlideIn(
-                      controller: _mainController,
-                      delay: 0.6,
-                      child: _ScoreBreakdown(
-                        personality: personality,
-                        literacy: literacy,
-                        strength: strength,
-                        readiness: readiness,
                       ),
                     ),
 
@@ -1330,7 +1326,7 @@ class _RoboAdvisorSection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Robo-Advisor Allocation',
+                      'Portfolio Allocation',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -1914,84 +1910,6 @@ class _ActionButton extends StatelessWidget {
             if (isPrimary) Icon(icon, color: Colors.white, size: 20),
           ],
         ),
-      ),
-    );
-  }
-}
-
-// Score Breakdown
-class _ScoreBreakdown extends StatelessWidget {
-  final ScoreResult personality;
-  final ScoreResult literacy;
-  final ScoreResult strength;
-  final ScoreResult readiness;
-
-  const _ScoreBreakdown({
-    required this.personality,
-    required this.literacy,
-    required this.strength,
-    required this.readiness,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.05),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Score Breakdown',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 16),
-          _buildBreakdownItem('Investment Personality', personality),
-          _buildBreakdownItem('Financial Literacy (QLS)', literacy),
-          _buildBreakdownItem('Financial Strength', strength),
-          _buildBreakdownItem('Challenge Readiness', readiness, isLast: true),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBreakdownItem(String label, ScoreResult result, {bool isLast = false}) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      decoration: BoxDecoration(
-        border: isLast
-            ? null
-            : Border(
-                bottom: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
-              ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.white.withValues(alpha: 0.7),
-            ),
-          ),
-          Text(
-            '${result.score}/${result.maxScore} • ${result.label}',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: result.color,
-            ),
-          ),
-        ],
       ),
     );
   }
