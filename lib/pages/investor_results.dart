@@ -573,25 +573,31 @@ class InfoItem {
 
 final Map<String, InfoCategory> infoContent = {
   'personality': InfoCategory(
-    title: 'Investment Experience Levels',
+    title: 'Investment Experience (0-40 pts)',
     items: [
       InfoItem(
-        emoji: '🌱',
-        label: 'Beginner (0-13 pts)',
-        color: const Color(0xFFF59E0B),
-        description: 'New to investing with limited market exposure. Building foundational knowledge of stocks, bonds, and basic investment concepts.',
+        emoji: '👤',
+        label: 'Age & Demographics',
+        color: const Color(0xFF6366F1),
+        description: 'Your age group contributes 0-5 points. Prime investing years (35-44) score highest as they balance experience with growth potential.',
       ),
       InfoItem(
-        emoji: '📊',
-        label: 'Intermediate (14-27 pts)',
-        color: const Color(0xFF3B82F6),
-        description: 'Has some investment experience with active portfolios. Familiar with different asset classes and comfortable reading market charts.',
+        emoji: '💼',
+        label: 'Account & Portfolio',
+        color: const Color(0xFF6366F1),
+        description: 'Having an investment account (0-4 pts) and active portfolio (0-5 pts). Portfolio size adds 1-6 points based on value managed.',
       ),
       InfoItem(
-        emoji: '🎓',
-        label: 'Advanced (28-40 pts)',
-        color: const Color(0xFF22C55E),
-        description: 'Extensive investment background with diversified portfolio experience. Proficient in technical analysis and multiple asset classes.',
+        emoji: '📚',
+        label: 'Knowledge Ratings',
+        color: const Color(0xFF6366F1),
+        description: 'Your self-rated knowledge of stocks, risk management, technical analysis, and diversification. Average rating × 2 (max 10 pts).',
+      ),
+      InfoItem(
+        emoji: '📈',
+        label: 'Skills & Experience',
+        color: const Color(0xFF6366F1),
+        description: 'Asset class experience (+1 per class, max 5 pts), chart reading comfort (0-3 pts), and investment time horizon (0-3 pts).',
       ),
     ],
   ),
