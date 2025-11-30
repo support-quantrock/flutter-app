@@ -42,122 +42,213 @@ class AssetAllocation {
   });
 }
 
-// Scoring Calculations
+// QIQT Scoring Calculations (Based on OECD, MIT, CFA Standards)
 class InvestorScoring {
-  static ScoreResult calculatePersonality(QuestionnaireAnswers answers) {
+  // SECTION 1: Investment Experience (0-40 points)
+  static ScoreResult calculateInvestmentExperience(QuestionnaireAnswers answers) {
     int score = 0;
 
-    switch (answers.portfolioDropResponse) {
-      case 'sell':
+    // Q1 Gender - 0 points (not scored)
+
+    // Q2 Age Group (0-5 points)
+    switch (answers.ageRange) {
+      case 'under_18':
         score += 0;
         break;
-      case 'reduce':
+      case '18_24':
+        score += 2;
+        break;
+      case '25_34':
+        score += 4;
+        break;
+      case '35_44':
+        score += 5;
+        break;
+      case '45_54':
+        score += 4;
+        break;
+      case '55_64':
         score += 3;
         break;
-      case 'nothing':
-        score += 5;
-        break;
-      case 'buy_more':
-        score += 10;
+      case '65_plus':
+        score += 2;
         break;
     }
 
-    switch (answers.marketFluctuationImpact) {
-      case 'worry_too_much':
+    // Q3 Investment Account (0-4 points)
+    switch (answers.hasInvestmentAccount) {
+      case 'no':
         score += 0;
         break;
-      case 'worry_sometimes':
-        score += 5;
+      case 'planning':
+        score += 2;
         break;
-      case 'no_worry':
-        score += 10;
+      case 'yes':
+        score += 4;
         break;
     }
 
-    switch (answers.riskTolerance) {
-      case 'low':
+    // Q4 Active Portfolio (0-5 points)
+    switch (answers.hasActivePortfolio) {
+      case 'no':
         score += 0;
         break;
-      case 'medium':
-        score += 5;
+      case 'used_to':
+        score += 3;
         break;
-      case 'high':
-        score += 10;
+      case 'yes':
+        score += 5;
         break;
     }
 
-    switch (answers.riskAttitude) {
-      case 'prefer_safety':
+    // Q5 Portfolio Size (1-6 points)
+    switch (answers.portfolioSize) {
+      case 'less_1k':
+        score += 1;
+        break;
+      case '1k_10k':
+        score += 2;
+        break;
+      case '10k_25k':
+        score += 3;
+        break;
+      case '25k_100k':
+        score += 4;
+        break;
+      case '100k_500k':
+        score += 5;
+        break;
+      case 'more_500k':
+        score += 6;
+        break;
+    }
+
+    // Q6 Knowledge Ratings - avg × 2 (max 10 points)
+    final stocksKnowledge = answers.stocksKnowledge ?? 1;
+    final riskKnowledge = answers.riskManagementKnowledge ?? 1;
+    final technicalKnowledge = answers.technicalAnalysisKnowledge ?? 1;
+    final diversificationKnowledge = answers.portfolioDiversificationKnowledge ?? 1;
+    final avgKnowledge = (stocksKnowledge + riskKnowledge + technicalKnowledge + diversificationKnowledge) / 4;
+    score += (avgKnowledge * 2).round().clamp(0, 10);
+
+    // Q7 Asset Classes - +1 per selection (max 5 points)
+    final assetClasses = answers.assetClasses;
+    if (!assetClasses.contains('none')) {
+      score += math.min(assetClasses.length, 5);
+    }
+
+    // Q8 Chart Reading Comfort (0-3 points)
+    switch (answers.chartReadingComfort) {
+      case 'not_comfortable':
         score += 0;
         break;
-      case 'accept_moderate':
-        score += 5;
+      case 'slightly':
+        score += 1;
         break;
-      case 'seek_highest':
-        score += 10;
+      case 'comfortable':
+        score += 2;
+        break;
+      case 'very_comfortable':
+        score += 3;
         break;
     }
 
-    String label;
-    Color color;
-    String emoji;
-
-    if (score <= 10) {
-      label = 'Conservative Investor';
-      color = const Color(0xFF22C55E);
-      emoji = '🏦';
-    } else if (score <= 20) {
-      label = 'Balanced Investor';
-      color = const Color(0xFF3B82F6);
-      emoji = '⚖️';
-    } else if (score <= 30) {
-      label = 'Growth Investor';
-      color = const Color(0xFF8B5CF6);
-      emoji = '🌱';
-    } else {
-      label = 'Aggressive Trader';
-      color = const Color(0xFFEF4444);
-      emoji = '⚡';
+    // Q9 Investment Time Horizon (0-3 points)
+    switch (answers.investmentTimeHorizon) {
+      case 'less_1_year':
+        score += 0;
+        break;
+      case '1_3_years':
+        score += 1;
+        break;
+      case '3_7_years':
+        score += 2;
+        break;
+      case 'more_7_years':
+        score += 3;
+        break;
     }
 
     return ScoreResult(
-      score: score,
+      score: score.clamp(0, 40),
       maxScore: 40,
-      label: label,
-      color: color,
-      emoji: emoji,
+      label: 'Investment Experience',
+      color: const Color(0xFF6366F1),
+      emoji: '📊',
     );
   }
 
-  static ScoreResult calculateLiteracy(QuestionnaireAnswers answers) {
+  // SECTION 2: Financial Literacy & Readiness (0-30 points)
+  static ScoreResult calculateFinancialLiteracy(QuestionnaireAnswers answers) {
     int score = 0;
 
-    switch (answers.investmentKnowledge) {
-      case 'nothing':
+    // Q10 Market Risk Understanding (0-6 points)
+    switch (answers.marketRiskUnderstanding) {
+      case 'poor':
         score += 0;
         break;
-      case 'little':
-        score += 4;
+      case 'basic':
+        score += 2;
         break;
       case 'good':
-        score += 8;
+        score += 4;
         break;
-      case 'expert':
-        score += 12;
+      case 'excellent':
+        score += 6;
         break;
     }
 
-    final assetClasses = answers.assetClasses;
-    if (!assetClasses.contains('none')) {
-      score += math.min(assetClasses.length * 2, 10);
+    // Q11 Saving Discipline (0-4 points)
+    switch (answers.savingHabit) {
+      case 'dont_save':
+        score += 0;
+        break;
+      case 'sometimes':
+        score += 2;
+        break;
+      case 'regularly':
+        score += 3;
+        break;
+      case 'fixed_percentage':
+        score += 4;
+        break;
     }
 
-    final passiveKnowledge = answers.passiveIncomeKnowledge ?? 5;
-    score += (5 - passiveKnowledge).clamp(0, 4);
+    // Q12 Emergency Savings (0-3 points)
+    if (answers.hasEmergencySavings == 'yes') {
+      score += 3;
+    }
 
-    final readiness = answers.investmentReadiness ?? 5;
-    score += (5 - readiness).clamp(0, 4);
+    // Q13 Retirement Planning (0-3 points)
+    switch (answers.retirementPlanning) {
+      case 'not_yet':
+        score += 0;
+        break;
+      case 'pension':
+        score += 2;
+        break;
+      case 'save_regularly':
+        score += 3;
+        break;
+    }
 
+    // Q14 Risk Tolerance (0-5 points)
+    switch (answers.riskTolerance) {
+      case 'very_low':
+        score += 0;
+        break;
+      case 'low':
+        score += 2;
+        break;
+      case 'medium':
+        score += 3;
+        break;
+      case 'high':
+        score += 5;
+        break;
+    }
+
+    // Determine literacy level for label
     String label;
     Color color;
     String emoji;
@@ -177,7 +268,7 @@ class InvestorScoring {
     }
 
     return ScoreResult(
-      score: score,
+      score: score.clamp(0, 30),
       maxScore: 30,
       label: label,
       color: color,
@@ -185,138 +276,176 @@ class InvestorScoring {
     );
   }
 
-  static ScoreResult calculateStrength(QuestionnaireAnswers answers) {
+  // SECTION 3: Motivation & Objectives (0-15 points)
+  static ScoreResult calculateMotivation(QuestionnaireAnswers answers) {
     int score = 0;
 
-    switch (answers.monthlyIncome) {
-      case '<5k':
-        score += 0;
+    // Q15 Investment Goal (1-5 points)
+    switch (answers.investingGoal) {
+      case 'capital_protection':
+        score += 1;
         break;
-      case '5k-10k':
+      case 'extra_income':
         score += 2;
         break;
-      case '10k-25k':
+      case 'capital_growth':
+        score += 3;
+        break;
+      case 'long_term_wealth':
         score += 4;
         break;
-      case '>25k':
-        score += 6;
+      case 'short_term_speculation':
+        score += 5;
         break;
     }
 
-    switch (answers.incomeStability) {
-      case 'not_stable':
-        score += 0;
-        break;
-      case 'stable':
+    // Q16 Quantrock Goal (2-4 points)
+    switch (answers.quantrockGoal) {
+      case 'learn':
         score += 2;
         break;
-      case 'very_stable':
+      case 'challenge':
+        score += 2;
+        break;
+      case 'test_strategy':
+        score += 3;
+        break;
+      case 'prepare_trading':
+        score += 4;
+        break;
+      case 'explore_auto':
         score += 4;
         break;
     }
 
-    final debts = answers.currentDebts;
-    if (debts.contains('no_debts')) {
-      score += 5;
-    } else if (debts.contains('credit_card')) {
-      score += 0;
-    } else if (debts.contains('student_loan') || debts.contains('auto_loan')) {
-      score += 2;
-    } else if (debts.contains('mortgage')) {
-      score += 3;
+    // Q17 Industries Interested - +0.5 per selection (max 5 points)
+    final industries = answers.industriesInterested;
+    score += (industries.length * 0.5).round().clamp(0, 5);
+
+    return ScoreResult(
+      score: score.clamp(0, 15),
+      maxScore: 15,
+      label: 'Motivation',
+      color: const Color(0xFF8B5CF6),
+      emoji: '🎯',
+    );
+  }
+
+  // SECTION 4: Learning Readiness (0-15 points)
+  static ScoreResult calculateLearningReadiness(QuestionnaireAnswers answers) {
+    int score = 0;
+
+    // Q18 Investment Readiness (0-4 points)
+    switch (answers.investmentReadinessText) {
+      case 'need_help':
+        score += 0;
+        break;
+      case 'somewhat':
+        score += 2;
+        break;
+      case 'prepared':
+        score += 3;
+        break;
+      case 'confident':
+        score += 4;
+        break;
     }
+
+    // Q19 Passive Income Knowledge (0-3 points)
+    switch (answers.passiveIncomeKnowledgeText) {
+      case 'dont_understand':
+        score += 0;
+        break;
+      case 'basic':
+        score += 1;
+        break;
+      case 'good':
+        score += 2;
+        break;
+      case 'excellent':
+        score += 3;
+        break;
+    }
+
+    // Q20 Demo Portfolio Size (1-5 points)
+    switch (answers.preferredPortfolioSize) {
+      case '1k':
+        score += 1;
+        break;
+      case '10k':
+        score += 2;
+        break;
+      case '25k':
+        score += 3;
+        break;
+      case '50k':
+        score += 4;
+        break;
+      case '100k':
+        score += 5;
+        break;
+    }
+
+    return ScoreResult(
+      score: score.clamp(0, 15),
+      maxScore: 15,
+      label: 'Learning Readiness',
+      color: const Color(0xFF10B981),
+      emoji: '🚀',
+    );
+  }
+
+  // Calculate Total Score (0-100) and Final Classification
+  static ScoreResult calculateTotalScore(
+    ScoreResult experience,
+    ScoreResult literacy,
+    ScoreResult motivation,
+    ScoreResult readiness,
+  ) {
+    final totalScore = experience.score + literacy.score + motivation.score + readiness.score;
 
     String label;
     Color color;
     String emoji;
 
-    if (score <= 5) {
-      label = 'Weak';
-      color = const Color(0xFFEF4444);
-      emoji = '⚠️';
-    } else if (score <= 10) {
-      label = 'Moderate';
+    if (totalScore <= 40) {
+      label = 'Beginner';
       color = const Color(0xFFF59E0B);
-      emoji = '💪';
+      emoji = '🌱';
+    } else if (totalScore <= 70) {
+      label = 'Intermediate';
+      color = const Color(0xFF3B82F6);
+      emoji = '📚';
     } else {
-      label = 'Strong';
+      label = 'Advanced';
       color = const Color(0xFF22C55E);
-      emoji = '💎';
+      emoji = '🎓';
     }
 
     return ScoreResult(
-      score: score,
-      maxScore: 15,
+      score: totalScore,
+      maxScore: 100,
       label: label,
       color: color,
       emoji: emoji,
     );
   }
 
+  // Legacy methods for compatibility - now map to new system
+  static ScoreResult calculatePersonality(QuestionnaireAnswers answers) {
+    return calculateInvestmentExperience(answers);
+  }
+
+  static ScoreResult calculateLiteracy(QuestionnaireAnswers answers) {
+    return calculateFinancialLiteracy(answers);
+  }
+
+  static ScoreResult calculateStrength(QuestionnaireAnswers answers) {
+    return calculateMotivation(answers);
+  }
+
   static ScoreResult calculateReadiness(QuestionnaireAnswers answers) {
-    int score = 0;
-
-    switch (answers.quantrockGoal) {
-      case 'challenge':
-        score += 4;
-        break;
-      case 'prepare_trading':
-        score += 3;
-        break;
-      case 'test_strategy':
-        score += 2;
-        break;
-      case 'learn':
-        score += 1;
-        break;
-    }
-
-    switch (answers.preferredPortfolioSize) {
-      case '1k':
-        score += 0;
-        break;
-      case '10k':
-        score += 2;
-        break;
-      case '25k':
-        score += 4;
-        break;
-      case '50k':
-        score += 5;
-        break;
-      case '100k':
-        score += 7;
-        break;
-    }
-
-    final readiness = answers.investmentReadiness ?? 5;
-    score += (5 - readiness).clamp(0, 4);
-
-    String label;
-    Color color;
-    String emoji;
-
-    if (score <= 5) {
-      label = 'Needs Learning';
-      color = const Color(0xFFF59E0B);
-      emoji = '📚';
-    } else if (score <= 10) {
-      label = 'Investment Ready';
-      color = const Color(0xFF3B82F6);
-      emoji = '🎯';
-    } else {
-      label = 'Full Challenge Ready';
-      color = const Color(0xFF22C55E);
-      emoji = '🏆';
-    }
-
-    return ScoreResult(
-      score: score,
-      maxScore: 15,
-      label: label,
-      color: color,
-      emoji: emoji,
-    );
+    return calculateLearningReadiness(answers);
   }
 
   static PortfolioSuggestion getSuggestedPortfolio(
@@ -768,10 +897,16 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
   Widget build(BuildContext context) {
     final answers = context.watch<QuestionnaireProvider>().answers;
 
+    // New QIQT scoring system
+    final experience = InvestorScoring.calculateInvestmentExperience(answers);
+    final literacy = InvestorScoring.calculateFinancialLiteracy(answers);
+    final motivation = InvestorScoring.calculateMotivation(answers);
+    final readiness = InvestorScoring.calculateLearningReadiness(answers);
+    final totalScore = InvestorScoring.calculateTotalScore(experience, literacy, motivation, readiness);
+
+    // Legacy compatibility for portfolio suggestions
     final personality = InvestorScoring.calculatePersonality(answers);
-    final literacy = InvestorScoring.calculateLiteracy(answers);
     final strength = InvestorScoring.calculateStrength(answers);
-    final readiness = InvestorScoring.calculateReadiness(answers);
     final portfolio = InvestorScoring.getSuggestedPortfolio(strength, personality, readiness);
     final allocations = InvestorScoring.getPortfolioAllocation(personality, answers);
 
@@ -842,12 +977,12 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
 
                   const SizedBox(height: 24),
 
-                  // Main Personality Card
+                  // Main Score Card (Total Score with Classification)
                   _AnimatedSlideIn(
                     controller: _mainController,
                     delay: 0.1,
                     child: _MainPersonalityCard(
-                      result: personality,
+                      result: totalScore,
                       pulseAnimation: _pulseAnimation,
                       onInfoTap: () => _showInfoModal('personality'),
                     ),
@@ -901,13 +1036,13 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
 
                     const SizedBox(height: 20),
 
-                    // Score Cards
+                    // Section Score Cards (QIQT 0-100 System)
                     _AnimatedSlideIn(
                       controller: _mainController,
                       delay: 0.3,
                       child: _ScoreCard(
-                        title: 'Investment Personality',
-                        result: personality,
+                        title: 'Section 1: Investment Experience',
+                        result: experience,
                         onInfoTap: () => _showInfoModal('personality'),
                       ),
                     ),
@@ -916,7 +1051,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                       controller: _mainController,
                       delay: 0.35,
                       child: _ScoreCard(
-                        title: 'Financial Literacy (QLS)',
+                        title: 'Section 2: Financial Literacy',
                         result: literacy,
                         onInfoTap: () => _showInfoModal('literacy'),
                       ),
@@ -926,8 +1061,8 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                       controller: _mainController,
                       delay: 0.4,
                       child: _ScoreCard(
-                        title: 'Financial Strength',
-                        result: strength,
+                        title: 'Section 3: Motivation',
+                        result: motivation,
                         onInfoTap: () => _showInfoModal('strength'),
                       ),
                     ),
@@ -936,7 +1071,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                       controller: _mainController,
                       delay: 0.45,
                       child: _ScoreCard(
-                        title: 'Challenge Readiness',
+                        title: 'Section 4: Learning Readiness',
                         result: readiness,
                         onInfoTap: () => _showInfoModal('readiness'),
                       ),
@@ -976,7 +1111,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                               label: 'Share Results',
                               icon: Icons.share_rounded,
                               isPrimary: false,
-                              onTap: () => _shareResults(personality, literacy, strength, readiness, portfolio, allocations),
+                              onTap: () => _shareResults(totalScore, experience, literacy, motivation, readiness, portfolio, allocations),
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -1004,26 +1139,30 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
   }
 
   void _shareResults(
-    ScoreResult personality,
+    ScoreResult totalScore,
+    ScoreResult experience,
     ScoreResult literacy,
-    ScoreResult strength,
+    ScoreResult motivation,
     ScoreResult readiness,
     PortfolioSuggestion portfolio,
     List<AssetAllocation> allocations,
   ) {
     final allocationText = allocations.map((a) => '${a.name}: ${a.percentage.toInt()}%').join(', ');
     final message = '''
-🎯 My Quantrock Investor Profile
+🎯 My Quantrock QIQT Score: ${totalScore.score}/100
 
-${personality.emoji} Investor Type: ${personality.label}
-${literacy.emoji} Financial Literacy: ${literacy.label}
-${strength.emoji} Financial Strength: ${strength.label}
-${readiness.emoji} Challenge Readiness: ${readiness.label}
+${totalScore.emoji} Classification: ${totalScore.label}
 
-📊 Robo-Advisor Allocation:
+📊 Section Scores:
+• Investment Experience: ${experience.score}/${experience.maxScore}
+• Financial Literacy: ${literacy.score}/${literacy.maxScore}
+• Motivation: ${motivation.score}/${motivation.maxScore}
+• Learning Readiness: ${readiness.score}/${readiness.maxScore}
+
+💼 Portfolio Allocation:
 $allocationText
 
-💼 Suggested Portfolio: ${portfolio.size}
+📈 Suggested Portfolio: ${portfolio.size}
 
 Start your investment journey with Quantrock!
 #Quantrock #Investing #Trading

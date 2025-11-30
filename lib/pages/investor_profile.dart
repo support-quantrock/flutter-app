@@ -975,9 +975,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
             child: Stack(
               fit: StackFit.expand,
               children: [
-                // Background trading floor image
+                // Background bull/bear stock market image
                 Image.network(
-                  'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80',
+                  'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=800&q=80',
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     // Fallback gradient if network image fails
