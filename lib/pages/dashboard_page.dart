@@ -58,6 +58,132 @@ class _DashboardPageState extends State<DashboardPage>
     });
   }
 
+  // Info descriptions for dashboard items
+  static const Map<String, String> _infoDescriptions = {
+    'Net Assets': 'Your total account value including all cash and investments. This represents your overall portfolio worth.',
+    'Cash Available': 'The amount of liquid cash in your account that is available for new trades or withdrawals.',
+    'Invest Value': 'The total cost basis of your current investments - the original amount you paid for your positions.',
+    'Market Value': 'The current market value of all your open positions based on real-time prices.',
+    'Portfolio Performance': 'Track how your portfolio has performed over different time periods. Select a period to view returns.',
+    'Net Profit': 'Your total realized and unrealized profit/loss. The percentage shows your return on investment.',
+    'Risk Level': 'A measure of your portfolio\'s volatility and risk exposure on a scale of 1-10. Lower is safer.',
+    'Trades': 'The number of trades completed vs your target. Helps track trading activity and consistency.',
+    'Days': 'Active trading days completed vs your goal. Measures your commitment to regular trading.',
+    'Profit': 'Your profit target and current progress. Shows how close you are to reaching your profit goal.',
+    'Daily Loss': 'Maximum allowed loss per day. Helps manage risk by limiting daily drawdowns.',
+    'Max Loss': 'Maximum total loss allowed before trading restrictions. Protects your account from large losses.',
+    'Asset Allocation': 'Shows how your investments are distributed across different sectors and asset classes.',
+    'Win Rate': 'Percentage of profitable trades out of total trades. Higher win rate indicates better trade selection.',
+    'Loss Rate': 'Percentage of losing trades out of total trades. Lower is better.',
+    'Max DD': 'Maximum Drawdown - the largest peak-to-trough decline in your portfolio value.',
+    'AVG Loss': 'Average loss per losing trade. Smaller average losses indicate better risk management.',
+    'AVG Profit': 'Average profit per winning trade. Higher average profits indicate good profit-taking.',
+    'AVG RRR': 'Average Risk-Reward Ratio - compares potential profit to potential loss per trade.',
+    'Profit Factor': 'Gross profits divided by gross losses. Above 1.0 means profitable trading.',
+    'Sharpe Ratio': 'Risk-adjusted return measure. Higher values indicate better returns relative to risk taken.',
+    'Expectancy': 'Average expected profit per trade based on win rate and average win/loss amounts.',
+    'Statistics': 'Key performance metrics that help analyze your trading strategy effectiveness.',
+  };
+
+  void _showInfoDialog(String title) {
+    final description = _infoDescriptions[title] ?? 'Information about $title';
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: const Color(0xFF1A1A3E),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(color: const Color(0xFF3B82F6).withValues(alpha: 0.3)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF3B82F6).withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(
+                      Icons.info_outline,
+                      color: Color(0xFF3B82F6),
+                      size: 20,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: const Icon(
+                      Icons.close,
+                      color: Color(0xFF9CA3AF),
+                      size: 24,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Text(
+                description,
+                style: const TextStyle(
+                  color: Color(0xFF9CA3AF),
+                  fontSize: 14,
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF3B82F6),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text(
+                    'Got it',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoIcon(String infoKey, {double size = 16, Color? color}) {
+    return GestureDetector(
+      onTap: () => _showInfoDialog(infoKey),
+      child: Icon(
+        Icons.info_outline,
+        color: color ?? Colors.white.withValues(alpha: 0.5),
+        size: size,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -251,7 +377,7 @@ class _DashboardPageState extends State<DashboardPage>
               ),
             ),
             const SizedBox(width: 8),
-            Icon(Icons.info_outline, color: Colors.white.withValues(alpha: 0.5), size: 16),
+            _buildInfoIcon('Net Assets'),
           ],
         ),
         const SizedBox(height: 4),
@@ -333,12 +459,19 @@ class _DashboardPageState extends State<DashboardPage>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              label,
-              style: const TextStyle(
-                color: Color(0xFF9CA3AF),
-                fontSize: 11,
-              ),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    label,
+                    style: const TextStyle(
+                      color: Color(0xFF9CA3AF),
+                      fontSize: 11,
+                    ),
+                  ),
+                ),
+                _buildInfoIcon(label, size: 12),
+              ],
             ),
             const SizedBox(height: 4),
             Text(
@@ -612,13 +745,19 @@ class _DashboardPageState extends State<DashboardPage>
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'Portfolio Performance',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+            Row(
+              children: [
+                const Text(
+                  'Portfolio Performance',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                _buildInfoIcon('Portfolio Performance'),
+              ],
             ),
             const Icon(Icons.calendar_today, color: Color(0xFF9CA3AF), size: 20),
           ],
@@ -667,12 +806,19 @@ class _DashboardPageState extends State<DashboardPage>
       ),
       child: Column(
         children: [
-          const Text(
-            'Net Profit',
-            style: TextStyle(
-              color: Color(0xFF9CA3AF),
-              fontSize: 12,
-            ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Net Profit',
+                style: TextStyle(
+                  color: Color(0xFF9CA3AF),
+                  fontSize: 12,
+                ),
+              ),
+              const SizedBox(width: 6),
+              _buildInfoIcon('Net Profit', size: 14),
+            ],
           ),
           const SizedBox(height: 12),
           SizedBox(
@@ -723,12 +869,19 @@ class _DashboardPageState extends State<DashboardPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text(
-            'Risk Level',
-            style: TextStyle(
-              color: Color(0xFF9CA3AF),
-              fontSize: 12,
-            ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Risk Level',
+                style: TextStyle(
+                  color: Color(0xFF9CA3AF),
+                  fontSize: 12,
+                ),
+              ),
+              const SizedBox(width: 6),
+              _buildInfoIcon('Risk Level', size: 14),
+            ],
           ),
           const SizedBox(height: 12),
           Row(
@@ -784,13 +937,19 @@ class _DashboardPageState extends State<DashboardPage>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Objectives',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+        Row(
+          children: [
+            const Text(
+              'Objectives',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(width: 8),
+            _buildInfoIcon('Trades'),
+          ],
         ),
         const SizedBox(height: 16),
         // First row: Trades and Days
@@ -857,12 +1016,19 @@ class _DashboardPageState extends State<DashboardPage>
           ),
         ),
         const SizedBox(height: 8),
-        Text(
-          label,
-          style: const TextStyle(
-            color: Color(0xFF9CA3AF),
-            fontSize: 10,
-          ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              label,
+              style: const TextStyle(
+                color: Color(0xFF9CA3AF),
+                fontSize: 10,
+              ),
+            ),
+            const SizedBox(width: 4),
+            _buildInfoIcon(label, size: 10),
+          ],
         ),
       ],
     );
@@ -880,13 +1046,19 @@ class _DashboardPageState extends State<DashboardPage>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Asset Allocation',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+        Row(
+          children: [
+            const Text(
+              'Asset Allocation',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(width: 8),
+            _buildInfoIcon('Asset Allocation'),
+          ],
         ),
         const SizedBox(height: 16),
         Row(
@@ -961,13 +1133,19 @@ class _DashboardPageState extends State<DashboardPage>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Statistics',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+        Row(
+          children: [
+            const Text(
+              'Statistics',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(width: 8),
+            _buildInfoIcon('Statistics'),
+          ],
         ),
         const SizedBox(height: 16),
         GridView.count(
@@ -1006,13 +1184,22 @@ class _DashboardPageState extends State<DashboardPage>
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            label,
-            style: const TextStyle(
-              color: Color(0xFF9CA3AF),
-              fontSize: 10,
-            ),
-            textAlign: TextAlign.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Flexible(
+                child: Text(
+                  label,
+                  style: const TextStyle(
+                    color: Color(0xFF9CA3AF),
+                    fontSize: 10,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(width: 4),
+              _buildInfoIcon(label, size: 10),
+            ],
           ),
         ],
       ),
