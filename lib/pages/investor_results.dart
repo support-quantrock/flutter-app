@@ -573,100 +573,136 @@ class InfoItem {
 
 final Map<String, InfoCategory> infoContent = {
   'personality': InfoCategory(
-    title: 'Investment Experience (0-40 pts)',
+    title: 'Personal Information & Investment Background (0-40 pts)',
     items: [
       InfoItem(
-        emoji: '👤',
-        label: 'Age & Demographics',
-        color: const Color(0xFF6366F1),
-        description: 'Your age group contributes 0-5 points. Prime investing years (35-44) score highest as they balance experience with growth potential.',
+        emoji: '🔴',
+        label: 'Very Low Experience (0-10)',
+        color: const Color(0xFFEF4444),
+        description: 'No portfolio, no knowledge, short time horizon, minimal exposure.',
       ),
       InfoItem(
-        emoji: '💼',
-        label: 'Account & Portfolio',
-        color: const Color(0xFF6366F1),
-        description: 'Having an investment account (0-4 pts) and active portfolio (0-5 pts). Portfolio size adds 1-6 points based on value managed.',
+        emoji: '🟠',
+        label: 'Low Experience (11-20)',
+        color: const Color(0xFFF59E0B),
+        description: 'Beginner investor, small portfolio, limited knowledge.',
       ),
       InfoItem(
-        emoji: '📚',
-        label: 'Knowledge Ratings',
-        color: const Color(0xFF6366F1),
-        description: 'Your self-rated knowledge of stocks, risk management, technical analysis, and diversification. Average rating × 2 (max 10 pts).',
+        emoji: '🔵',
+        label: 'Moderate Experience (21-30)',
+        color: const Color(0xFF3B82F6),
+        description: 'Some investment history, several asset classes, average chart reading.',
       ),
       InfoItem(
-        emoji: '📈',
-        label: 'Skills & Experience',
+        emoji: '🟢',
+        label: 'High Experience (31-40)',
+        color: const Color(0xFF22C55E),
+        description: 'Strong portfolio size, good knowledge, diversified exposure, long time horizon.',
+      ),
+      InfoItem(
+        emoji: '📋',
+        label: 'What This Measures',
         color: const Color(0xFF6366F1),
-        description: 'Asset class experience (+1 per class, max 5 pts), chart reading comfort (0-3 pts), and investment time horizon (0-3 pts).',
+        description: 'Real investment involvement • Portfolio size & history • Knowledge level • Asset exposure • Time horizon confidence',
       ),
     ],
   ),
   'literacy': InfoCategory(
-    title: 'Financial Literacy Levels',
+    title: 'Financial Literacy & Readiness (0-30 pts)',
     items: [
       InfoItem(
-        emoji: '🌱',
-        label: 'Beginner (0-10 pts)',
+        emoji: '🔴',
+        label: 'Weak Financial Literacy (0-8)',
+        color: const Color(0xFFEF4444),
+        description: 'Limited risk understanding, no emergency fund, poor saving habits.',
+      ),
+      InfoItem(
+        emoji: '🟠',
+        label: 'Basic Literacy (9-16)',
         color: const Color(0xFFF59E0B),
-        description: 'Learning the basics of financial planning, budgeting, and market risk. Building savings habits and understanding retirement concepts.',
+        description: 'Understands fundamentals, some saving discipline, basic planning.',
       ),
       InfoItem(
-        emoji: '📚',
-        label: 'Intermediate (11-20 pts)',
+        emoji: '🔵',
+        label: 'Good Literacy (17-23)',
         color: const Color(0xFF3B82F6),
-        description: 'Good understanding of risk management, savings discipline, and financial planning. Has emergency savings and retirement strategy.',
+        description: 'Consistent saving, has emergency fund, understands market risk.',
       ),
       InfoItem(
-        emoji: '🎓',
-        label: 'Advanced (21-30 pts)',
+        emoji: '🟢',
+        label: 'Excellent Literacy (24-30)',
         color: const Color(0xFF22C55E),
-        description: 'Strong financial foundation with excellent risk understanding. Disciplined saver with comprehensive retirement planning.',
+        description: 'Mature saving habits, strong risk understanding, stable financial base.',
+      ),
+      InfoItem(
+        emoji: '📋',
+        label: 'What This Measures',
+        color: const Color(0xFF6366F1),
+        description: 'Risk understanding • Saving discipline • Emergency fund stability • Retirement planning • Behavioral profile toward risk',
       ),
     ],
   ),
   'strength': InfoCategory(
-    title: 'Motivation (0-15 pts)',
+    title: 'Investment Objectives & Motivation (0-15 pts)',
     items: [
       InfoItem(
-        emoji: '🎯',
-        label: 'Investment Goals',
-        color: const Color(0xFF8B5CF6),
-        description: 'Your investment goal contributes 1-5 points. Goals range from capital protection (1 pt) to short-term speculation (5 pts).',
+        emoji: '🟠',
+        label: 'Unclear or Basic Objectives (0-5)',
+        color: const Color(0xFFF59E0B),
+        description: 'User is still exploring investing or focusing on protection.',
       ),
       InfoItem(
-        emoji: '🚀',
-        label: 'Quantrock Goals',
-        color: const Color(0xFF8B5CF6),
-        description: 'Your purpose in Quantrock adds 2-4 points. Learning/challenges (2 pts), testing strategies (3 pts), or preparing for real trading (4 pts).',
+        emoji: '🔵',
+        label: 'Developing Objectives (6-10)',
+        color: const Color(0xFF3B82F6),
+        description: 'Focus on income, growth, or learning.',
       ),
       InfoItem(
-        emoji: '🏭',
-        label: 'Industry Interests',
+        emoji: '🟢',
+        label: 'Strong, Defined Objectives (11-15)',
+        color: const Color(0xFF22C55E),
+        description: 'User aims for advanced goals like wealth-building or strategy testing.',
+      ),
+      InfoItem(
+        emoji: '📋',
+        label: 'What This Measures',
         color: const Color(0xFF8B5CF6),
-        description: 'Each industry you\'re interested in adds 0.5 points (max 5 pts). More diverse interests indicate broader market motivation.',
+        description: 'Investment goals • Intent behind using Quantrock • Industry interests • Motivation strength',
       ),
     ],
   ),
   'readiness': InfoCategory(
-    title: 'Learning Readiness (0-15 pts)',
+    title: 'Learning Readiness & Preferences (0-15 pts)',
     items: [
       InfoItem(
-        emoji: '💪',
-        label: 'Investment Readiness',
-        color: const Color(0xFF10B981),
-        description: 'Your self-assessed readiness contributes 0-4 points. From needing help (0 pts) to fully confident (4 pts).',
+        emoji: '🔴',
+        label: 'Low Readiness (0-4)',
+        color: const Color(0xFFEF4444),
+        description: 'Needs foundation before investing.',
       ),
       InfoItem(
-        emoji: '💰',
-        label: 'Passive Income Knowledge',
-        color: const Color(0xFF10B981),
-        description: 'Understanding of passive income concepts adds 0-3 points. Higher knowledge indicates better readiness for investment strategies.',
+        emoji: '🟠',
+        label: 'Moderate Readiness (5-9)',
+        color: const Color(0xFFF59E0B),
+        description: 'Has some knowledge but needs guidance.',
       ),
       InfoItem(
-        emoji: '📊',
-        label: 'Preferred Portfolio Size',
+        emoji: '🔵',
+        label: 'High Readiness (10-12)',
+        color: const Color(0xFF3B82F6),
+        description: 'Confident and prepared to learn or invest.',
+      ),
+      InfoItem(
+        emoji: '🟢',
+        label: 'Very High Readiness (13-15)',
+        color: const Color(0xFF22C55E),
+        description: 'Fully confident and ready for advanced tests or challenges.',
+      ),
+      InfoItem(
+        emoji: '📋',
+        label: 'What This Measures',
         color: const Color(0xFF10B981),
-        description: 'Your chosen demo portfolio size contributes 1-5 points. Larger portfolios indicate higher confidence and readiness.',
+        description: 'Self-assessed preparedness • Understanding of passive income • Confidence and portfolio preference',
       ),
     ],
   ),
@@ -1011,7 +1047,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                       controller: _mainController,
                       delay: 0.3,
                       child: _ScoreCard(
-                        title: '1: Investment Experience',
+                        title: '1: Investment Background',
                         result: experience,
                         onInfoTap: () => _showInfoModal('personality'),
                       ),
@@ -1031,7 +1067,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                       controller: _mainController,
                       delay: 0.4,
                       child: _ScoreCard(
-                        title: '3: Motivation',
+                        title: '3: Objectives & Motivation',
                         result: motivation,
                         onInfoTap: () => _showInfoModal('strength'),
                       ),
@@ -1124,9 +1160,9 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
 ${totalScore.emoji} Classification: ${totalScore.label}
 
 📊 Scores:
-• Investment Experience: ${experience.score}/${experience.maxScore}
+• Investment Background: ${experience.score}/${experience.maxScore}
 • Financial Literacy: ${literacy.score}/${literacy.maxScore}
-• Motivation: ${motivation.score}/${motivation.maxScore}
+• Objectives & Motivation: ${motivation.score}/${motivation.maxScore}
 • Learning Readiness: ${readiness.score}/${readiness.maxScore}
 
 💼 Portfolio Allocation:
