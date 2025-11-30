@@ -568,10 +568,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   ],
                 ),
                 const SizedBox(height: 24),
-                // Candlestick Chart with Character
-                _buildChartIllustration(),
-                const SizedBox(height: 32),
-                // QIQT Badge (large, above title)
+                // QIQT Badge (large)
                 ShaderMask(
                   shaderCallback: (bounds) => const LinearGradient(
                     colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
@@ -598,6 +595,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   ),
                   textAlign: TextAlign.center,
                 ),
+                const SizedBox(height: 24),
+                // Hero Image
+                _buildChartIllustration(),
                 const SizedBox(height: 24),
                 // Description
                 _buildQIQTDescription(),
