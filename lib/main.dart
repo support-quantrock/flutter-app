@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'context/questionnaire_context.dart';
-import 'pages/index_page.dart';
+import 'pages/main_navigation.dart';
 import 'pages/investor_profile.dart';
 import 'pages/investor_results.dart';
 import 'pages/skill_challenge_page.dart';
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => const IndexPage(),
+          '/': (context) => const MainNavigation(),
           '/questionnaire': (context) => const InvestorProfilePage(),
           '/skill-challenge': (context) => const SkillChallengePage(),
           '/dashboard': (context) => const DashboardPage(),
