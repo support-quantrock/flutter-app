@@ -253,6 +253,40 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
     context.read<QuestionnaireProvider>().setAnswer('industriesInterested', _selectedIndustries);
   }
 
+  String _getSectionProgress() {
+    // Section 1: Questions 1-9 (9 questions)
+    // Section 2: Questions 10-14 (5 questions)
+    // Section 3: Questions 15-17 (3 questions)
+    // Section 4: Questions 18-20 (3 questions)
+
+    int sectionStart;
+    int sectionEnd;
+    String sectionName;
+
+    if (_step <= 9) {
+      sectionStart = 1;
+      sectionEnd = 9;
+      sectionName = 'Section 1';
+    } else if (_step <= 14) {
+      sectionStart = 10;
+      sectionEnd = 14;
+      sectionName = 'Section 2';
+    } else if (_step <= 17) {
+      sectionStart = 15;
+      sectionEnd = 17;
+      sectionName = 'Section 3';
+    } else {
+      sectionStart = 18;
+      sectionEnd = 20;
+      sectionName = 'Section 4';
+    }
+
+    final questionInSection = _step - sectionStart + 1;
+    final totalInSection = sectionEnd - sectionStart + 1;
+
+    return '$sectionName: $questionInSection/$totalInSection';
+  }
+
   Widget _buildQuestion(QuestionnaireAnswers answers) {
     switch (_step) {
       // SECTION 1 — Personal Information & Investment Background
@@ -1254,9 +1288,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
               },
             ),
 
-            // XP Gain Popup
-            if (_showXPGain) _buildXPGainPopup(),
-
             // Level Up Popup
             if (_showLevelUp) _buildLevelUpPopup(),
 
@@ -1428,7 +1459,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        'Question $_step of $totalQuestions',
+                        _getSectionProgress(),
                         style: TextStyle(
                           color: Colors.amber.withValues(alpha: 0.8),
                           fontSize: 10,
