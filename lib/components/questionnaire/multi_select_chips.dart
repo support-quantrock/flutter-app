@@ -79,7 +79,7 @@ class MultiSelectChips extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-              fontSize: 24,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
@@ -220,26 +220,26 @@ class _GameChipState extends State<_GameChip>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    width: 32,
-                    height: 32,
+                    width: 28,
+                    height: 28,
                     decoration: BoxDecoration(
                       color: widget.isSelected
                           ? Colors.white.withValues(alpha: 0.25)
                           : Colors.white.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(6),
                     ),
                     child: Center(
                       child: Text(
                         widget.option.icon,
-                        style: const TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 14),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 8),
                   Text(
                     widget.option.label,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       fontWeight:
                           widget.isSelected ? FontWeight.w600 : FontWeight.w500,
                       color: Colors.white,

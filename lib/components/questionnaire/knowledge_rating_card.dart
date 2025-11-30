@@ -33,7 +33,7 @@ class _KnowledgeRatingCardState extends State<KnowledgeRatingCard> {
           Text(
             widget.title,
             style: const TextStyle(
-              fontSize: 22,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
@@ -42,7 +42,7 @@ class _KnowledgeRatingCardState extends State<KnowledgeRatingCard> {
           Text(
             '1 = No knowledge, 5 = Excellent',
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 12,
               color: Colors.white.withValues(alpha: 0.6),
             ),
           ),
@@ -103,12 +103,12 @@ class _KnowledgeRatingCardState extends State<KnowledgeRatingCard> {
           Text(
             area,
             style: const TextStyle(
-              fontSize: 16,
+              fontSize: 14,
               fontWeight: FontWeight.w600,
               color: Colors.white,
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(5, (index) {
@@ -118,8 +118,8 @@ class _KnowledgeRatingCardState extends State<KnowledgeRatingCard> {
                 onTap: () => widget.onRatingChanged(area, value),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
-                  width: 52,
-                  height: 52,
+                  width: 48,
+                  height: 48,
                   decoration: BoxDecoration(
                     color: isSelected
                         ? _getRatingColor(value)
