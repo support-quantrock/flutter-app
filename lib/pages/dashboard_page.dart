@@ -721,14 +721,21 @@ class _DashboardPageState extends State<DashboardPage>
           ),
         ),
         const SizedBox(height: 16),
+        // First row: Trades and Days
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildObjectiveCircle('Trades', '10/10', 1.0, const Color(0xFF22C55E)),
+            const SizedBox(width: 24),
+            _buildObjectiveCircle('Days', '15/15', 1.0, const Color(0xFF22C55E)),
+          ],
+        ),
+        const SizedBox(height: 16),
+        // Second row: Profit, Daily Loss, Max Loss
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              _buildObjectiveCircle('Trades', '10/10', 1.0, const Color(0xFF22C55E)),
-              const SizedBox(width: 12),
-              _buildObjectiveCircle('Days', '15/15', 1.0, const Color(0xFF22C55E)),
-              const SizedBox(width: 12),
               _buildObjectiveCircle('Profit', '\$1200', 0.65, const Color(0xFF3B82F6), subtitle: '8%'),
               const SizedBox(width: 12),
               _buildObjectiveCircle('Daily Loss', '\$500', 0.5, const Color(0xFFEF4444), subtitle: '5%'),
