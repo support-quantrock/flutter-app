@@ -613,7 +613,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   child: const Text(
                     'QIQT',
                     style: TextStyle(
-                      fontSize: 42,
+                      fontSize: 52,
                       fontWeight: FontWeight.w900,
                       color: Colors.white,
                       letterSpacing: 4,
@@ -625,7 +625,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                 const Text(
                   'Quantrock Investor Qualification Test',
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 17,
                     fontWeight: FontWeight.w500,
                     color: Color(0xFF9CA3AF),
                     letterSpacing: 0.5,
@@ -662,7 +662,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                           'Your answers are anonymized, and we do not sell your data.',
                           style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.7),
-                            fontSize: 12,
+                            fontSize: 14,
                           ),
                         ),
                       ),
@@ -781,7 +781,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       ),
       child: Row(
         children: [
-          Icon(icon, color: const Color(0xFF22C55E), size: 20),
+          Icon(icon, color: const Color(0xFF22C55E), size: 22),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -791,7 +791,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   title,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 10,
+                    fontSize: 11,
                     fontWeight: FontWeight.bold,
                   ),
                   overflow: TextOverflow.ellipsis,
@@ -800,7 +800,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   subtitle,
                   style: const TextStyle(
                     color: Color(0xFF9CA3AF),
-                    fontSize: 9,
+                    fontSize: 10,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -825,7 +825,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       ),
       child: Row(
         children: [
-          Icon(icon, color: const Color(0xFF22C55E), size: 20),
+          Icon(icon, color: const Color(0xFF22C55E), size: 22),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -835,7 +835,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   title,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 10,
+                    fontSize: 11,
                     fontWeight: FontWeight.bold,
                   ),
                   overflow: TextOverflow.ellipsis,
@@ -844,7 +844,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   subtitle,
                   style: const TextStyle(
                     color: Color(0xFF9CA3AF),
-                    fontSize: 9,
+                    fontSize: 10,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -856,7 +856,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
             child: const Icon(
               Icons.info_outline,
               color: Color(0xFF22C55E),
-              size: 18,
+              size: 20,
             ),
           ),
         ],
@@ -955,6 +955,41 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           ),
         ),
       ],
+    );
+  }
+
+  void _showQIQTInfoPopup() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: const Color(0xFF1E293B),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        title: const Text(
+          'QIQT',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: const Text(
+          'Quantrock Investor Qualification Test',
+          style: TextStyle(
+            color: Colors.white70,
+            fontSize: 16,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text(
+              'Got it',
+              style: TextStyle(color: Color(0xFF22C55E)),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -1072,7 +1107,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
             'QIQT is an intelligent qualification test built on OECD, MIT, and CFA standards, designed to measure your investment experience, financial literacy, motivations, and readiness to learn.',
             style: TextStyle(
               color: Colors.white.withValues(alpha: 0.9),
-              fontSize: 13,
+              fontSize: 15,
               height: 1.5,
             ),
           ),
@@ -1081,7 +1116,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
             'QIQT helps you assess your financial knowledge, investment background, and determine your ideal path inside Quantrock—whether in challenges, daily lessons, or selecting the appropriate demo portfolio size.',
             style: TextStyle(
               color: Colors.white.withValues(alpha: 0.8),
-              fontSize: 13,
+              fontSize: 15,
               height: 1.5,
             ),
           ),
@@ -1099,7 +1134,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   'What is the purpose of QIQT?',
                   style: TextStyle(
                     color: Color(0xFF22C55E),
-                    fontSize: 15,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -1111,7 +1146,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
             'The test aims to accurately classify the user into one of the following levels:',
             style: TextStyle(
               color: Colors.white.withValues(alpha: 0.8),
-              fontSize: 13,
+              fontSize: 15,
             ),
           ),
           const SizedBox(height: 8),
@@ -1133,31 +1168,31 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   style: TextStyle(
                     color: Color(0xFF22C55E),
                     fontWeight: FontWeight.w600,
-                    fontSize: 13,
+                    fontSize: 15,
                   ),
                 ),
                 Text(
                   '/',
-                  style: TextStyle(color: Color(0xFF9CA3AF)),
+                  style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 15),
                 ),
                 Text(
                   'Intermediate',
                   style: TextStyle(
                     color: Color(0xFF3B82F6),
                     fontWeight: FontWeight.w600,
-                    fontSize: 13,
+                    fontSize: 15,
                   ),
                 ),
                 Text(
                   '/',
-                  style: TextStyle(color: Color(0xFF9CA3AF)),
+                  style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 15),
                 ),
                 Text(
                   'Advanced',
                   style: TextStyle(
                     color: Color(0xFFA855F7),
                     fontWeight: FontWeight.w600,
-                    fontSize: 13,
+                    fontSize: 15,
                   ),
                 ),
               ],
@@ -1168,7 +1203,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
             'It works on identifying:',
             style: TextStyle(
               color: Colors.white.withValues(alpha: 0.8),
-              fontSize: 13,
+              fontSize: 15,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -1194,7 +1229,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 6),
+            margin: const EdgeInsets.only(top: 7),
             width: 6,
             height: 6,
             decoration: const BoxDecoration(
@@ -1208,7 +1243,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
               text,
               style: TextStyle(
                 color: Colors.white.withValues(alpha: 0.75),
-                fontSize: 12,
+                fontSize: 14,
                 height: 1.4,
               ),
             ),
@@ -1470,37 +1505,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   ),
                 ),
 
-                const SizedBox(width: 12),
-
-                // Question Number Display
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.quiz_outlined,
-                        color: Colors.cyan,
-                        size: 16,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        '$_step/$totalQuestions',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ],
@@ -1530,6 +1534,24 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(width: 4),
+              GestureDetector(
+                onTap: () => _showQIQTInfoPopup(),
+                child: Icon(
+                  Icons.info_outline,
+                  color: Colors.cyan.withValues(alpha: 0.7),
+                  size: 14,
+                ),
+              ),
+              const Spacer(),
+              Text(
+                '$_step/$totalQuestions',
+                style: const TextStyle(
+                  color: Colors.cyan,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],
