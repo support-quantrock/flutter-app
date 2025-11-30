@@ -80,7 +80,7 @@ class _ChallengeSignupPageState extends State<ChallengeSignupPage> {
 
   void _handleSubmit() {
     if (_acceptedTerms) {
-      Navigator.pushReplacementNamed(context, '/skill-challenge');
+      Navigator.pushReplacementNamed(context, '/dashboard');
     }
   }
 
