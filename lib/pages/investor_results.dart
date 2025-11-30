@@ -863,6 +863,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                       child: _RiskAndGoalSection(
                         riskTolerance: answers.riskTolerance,
                         investingGoal: answers.investingGoal,
+                        literacyLabel: literacy.label,
                       ),
                     ),
 
@@ -1041,10 +1042,12 @@ Start your investment journey with Quantrock!
 class _RiskAndGoalSection extends StatelessWidget {
   final String? riskTolerance;
   final String? investingGoal;
+  final String literacyLabel;
 
   const _RiskAndGoalSection({
     required this.riskTolerance,
     required this.investingGoal,
+    required this.literacyLabel,
   });
 
   Color _getRiskColor(String? risk) {
@@ -1151,7 +1154,9 @@ class _RiskAndGoalSection extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Icon(
-                        _getGoalIcon(investingGoal),
+                        (literacyLabel == 'Beginner' || literacyLabel == 'Intermediate' || literacyLabel == 'Advanced')
+                            ? Icons.emoji_events
+                            : _getGoalIcon(investingGoal),
                         color: const Color(0xFF8B5CF6),
                         size: 20,
                       ),
@@ -1169,7 +1174,9 @@ class _RiskAndGoalSection extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  _getInvestingGoalLabel(investingGoal),
+                  (literacyLabel == 'Beginner' || literacyLabel == 'Intermediate' || literacyLabel == 'Advanced')
+                      ? '28 Days Skill Challenge'
+                      : _getInvestingGoalLabel(investingGoal),
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
