@@ -974,7 +974,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                               label: 'Start Trading',
                               icon: Icons.arrow_forward_rounded,
                               isPrimary: true,
-                              onTap: () => Navigator.pushReplacementNamed(context, '/dashboard'),
+                              onTap: () => Navigator.pushReplacementNamed(context, '/challenge-home'),
                             ),
                           ),
                         ],

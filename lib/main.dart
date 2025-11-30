@@ -6,6 +6,7 @@ import 'pages/investor_profile.dart';
 import 'pages/investor_results.dart';
 import 'pages/skill_challenge_page.dart';
 import 'pages/lesson_page.dart';
+import 'pages/challenge_home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
           '/skill-challenge': (context) => const SkillChallengePage(),
           '/dashboard': (context) => const DashboardPage(),
           '/investor-results': (context) => const InvestorResultsPage(),
+          '/challenge-home': (context) => const ChallengeHomePage(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == '/lesson') {
