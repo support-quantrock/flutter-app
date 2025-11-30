@@ -169,12 +169,35 @@ class InvestorScoring {
         break;
     }
 
+    // Determine experience level based on score
+    String label;
+    Color color;
+    String emoji;
+
+    if (score <= 10) {
+      label = 'Very Low Experience';
+      color = const Color(0xFFEF4444);
+      emoji = '🔴';
+    } else if (score <= 20) {
+      label = 'Low Experience';
+      color = const Color(0xFFF59E0B);
+      emoji = '🟠';
+    } else if (score <= 30) {
+      label = 'Moderate Experience';
+      color = const Color(0xFF3B82F6);
+      emoji = '🔵';
+    } else {
+      label = 'High Experience';
+      color = const Color(0xFF22C55E);
+      emoji = '🟢';
+    }
+
     return ScoreResult(
       score: score.clamp(0, 40),
       maxScore: 40,
-      label: 'Investment Experience',
-      color: const Color(0xFF6366F1),
-      emoji: '📊',
+      label: label,
+      color: color,
+      emoji: emoji,
     );
   }
 
@@ -256,15 +279,15 @@ class InvestorScoring {
     if (score <= 10) {
       label = 'Beginner';
       color = const Color(0xFFF59E0B);
-      emoji = '🌱';
+      emoji = '🟠';
     } else if (score <= 20) {
       label = 'Intermediate';
       color = const Color(0xFF3B82F6);
-      emoji = '📚';
+      emoji = '🔵';
     } else {
-      label = 'Advanced';
+      label = 'Expert';
       color = const Color(0xFF22C55E);
-      emoji = '🎓';
+      emoji = '🟢';
     }
 
     return ScoreResult(
@@ -322,12 +345,31 @@ class InvestorScoring {
     final industries = answers.industriesInterested;
     score += (industries.length * 0.5).round().clamp(0, 5);
 
+    // Determine motivation level based on score
+    String label;
+    Color color;
+    String emoji;
+
+    if (score <= 5) {
+      label = 'Unclear or Basic Objectives';
+      color = const Color(0xFFF59E0B);
+      emoji = '🟠';
+    } else if (score <= 10) {
+      label = 'Developing Objectives';
+      color = const Color(0xFF3B82F6);
+      emoji = '🔵';
+    } else {
+      label = 'Strong, Defined Objectives';
+      color = const Color(0xFF22C55E);
+      emoji = '🟢';
+    }
+
     return ScoreResult(
       score: score.clamp(0, 15),
       maxScore: 15,
-      label: 'Motivation',
-      color: const Color(0xFF8B5CF6),
-      emoji: '🎯',
+      label: label,
+      color: color,
+      emoji: emoji,
     );
   }
 
@@ -386,12 +428,31 @@ class InvestorScoring {
         break;
     }
 
+    // Determine readiness level based on score
+    String label;
+    Color color;
+    String emoji;
+
+    if (score <= 5) {
+      label = 'Learning Challenge';
+      color = const Color(0xFFF59E0B);
+      emoji = '🟠';
+    } else if (score <= 10) {
+      label = 'Investing Challenge';
+      color = const Color(0xFF3B82F6);
+      emoji = '🔵';
+    } else {
+      label = 'Ready for Challenge';
+      color = const Color(0xFF22C55E);
+      emoji = '🟢';
+    }
+
     return ScoreResult(
       score: score.clamp(0, 15),
       maxScore: 15,
-      label: 'Learning Readiness',
-      color: const Color(0xFF10B981),
-      emoji: '🚀',
+      label: label,
+      color: color,
+      emoji: emoji,
     );
   }
 
