@@ -23,6 +23,113 @@ class KnowledgeRatingCard extends StatefulWidget {
 class _KnowledgeRatingCardState extends State<KnowledgeRatingCard> {
   bool get allRated => widget.areas.every((area) => widget.ratings[area] != null);
 
+  // Descriptions for each knowledge area
+  static const Map<String, String> _areaDescriptions = {
+    'Stock Markets': 'Understanding of how stock exchanges work, including buying and selling shares, market indices, and stock valuation methods.',
+    'Bonds & Fixed Income': 'Knowledge of debt securities, including government and corporate bonds, yield calculations, and interest rate impacts.',
+    'Mutual Funds': 'Understanding of pooled investment vehicles, including fund types, expense ratios, NAV, and diversification benefits.',
+    'ETFs': 'Exchange-Traded Funds knowledge, including how they trade, tracking indices, and differences from mutual funds.',
+    'Options & Derivatives': 'Understanding of financial contracts deriving value from underlying assets, including calls, puts, and hedging strategies.',
+    'Forex Trading': 'Foreign exchange market knowledge, including currency pairs, pip values, leverage, and macroeconomic factors.',
+    'Cryptocurrency': 'Understanding of digital currencies, blockchain technology, wallets, exchanges, and crypto market dynamics.',
+    'Real Estate Investing': 'Knowledge of property investment, including REITs, rental income, property valuation, and market cycles.',
+    'Technical Analysis': 'Understanding of chart patterns, indicators, support/resistance levels, and price action trading.',
+    'Fundamental Analysis': 'Knowledge of evaluating securities through financial statements, ratios, and economic factors.',
+    'Risk Management': 'Understanding of portfolio risk, position sizing, stop-losses, and diversification strategies.',
+    'Portfolio Management': 'Knowledge of asset allocation, rebalancing, and optimizing risk-adjusted returns.',
+    'Tax Planning': 'Understanding of investment taxation, capital gains, tax-loss harvesting, and tax-advantaged accounts.',
+    'Retirement Planning': 'Knowledge of retirement accounts, withdrawal strategies, and long-term investment planning.',
+    'Economic Indicators': 'Understanding of GDP, inflation, employment data, and their impact on markets.',
+  };
+
+  void _showAreaInfoDialog(String area) {
+    final description = _areaDescriptions[area] ?? 'Knowledge and understanding of $area concepts and practices.';
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: const Color(0xFF1A1A3E),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(color: const Color(0xFF22C55E).withValues(alpha: 0.3)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF22C55E).withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(
+                      Icons.school_outlined,
+                      color: Color(0xFF22C55E),
+                      size: 20,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      area,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: const Icon(
+                      Icons.close,
+                      color: Color(0xFF9CA3AF),
+                      size: 24,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Text(
+                description,
+                style: const TextStyle(
+                  color: Color(0xFF9CA3AF),
+                  fontSize: 14,
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF22C55E),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text(
+                    'Got it',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -99,13 +206,30 @@ class _KnowledgeRatingCardState extends State<KnowledgeRatingCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            area,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  area,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () => _showAreaInfoDialog(area),
+                child: Container(
+                  padding: const EdgeInsets.all(4),
+                  child: Icon(
+                    Icons.info_outline,
+                    color: Colors.white.withValues(alpha: 0.5),
+                    size: 18,
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 10),
           Row(
