@@ -5,6 +5,7 @@ import 'pages/index_page.dart';
 import 'pages/investor_profile.dart';
 import 'pages/investor_results.dart';
 import 'pages/skill_challenge_page.dart';
+import 'pages/lesson_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,6 +32,16 @@ class MyApp extends StatelessWidget {
           '/skill-challenge': (context) => const SkillChallengePage(),
           '/dashboard': (context) => const DashboardPage(),
           '/investor-results': (context) => const InvestorResultsPage(),
+        },
+        onGenerateRoute: (settings) {
+          if (settings.name == '/lesson') {
+            final args = settings.arguments as Map<String, dynamic>?;
+            final day = args?['day'] as int? ?? 1;
+            return MaterialPageRoute(
+              builder: (context) => LessonPage(day: day),
+            );
+          }
+          return null;
         },
       ),
     );

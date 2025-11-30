@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../data/lessons/lesson_registry.dart';
 
 class SkillChallengePage extends StatefulWidget {
   const SkillChallengePage({super.key});
@@ -317,7 +318,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               final isCurrent = day == _currentDay;
 
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
+                padding: const EdgeInsets.symmetric(horizontal: 22),
                 child: GestureDetector(
                   onTap: () {
                     if (day <= _currentDay) {
@@ -779,7 +780,22 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              // Start lesson
+                              // Navigate to lesson if available
+                              if (LessonRegistry.hasLesson(day)) {
+                                Navigator.pushNamed(
+                                  context,
+                                  '/lesson',
+                                  arguments: {'day': day},
+                                );
+                              } else {
+                                // Show coming soon message
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Lesson $day coming soon!'),
+                                    backgroundColor: const Color(0xFF6366F1),
+                                  ),
+                                );
+                              }
                             },
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 12),
