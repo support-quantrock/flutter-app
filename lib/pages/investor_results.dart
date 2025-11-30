@@ -467,115 +467,85 @@ class InvestorScoring {
     return PortfolioSuggestion(size: '\$10k – \$25k', color: const Color(0xFF3B82F6));
   }
 
-  // Robo-advisor style allocation based on risk profile
+  // Portfolio allocation based on user's selected asset classes
   static List<AssetAllocation> getPortfolioAllocation(ScoreResult personality, QuestionnaireAnswers answers) {
-    // Base allocations by investor type
-    double stocks = 0;
-    double bonds = 0;
-    double etfs = 0;
-    double crypto = 0;
-    double cash = 0;
-    double realEstate = 0;
+    final selectedAssets = answers.assetClasses;
 
-    switch (personality.label) {
-      case 'Conservative Investor':
-        stocks = 20;
-        bonds = 40;
-        etfs = 15;
-        crypto = 0;
-        cash = 20;
-        realEstate = 5;
-        break;
-      case 'Balanced Investor':
-        stocks = 35;
-        bonds = 25;
-        etfs = 20;
-        crypto = 5;
-        cash = 10;
-        realEstate = 5;
-        break;
-      case 'Growth Investor':
-        stocks = 45;
-        bonds = 15;
-        etfs = 20;
-        crypto = 10;
-        cash = 5;
-        realEstate = 5;
-        break;
-      case 'Aggressive Trader':
-        stocks = 50;
-        bonds = 5;
-        etfs = 15;
-        crypto = 20;
-        cash = 5;
-        realEstate = 5;
-        break;
-    }
-
-    // Adjust based on user's interested industries
-    final industries = answers.industriesInterested;
-    if (industries.contains('crypto')) {
-      crypto += 5;
-      bonds -= 5;
-    }
-    if (industries.contains('tech')) {
-      stocks += 5;
-      bonds -= 5;
-    }
-
-    // Normalize to 100%
-    final total = stocks + bonds + etfs + crypto + cash + realEstate;
-    stocks = (stocks / total * 100).roundToDouble();
-    bonds = (bonds / total * 100).roundToDouble();
-    etfs = (etfs / total * 100).roundToDouble();
-    crypto = (crypto / total * 100).roundToDouble();
-    cash = (cash / total * 100).roundToDouble();
-    realEstate = 100 - stocks - bonds - etfs - crypto - cash;
-
-    return [
-      if (stocks > 0)
+    // If user selected 'none' or no assets, return default balanced allocation
+    if (selectedAssets.isEmpty || selectedAssets.contains('none')) {
+      return [
         AssetAllocation(
           name: 'Stocks',
-          percentage: stocks,
+          percentage: 40,
           color: const Color(0xFF3B82F6),
           icon: Icons.trending_up,
         ),
-      if (bonds > 0)
         AssetAllocation(
           name: 'Bonds',
-          percentage: bonds,
+          percentage: 30,
           color: const Color(0xFF22C55E),
           icon: Icons.account_balance,
         ),
-      if (etfs > 0)
         AssetAllocation(
           name: 'ETFs',
-          percentage: etfs,
+          percentage: 20,
           color: const Color(0xFF8B5CF6),
           icon: Icons.pie_chart,
         ),
-      if (crypto > 0)
-        AssetAllocation(
-          name: 'Crypto',
-          percentage: crypto,
-          color: const Color(0xFFF59E0B),
-          icon: Icons.currency_bitcoin,
-        ),
-      if (cash > 0)
         AssetAllocation(
           name: 'Cash',
-          percentage: cash,
+          percentage: 10,
           color: const Color(0xFF6B7280),
           icon: Icons.account_balance_wallet,
         ),
-      if (realEstate > 0)
+      ];
+    }
+
+    // Asset metadata mapping
+    final assetInfo = {
+      'stocks': {'name': 'Stocks', 'color': const Color(0xFF3B82F6), 'icon': Icons.trending_up},
+      'etfs': {'name': 'ETFs', 'color': const Color(0xFF8B5CF6), 'icon': Icons.pie_chart},
+      'crypto': {'name': 'Crypto', 'color': const Color(0xFFF59E0B), 'icon': Icons.currency_bitcoin},
+      'bonds': {'name': 'Bonds', 'color': const Color(0xFF22C55E), 'icon': Icons.account_balance},
+      'real_estate': {'name': 'Real Estate', 'color': const Color(0xFFEC4899), 'icon': Icons.home_work},
+    };
+
+    // Calculate allocation based on selected assets
+    final validAssets = selectedAssets.where((a) => assetInfo.containsKey(a)).toList();
+
+    if (validAssets.isEmpty) {
+      return [
         AssetAllocation(
-          name: 'Real Estate',
-          percentage: realEstate,
-          color: const Color(0xFFEC4899),
-          icon: Icons.home_work,
+          name: 'Diversified Portfolio',
+          percentage: 100,
+          color: const Color(0xFF3B82F6),
+          icon: Icons.pie_chart,
         ),
-    ];
+      ];
+    }
+
+    // Distribute allocation evenly among selected assets
+    final baseAllocation = 100 ~/ validAssets.length;
+    final remainder = 100 % validAssets.length;
+
+    List<AssetAllocation> allocations = [];
+    for (int i = 0; i < validAssets.length; i++) {
+      final asset = validAssets[i];
+      final info = assetInfo[asset]!;
+      final percentage = baseAllocation + (i < remainder ? 1 : 0);
+
+      allocations.add(AssetAllocation(
+        name: info['name'] as String,
+        percentage: percentage.toDouble(),
+        color: info['color'] as Color,
+        icon: info['icon'] as IconData,
+      ));
+    }
+
+    // Sort by percentage descending
+    allocations.sort((a, b) => b.percentage.compareTo(a.percentage));
+
+    return allocations;
   }
 }
 
@@ -603,31 +573,25 @@ class InfoItem {
 
 final Map<String, InfoCategory> infoContent = {
   'personality': InfoCategory(
-    title: 'Investment Personality Types',
+    title: 'Investment Experience Levels',
     items: [
       InfoItem(
-        emoji: '🏦',
-        label: 'Conservative Investor',
-        color: const Color(0xFF22C55E),
-        description: 'Prefers stability and capital preservation over high returns. Avoids volatile investments.',
-      ),
-      InfoItem(
-        emoji: '⚖️',
-        label: 'Balanced Investor',
-        color: const Color(0xFF3B82F6),
-        description: 'Seeks a mix of growth and stability. Accepts moderate risk for better returns.',
-      ),
-      InfoItem(
         emoji: '🌱',
-        label: 'Growth Investor',
-        color: const Color(0xFF8B5CF6),
-        description: 'Focuses on capital appreciation. Comfortable with market volatility for higher potential gains.',
+        label: 'Beginner (0-13 pts)',
+        color: const Color(0xFFF59E0B),
+        description: 'New to investing with limited market exposure. Building foundational knowledge of stocks, bonds, and basic investment concepts.',
       ),
       InfoItem(
-        emoji: '⚡',
-        label: 'Aggressive Trader',
-        color: const Color(0xFFEF4444),
-        description: 'Seeks maximum returns. Willing to take significant risks and actively trade positions.',
+        emoji: '📊',
+        label: 'Intermediate (14-27 pts)',
+        color: const Color(0xFF3B82F6),
+        description: 'Has some investment experience with active portfolios. Familiar with different asset classes and comfortable reading market charts.',
+      ),
+      InfoItem(
+        emoji: '🎓',
+        label: 'Advanced (28-40 pts)',
+        color: const Color(0xFF22C55E),
+        description: 'Extensive investment background with diversified portfolio experience. Proficient in technical analysis and multiple asset classes.',
       ),
     ],
   ),
@@ -636,67 +600,67 @@ final Map<String, InfoCategory> infoContent = {
     items: [
       InfoItem(
         emoji: '🌱',
-        label: 'Beginner',
+        label: 'Beginner (0-10 pts)',
         color: const Color(0xFFF59E0B),
-        description: 'New to investing. Learning the basics of financial markets and investment concepts.',
+        description: 'Learning the basics of financial planning, budgeting, and market risk. Building savings habits and understanding retirement concepts.',
       ),
       InfoItem(
         emoji: '📚',
-        label: 'Intermediate',
+        label: 'Intermediate (11-20 pts)',
         color: const Color(0xFF3B82F6),
-        description: 'Understands core investment principles. Familiar with different asset classes and strategies.',
+        description: 'Good understanding of risk management, savings discipline, and financial planning. Has emergency savings and retirement strategy.',
       ),
       InfoItem(
         emoji: '🎓',
-        label: 'Advanced',
+        label: 'Advanced (21-30 pts)',
         color: const Color(0xFF22C55E),
-        description: 'Expert knowledge of markets. Can analyze investments and build diversified portfolios.',
+        description: 'Strong financial foundation with excellent risk understanding. Disciplined saver with comprehensive retirement planning.',
       ),
     ],
   ),
   'strength': InfoCategory(
-    title: 'Financial Strength Levels',
+    title: 'Motivation Levels',
     items: [
       InfoItem(
-        emoji: '⚠️',
-        label: 'Weak',
-        color: const Color(0xFFEF4444),
-        description: 'Limited financial buffer. Should focus on building emergency savings before investing.',
-      ),
-      InfoItem(
-        emoji: '💪',
-        label: 'Moderate',
+        emoji: '🔍',
+        label: 'Explorer (0-5 pts)',
         color: const Color(0xFFF59E0B),
-        description: 'Stable income with manageable debts. Can start investing with caution.',
+        description: 'Learning-focused motivation. Exploring investment options and understanding market dynamics before committing.',
       ),
       InfoItem(
-        emoji: '💎',
-        label: 'Strong',
+        emoji: '🎯',
+        label: 'Goal-Oriented (6-10 pts)',
+        color: const Color(0xFF3B82F6),
+        description: 'Clear investment objectives with defined goals. Building knowledge while working toward specific financial targets.',
+      ),
+      InfoItem(
+        emoji: '🚀',
+        label: 'Action-Ready (11-15 pts)',
         color: const Color(0xFF22C55E),
-        description: 'Solid financial foundation. Well-positioned to invest and take calculated risks.',
+        description: 'Highly motivated with clear trading goals. Ready to actively engage with markets and test investment strategies.',
       ),
     ],
   ),
   'readiness': InfoCategory(
-    title: 'Challenge Readiness Levels',
+    title: 'Learning Readiness Levels',
     items: [
       InfoItem(
         emoji: '📚',
-        label: 'Needs Learning',
+        label: 'Needs Guidance (0-5 pts)',
         color: const Color(0xFFF59E0B),
-        description: 'Should start with educational resources and small demo portfolios to build skills.',
+        description: 'Would benefit from structured learning and smaller demo portfolios. Building confidence with guided investment education.',
       ),
       InfoItem(
         emoji: '🎯',
-        label: 'Investment Ready',
+        label: 'Investment Ready (6-10 pts)',
         color: const Color(0xFF3B82F6),
-        description: 'Has the knowledge and mindset to start investing with moderate portfolio sizes.',
+        description: 'Prepared to start investing with moderate portfolio sizes. Good understanding of passive income concepts.',
       ),
       InfoItem(
         emoji: '🏆',
-        label: 'Full Challenge Ready',
+        label: 'Challenge Ready (11-15 pts)',
         color: const Color(0xFF22C55E),
-        description: 'Prepared for advanced trading challenges with larger portfolio sizes.',
+        description: 'Fully prepared for advanced trading challenges with larger portfolios. Confident in investment decisions and strategy.',
       ),
     ],
   ),
@@ -1036,12 +1000,12 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
 
                     const SizedBox(height: 20),
 
-                    // Section Score Cards (QIQT 0-100 System)
+                    // Score Cards (QIQT 0-100 System)
                     _AnimatedSlideIn(
                       controller: _mainController,
                       delay: 0.3,
                       child: _ScoreCard(
-                        title: 'Section 1: Investment Experience',
+                        title: '1: Investment Experience',
                         result: experience,
                         onInfoTap: () => _showInfoModal('personality'),
                       ),
@@ -1051,7 +1015,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                       controller: _mainController,
                       delay: 0.35,
                       child: _ScoreCard(
-                        title: 'Section 2: Financial Literacy',
+                        title: '2: Financial Literacy',
                         result: literacy,
                         onInfoTap: () => _showInfoModal('literacy'),
                       ),
@@ -1061,7 +1025,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                       controller: _mainController,
                       delay: 0.4,
                       child: _ScoreCard(
-                        title: 'Section 3: Motivation',
+                        title: '3: Motivation',
                         result: motivation,
                         onInfoTap: () => _showInfoModal('strength'),
                       ),
@@ -1071,7 +1035,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                       controller: _mainController,
                       delay: 0.45,
                       child: _ScoreCard(
-                        title: 'Section 4: Learning Readiness',
+                        title: '4: Learning Readiness',
                         result: readiness,
                         onInfoTap: () => _showInfoModal('readiness'),
                       ),
@@ -1153,7 +1117,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
 
 ${totalScore.emoji} Classification: ${totalScore.label}
 
-📊 Section Scores:
+📊 Scores:
 • Investment Experience: ${experience.score}/${experience.maxScore}
 • Financial Literacy: ${literacy.score}/${literacy.maxScore}
 • Motivation: ${motivation.score}/${motivation.maxScore}
@@ -1314,7 +1278,7 @@ class _RiskAndGoalSection extends StatelessWidget {
                 const SizedBox(height: 12),
                 Text(
                   (literacyLabel == 'Beginner' || literacyLabel == 'Intermediate' || literacyLabel == 'Advanced')
-                      ? '28 Days Skill Challenge'
+                      ? '28 Days Skills'
                       : _getInvestingGoalLabel(investingGoal),
                   style: const TextStyle(
                     fontSize: 16,
