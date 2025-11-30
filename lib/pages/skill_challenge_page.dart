@@ -455,20 +455,16 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
   }
 
   Widget _buildLessonsList() {
-    // Filter out Day 2 from main cards - it will appear as floating icon
-    final mainLessons = _lessons.where((l) => l['day'] != 2).toList();
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
-        children: List.generate(mainLessons.length, (index) {
-          final lesson = mainLessons[index];
-          final isLast = index == mainLessons.length - 1;
-          final originalDay = lesson['day'] as int;
+        children: List.generate(_lessons.length, (index) {
+          final lesson = _lessons[index];
+          final isLast = index == _lessons.length - 1;
           return Column(
             children: [
               _buildLessonCard(lesson),
-              if (!isLast) _buildPathIcons(index, originalDay),
+              if (!isLast) _buildPathIcons(index),
             ],
           );
         }),
@@ -476,15 +472,12 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     );
   }
 
-  Widget _buildPathIcons(int dayIndex, int originalDay) {
+  Widget _buildPathIcons(int dayIndex) {
     // Create a zigzag pattern with 5 lesson icons and 1 test icon
     final isEven = dayIndex % 2 == 0;
-    final isCompleted = originalDay < _currentDay;
+    final day = dayIndex + 1;
+    final isCompleted = day < _currentDay;
     final isTestDay = (dayIndex + 1) % 6 == 0; // Every 6th position is a test
-
-    // Day 2 lesson appears at second icon position after Day 1
-    final day2Lesson = _lessons.firstWhere((l) => l['day'] == 2);
-    final showDay2AtSecondIcon = originalDay == 1;
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -505,19 +498,14 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                   isCompleted: isCompleted,
                 ),
               ),
-              // Lesson Icon 2 - Day 2's lesson appears here after Day 1
+              // Lesson Icon 2
               Positioned(
                 top: 75,
                 left: isEven ? centerX + 15 - 25 : centerX - 15 - 25,
-                child: showDay2AtSecondIcon
-                    ? _buildInteractiveLessonIcon(
-                        lesson: day2Lesson,
-                        isCompleted: 2 < _currentDay,
-                      )
-                    : _buildFloatingIcon(
-                        icon: Icons.menu_book,
-                        isCompleted: isCompleted,
-                      ),
+                child: _buildFloatingIcon(
+                  icon: Icons.menu_book,
+                  isCompleted: isCompleted,
+                ),
               ),
               // Lesson Icon 3
               Positioned(
@@ -560,188 +548,6 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
           ),
         );
       },
-    );
-  }
-
-  Widget _buildInteractiveLessonIcon({
-    required Map<String, dynamic> lesson,
-    required bool isCompleted,
-  }) {
-    final day = lesson['day'] as int;
-    final emoji = lesson['emoji'] as String;
-    final isLocked = day > _currentDay;
-    final isCurrent = day == _currentDay;
-
-    return GestureDetector(
-      onTap: () {
-        if (!isLocked) {
-          _showLessonPopup(lesson);
-        }
-      },
-      child: Container(
-        width: 50,
-        height: 50,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: isCompleted
-                ? [const Color(0xFF10B981), const Color(0xFF059669)]
-                : isCurrent
-                    ? [const Color(0xFF8B5CF6), const Color(0xFF6366F1)]
-                    : [const Color(0xFF6366F1), const Color(0xFF6366F1).withValues(alpha: 0.8)],
-          ),
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: (isCurrent ? const Color(0xFF8B5CF6) : const Color(0xFF6366F1)).withValues(alpha: 0.5),
-              blurRadius: 16,
-              spreadRadius: 2,
-              offset: const Offset(0, 4),
-            ),
-          ],
-          border: isCurrent
-              ? Border.all(color: Colors.white, width: 2)
-              : null,
-        ),
-        child: Center(
-          child: Text(
-            emoji,
-            style: const TextStyle(fontSize: 20),
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _showLessonPopup(Map<String, dynamic> lesson) {
-    final day = lesson['day'] as int;
-    final emoji = lesson['emoji'] as String;
-    final title = lesson['title'] as String;
-    final isCompleted = lesson['completed'] as bool;
-
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(24),
-        decoration: const BoxDecoration(
-          color: Color(0xFF1E293B),
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.3),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                color: const Color(0xFF8B5CF6).withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Center(
-                child: Text(emoji, style: const TextStyle(fontSize: 32)),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: const Color(0xFF8B5CF6).withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                'Day ${day.toString().padLeft(2, '0')}',
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF8B5CF6),
-                ),
-              ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              _getLessonDescription(day),
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.white.withValues(alpha: 0.7),
-                height: 1.5,
-              ),
-            ),
-            const SizedBox(height: 24),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-                if (LessonRegistry.hasLesson(day)) {
-                  Navigator.pushNamed(
-                    context,
-                    '/lesson',
-                    arguments: {'day': day},
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Lesson $day coming soon!'),
-                      backgroundColor: const Color(0xFF6366F1),
-                    ),
-                  );
-                }
-              },
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      isCompleted ? Icons.replay : Icons.play_arrow,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      isCompleted ? 'Review Lesson' : 'Start Lesson',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-          ],
-        ),
-      ),
     );
   }
 
