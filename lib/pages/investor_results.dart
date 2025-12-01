@@ -1125,7 +1125,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                     _AnimatedSlideIn(
                       controller: _mainController,
                       delay: 0.5,
-                      child: _PortfolioCard(suggestion: portfolio),
+                      child: _PortfolioCard(suggestion: portfolio, literacyLabel: literacy.label),
                     ),
 
                     const SizedBox(height: 20),
@@ -2033,8 +2033,22 @@ class _ScoreCardState extends State<_ScoreCard> with SingleTickerProviderStateMi
 // Portfolio Card
 class _PortfolioCard extends StatelessWidget {
   final PortfolioSuggestion suggestion;
+  final String literacyLabel;
 
-  const _PortfolioCard({required this.suggestion});
+  const _PortfolioCard({required this.suggestion, required this.literacyLabel});
+
+  String _getPortfolioByLiteracy() {
+    switch (literacyLabel) {
+      case 'Beginner':
+        return '\$1,000 – \$5,000';
+      case 'Intermediate':
+        return '\$5,000 – \$10,000';
+      case 'Expert':
+        return '\$10,000 – \$50,000';
+      default:
+        return suggestion.size;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -2068,7 +2082,7 @@ class _PortfolioCard extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            suggestion.size,
+            _getPortfolioByLiteracy(),
             style: const TextStyle(
               fontSize: 36,
               fontWeight: FontWeight.w800,
