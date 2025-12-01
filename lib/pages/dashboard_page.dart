@@ -977,8 +977,9 @@ class _DashboardPageState extends State<DashboardPage>
             ),
           ],
         ),
-        // Second section: Profit, Daily Loss, Max Loss (full width)
-        Column(
+        // Second row: Profit, Daily Loss, Max Loss
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildObjectiveCircleMedium(
               label: 'Profit Target',
@@ -989,7 +990,6 @@ class _DashboardPageState extends State<DashboardPage>
               targetPercentage: '8%',
               targetValue: '\$1600',
             ),
-            const SizedBox(height: 16),
             _buildObjectiveCircleMedium(
               label: 'Max Daily Loss',
               value: '\$500',
@@ -999,7 +999,6 @@ class _DashboardPageState extends State<DashboardPage>
               targetPercentage: '5%',
               targetValue: '\$1000',
             ),
-            const SizedBox(height: 16),
             _buildObjectiveCircleMedium(
               label: 'Max Loss Limit',
               value: '\$1500',
@@ -1271,8 +1270,8 @@ class _DashboardPageState extends State<DashboardPage>
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           crossAxisCount: 3,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
+          mainAxisSpacing: 4,
+          crossAxisSpacing: 4,
           childAspectRatio: 1.2,
           children: stats.map((stat) => _buildStatBox(
             stat['label'] as String,
