@@ -3,7 +3,7 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"assets/fonts/MaterialIcons-Regular.otf": "d881bf95832216d207e0ca46752e829e",
+const RESOURCES = {"assets/fonts/MaterialIcons-Regular.otf": "4d5ebc4c6a8a26dd0b66a55c9179f8fa",
 "assets/AssetManifest.bin": "69e5f026e6c70018efadfc2a6835a3cb",
 "assets/assets/videos/lessons/day2/story_animation.mp4": "80a55502f0666476d7cbf965cde5cb44",
 "assets/assets/images/mascot.png": "22829ff7a7222adf78a72275f31879e5",
@@ -29,9 +29,9 @@ const RESOURCES = {"assets/fonts/MaterialIcons-Regular.otf": "d881bf95832216d207
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "version.json": "389a6e6e6f34312743ca5f36467c84b5",
-"main.dart.js": "d5e1b80fb2146ab42a3ecd6121ac41ff",
+"main.dart.js": "1fd3167805fd6e9364d852d2454040c5",
 "manifest.json": "56128fc6ec7568b99d6fc24cfa34a218",
-"flutter_bootstrap.js": "b6e5537375dbd1d9ed75c9c7b555bb02",
+"flutter_bootstrap.js": "9bfa41363bb25345bde5e198a84183e5",
 "flutter.js": "888483df48293866f9f41d3d9274a779",
 "canvaskit/canvaskit.js.symbols": "58832fbed59e00d2190aa295c4d70360",
 "canvaskit/canvaskit.wasm": "07b9f5853202304d3b0749d9306573cc",

@@ -458,6 +458,37 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
     context.read<QuestionnaireProvider>().setAnswer('industriesInterested', _selectedIndustries);
   }
 
+  // Get section-specific colors for progress bars
+  List<Color> _getSectionGradientColors() {
+    if (_step <= 9) {
+      // Section 1: Investment Background - Green theme
+      return [const Color(0xFF22C55E), const Color(0xFF16A34A)];
+    } else if (_step <= 14) {
+      // Section 2: Financial Literacy - Blue theme
+      return [const Color(0xFF3B82F6), const Color(0xFF2563EB)];
+    } else if (_step <= 17) {
+      // Section 3: Investment Goals - Purple theme
+      return [const Color(0xFFA855F7), const Color(0xFF9333EA)];
+    } else {
+      // Section 4: Portfolio Preferences - Gold theme
+      return [const Color(0xFFF59E0B), const Color(0xFFD97706)];
+    }
+  }
+
+  Color _getSectionPrimaryColor() {
+    if (_step <= 9) return const Color(0xFF22C55E);
+    if (_step <= 14) return const Color(0xFF3B82F6);
+    if (_step <= 17) return const Color(0xFFA855F7);
+    return const Color(0xFFF59E0B);
+  }
+
+  IconData _getSectionIcon() {
+    if (_step <= 9) return Icons.person_outline;
+    if (_step <= 14) return Icons.school_outlined;
+    if (_step <= 17) return Icons.flag_outlined;
+    return Icons.account_balance_wallet_outlined;
+  }
+
   String _getSectionProgress() {
     // Section 1: Questions 1-9 (9 questions) - Investment Background
     // Section 2: Questions 10-14 (5 questions) - Financial Literacy
@@ -1750,6 +1781,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                 AnimatedBuilder(
                   animation: _pulseAnimation,
                   builder: (context, child) {
+                    final sectionColors = _getSectionGradientColors();
                     return Transform.scale(
                       scale: _showLevelUp ? _pulseAnimation.value : 1.0,
                       child: Container(
@@ -1759,12 +1791,12 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                         ),
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [Colors.amber, Colors.orange.shade700],
+                            colors: sectionColors,
                           ),
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.amber.withValues(alpha: 0.4),
+                              color: sectionColors[0].withValues(alpha: 0.4),
                               blurRadius: 10,
                             ),
                           ],
@@ -1772,8 +1804,8 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
-                              Icons.star,
+                            Icon(
+                              _getSectionIcon(),
                               color: Colors.white,
                               size: 18,
                             ),
@@ -1797,56 +1829,62 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
                 // XP Bar
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        _getLevelTitle(_currentLevel),
-                        style: TextStyle(
-                          color: Colors.white.withValues(alpha: 0.7),
-                          fontSize: 12,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Stack(
+                  child: Builder(
+                    builder: (context) {
+                      final sectionColors = _getSectionGradientColors();
+                      final primaryColor = _getSectionPrimaryColor();
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            height: 8,
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.2),
-                              borderRadius: BorderRadius.circular(4),
+                          Text(
+                            _getLevelTitle(_currentLevel),
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.7),
+                              fontSize: 12,
                             ),
                           ),
-                          AnimatedContainer(
-                            duration: const Duration(milliseconds: 500),
-                            height: 8,
-                            width: (MediaQuery.of(context).size.width - 200) *
-                                xpProgress.clamp(0.0, 1.0),
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                colors: [Colors.amber, Colors.orange],
-                              ),
-                              borderRadius: BorderRadius.circular(4),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.amber.withValues(alpha: 0.5),
-                                  blurRadius: 6,
+                          const SizedBox(height: 4),
+                          Stack(
+                            children: [
+                              Container(
+                                height: 8,
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withValues(alpha: 0.2),
+                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                              ],
+                              ),
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 500),
+                                height: 8,
+                                width: (MediaQuery.of(context).size.width - 200) *
+                                    xpProgress.clamp(0.0, 1.0),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: sectionColors,
+                                  ),
+                                  borderRadius: BorderRadius.circular(4),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: primaryColor.withValues(alpha: 0.5),
+                                      blurRadius: 6,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            _getSectionProgress(),
+                            style: TextStyle(
+                              color: primaryColor.withValues(alpha: 0.8),
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ],
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        _getSectionProgress(),
-                        style: TextStyle(
-                          color: Colors.amber.withValues(alpha: 0.8),
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ),
 
@@ -1860,6 +1898,16 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
   Widget _buildQuestProgress() {
     final progress = _step / totalQuestions;
+    final sectionColors = _getSectionGradientColors();
+    final primaryColor = _getSectionPrimaryColor();
+
+    // Milestone colors for each section
+    final milestoneColors = [
+      const Color(0xFF22C55E), // Section 1 - Green
+      const Color(0xFF3B82F6), // Section 2 - Blue
+      const Color(0xFFA855F7), // Section 3 - Purple
+      const Color(0xFFF59E0B), // Section 4 - Gold
+    ];
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
@@ -1867,9 +1915,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.map,
-                color: Colors.cyan,
+              Icon(
+                _getSectionIcon(),
+                color: primaryColor,
                 size: 16,
               ),
               const SizedBox(width: 6),
@@ -1886,15 +1934,15 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                 onTap: () => _showQIQTInfoPopup(),
                 child: Icon(
                   Icons.info_outline,
-                  color: Colors.cyan.withValues(alpha: 0.7),
+                  color: primaryColor.withValues(alpha: 0.7),
                   size: 14,
                 ),
               ),
               const Spacer(),
               Text(
                 '$_step/$totalQuestions',
-                style: const TextStyle(
-                  color: Colors.cyan,
+                style: TextStyle(
+                  color: primaryColor,
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),
@@ -1917,22 +1965,25 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                 height: 12,
                 width: (MediaQuery.of(context).size.width - 48) * progress,
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Colors.cyan, Colors.blue, Colors.purple],
+                  gradient: LinearGradient(
+                    colors: sectionColors,
                   ),
                   borderRadius: BorderRadius.circular(6),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.cyan.withValues(alpha: 0.5),
+                      color: primaryColor.withValues(alpha: 0.5),
                       blurRadius: 8,
                     ),
                   ],
                 ),
               ),
-              // Milestone markers
+              // Milestone markers - each with its section color
               ...List.generate(4, (index) {
-                final position = (index + 1) * 0.2;
-                final isReached = progress >= position;
+                // Milestone positions at 9/20, 14/20, 17/20, 20/20
+                final milestoneSteps = [9, 14, 17, 20];
+                final position = milestoneSteps[index] / totalQuestions;
+                final isReached = _step >= milestoneSteps[index];
+                final milestoneColor = milestoneColors[index];
                 return Positioned(
                   left: (MediaQuery.of(context).size.width - 48) * position - 8,
                   top: -2,
@@ -1941,15 +1992,15 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                     height: 16,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: isReached ? Colors.amber : Colors.grey.shade700,
+                      color: isReached ? milestoneColor : Colors.grey.shade700,
                       border: Border.all(
-                        color: isReached ? Colors.amber : Colors.grey,
+                        color: isReached ? milestoneColor : Colors.grey,
                         width: 2,
                       ),
                       boxShadow: isReached
                           ? [
                               BoxShadow(
-                                color: Colors.amber.withValues(alpha: 0.5),
+                                color: milestoneColor.withValues(alpha: 0.5),
                                 blurRadius: 6,
                               ),
                             ]
@@ -1957,7 +2008,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                     ),
                     child: isReached
                         ? const Icon(
-                            Icons.star,
+                            Icons.check,
                             size: 10,
                             color: Colors.white,
                           )
