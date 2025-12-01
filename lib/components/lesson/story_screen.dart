@@ -53,8 +53,10 @@ class _StoryScreenState extends State<StoryScreen>
       try {
         await _videoController!.initialize();
         _videoController!.setLooping(true);
+        _videoController!.play();
         setState(() {
           _isVideoInitialized = true;
+          _isVideoPlaying = true;
         });
       } catch (e) {
         debugPrint('Error initializing video: $e');
