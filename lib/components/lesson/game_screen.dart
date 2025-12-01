@@ -117,7 +117,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         children: [
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
+              padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
               child: Column(
                 children: [
                   // Game title

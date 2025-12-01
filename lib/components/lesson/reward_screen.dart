@@ -103,7 +103,7 @@ class _RewardScreenState extends State<RewardScreen>
           // Main content
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
+              padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
               child: Column(
                 children: [
                   const SizedBox(height: 20),

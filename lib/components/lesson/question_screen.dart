@@ -116,7 +116,7 @@ class _QuestionScreenState extends State<QuestionScreen>
 
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
+              padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
               child: Column(
                 children: [
                   // Question header with glow

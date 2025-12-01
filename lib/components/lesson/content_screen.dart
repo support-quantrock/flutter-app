@@ -86,7 +86,7 @@ class _ContentScreenState extends State<ContentScreen>
               children: [
                 Expanded(
                   child: SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
+                    padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -157,6 +157,7 @@ class _ContentScreenState extends State<ContentScreen>
                           FadeTransition(
                             opacity: _slideController,
                             child: Container(
+                              width: double.infinity,
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 color: Colors.white.withValues(alpha: 0.05),
