@@ -555,11 +555,9 @@ class _DashboardPageState extends State<DashboardPage>
 
           // Objectives
           _buildObjectives(),
-          const SizedBox(height: 24),
 
           // Asset Allocation
           _buildAssetAllocation(),
-          const SizedBox(height: 24),
 
           // Statistics Grid
           _buildStatisticsGrid(),
@@ -950,7 +948,6 @@ class _DashboardPageState extends State<DashboardPage>
             _buildInfoIcon('Trades'),
           ],
         ),
-        const SizedBox(height: 16),
         // First row: Trades and Days
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -971,7 +968,6 @@ class _DashboardPageState extends State<DashboardPage>
             ),
           ],
         ),
-        const SizedBox(height: 20),
         // Second row: Profit, Daily Loss, Max Loss
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1261,13 +1257,12 @@ class _DashboardPageState extends State<DashboardPage>
             _buildInfoIcon('Statistics'),
           ],
         ),
-        const SizedBox(height: 16),
         GridView.count(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           crossAxisCount: 3,
-          mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
+          mainAxisSpacing: 0,
+          crossAxisSpacing: 0,
           childAspectRatio: 1.2,
           children: stats.map((stat) => _buildStatBox(
             stat['label'] as String,
@@ -1281,7 +1276,6 @@ class _DashboardPageState extends State<DashboardPage>
 
   Widget _buildStatBox(String label, String value, Color valueColor) {
     return Container(
-      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(10),
