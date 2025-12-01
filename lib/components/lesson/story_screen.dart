@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 import '../../models/lesson_models.dart';
 import 'image_placeholder.dart';
 
@@ -22,6 +23,9 @@ class _StoryScreenState extends State<StoryScreen>
   late AnimationController _glowController;
   late AnimationController _particleController;
   late Animation<double> _glowAnimation;
+  VideoPlayerController? _videoController;
+  bool _isVideoInitialized = false;
+  bool _isVideoPlaying = false;
 
   @override
   void initState() {
@@ -39,12 +43,43 @@ class _StoryScreenState extends State<StoryScreen>
       duration: const Duration(milliseconds: 3000),
       vsync: this,
     )..repeat();
+
+    _initVideoPlayer();
+  }
+
+  Future<void> _initVideoPlayer() async {
+    if (widget.screen.videoPath != null) {
+      _videoController = VideoPlayerController.asset(widget.screen.videoPath!);
+      try {
+        await _videoController!.initialize();
+        _videoController!.setLooping(true);
+        setState(() {
+          _isVideoInitialized = true;
+        });
+      } catch (e) {
+        debugPrint('Error initializing video: $e');
+      }
+    }
+  }
+
+  void _toggleVideo() {
+    if (_videoController == null || !_isVideoInitialized) return;
+
+    setState(() {
+      if (_isVideoPlaying) {
+        _videoController!.pause();
+      } else {
+        _videoController!.play();
+      }
+      _isVideoPlaying = !_isVideoPlaying;
+    });
   }
 
   @override
   void dispose() {
     _glowController.dispose();
     _particleController.dispose();
+    _videoController?.dispose();
     super.dispose();
   }
 
@@ -109,8 +144,51 @@ class _StoryScreenState extends State<StoryScreen>
 
                   const SizedBox(height: 24),
 
-                  // Image placeholder
-                  if (widget.screen.imagePrompt != null)
+                  // Video or Image placeholder
+                  if (_isVideoInitialized && _videoController != null)
+                    GestureDetector(
+                      onTap: _toggleVideo,
+                      child: Container(
+                        height: 220,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.amber.withValues(alpha: 0.3),
+                              blurRadius: 20,
+                              spreadRadius: 2,
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              AspectRatio(
+                                aspectRatio: _videoController!.value.aspectRatio,
+                                child: VideoPlayer(_videoController!),
+                              ),
+                              if (!_isVideoPlaying)
+                                Container(
+                                  width: 60,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    color: Colors.amber.withValues(alpha: 0.9),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Icon(
+                                    Icons.play_arrow,
+                                    color: Colors.black,
+                                    size: 40,
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  else if (widget.screen.imagePrompt != null)
                     ImagePlaceholder(
                       prompt: widget.screen.imagePrompt!,
                       imagePath: widget.screen.imagePath,

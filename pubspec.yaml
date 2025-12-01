@@ -44,6 +44,9 @@ dependencies:
   # State management
   provider: ^6.1.2
 
+  # Video player for lesson videos
+  video_player: ^2.9.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -70,6 +73,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/lessons/day2/
+    - assets/videos/lessons/day2/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
