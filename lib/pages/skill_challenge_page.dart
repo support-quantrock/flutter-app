@@ -493,19 +493,10 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
           height: 360,
           child: Stack(
             children: [
-              // Lesson Icon 1
+              // Lesson Icon 1 - Day 2's lesson appears here after Day 2 card
               Positioned(
                 top: 20,
                 left: isEven ? centerX - offset - 25 : centerX + offset - 25,
-                child: _buildFloatingIcon(
-                  icon: Icons.menu_book,
-                  isCompleted: isCompleted,
-                ),
-              ),
-              // Lesson Icon 2 - Day 2's lesson appears here after Day 2 card
-              Positioned(
-                top: 75,
-                left: isEven ? centerX + 15 - 25 : centerX - 15 - 25,
                 child: showDay2Lesson
                     ? _buildInteractiveLessonIcon(
                         lesson: day2Lesson,
@@ -515,6 +506,15 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                         icon: Icons.menu_book,
                         isCompleted: isCompleted,
                       ),
+              ),
+              // Lesson Icon 2
+              Positioned(
+                top: 75,
+                left: isEven ? centerX + 15 - 25 : centerX - 15 - 25,
+                child: _buildFloatingIcon(
+                  icon: Icons.menu_book,
+                  isCompleted: isCompleted,
+                ),
               ),
               // Lesson Icon 3
               Positioned(
