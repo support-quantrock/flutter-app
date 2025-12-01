@@ -1017,7 +1017,6 @@ class _DashboardPageState extends State<DashboardPage>
     required String target,
   }) {
     return Container(
-      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(12),
@@ -1086,7 +1085,6 @@ class _DashboardPageState extends State<DashboardPage>
   }) {
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: Colors.white.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(12),
