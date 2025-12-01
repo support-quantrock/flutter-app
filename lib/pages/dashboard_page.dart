@@ -495,9 +495,12 @@ class _DashboardPageState extends State<DashboardPage>
                 borderRadius: BorderRadius.circular(4),
                 gradient: const LinearGradient(
                   colors: [
-                    Color(0xFF22C55E),
-                    Color(0xFFEAB308),
-                    Color(0xFFEF4444),
+                    Color(0xFF86EFAC), // Light green
+                    Color(0xFF22C55E), // Dark green
+                    Color(0xFFFDE047), // Light yellow
+                    Color(0xFFEAB308), // Dark yellow
+                    Color(0xFFFCA5A5), // Light red
+                    Color(0xFFEF4444), // Dark red
                   ],
                 ),
               ),
