@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class QuestionnaireAnswers {
   // Section 1: Personal Information & Investment Background
   String? gender;
+  String? timeCommitment;
   String? ageRange;
   String? hasInvestmentAccount;
   String? hasActivePortfolio;
@@ -51,6 +52,7 @@ class QuestionnaireAnswers {
 
   QuestionnaireAnswers({
     this.gender,
+    this.timeCommitment,
     this.ageRange,
     this.hasInvestmentAccount,
     this.hasActivePortfolio,
@@ -103,6 +105,9 @@ class QuestionnaireProvider extends ChangeNotifier {
       // Section 1: Personal Information & Investment Background
       case 'gender':
         _answers.gender = value;
+        break;
+      case 'timeCommitment':
+        _answers.timeCommitment = value;
         break;
       case 'ageRange':
         _answers.ageRange = value;

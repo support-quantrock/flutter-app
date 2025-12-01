@@ -27,7 +27,7 @@ class QuestionData {
 final Map<int, QuestionData> questionMetadata = {
   // SECTION 1 — Personal Information & Investment Background
   1: const QuestionData(title: 'Gender', category: QuestionCategory.profile),
-  2: const QuestionData(title: 'Age Group', category: QuestionCategory.profile),
+  2: const QuestionData(title: 'Time Commitment', category: QuestionCategory.profile),
   3: const QuestionData(title: 'Investment Account', category: QuestionCategory.profile, xpReward: 50),
   4: const QuestionData(title: 'Active Portfolio', category: QuestionCategory.profile, xpReward: 50),
   5: const QuestionData(title: 'Portfolio Size', category: QuestionCategory.profile, xpReward: 50),
@@ -115,14 +115,11 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       'q1_female': {'en': 'Female', 'ar': 'أنثى'},
       'q1_other': {'en': 'Prefer not to say', 'ar': 'أفضل عدم الإجابة'},
 
-      'q2_title': {'en': 'What is your age group?', 'ar': 'ما هي فئتك العمرية؟'},
-      'q2_under18': {'en': 'Under 18', 'ar': 'أقل من 18'},
-      'q2_18_24': {'en': '18-24', 'ar': '18-24'},
-      'q2_25_34': {'en': '25-34', 'ar': '25-34'},
-      'q2_35_44': {'en': '35-44', 'ar': '35-44'},
-      'q2_45_54': {'en': '45-54', 'ar': '45-54'},
-      'q2_55_64': {'en': '55-64', 'ar': '55-64'},
-      'q2_65plus': {'en': '65+', 'ar': '65+'},
+      'q2_title': {'en': 'How much time can you commit to learning each week?', 'ar': 'كم من الوقت يمكنك تخصيصه للتعلم كل أسبوع؟'},
+      'q2_less1': {'en': 'Less than 1 hour', 'ar': 'أقل من ساعة'},
+      'q2_1_3': {'en': '1–3 hours', 'ar': '1-3 ساعات'},
+      'q2_3_7': {'en': '3–7 hours', 'ar': '3-7 ساعات'},
+      'q2_more7': {'en': 'More than 7 hours', 'ar': 'أكثر من 7 ساعات'},
 
       'q3_title': {'en': 'Do you have a real investment account (stocks, crypto, etc.)?', 'ar': 'هل لديك حساب استثماري حقيقي (أسهم، عملات رقمية، إلخ)؟'},
       'q3_yes': {'en': 'Yes', 'ar': 'نعم'},
@@ -493,16 +490,13 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
         return SingleChoiceCard(
           title: _t('q2_title'),
           options: [
-            ChoiceOption(label: _t('q2_under18'), value: 'under_18', icon: '🧒'),
-            ChoiceOption(label: _t('q2_18_24'), value: '18-24', icon: '🧑'),
-            ChoiceOption(label: _t('q2_25_34'), value: '25-34', icon: '👨'),
-            ChoiceOption(label: _t('q2_35_44'), value: '35-44', icon: '👨‍💼'),
-            ChoiceOption(label: _t('q2_45_54'), value: '45-54', icon: '👴'),
-            ChoiceOption(label: _t('q2_55_64'), value: '55-64', icon: '🧓'),
-            ChoiceOption(label: _t('q2_65plus'), value: '65+', icon: '👵'),
+            ChoiceOption(label: _t('q2_less1'), value: 'less_1_hour', icon: '⏰'),
+            ChoiceOption(label: _t('q2_1_3'), value: '1-3_hours', icon: '📚'),
+            ChoiceOption(label: _t('q2_3_7'), value: '3-7_hours', icon: '💪'),
+            ChoiceOption(label: _t('q2_more7'), value: 'more_7_hours', icon: '🚀'),
           ],
-          selectedValue: answers.ageRange,
-          onSelect: (v) => _handleSingleSelect('ageRange', v),
+          selectedValue: answers.timeCommitment,
+          onSelect: (v) => _handleSingleSelect('timeCommitment', v),
           isArabic: _isArabic,
           badgeText: _t('choose_one'),
         );
