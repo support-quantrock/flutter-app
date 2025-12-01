@@ -771,19 +771,6 @@ String _getRiskToleranceLabel(String? value) {
   }
 }
 
-String _getInvestingGoalLabel(String? value) {
-  switch (value) {
-    case 'growth':
-      return 'Capital Growth';
-    case 'income':
-      return 'Extra Income';
-    case 'protection':
-      return 'Capital Protection';
-    default:
-      return 'Not Set';
-  }
-}
-
 String _getIndustryLabel(String value) {
   switch (value) {
     case 'tech':
@@ -1270,6 +1257,36 @@ class _RiskAndGoalSection extends StatelessWidget {
     }
   }
 
+  String _getGoalByLiteracy(String literacyLabel, String? investingGoal) {
+    switch (literacyLabel) {
+      case 'Beginner':
+        return 'Learn Challenge';
+      case 'Intermediate':
+        return '28 Days Skills';
+      case 'Expert':
+        return 'Investment Challenge';
+      default:
+        return _getInvestingGoalLabel(investingGoal);
+    }
+  }
+
+  String _getInvestingGoalLabel(String? goal) {
+    switch (goal) {
+      case 'capital_protection':
+        return 'Capital Protection';
+      case 'extra_income':
+        return 'Extra Income';
+      case 'capital_growth':
+        return 'Capital Growth';
+      case 'long_term_wealth':
+        return 'Long-term Wealth';
+      case 'short_term_speculation':
+        return 'Short-term Trading';
+      default:
+        return 'Not specified';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -1368,9 +1385,7 @@ class _RiskAndGoalSection extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  (literacyLabel == 'Beginner' || literacyLabel == 'Intermediate' || literacyLabel == 'Advanced')
-                      ? '28 Days Skills'
-                      : _getInvestingGoalLabel(investingGoal),
+                  _getGoalByLiteracy(literacyLabel, investingGoal),
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
