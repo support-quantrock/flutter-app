@@ -357,14 +357,14 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       case 6:
         return KnowledgeRatingCard(
           title: 'Rate your knowledge in the following areas',
-          areas: const ['Stocks', 'Risk management', 'Technical analysis', 'Portfolio diversification'],
+          areas: const ['Stock Market', 'Risk management', 'Technical analysis', 'Portfolio diversification'],
           ratings: _knowledgeRatings,
           onRatingChanged: (area, rating) {
             setState(() {
               _knowledgeRatings[area] = rating;
             });
             final provider = context.read<QuestionnaireProvider>();
-            if (area == 'Stocks') provider.setAnswer('stocksKnowledge', rating);
+            if (area == 'Stock Market') provider.setAnswer('stocksKnowledge', rating);
             if (area == 'Risk management') provider.setAnswer('riskManagementKnowledge', rating);
             if (area == 'Technical analysis') provider.setAnswer('technicalAnalysisKnowledge', rating);
             if (area == 'Portfolio diversification') provider.setAnswer('portfolioDiversificationKnowledge', rating);
