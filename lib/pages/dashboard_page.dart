@@ -449,7 +449,7 @@ class _DashboardPageState extends State<DashboardPage>
   Widget _buildMetric(String label, String value) {
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
