@@ -556,8 +556,12 @@ class _DashboardPageState extends State<DashboardPage>
           // Objectives
           _buildObjectives(),
 
+          const SizedBox(height: 24),
+
           // Asset Allocation
           _buildAssetAllocation(),
+
+          const SizedBox(height: 24),
 
           // Statistics Grid
           _buildStatisticsGrid(),
