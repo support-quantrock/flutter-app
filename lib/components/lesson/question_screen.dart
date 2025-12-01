@@ -129,6 +129,7 @@ class _QuestionScreenState extends State<QuestionScreen>
               if (widget.screen.imagePrompt != null)
                 ImagePlaceholder(
                   prompt: widget.screen.imagePrompt!,
+                  imagePath: widget.screen.imagePath,
                   height: 150,
                 ),
 

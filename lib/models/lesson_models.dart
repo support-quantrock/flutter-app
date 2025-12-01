@@ -19,6 +19,7 @@ class LessonScreen {
   final String? title;
   final String? content;
   final String? imagePrompt;
+  final String? imagePath;
   final List<BulletPoint>? bullets;
   final GameData? gameData;
   final QuestionData? questionData;
@@ -30,6 +31,7 @@ class LessonScreen {
     this.title,
     this.content,
     this.imagePrompt,
+    this.imagePath,
     this.bullets,
     this.gameData,
     this.questionData,

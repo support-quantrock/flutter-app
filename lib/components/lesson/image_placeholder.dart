@@ -2,18 +2,42 @@ import 'package:flutter/material.dart';
 
 class ImagePlaceholder extends StatelessWidget {
   final String prompt;
+  final String? imagePath;
   final double height;
   final List<Color>? gradientColors;
 
   const ImagePlaceholder({
     super.key,
     required this.prompt,
+    this.imagePath,
     this.height = 200,
     this.gradientColors,
   });
 
   @override
   Widget build(BuildContext context) {
+    // If imagePath is provided, show the actual image
+    if (imagePath != null && imagePath!.isNotEmpty) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Image.asset(
+          imagePath!,
+          height: height,
+          width: double.infinity,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            // Fall back to placeholder if image fails to load
+            return _buildPlaceholder();
+          },
+        ),
+      );
+    }
+
+    // Otherwise, show the placeholder with prompt text
+    return _buildPlaceholder();
+  }
+
+  Widget _buildPlaceholder() {
     return Container(
       height: height,
       width: double.infinity,

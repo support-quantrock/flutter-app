@@ -113,6 +113,7 @@ class _StoryScreenState extends State<StoryScreen>
                   if (widget.screen.imagePrompt != null)
                     ImagePlaceholder(
                       prompt: widget.screen.imagePrompt!,
+                      imagePath: widget.screen.imagePath,
                       height: 220,
                       gradientColors: const [
                         Color(0xFF1A1A2E),

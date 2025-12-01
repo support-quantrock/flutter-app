@@ -157,6 +157,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                   if (widget.screen.imagePrompt != null)
                     ImagePlaceholder(
                       prompt: widget.screen.imagePrompt!,
+                      imagePath: widget.screen.imagePath,
                       height: 120,
                     ),
 

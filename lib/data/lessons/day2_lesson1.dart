@@ -9,6 +9,7 @@ final day2Lesson = LessonData(
     const LessonScreen(
       type: ScreenType.story,
       title: 'The Gate Awakens',
+      imagePath: 'assets/images/lessons/day2/day2_screen1_story.png',
       imagePrompt:
           'cartoon ancient stone gate glowing with blue runes in a magical forest, cute small guardian holding glowing lantern, fantasy adventure style, bright colors',
       content: '''You walk along a glowing path inside a magical cartoon forest.
@@ -33,6 +34,7 @@ Only one begins to shine… the path of the investor.''',
     const LessonScreen(
       type: ScreenType.content,
       title: 'Consumer Mindset',
+      imagePath: 'assets/images/lessons/day2/day2_screen2_consumer.png',
       imagePrompt:
           'cartoon character excitedly buying shiny objects impulsively, emotional spending behavior, bright playful style',
       content: '''The consumer mindset focuses on the now.
@@ -69,6 +71,7 @@ Here's how it behaves:''',
     const LessonScreen(
       type: ScreenType.content,
       title: 'Investor Mindset',
+      imagePath: 'assets/images/lessons/day2/day2_screen3_investor.png',
       imagePrompt:
           'cartoon investor calmly analyzing a simple chart on a glowing tablet, soft educational colors, cute logical style',
       content: '''The investor mindset is the opposite.
@@ -102,6 +105,7 @@ It focuses on growth, not pleasure.''',
     const LessonScreen(
       type: ScreenType.content,
       title: 'The Shift Moment',
+      imagePath: 'assets/images/lessons/day2/day2_screen4_shift.png',
       imagePrompt:
           'cartoon brain split-screen transforming from consumer mindset to investor mindset, glowing blue evolution effect, simple educational style',
       content:
@@ -137,6 +141,7 @@ This shift changes your life because:''',
     const LessonScreen(
       type: ScreenType.game,
       title: 'Choose the Right Mindset',
+      imagePath: 'assets/images/lessons/day2/day2_screen5_game.png',
       imagePrompt:
           'cartoon shooting gallery with colorful balloons labeled spend first, save later, invest first — cute educational game style',
       gameData: GameData(
@@ -165,6 +170,7 @@ This shift changes your life because:''',
     const LessonScreen(
       type: ScreenType.question,
       title: 'Quick Check',
+      imagePath: 'assets/images/lessons/day2/day2_screen6_question.png',
       imagePrompt:
           'cartoon characters comparing a short-term impulse icon vs a long-term growth chart, cute educational style',
       questionData: QuestionData(
@@ -179,6 +185,7 @@ This shift changes your life because:''',
     const LessonScreen(
       type: ScreenType.mission,
       title: 'Your Mission',
+      imagePath: 'assets/images/lessons/day2/day2_screen7_mission.png',
       imagePrompt:
           'cartoon character selecting multiple-choice financial options on a glowing tablet, bright cute style',
       missionData: MissionData(

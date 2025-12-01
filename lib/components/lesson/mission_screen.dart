@@ -133,6 +133,7 @@ class _MissionScreenState extends State<MissionScreen>
               if (widget.screen.imagePrompt != null)
                 ImagePlaceholder(
                   prompt: widget.screen.imagePrompt!,
+                  imagePath: widget.screen.imagePath,
                   height: 140,
                   gradientColors: const [
                     Color(0xFF2D1B69),

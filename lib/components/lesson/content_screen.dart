@@ -70,6 +70,7 @@ class ContentScreen extends StatelessWidget {
                     if (screen.imagePrompt != null)
                       ImagePlaceholder(
                         prompt: screen.imagePrompt!,
+                        imagePath: screen.imagePath,
                         height: 180,
                       ),
 
