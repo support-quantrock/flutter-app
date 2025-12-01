@@ -106,7 +106,7 @@ class _StoryScreenState extends State<StoryScreen>
           // Main content
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
               child: Column(
                 children: [
                   const Spacer(),

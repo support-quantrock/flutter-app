@@ -114,7 +114,7 @@ class _MissionScreenState extends State<MissionScreen>
 
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
               child: Column(
                 children: [
                   // Mission header with glow
