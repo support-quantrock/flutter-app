@@ -145,7 +145,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       'q6_title': {'en': 'Rate your knowledge in the following areas', 'ar': 'قيّم معرفتك في المجالات التالية'},
       'q6_stock_market': {'en': 'Stock Market', 'ar': 'سوق الأسهم'},
       'q6_risk': {'en': 'Risk management', 'ar': 'إدارة المخاطر'},
-      'q6_technical': {'en': 'Technical analysis', 'ar': 'التحليل الفني'},
+      'q6_technical': {'en': 'Technical and fundamental analysis', 'ar': 'التحليل الفني والأساسي'},
       'q6_diversification': {'en': 'Portfolio diversification', 'ar': 'تنويع المحفظة'},
 
       'q7_title': {'en': 'Which asset classes have you invested in before?', 'ar': 'ما هي فئات الأصول التي استثمرت فيها من قبل؟'},
@@ -257,7 +257,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       // Knowledge areas for Q6
       'area_stock_market': {'en': 'Stock Market', 'ar': 'سوق الأسهم'},
       'area_risk_management': {'en': 'Risk management', 'ar': 'إدارة المخاطر'},
-      'area_technical_analysis': {'en': 'Technical analysis', 'ar': 'التحليل الفني'},
+      'area_technical_analysis': {'en': 'Technical and fundamental analysis', 'ar': 'التحليل الفني والأساسي'},
       'area_portfolio_diversification': {'en': 'Portfolio diversification', 'ar': 'تنويع المحفظة'},
     };
 
