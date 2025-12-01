@@ -169,8 +169,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                   Expanded(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: List.generate(gameData.options.length, (index) {
-                        return _buildBalloon(index, gameData.options[index]);
+                        return Flexible(
+                          child: _buildBalloon(index, gameData.options[index], gameData.options.length),
+                        );
                       }),
                     ),
                   ),
@@ -198,7 +201,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildBalloon(int index, GameOption option) {
+  Widget _buildBalloon(int index, GameOption option, int totalCount) {
     final isPopped = _poppedIndex == index;
     final isWrong = _wrongIndex == index;
     final colors = [
@@ -210,10 +213,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     ];
     final color = colors[index % colors.length];
 
+    // Responsive sizes based on screen width and number of options
+    final screenWidth = MediaQuery.of(context).size.width;
+    final availableWidth = (screenWidth - 40) / totalCount; // 40 = padding
+    final balloonSize = (availableWidth * 0.7).clamp(50.0, 80.0);
+    final labelWidth = (availableWidth - 8).clamp(60.0, 100.0);
+
     return AnimatedBuilder(
       animation: _floatControllers[index],
       builder: (context, child) {
-        final floatOffset = sin(_floatControllers[index].value * pi) * 10;
+        final floatOffset = sin(_floatControllers[index].value * pi) * 8;
 
         Widget balloon = Transform.translate(
           offset: Offset(0, floatOffset),
@@ -228,8 +237,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 children: [
                   // Balloon
                   Container(
-                    width: 80,
-                    height: 95,
+                    width: balloonSize,
+                    height: balloonSize * 1.15,
                     decoration: BoxDecoration(
                       gradient: RadialGradient(
                         center: const Alignment(-0.3, -0.3),
@@ -239,51 +248,50 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                           color.withValues(alpha: 0.7),
                         ],
                       ),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(40),
-                        topRight: Radius.circular(40),
-                        bottomLeft: Radius.circular(40),
-                        bottomRight: Radius.circular(40),
-                      ),
+                      borderRadius: BorderRadius.circular(balloonSize / 2),
                       boxShadow: [
                         BoxShadow(
                           color: color.withValues(alpha: 0.4),
-                          blurRadius: 15,
-                          offset: const Offset(0, 5),
+                          blurRadius: 12,
+                          offset: const Offset(0, 4),
                         ),
                       ],
                     ),
                     child: Center(
                       child: Text(
                         option.emoji,
-                        style: const TextStyle(fontSize: 32),
+                        style: TextStyle(fontSize: balloonSize * 0.4),
                       ),
                     ),
                   ),
                   // String
                   Container(
                     width: 2,
-                    height: 20,
+                    height: 15,
                     color: Colors.white.withValues(alpha: 0.5),
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 4),
                   // Label
                   Container(
+                    width: labelWidth,
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
+                      horizontal: 6,
+                      vertical: 4,
                     ),
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.15),
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(6),
                     ),
                     child: Text(
                       option.label,
                       textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                        fontSize: 11,
+                        fontSize: 9,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
+                        height: 1.2,
                       ),
                     ),
                   ),
