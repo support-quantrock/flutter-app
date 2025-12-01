@@ -1270,6 +1270,32 @@ class _RiskAndGoalSection extends StatelessWidget {
     }
   }
 
+  String _getRiskByLiteracy(String literacyLabel) {
+    switch (literacyLabel) {
+      case 'Beginner':
+        return 'Low Risk';
+      case 'Intermediate':
+        return 'Medium Risk';
+      case 'Expert':
+        return 'High Risk';
+      default:
+        return 'Not Set';
+    }
+  }
+
+  Color _getRiskColorByLiteracy(String literacyLabel) {
+    switch (literacyLabel) {
+      case 'Beginner':
+        return const Color(0xFF22C55E);
+      case 'Intermediate':
+        return const Color(0xFFF59E0B);
+      case 'Expert':
+        return const Color(0xFFEF4444);
+      default:
+        return Colors.grey;
+    }
+  }
+
   String _getInvestingGoalLabel(String? goal) {
     switch (goal) {
       case 'capital_protection':
@@ -1309,12 +1335,12 @@ class _RiskAndGoalSection extends StatelessWidget {
                       width: 36,
                       height: 36,
                       decoration: BoxDecoration(
-                        color: _getRiskColor(riskTolerance).withValues(alpha: 0.2),
+                        color: _getRiskColorByLiteracy(literacyLabel).withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Icon(
                         Icons.speed,
-                        color: _getRiskColor(riskTolerance),
+                        color: _getRiskColorByLiteracy(literacyLabel),
                         size: 20,
                       ),
                     ),
@@ -1331,11 +1357,11 @@ class _RiskAndGoalSection extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  _getRiskToleranceLabel(riskTolerance),
+                  _getRiskByLiteracy(literacyLabel),
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
-                    color: _getRiskColor(riskTolerance),
+                    color: _getRiskColorByLiteracy(literacyLabel),
                   ),
                 ),
               ],
