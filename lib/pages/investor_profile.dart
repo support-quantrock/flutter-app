@@ -76,10 +76,180 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   bool _showLevelUp = false;
   bool _showMilestone = false;
   String _milestoneTitle = '';
+  String _selectedLanguage = 'en';
 
   List<String> _selectedAssets = [];
   List<String> _selectedIndustries = [];
   final Map<String, int> _knowledgeRatings = {};
+
+  // Translations
+  String _t(String key) {
+    final translations = {
+      // Intro Screen
+      'qiqt_title': {'en': 'QIQT', 'ar': 'QIQT'},
+      'qiqt_full_title': {'en': 'Quantrock Investor Qualification Test', 'ar': 'اختبار تأهيل المستثمر من كوانتروك'},
+      'qiqt_subtitle': {'en': 'Quantrock Investor Qualification Test (QIQT)', 'ar': 'اختبار تأهيل المستثمر من كوانتروك (QIQT)'},
+      'intro_text1': {'en': 'QIQT is an intelligent qualification test built on OECD, MIT, and CFA standards, designed to measure your investment experience, financial literacy, motivations, and readiness to learn.', 'ar': 'QIQT هو اختبار تأهيل ذكي مبني على معايير OECD وMIT وCFA، مصمم لقياس خبرتك الاستثمارية ومعرفتك المالية ودوافعك واستعدادك للتعلم.'},
+      'intro_text2': {'en': 'QIQT helps you assess your financial knowledge, investment background, and determine your ideal path inside Quantrock whether in challenges, daily lessons, or selecting the appropriate demo portfolio size.', 'ar': 'يساعدك QIQT في تقييم معرفتك المالية وخلفيتك الاستثمارية وتحديد مسارك المثالي داخل كوانتروك سواء في التحديات أو الدروس اليومية أو اختيار حجم المحفظة التجريبية المناسب.'},
+      'purpose_title': {'en': 'What is the purpose of QIQT?', 'ar': 'ما هو الغرض من QIQT؟'},
+      'purpose_subtitle': {'en': 'The test aims to accurately classify the user into one of the following levels:', 'ar': 'يهدف الاختبار إلى تصنيف المستخدم بدقة إلى أحد المستويات التالية:'},
+      'beginner': {'en': 'Beginner', 'ar': 'مبتدئ'},
+      'intermediate': {'en': 'Intermediate', 'ar': 'متوسط'},
+      'advanced': {'en': 'Advanced', 'ar': 'متقدم'},
+      'identifies_title': {'en': 'It works on identifying:', 'ar': 'يعمل على تحديد:'},
+      'item_objectives': {'en': 'Investment objectives', 'ar': 'أهداف الاستثمار'},
+      'item_experience': {'en': 'Investment experience', 'ar': 'الخبرة الاستثمارية'},
+      'item_literacy': {'en': 'Financial knowledge and literacy', 'ar': 'المعرفة والثقافة المالية'},
+      'item_readiness': {'en': 'Level of readiness and willingness to learn', 'ar': 'مستوى الاستعداد والرغبة في التعلم'},
+      'item_challenge': {'en': 'The appropriate challenge level', 'ar': 'مستوى التحدي المناسب'},
+      'item_portfolio': {'en': 'The appropriate simulated portfolio size', 'ar': 'حجم المحفظة التجريبية المناسب'},
+      'item_path': {'en': 'The best learning path', 'ar': 'أفضل مسار للتعلم'},
+      'item_motivation': {'en': 'The motivation for using the Quantrock app', 'ar': 'الدافع لاستخدام تطبيق كوانتروك'},
+      'start_test': {'en': 'Start The Test', 'ar': 'ابدأ الاختبار'},
+      'questions_count': {'en': '20 Questions', 'ar': '20 سؤال'},
+      'time_estimate': {'en': '~5 minutes', 'ar': '~5 دقائق'},
+
+      // Questions
+      'q1_title': {'en': 'What is your gender?', 'ar': 'ما هو جنسك؟'},
+      'q1_male': {'en': 'Male', 'ar': 'ذكر'},
+      'q1_female': {'en': 'Female', 'ar': 'أنثى'},
+      'q1_other': {'en': 'Prefer not to say', 'ar': 'أفضل عدم الإجابة'},
+
+      'q2_title': {'en': 'What is your age group?', 'ar': 'ما هي فئتك العمرية؟'},
+      'q2_under18': {'en': 'Under 18', 'ar': 'أقل من 18'},
+      'q2_18_24': {'en': '18-24', 'ar': '18-24'},
+      'q2_25_34': {'en': '25-34', 'ar': '25-34'},
+      'q2_35_44': {'en': '35-44', 'ar': '35-44'},
+      'q2_45_54': {'en': '45-54', 'ar': '45-54'},
+      'q2_55_64': {'en': '55-64', 'ar': '55-64'},
+      'q2_65plus': {'en': '65+', 'ar': '65+'},
+
+      'q3_title': {'en': 'Do you have a real investment account (stocks, crypto, etc.)?', 'ar': 'هل لديك حساب استثماري حقيقي (أسهم، عملات رقمية، إلخ)؟'},
+      'q3_yes': {'en': 'Yes', 'ar': 'نعم'},
+      'q3_no': {'en': 'No', 'ar': 'لا'},
+      'q3_planning': {'en': 'Planning to open one', 'ar': 'أخطط لفتح حساب'},
+
+      'q4_title': {'en': 'Do you currently have an active investment portfolio?', 'ar': 'هل لديك حالياً محفظة استثمارية نشطة؟'},
+      'q4_yes': {'en': 'Yes, actively managing', 'ar': 'نعم، أديرها بنشاط'},
+      'q4_no': {'en': 'No portfolio', 'ar': 'لا يوجد محفظة'},
+      'q4_used_to': {'en': 'I used to have one', 'ar': 'كان لدي واحدة سابقاً'},
+
+      'q5_title': {'en': 'What is your current portfolio size?', 'ar': 'ما هو حجم محفظتك الحالية؟'},
+      'q5_less1k': {'en': 'Less than \$1,000', 'ar': 'أقل من 1,000\$'},
+      'q5_1k_10k': {'en': '\$1,000 - \$10,000', 'ar': '1,000\$ - 10,000\$'},
+      'q5_10k_25k': {'en': '\$10,000 - \$25,000', 'ar': '10,000\$ - 25,000\$'},
+      'q5_25k_100k': {'en': '\$25,000 - \$100,000', 'ar': '25,000\$ - 100,000\$'},
+      'q5_100k_500k': {'en': '\$100,000 - \$500,000', 'ar': '100,000\$ - 500,000\$'},
+      'q5_more500k': {'en': 'More than \$500,000', 'ar': 'أكثر من 500,000\$'},
+
+      'q6_title': {'en': 'Rate your knowledge in the following areas', 'ar': 'قيّم معرفتك في المجالات التالية'},
+      'q6_stock_market': {'en': 'Stock Market', 'ar': 'سوق الأسهم'},
+      'q6_risk': {'en': 'Risk management', 'ar': 'إدارة المخاطر'},
+      'q6_technical': {'en': 'Technical analysis', 'ar': 'التحليل الفني'},
+      'q6_diversification': {'en': 'Portfolio diversification', 'ar': 'تنويع المحفظة'},
+
+      'q7_title': {'en': 'Which asset classes have you invested in before?', 'ar': 'ما هي فئات الأصول التي استثمرت فيها من قبل؟'},
+      'q7_stocks': {'en': 'Stocks', 'ar': 'أسهم'},
+      'q7_etfs': {'en': 'ETFs', 'ar': 'صناديق المؤشرات'},
+      'q7_crypto': {'en': 'Cryptocurrency', 'ar': 'عملات رقمية'},
+      'q7_bonds': {'en': 'Bonds', 'ar': 'سندات'},
+      'q7_real_estate': {'en': 'Real Estate', 'ar': 'عقارات'},
+      'q7_none': {'en': 'None', 'ar': 'لا شيء'},
+
+      'q8_title': {'en': 'How comfortable are you reading financial charts?', 'ar': 'ما مدى ارتياحك في قراءة الرسوم البيانية المالية؟'},
+      'q8_not': {'en': 'Not comfortable', 'ar': 'غير مرتاح'},
+      'q8_slightly': {'en': 'Slightly comfortable', 'ar': 'مرتاح قليلاً'},
+      'q8_comfortable': {'en': 'Comfortable', 'ar': 'مرتاح'},
+      'q8_very': {'en': 'Very comfortable', 'ar': 'مرتاح جداً'},
+
+      'q9_title': {'en': 'What is your preferred investment time horizon?', 'ar': 'ما هو أفقك الزمني المفضل للاستثمار؟'},
+      'q9_less1': {'en': 'Less than 1 year', 'ar': 'أقل من سنة'},
+      'q9_1_3': {'en': '1-3 years', 'ar': '1-3 سنوات'},
+      'q9_3_7': {'en': '3-7 years', 'ar': '3-7 سنوات'},
+      'q9_more7': {'en': 'More than 7 years', 'ar': 'أكثر من 7 سنوات'},
+
+      'q10_title': {'en': 'How would you rate your understanding of market risk?', 'ar': 'كيف تقيّم فهمك لمخاطر السوق؟'},
+      'q10_poor': {'en': 'Poor', 'ar': 'ضعيف'},
+      'q10_basic': {'en': 'Basic', 'ar': 'أساسي'},
+      'q10_good': {'en': 'Good', 'ar': 'جيد'},
+      'q10_excellent': {'en': 'Excellent', 'ar': 'ممتاز'},
+
+      'q11_title': {'en': 'How would you describe your saving habits?', 'ar': 'كيف تصف عادات الادخار لديك؟'},
+      'q11_dont': {'en': "I don't save regularly", 'ar': 'لا أدخر بانتظام'},
+      'q11_sometimes': {'en': 'I save sometimes', 'ar': 'أدخر أحياناً'},
+      'q11_regularly': {'en': 'I save regularly', 'ar': 'أدخر بانتظام'},
+      'q11_fixed': {'en': 'I save a fixed percentage', 'ar': 'أدخر نسبة ثابتة'},
+
+      'q12_title': {'en': 'Do you have emergency savings (3-6 months expenses)?', 'ar': 'هل لديك مدخرات طوارئ (3-6 أشهر من المصاريف)؟'},
+      'q12_yes': {'en': 'Yes', 'ar': 'نعم'},
+      'q12_no': {'en': 'No', 'ar': 'لا'},
+
+      'q13_title': {'en': 'Have you started planning for retirement?', 'ar': 'هل بدأت التخطيط للتقاعد؟'},
+      'q13_not_yet': {'en': 'Not yet', 'ar': 'ليس بعد'},
+      'q13_pension': {'en': 'Yes, through pension', 'ar': 'نعم، من خلال المعاش'},
+      'q13_save': {'en': 'Yes, I save regularly for it', 'ar': 'نعم، أدخر لذلك بانتظام'},
+
+      'q14_title': {'en': 'What is your risk tolerance?', 'ar': 'ما هو مستوى تحملك للمخاطر؟'},
+      'q14_very_low': {'en': 'Very Low', 'ar': 'منخفض جداً'},
+      'q14_low': {'en': 'Low', 'ar': 'منخفض'},
+      'q14_medium': {'en': 'Medium', 'ar': 'متوسط'},
+      'q14_high': {'en': 'High', 'ar': 'عالي'},
+
+      'q15_title': {'en': 'What is your main investment goal?', 'ar': 'ما هو هدفك الاستثماري الرئيسي؟'},
+      'q15_protection': {'en': 'Capital Protection', 'ar': 'حماية رأس المال'},
+      'q15_income': {'en': 'Extra Income', 'ar': 'دخل إضافي'},
+      'q15_growth': {'en': 'Capital Growth', 'ar': 'نمو رأس المال'},
+      'q15_wealth': {'en': 'Long-term Wealth', 'ar': 'الثروة طويلة الأجل'},
+      'q15_speculation': {'en': 'Short-term Trading', 'ar': 'التداول قصير الأجل'},
+
+      'q16_title': {'en': 'What is your goal with Quantrock?', 'ar': 'ما هو هدفك مع كوانتروك؟'},
+      'q16_learn': {'en': 'Learn about investing', 'ar': 'تعلم الاستثمار'},
+      'q16_challenge': {'en': 'Take trading challenges', 'ar': 'خوض تحديات التداول'},
+      'q16_test': {'en': 'Test my strategies', 'ar': 'اختبار استراتيجياتي'},
+      'q16_prepare': {'en': 'Prepare for real trading', 'ar': 'الاستعداد للتداول الحقيقي'},
+      'q16_auto': {'en': 'Explore auto-trading', 'ar': 'استكشاف التداول الآلي'},
+
+      'q17_title': {'en': 'Which industries interest you most?', 'ar': 'ما هي الصناعات التي تهمك أكثر؟'},
+      'q17_tech': {'en': 'Technology', 'ar': 'التكنولوجيا'},
+      'q17_ev': {'en': 'Electric Vehicles', 'ar': 'السيارات الكهربائية'},
+      'q17_energy': {'en': 'Energy', 'ar': 'الطاقة'},
+      'q17_healthcare': {'en': 'Healthcare', 'ar': 'الرعاية الصحية'},
+      'q17_retail': {'en': 'Retail', 'ar': 'التجزئة'},
+      'q17_crypto': {'en': 'Crypto/Blockchain', 'ar': 'العملات الرقمية/البلوكتشين'},
+      'q17_finance': {'en': 'Finance', 'ar': 'المالية'},
+      'q17_real_estate': {'en': 'Real Estate', 'ar': 'العقارات'},
+
+      'q18_title': {'en': 'How ready do you feel to start investing?', 'ar': 'ما مدى استعدادك للبدء في الاستثمار؟'},
+      'q18_need_help': {'en': 'I need guidance', 'ar': 'أحتاج إرشاد'},
+      'q18_somewhat': {'en': 'Somewhat ready', 'ar': 'مستعد نوعاً ما'},
+      'q18_prepared': {'en': 'Well prepared', 'ar': 'مستعد جيداً'},
+      'q18_confident': {'en': 'Very confident', 'ar': 'واثق جداً'},
+
+      'q19_title': {'en': 'How would you rate your understanding of passive income?', 'ar': 'كيف تقيّم فهمك للدخل السلبي؟'},
+      'q19_dont': {'en': "I don't understand it", 'ar': 'لا أفهمه'},
+      'q19_basic': {'en': 'Basic understanding', 'ar': 'فهم أساسي'},
+      'q19_good': {'en': 'Good understanding', 'ar': 'فهم جيد'},
+      'q19_excellent': {'en': 'Excellent understanding', 'ar': 'فهم ممتاز'},
+
+      'q20_title': {'en': 'What demo portfolio size would you prefer to start with?', 'ar': 'ما حجم المحفظة التجريبية التي تفضل البدء بها؟'},
+      'q20_1k': {'en': '\$1,000', 'ar': '1,000\$'},
+      'q20_10k': {'en': '\$10,000', 'ar': '10,000\$'},
+      'q20_25k': {'en': '\$25,000', 'ar': '25,000\$'},
+      'q20_50k': {'en': '\$50,000', 'ar': '50,000\$'},
+      'q20_100k': {'en': '\$100,000', 'ar': '100,000\$'},
+
+      // Common
+      'continue': {'en': 'Continue', 'ar': 'متابعة'},
+      'back': {'en': 'Back', 'ar': 'رجوع'},
+      'question': {'en': 'Question', 'ar': 'سؤال'},
+      'of': {'en': 'of', 'ar': 'من'},
+      'select_all': {'en': 'Select all that apply', 'ar': 'اختر كل ما ينطبق'},
+    };
+
+    return translations[key]?[_selectedLanguage] ?? translations[key]?['en'] ?? key;
+  }
+
+  bool get _isArabic => _selectedLanguage == 'ar';
 
   late AnimationController _xpAnimationController;
   late AnimationController _pulseController;
@@ -603,26 +773,90 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   ],
                 ),
                 const SizedBox(height: 24),
-                // QIQT Badge (large)
-                ShaderMask(
-                  shaderCallback: (bounds) => const LinearGradient(
-                    colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
-                  ).createShader(bounds),
-                  child: const Text(
-                    'QIQT',
-                    style: TextStyle(
-                      fontSize: 52,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white,
-                      letterSpacing: 4,
+                // QIQT Badge with Language Selector
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ShaderMask(
+                      shaderCallback: (bounds) => const LinearGradient(
+                        colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+                      ).createShader(bounds),
+                      child: const Text(
+                        'QIQT',
+                        style: TextStyle(
+                          fontSize: 52,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.white,
+                          letterSpacing: 4,
+                        ),
+                      ),
                     ),
-                  ),
+                    const SizedBox(width: 16),
+                    // Language Selector
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          GestureDetector(
+                            onTap: () => setState(() => _selectedLanguage = 'en'),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: _selectedLanguage == 'en'
+                                    ? const Color(0xFF22C55E)
+                                    : Colors.transparent,
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: Text(
+                                'EN',
+                                style: TextStyle(
+                                  color: _selectedLanguage == 'en'
+                                      ? Colors.white
+                                      : Colors.white.withValues(alpha: 0.6),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () => setState(() => _selectedLanguage = 'ar'),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: _selectedLanguage == 'ar'
+                                    ? const Color(0xFF22C55E)
+                                    : Colors.transparent,
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: Text(
+                                'AR',
+                                style: TextStyle(
+                                  color: _selectedLanguage == 'ar'
+                                      ? Colors.white
+                                      : Colors.white.withValues(alpha: 0.6),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 8),
                 // Subtitle (smaller, one line)
-                const Text(
-                  'Quantrock Investor Qualification Test',
-                  style: TextStyle(
+                Text(
+                  _t('qiqt_full_title'),
+                  style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w500,
                     color: Color(0xFF9CA3AF),
@@ -688,9 +922,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          'START TEST',
-                          style: TextStyle(
+                        Text(
+                          _t('start_test').toUpperCase(),
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -698,7 +932,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                           ),
                         ),
                         const SizedBox(width: 8),
-                        const Icon(Icons.arrow_forward, color: Colors.white),
+                        Icon(_isArabic ? Icons.arrow_back : Icons.arrow_forward, color: Colors.white),
                       ],
                     ),
                   ),
@@ -1110,131 +1344,138 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   }
 
   Widget _buildQIQTDescription() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.05),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Main intro text
-          Text(
-            'QIQT is an intelligent qualification test built on OECD, MIT, and CFA standards, designed to measure your investment experience, financial literacy, motivations, and readiness to learn.',
-            style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.9),
-              fontSize: 15,
-              height: 1.5,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            'QIQT helps you assess your financial knowledge, investment background, and determine your ideal path inside Quantrock whether in challenges, daily lessons, or selecting the appropriate demo portfolio size.',
-            style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.8),
-              fontSize: 15,
-              height: 1.5,
-            ),
-          ),
-          const SizedBox(height: 20),
-          // Purpose section header
-          Row(
-            children: [
-              const Text(
-                '🎯',
-                style: TextStyle(fontSize: 18),
+    return Directionality(
+      textDirection: _isArabic ? TextDirection.rtl : TextDirection.ltr,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.05),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Main intro text
+            Text(
+              _t('intro_text1'),
+              style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.9),
+                fontSize: 15,
+                height: 1.5,
               ),
-              const SizedBox(width: 8),
-              const Expanded(
-                child: Text(
-                  'What is the purpose of QIQT?',
-                  style: TextStyle(
-                    color: Color(0xFF22C55E),
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Text(
-            'The test aims to accurately classify the user into one of the following levels:',
-            style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.8),
-              fontSize: 15,
+              textAlign: _isArabic ? TextAlign.right : TextAlign.left,
             ),
-          ),
-          const SizedBox(height: 8),
-          // Classification levels
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color: const Color(0xFF22C55E).withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: const Color(0xFF22C55E).withValues(alpha: 0.3),
+            const SizedBox(height: 12),
+            Text(
+              _t('intro_text2'),
+              style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.8),
+                fontSize: 15,
+                height: 1.5,
               ),
+              textAlign: _isArabic ? TextAlign.right : TextAlign.left,
             ),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            const SizedBox(height: 20),
+            // Purpose section header
+            Row(
               children: [
-                Text(
-                  'Beginner',
-                  style: TextStyle(
-                    color: Color(0xFF22C55E),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
-                  ),
+                const Text(
+                  '🎯',
+                  style: TextStyle(fontSize: 18),
                 ),
-                Text(
-                  '/',
-                  style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 15),
-                ),
-                Text(
-                  'Intermediate',
-                  style: TextStyle(
-                    color: Color(0xFF3B82F6),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
-                  ),
-                ),
-                Text(
-                  '/',
-                  style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 15),
-                ),
-                Text(
-                  'Advanced',
-                  style: TextStyle(
-                    color: Color(0xFFA855F7),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    _t('purpose_title'),
+                    style: const TextStyle(
+                      color: Color(0xFF22C55E),
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'It works on identifying:',
-            style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.8),
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
+            const SizedBox(height: 12),
+            Text(
+              _t('purpose_subtitle'),
+              style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.8),
+                fontSize: 15,
+              ),
+              textAlign: _isArabic ? TextAlign.right : TextAlign.left,
             ),
-          ),
-          const SizedBox(height: 12),
-          // Identification items
-          _buildIdentificationItem('Investment objectives', Icons.flag_rounded),
-          _buildIdentificationItem('Investment experience', Icons.trending_up_rounded),
-          _buildIdentificationItem('Financial knowledge and literacy', Icons.school_rounded),
-          _buildIdentificationItem('Level of readiness and willingness to learn', Icons.lightbulb_rounded),
-          _buildIdentificationItem('The appropriate challenge level', Icons.emoji_events_rounded),
-          _buildIdentificationItem('The appropriate simulated portfolio size', Icons.account_balance_wallet_rounded),
-          _buildIdentificationItem('The best learning path', Icons.route_rounded),
-          _buildIdentificationItem('The motivation for using the Quantrock app', Icons.rocket_launch_rounded),
-        ],
+            const SizedBox(height: 8),
+            // Classification levels
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: const Color(0xFF22C55E).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: const Color(0xFF22C55E).withValues(alpha: 0.3),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    _t('beginner'),
+                    style: const TextStyle(
+                      color: Color(0xFF22C55E),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                    ),
+                  ),
+                  const Text(
+                    '/',
+                    style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 15),
+                  ),
+                  Text(
+                    _t('intermediate'),
+                    style: const TextStyle(
+                      color: Color(0xFF3B82F6),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                    ),
+                  ),
+                  const Text(
+                    '/',
+                    style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 15),
+                  ),
+                  Text(
+                    _t('advanced'),
+                    style: const TextStyle(
+                      color: Color(0xFFA855F7),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              _t('identifies_title'),
+              style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.8),
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+              ),
+              textAlign: _isArabic ? TextAlign.right : TextAlign.left,
+            ),
+            const SizedBox(height: 12),
+            // Identification items
+            _buildIdentificationItem(_t('item_objectives'), Icons.flag_rounded),
+            _buildIdentificationItem(_t('item_experience'), Icons.trending_up_rounded),
+            _buildIdentificationItem(_t('item_literacy'), Icons.school_rounded),
+            _buildIdentificationItem(_t('item_readiness'), Icons.lightbulb_rounded),
+            _buildIdentificationItem(_t('item_challenge'), Icons.emoji_events_rounded),
+            _buildIdentificationItem(_t('item_portfolio'), Icons.account_balance_wallet_rounded),
+            _buildIdentificationItem(_t('item_path'), Icons.route_rounded),
+            _buildIdentificationItem(_t('item_motivation'), Icons.rocket_launch_rounded),
+          ],
+        ),
       ),
     );
   }
