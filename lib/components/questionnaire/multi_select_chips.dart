@@ -7,6 +7,10 @@ class MultiSelectChips extends StatelessWidget {
   final List<String> selectedValues;
   final ValueChanged<String> onToggle;
   final VoidCallback onContinue;
+  final bool isArabic;
+  final String badgeText;
+  final String selectedText;
+  final String continueText;
 
   const MultiSelectChips({
     super.key,
@@ -15,61 +19,43 @@ class MultiSelectChips extends StatelessWidget {
     required this.selectedValues,
     required this.onToggle,
     required this.onContinue,
+    this.isArabic = false,
+    this.badgeText = 'Select multiple',
+    this.selectedText = 'selected',
+    this.continueText = 'Continue',
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Question badge with counter
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: Colors.green.withValues(alpha: 0.2),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.check_box_outlined, color: Colors.green.shade400, size: 16),
-                            const SizedBox(width: 6),
-                            Text(
-                              'Select multiple',
-                              style: TextStyle(
-                                color: Colors.green.shade400,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      if (selectedValues.isNotEmpty)
+    return Directionality(
+      textDirection: isArabic ? TextDirection.rtl : TextDirection.ltr,
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Question badge with counter
+                    Row(
+                      children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                           decoration: BoxDecoration(
-                            color: Colors.amber.withValues(alpha: 0.2),
+                            color: Colors.green.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.star, color: Colors.amber, size: 14),
-                              const SizedBox(width: 4),
+                              Icon(Icons.check_box_outlined, color: Colors.green.shade400, size: 16),
+                              const SizedBox(width: 6),
                               Text(
-                                '${selectedValues.length} selected',
+                                badgeText,
                                 style: TextStyle(
-                                  color: Colors.amber,
+                                  color: Colors.green.shade400,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -77,8 +63,32 @@ class MultiSelectChips extends StatelessWidget {
                             ],
                           ),
                         ),
-                    ],
-                  ),
+                        const SizedBox(width: 12),
+                        if (selectedValues.isNotEmpty)
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                            decoration: BoxDecoration(
+                              color: Colors.amber.withValues(alpha: 0.2),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.star, color: Colors.amber, size: 14),
+                                const SizedBox(width: 4),
+                                Text(
+                                  '${selectedValues.length} $selectedText',
+                                  style: TextStyle(
+                                    color: Colors.amber,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
                   const SizedBox(height: 16),
                   Text(
                     title,
@@ -104,17 +114,20 @@ class MultiSelectChips extends StatelessWidget {
                       );
                     }).toList(),
                   ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 16),
-          // Animated continue button
-          _ContinueButton(
-            enabled: selectedValues.isNotEmpty,
-            onPressed: onContinue,
-          ),
-        ],
+            const SizedBox(height: 16),
+            // Animated continue button
+            _ContinueButton(
+              enabled: selectedValues.isNotEmpty,
+              onPressed: onContinue,
+              continueText: continueText,
+              isArabic: isArabic,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -278,10 +291,14 @@ class _GameChipState extends State<_GameChip>
 class _ContinueButton extends StatefulWidget {
   final bool enabled;
   final VoidCallback onPressed;
+  final String continueText;
+  final bool isArabic;
 
   const _ContinueButton({
     required this.enabled,
     required this.onPressed,
+    this.continueText = 'Continue',
+    this.isArabic = false,
   });
 
   @override
@@ -347,7 +364,7 @@ class _ContinueButtonState extends State<_ContinueButton>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Continue',
+                  widget.continueText,
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -359,7 +376,7 @@ class _ContinueButtonState extends State<_ContinueButton>
                 if (widget.enabled) ...[
                   const SizedBox(width: 8),
                   Icon(
-                    Icons.arrow_forward_rounded,
+                    widget.isArabic ? Icons.arrow_back_rounded : Icons.arrow_forward_rounded,
                     color: Colors.white,
                     size: 20,
                   ),

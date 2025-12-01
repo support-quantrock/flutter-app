@@ -7,6 +7,8 @@ class SingleChoiceGrid extends StatelessWidget {
   final String? selectedValue;
   final ValueChanged<String> onSelect;
   final int columns;
+  final bool isArabic;
+  final String badgeText;
 
   const SingleChoiceGrid({
     super.key,
@@ -15,38 +17,42 @@ class SingleChoiceGrid extends StatelessWidget {
     this.selectedValue,
     required this.onSelect,
     this.columns = 2,
+    this.isArabic = false,
+    this.badgeText = 'Tap to select',
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Question badge
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.purple.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.grid_view, color: Colors.purple.shade300, size: 16),
-                const SizedBox(width: 6),
-                Text(
-                  'Tap to select',
-                  style: TextStyle(
-                    color: Colors.purple.shade300,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
+    return Directionality(
+      textDirection: isArabic ? TextDirection.rtl : TextDirection.ltr,
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Question badge
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.purple.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.grid_view, color: Colors.purple.shade300, size: 16),
+                  const SizedBox(width: 6),
+                  Text(
+                    badgeText,
+                    style: TextStyle(
+                      color: Colors.purple.shade300,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
           const SizedBox(height: 16),
           Text(
             title,
@@ -78,8 +84,9 @@ class SingleChoiceGrid extends StatelessWidget {
                 );
               },
             ),
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

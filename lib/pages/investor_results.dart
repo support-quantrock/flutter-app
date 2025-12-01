@@ -845,6 +845,75 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
 
   final List<_ConfettiParticle> _confetti = [];
   bool _showContent = false;
+  String _selectedLanguage = 'en';
+
+  bool get _isArabic => _selectedLanguage == 'ar';
+
+  String _t(String key) {
+    final translations = {
+      'congratulations': {'en': 'Congratulations!', 'ar': 'تهانينا!'},
+      'your_investor_profile': {'en': 'Your Investor Profile', 'ar': 'ملفك الاستثماري'},
+      'risk_profile': {'en': 'Risk Profile', 'ar': 'ملف المخاطر'},
+      'goal': {'en': 'Goal', 'ar': 'الهدف'},
+      'low_risk': {'en': 'Low Risk', 'ar': 'مخاطر منخفضة'},
+      'medium_risk': {'en': 'Medium Risk', 'ar': 'مخاطر متوسطة'},
+      'high_risk': {'en': 'High Risk', 'ar': 'مخاطر عالية'},
+      'not_set': {'en': 'Not Set', 'ar': 'غير محدد'},
+      'learn_challenge': {'en': 'Learn Challenge', 'ar': 'تحدي التعلم'},
+      '28_days_skills': {'en': '28 Days Skills', 'ar': 'مهارات 28 يوم'},
+      'investment_challenge': {'en': 'Investment Challenge', 'ar': 'تحدي الاستثمار'},
+      'interested_industries': {'en': 'Interested Industries', 'ar': 'الصناعات المهتم بها'},
+      'asset_experience': {'en': 'Asset Experience', 'ar': 'خبرة الأصول'},
+      'investment_background': {'en': '1: Investment Background', 'ar': '1: الخلفية الاستثمارية'},
+      'financial_literacy': {'en': '2: Financial Literacy', 'ar': '2: الثقافة المالية'},
+      'objectives_motivation': {'en': '3: Objectives & Motivation', 'ar': '3: الأهداف والدوافع'},
+      'learning_readiness': {'en': '4: Learning Readiness', 'ar': '4: الاستعداد للتعلم'},
+      'suggested_portfolio': {'en': 'Suggested Portfolio', 'ar': 'المحفظة المقترحة'},
+      'portfolio_description': {'en': 'Based on your profile, this portfolio size is recommended to start your investment journey.', 'ar': 'بناءً على ملفك الشخصي، يُوصى بحجم المحفظة هذا لبدء رحلتك الاستثمارية.'},
+      'portfolio_allocation': {'en': 'Portfolio Allocation', 'ar': 'توزيع المحفظة'},
+      'optimized_for': {'en': 'Optimized for', 'ar': 'محسّن لـ'},
+      'share_results': {'en': 'Share Results', 'ar': 'مشاركة النتائج'},
+      'start_trading': {'en': 'Start Trading', 'ar': 'ابدأ التداول'},
+      'stocks': {'en': 'Stocks', 'ar': 'أسهم'},
+      'etfs': {'en': 'ETFs', 'ar': 'صناديق المؤشرات'},
+      'crypto': {'en': 'Crypto', 'ar': 'عملات رقمية'},
+      'bonds': {'en': 'Bonds', 'ar': 'سندات'},
+      'real_estate': {'en': 'Real Estate', 'ar': 'عقارات'},
+      'none': {'en': 'None', 'ar': 'لا شيء'},
+      'tech': {'en': 'Tech', 'ar': 'التقنية'},
+      'ev': {'en': 'EV', 'ar': 'السيارات الكهربائية'},
+      'energy': {'en': 'Energy', 'ar': 'الطاقة'},
+      'healthcare': {'en': 'Healthcare', 'ar': 'الرعاية الصحية'},
+      'retail': {'en': 'Retail', 'ar': 'التجزئة'},
+      // Score labels
+      'very_low_experience': {'en': 'Very Low Experience', 'ar': 'خبرة منخفضة جداً'},
+      'low_experience': {'en': 'Low Experience', 'ar': 'خبرة منخفضة'},
+      'moderate_experience': {'en': 'Moderate Experience', 'ar': 'خبرة متوسطة'},
+      'high_experience': {'en': 'High Experience', 'ar': 'خبرة عالية'},
+      'beginner': {'en': 'Beginner', 'ar': 'مبتدئ'},
+      'intermediate': {'en': 'Intermediate', 'ar': 'متوسط'},
+      'expert': {'en': 'Expert', 'ar': 'متقدم'},
+      'advanced': {'en': 'Advanced', 'ar': 'متقدم'},
+      'unclear_objectives': {'en': 'Unclear or Basic Objectives', 'ar': 'أهداف غير واضحة أو أساسية'},
+      'developing_objectives': {'en': 'Developing Objectives', 'ar': 'أهداف قيد التطوير'},
+      'strong_objectives': {'en': 'Strong, Defined Objectives', 'ar': 'أهداف قوية ومحددة'},
+      'learning_challenge': {'en': 'Learning Challenge', 'ar': 'تحدي التعلم'},
+      'investing_challenge': {'en': 'Investing Challenge', 'ar': 'تحدي الاستثمار'},
+      'ready_for_challenge': {'en': 'Ready for Challenge', 'ar': 'جاهز للتحدي'},
+    };
+    return translations[key]?[_selectedLanguage] ?? translations[key]?['en'] ?? key;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final args = ModalRoute.of(context)?.settings.arguments as Map?;
+    if (args != null && args['language'] != null) {
+      setState(() {
+        _selectedLanguage = args['language'];
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -979,7 +1048,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                     child: Column(
                       children: [
                         Text(
-                          'Congratulations!',
+                          _t('congratulations'),
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.purple.shade300,
@@ -987,9 +1056,9 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                           ),
                         ),
                         const SizedBox(height: 8),
-                        const Text(
-                          'Your Investor Profile',
-                          style: TextStyle(
+                        Text(
+                          _t('your_investor_profile'),
+                          style: const TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.w800,
                             color: Colors.white,
@@ -1034,7 +1103,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                         controller: _mainController,
                         delay: 0.2,
                         child: _InterestsSection(
-                          title: 'Interested Industries',
+                          title: _t('interested_industries'),
                           icon: Icons.factory_outlined,
                           items: answers.industriesInterested,
                           getLabel: _getIndustryLabel,
@@ -1050,7 +1119,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                         controller: _mainController,
                         delay: 0.25,
                         child: _InterestsSection(
-                          title: 'Asset Experience',
+                          title: _t('asset_experience'),
                           icon: Icons.account_balance_wallet_outlined,
                           items: answers.assetClasses,
                           getLabel: _getAssetLabel,
@@ -1065,7 +1134,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                       controller: _mainController,
                       delay: 0.3,
                       child: _ScoreCard(
-                        title: '1: Investment Background',
+                        title: _t('investment_background'),
                         result: experience,
                         onInfoTap: () => _showInfoModal('personality'),
                       ),
@@ -1075,7 +1144,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                       controller: _mainController,
                       delay: 0.35,
                       child: _ScoreCard(
-                        title: '2: Financial Literacy',
+                        title: _t('financial_literacy'),
                         result: literacy,
                         onInfoTap: () => _showInfoModal('literacy'),
                       ),
@@ -1085,7 +1154,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                       controller: _mainController,
                       delay: 0.4,
                       child: _ScoreCard(
-                        title: '3: Objectives & Motivation',
+                        title: _t('objectives_motivation'),
                         result: motivation,
                         onInfoTap: () => _showInfoModal('strength'),
                       ),
@@ -1095,7 +1164,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                       controller: _mainController,
                       delay: 0.45,
                       child: _ScoreCard(
-                        title: '4: Learning Readiness',
+                        title: _t('learning_readiness'),
                         result: readiness,
                         onInfoTap: () => _showInfoModal('readiness'),
                       ),
@@ -1132,7 +1201,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                         children: [
                           Expanded(
                             child: _ActionButton(
-                              label: 'Share Results',
+                              label: _t('share_results'),
                               icon: Icons.share_rounded,
                               isPrimary: false,
                               onTap: () => _shareResults(totalScore, experience, literacy, motivation, readiness, portfolio, allocations),
@@ -1141,10 +1210,14 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                           const SizedBox(width: 12),
                           Expanded(
                             child: _ActionButton(
-                              label: 'Start Trading',
-                              icon: Icons.arrow_forward_rounded,
+                              label: _t('start_trading'),
+                              icon: _isArabic ? Icons.arrow_back_rounded : Icons.arrow_forward_rounded,
                               isPrimary: true,
-                              onTap: () => Navigator.pushReplacementNamed(context, '/challenge-home'),
+                              onTap: () => Navigator.pushReplacementNamed(
+                                context,
+                                '/challenge-home',
+                                arguments: {'language': _selectedLanguage},
+                              ),
                             ),
                           ),
                         ],

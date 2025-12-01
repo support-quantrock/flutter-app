@@ -244,6 +244,21 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       'question': {'en': 'Question', 'ar': 'سؤال'},
       'of': {'en': 'of', 'ar': 'من'},
       'select_all': {'en': 'Select all that apply', 'ar': 'اختر كل ما ينطبق'},
+
+      // Component badges and buttons
+      'choose_one': {'en': 'Choose one', 'ar': 'اختر واحداً'},
+      'tap_select': {'en': 'Tap to select', 'ar': 'انقر للاختيار'},
+      'select_multiple': {'en': 'Select multiple', 'ar': 'اختر عدة خيارات'},
+      'selected': {'en': 'selected', 'ar': 'مختار'},
+      'helper_rating': {'en': '1 = No knowledge, 5 = Excellent', 'ar': '1 = لا معرفة، 5 = ممتاز'},
+      'rate_all': {'en': 'Rate all areas to continue', 'ar': 'قيّم جميع المجالات للمتابعة'},
+      'got_it': {'en': 'Got it', 'ar': 'فهمت'},
+
+      // Knowledge areas for Q6
+      'area_stock_market': {'en': 'Stock Market', 'ar': 'سوق الأسهم'},
+      'area_risk_management': {'en': 'Risk management', 'ar': 'إدارة المخاطر'},
+      'area_technical_analysis': {'en': 'Technical analysis', 'ar': 'التحليل الفني'},
+      'area_portfolio_diversification': {'en': 'Portfolio diversification', 'ar': 'تنويع المحفظة'},
     };
 
     return translations[key]?[_selectedLanguage] ?? translations[key]?['en'] ?? key;
@@ -388,7 +403,10 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
       Future.delayed(const Duration(milliseconds: 800), () {
         if (mounted) {
-          Navigator.of(context).pushReplacementNamed('/investor-results');
+          Navigator.of(context).pushReplacementNamed(
+            '/investor-results',
+            arguments: {'language': _selectedLanguage},
+          );
         }
       });
     }
@@ -460,280 +478,326 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       // SECTION 1 — Personal Information & Investment Background
       case 1:
         return SingleChoiceCard(
-          title: 'What is your gender?',
-          options: const [
-            ChoiceOption(label: 'Male', value: 'male', icon: '👨'),
-            ChoiceOption(label: 'Female', value: 'female', icon: '👩'),
+          title: _t('q1_title'),
+          options: [
+            ChoiceOption(label: _t('q1_male'), value: 'male', icon: '👨'),
+            ChoiceOption(label: _t('q1_female'), value: 'female', icon: '👩'),
           ],
           selectedValue: answers.gender,
           onSelect: (v) => _handleSingleSelect('gender', v),
+          isArabic: _isArabic,
+          badgeText: _t('choose_one'),
         );
 
       case 2:
         return SingleChoiceCard(
-          title: 'What is your age group?',
-          options: const [
-            ChoiceOption(label: 'Under 18', value: 'under_18', icon: '🧒'),
-            ChoiceOption(label: '18–24', value: '18-24', icon: '🧑'),
-            ChoiceOption(label: '25–34', value: '25-34', icon: '👨'),
-            ChoiceOption(label: '35–44', value: '35-44', icon: '👨‍💼'),
-            ChoiceOption(label: '45–54', value: '45-54', icon: '👴'),
-            ChoiceOption(label: '55–64', value: '55-64', icon: '🧓'),
-            ChoiceOption(label: '65+', value: '65+', icon: '👵'),
+          title: _t('q2_title'),
+          options: [
+            ChoiceOption(label: _t('q2_under18'), value: 'under_18', icon: '🧒'),
+            ChoiceOption(label: _t('q2_18_24'), value: '18-24', icon: '🧑'),
+            ChoiceOption(label: _t('q2_25_34'), value: '25-34', icon: '👨'),
+            ChoiceOption(label: _t('q2_35_44'), value: '35-44', icon: '👨‍💼'),
+            ChoiceOption(label: _t('q2_45_54'), value: '45-54', icon: '👴'),
+            ChoiceOption(label: _t('q2_55_64'), value: '55-64', icon: '🧓'),
+            ChoiceOption(label: _t('q2_65plus'), value: '65+', icon: '👵'),
           ],
           selectedValue: answers.ageRange,
           onSelect: (v) => _handleSingleSelect('ageRange', v),
+          isArabic: _isArabic,
+          badgeText: _t('choose_one'),
         );
 
       case 3:
         return SingleChoiceCard(
-          title: 'Do you currently have an investment account?',
-          options: const [
-            ChoiceOption(label: 'Yes', value: 'yes', icon: '✅'),
-            ChoiceOption(label: 'No', value: 'no', icon: '❌'),
-            ChoiceOption(label: 'Planning to open one soon', value: 'planning', icon: '📋'),
+          title: _t('q3_title'),
+          options: [
+            ChoiceOption(label: _t('q3_yes'), value: 'yes', icon: '✅'),
+            ChoiceOption(label: _t('q3_no'), value: 'no', icon: '❌'),
+            ChoiceOption(label: _t('q3_planning'), value: 'planning', icon: '📋'),
           ],
           selectedValue: answers.hasInvestmentAccount,
           onSelect: (v) => _handleSingleSelect('hasInvestmentAccount', v),
+          isArabic: _isArabic,
+          badgeText: _t('choose_one'),
         );
 
       case 4:
         return SingleChoiceCard(
-          title: 'Do you have an active investment portfolio?',
-          options: const [
-            ChoiceOption(label: 'Yes', value: 'yes', icon: '✅'),
-            ChoiceOption(label: 'No', value: 'no', icon: '❌'),
-            ChoiceOption(label: 'I used to have one but not anymore', value: 'used_to', icon: '📉'),
+          title: _t('q4_title'),
+          options: [
+            ChoiceOption(label: _t('q4_yes'), value: 'yes', icon: '✅'),
+            ChoiceOption(label: _t('q4_no'), value: 'no', icon: '❌'),
+            ChoiceOption(label: _t('q4_used_to'), value: 'used_to', icon: '📉'),
           ],
           selectedValue: answers.hasActivePortfolio,
           onSelect: (v) => _handleSingleSelect('hasActivePortfolio', v),
+          isArabic: _isArabic,
+          badgeText: _t('choose_one'),
         );
 
       case 5:
         return SingleChoiceCard(
-          title: 'What is the approximate size of your current or latest portfolio?',
-          options: const [
-            ChoiceOption(label: 'Less than \$1,000', value: 'less_1k', icon: '💵'),
-            ChoiceOption(label: '\$1,000–\$10,000', value: '1k-10k', icon: '💰'),
-            ChoiceOption(label: '\$10,000–\$25,000', value: '10k-25k', icon: '💎'),
-            ChoiceOption(label: '\$25,000–\$100,000', value: '25k-100k', icon: '🏆'),
-            ChoiceOption(label: '\$100,000–\$500,000', value: '100k-500k', icon: '👑'),
-            ChoiceOption(label: 'More than \$500,000', value: 'more_500k', icon: '🚀'),
+          title: _t('q5_title'),
+          options: [
+            ChoiceOption(label: _t('q5_less1k'), value: 'less_1k', icon: '💵'),
+            ChoiceOption(label: _t('q5_1k_10k'), value: '1k-10k', icon: '💰'),
+            ChoiceOption(label: _t('q5_10k_25k'), value: '10k-25k', icon: '💎'),
+            ChoiceOption(label: _t('q5_25k_100k'), value: '25k-100k', icon: '🏆'),
+            ChoiceOption(label: _t('q5_100k_500k'), value: '100k-500k', icon: '👑'),
+            ChoiceOption(label: _t('q5_more500k'), value: 'more_500k', icon: '🚀'),
           ],
           selectedValue: answers.portfolioSize,
           onSelect: (v) => _handleSingleSelect('portfolioSize', v),
+          isArabic: _isArabic,
+          badgeText: _t('choose_one'),
         );
 
       case 6:
         return KnowledgeRatingCard(
-          title: 'Rate your knowledge in the following areas',
-          areas: const ['Stock Market', 'Risk management', 'Technical analysis', 'Portfolio diversification'],
+          title: _t('q6_title'),
+          areas: [_t('area_stock_market'), _t('area_risk_management'), _t('area_technical_analysis'), _t('area_portfolio_diversification')],
           ratings: _knowledgeRatings,
           onRatingChanged: (area, rating) {
             setState(() {
               _knowledgeRatings[area] = rating;
             });
             final provider = context.read<QuestionnaireProvider>();
-            if (area == 'Stock Market') provider.setAnswer('stocksKnowledge', rating);
-            if (area == 'Risk management') provider.setAnswer('riskManagementKnowledge', rating);
-            if (area == 'Technical analysis') provider.setAnswer('technicalAnalysisKnowledge', rating);
-            if (area == 'Portfolio diversification') provider.setAnswer('portfolioDiversificationKnowledge', rating);
+            if (area == _t('area_stock_market')) provider.setAnswer('stocksKnowledge', rating);
+            if (area == _t('area_risk_management')) provider.setAnswer('riskManagementKnowledge', rating);
+            if (area == _t('area_technical_analysis')) provider.setAnswer('technicalAnalysisKnowledge', rating);
+            if (area == _t('area_portfolio_diversification')) provider.setAnswer('portfolioDiversificationKnowledge', rating);
           },
           onContinue: _handleNext,
+          isArabic: _isArabic,
+          helperText: _t('helper_rating'),
+          continueText: _t('continue'),
+          rateAllText: _t('rate_all'),
+          gotItText: _t('got_it'),
         );
 
       case 7:
         return MultiSelectChips(
-          title: 'Which asset classes have you invested in before?',
-          options: const [
-            ChoiceOption(label: 'Stocks', value: 'stocks', icon: '📈'),
-            ChoiceOption(label: 'ETFs', value: 'etfs', icon: '📊'),
-            ChoiceOption(label: 'Crypto', value: 'crypto', icon: '₿'),
-            ChoiceOption(label: 'Bonds', value: 'bonds', icon: '📜'),
-            ChoiceOption(label: 'Real Estate', value: 'real_estate', icon: '🏠'),
-            ChoiceOption(label: 'Commodities', value: 'commodities', icon: '🛢️'),
-            ChoiceOption(label: 'None', value: 'none', icon: '🚫'),
+          title: _t('q7_title'),
+          options: [
+            ChoiceOption(label: _t('q7_stocks'), value: 'stocks', icon: '📈'),
+            ChoiceOption(label: _t('q7_etfs'), value: 'etfs', icon: '📊'),
+            ChoiceOption(label: _t('q7_crypto'), value: 'crypto', icon: '₿'),
+            ChoiceOption(label: _t('q7_bonds'), value: 'bonds', icon: '📜'),
+            ChoiceOption(label: _t('q7_real_estate'), value: 'real_estate', icon: '🏠'),
+            ChoiceOption(label: _t('q7_none'), value: 'none', icon: '🚫'),
           ],
           selectedValues: _selectedAssets,
           onToggle: _toggleAsset,
           onContinue: _handleNext,
+          isArabic: _isArabic,
+          badgeText: _t('select_multiple'),
+          selectedText: _t('selected'),
+          continueText: _t('continue'),
         );
 
       case 8:
         return SingleChoiceCard(
-          title: 'How comfortable are you reading financial charts?',
-          options: const [
-            ChoiceOption(label: 'Not comfortable', value: 'not_comfortable', icon: '😰'),
-            ChoiceOption(label: 'Slightly comfortable', value: 'slightly_comfortable', icon: '🤔'),
-            ChoiceOption(label: 'Comfortable', value: 'comfortable', icon: '😊'),
-            ChoiceOption(label: 'Very comfortable', value: 'very_comfortable', icon: '😎'),
+          title: _t('q8_title'),
+          options: [
+            ChoiceOption(label: _t('q8_not'), value: 'not_comfortable', icon: '😰'),
+            ChoiceOption(label: _t('q8_slightly'), value: 'slightly_comfortable', icon: '🤔'),
+            ChoiceOption(label: _t('q8_comfortable'), value: 'comfortable', icon: '😊'),
+            ChoiceOption(label: _t('q8_very'), value: 'very_comfortable', icon: '😎'),
           ],
           selectedValue: answers.chartReadingComfort,
           onSelect: (v) => _handleSingleSelect('chartReadingComfort', v),
+          isArabic: _isArabic,
+          badgeText: _t('choose_one'),
         );
 
       case 9:
         return SingleChoiceCard(
-          title: 'What is your investment time horizon?',
-          options: const [
-            ChoiceOption(label: 'Less than 1 year', value: 'less_1_year', icon: '⏱️'),
-            ChoiceOption(label: '1–3 years', value: '1-3_years', icon: '📅'),
-            ChoiceOption(label: '3–7 years', value: '3-7_years', icon: '📆'),
-            ChoiceOption(label: '7+ years', value: '7+_years', icon: '🗓️'),
+          title: _t('q9_title'),
+          options: [
+            ChoiceOption(label: _t('q9_less1'), value: 'less_1_year', icon: '⏱️'),
+            ChoiceOption(label: _t('q9_1_3'), value: '1-3_years', icon: '📅'),
+            ChoiceOption(label: _t('q9_3_7'), value: '3-7_years', icon: '📆'),
+            ChoiceOption(label: _t('q9_more7'), value: '7+_years', icon: '🗓️'),
           ],
           selectedValue: answers.investmentTimeHorizon,
           onSelect: (v) => _handleSingleSelect('investmentTimeHorizon', v),
+          isArabic: _isArabic,
+          badgeText: _t('choose_one'),
         );
 
       // SECTION 2 — Financial Literacy & Personal Readiness
       case 10:
         return SingleChoiceCard(
-          title: 'How well do you understand market risk?',
-          options: const [
-            ChoiceOption(label: 'Poor', value: 'poor', icon: '😟'),
-            ChoiceOption(label: 'Basic', value: 'basic', icon: '🤔'),
-            ChoiceOption(label: 'Good', value: 'good', icon: '😊'),
-            ChoiceOption(label: 'Excellent', value: 'excellent', icon: '🌟'),
+          title: _t('q10_title'),
+          options: [
+            ChoiceOption(label: _t('q10_poor'), value: 'poor', icon: '😟'),
+            ChoiceOption(label: _t('q10_basic'), value: 'basic', icon: '🤔'),
+            ChoiceOption(label: _t('q10_good'), value: 'good', icon: '😊'),
+            ChoiceOption(label: _t('q10_excellent'), value: 'excellent', icon: '🌟'),
           ],
           selectedValue: answers.marketRiskUnderstanding,
           onSelect: (v) => _handleSingleSelect('marketRiskUnderstanding', v),
+          isArabic: _isArabic,
+          badgeText: _t('choose_one'),
         );
 
       case 11:
         return SingleChoiceCard(
-          title: 'How disciplined are you with saving money?',
-          options: const [
-            ChoiceOption(label: "I don't save", value: 'dont_save', icon: '🙈'),
-            ChoiceOption(label: 'I save sometimes', value: 'save_sometimes', icon: '🤷'),
-            ChoiceOption(label: 'I save regularly', value: 'save_regularly', icon: '💪'),
-            ChoiceOption(label: 'I save a fixed percentage every month', value: 'save_fixed', icon: '🎯'),
+          title: _t('q11_title'),
+          options: [
+            ChoiceOption(label: _t('q11_dont'), value: 'dont_save', icon: '🙈'),
+            ChoiceOption(label: _t('q11_sometimes'), value: 'save_sometimes', icon: '🤷'),
+            ChoiceOption(label: _t('q11_regularly'), value: 'save_regularly', icon: '💪'),
+            ChoiceOption(label: _t('q11_fixed'), value: 'save_fixed', icon: '🎯'),
           ],
           selectedValue: answers.savingHabit,
           onSelect: (v) => _handleSingleSelect('savingHabit', v),
+          isArabic: _isArabic,
+          badgeText: _t('choose_one'),
         );
 
       case 12:
         return SingleChoiceGrid(
-          title: 'Do you have emergency savings (3–6 months of expenses)?',
-          options: const [
-            ChoiceOption(label: 'Yes', value: 'yes', icon: '✅'),
-            ChoiceOption(label: 'No', value: 'no', icon: '❌'),
+          title: _t('q12_title'),
+          options: [
+            ChoiceOption(label: _t('q12_yes'), value: 'yes', icon: '✅'),
+            ChoiceOption(label: _t('q12_no'), value: 'no', icon: '❌'),
           ],
           selectedValue: answers.hasEmergencySavings,
           onSelect: (v) => _handleSingleSelect('hasEmergencySavings', v),
+          isArabic: _isArabic,
+          badgeText: _t('tap_select'),
         );
 
       case 13:
         return SingleChoiceCard(
-          title: 'Do you plan for your retirement?',
-          options: const [
-            ChoiceOption(label: 'Not yet', value: 'not_yet', icon: '🤔'),
-            ChoiceOption(label: 'I save regularly', value: 'save_regularly', icon: '🐷'),
-            ChoiceOption(label: 'I rely on a pension fund', value: 'rely_pension', icon: '🏦'),
+          title: _t('q13_title'),
+          options: [
+            ChoiceOption(label: _t('q13_not_yet'), value: 'not_yet', icon: '🤔'),
+            ChoiceOption(label: _t('q13_save'), value: 'save_regularly', icon: '🐷'),
+            ChoiceOption(label: _t('q13_pension'), value: 'rely_pension', icon: '🏦'),
           ],
           selectedValue: answers.retirementPlanning,
           onSelect: (v) => _handleSingleSelect('retirementPlanning', v),
+          isArabic: _isArabic,
+          badgeText: _t('choose_one'),
         );
 
       case 14:
         return SingleChoiceGrid(
-          title: 'What is your risk tolerance?',
-          options: const [
-            ChoiceOption(label: 'Very low', value: 'very_low', icon: '🛡️'),
-            ChoiceOption(label: 'Low', value: 'low', icon: '🟢'),
-            ChoiceOption(label: 'Medium', value: 'medium', icon: '🟡'),
-            ChoiceOption(label: 'High', value: 'high', icon: '🔴'),
+          title: _t('q14_title'),
+          options: [
+            ChoiceOption(label: _t('q14_very_low'), value: 'very_low', icon: '🛡️'),
+            ChoiceOption(label: _t('q14_low'), value: 'low', icon: '🟢'),
+            ChoiceOption(label: _t('q14_medium'), value: 'medium', icon: '🟡'),
+            ChoiceOption(label: _t('q14_high'), value: 'high', icon: '🔴'),
           ],
           selectedValue: answers.riskTolerance,
           onSelect: (v) => _handleSingleSelect('riskTolerance', v),
+          isArabic: _isArabic,
+          badgeText: _t('tap_select'),
         );
 
       // SECTION 3 — Investment Objectives & User Motivation
       case 15:
         return SingleChoiceCard(
-          title: 'What is your main goal from investing?',
-          options: const [
-            ChoiceOption(label: 'Capital growth', value: 'growth', icon: '📈'),
-            ChoiceOption(label: 'Extra income', value: 'income', icon: '💰'),
-            ChoiceOption(label: 'Capital protection', value: 'protection', icon: '🛡️'),
-            ChoiceOption(label: 'Short-term speculation', value: 'speculation', icon: '⚡'),
-            ChoiceOption(label: 'Long-term wealth building', value: 'wealth_building', icon: '🏰'),
+          title: _t('q15_title'),
+          options: [
+            ChoiceOption(label: _t('q15_growth'), value: 'growth', icon: '📈'),
+            ChoiceOption(label: _t('q15_income'), value: 'income', icon: '💰'),
+            ChoiceOption(label: _t('q15_protection'), value: 'protection', icon: '🛡️'),
+            ChoiceOption(label: _t('q15_speculation'), value: 'speculation', icon: '⚡'),
+            ChoiceOption(label: _t('q15_wealth'), value: 'wealth_building', icon: '🏰'),
           ],
           selectedValue: answers.investingGoal,
           onSelect: (v) => _handleSingleSelect('investingGoal', v),
+          isArabic: _isArabic,
+          badgeText: _t('choose_one'),
         );
 
       case 16:
         return SingleChoiceCard(
-          title: 'What is your main goal in trying Quantrock App?',
-          options: const [
-            ChoiceOption(label: 'Join the challenge', value: 'challenge', icon: '🏆'),
-            ChoiceOption(label: 'Prepare for real trading', value: 'prepare_trading', icon: '📊'),
-            ChoiceOption(label: 'Test my own strategy', value: 'test_strategy', icon: '🎯'),
-            ChoiceOption(label: 'Learn and build skills', value: 'learn', icon: '📚'),
-            ChoiceOption(label: 'Explore automated investing concepts', value: 'explore_auto', icon: '🤖'),
+          title: _t('q16_title'),
+          options: [
+            ChoiceOption(label: _t('q16_challenge'), value: 'challenge', icon: '🏆'),
+            ChoiceOption(label: _t('q16_prepare'), value: 'prepare_trading', icon: '📊'),
+            ChoiceOption(label: _t('q16_test'), value: 'test_strategy', icon: '🎯'),
+            ChoiceOption(label: _t('q16_learn'), value: 'learn', icon: '📚'),
+            ChoiceOption(label: _t('q16_auto'), value: 'explore_auto', icon: '🤖'),
           ],
           selectedValue: answers.quantrockGoal,
           onSelect: (v) => _handleSingleSelect('quantrockGoal', v),
+          isArabic: _isArabic,
+          badgeText: _t('choose_one'),
         );
 
       case 17:
         return MultiSelectChips(
-          title: 'Which industries or sectors are you interested in?',
-          options: const [
-            ChoiceOption(label: 'Technology', value: 'tech', icon: '💻'),
-            ChoiceOption(label: 'Electric Vehicles', value: 'ev', icon: '🚗'),
-            ChoiceOption(label: 'Energy', value: 'energy', icon: '⚡'),
-            ChoiceOption(label: 'Healthcare', value: 'healthcare', icon: '💊'),
-            ChoiceOption(label: 'Retail', value: 'retail', icon: '🛒'),
-            ChoiceOption(label: 'Crypto', value: 'crypto', icon: '₿'),
-            ChoiceOption(label: 'AI & Robotics', value: 'ai_robotics', icon: '🤖'),
-            ChoiceOption(label: 'Finance', value: 'finance', icon: '🏦'),
+          title: _t('q17_title'),
+          options: [
+            ChoiceOption(label: _t('q17_tech'), value: 'tech', icon: '💻'),
+            ChoiceOption(label: _t('q17_ev'), value: 'ev', icon: '🚗'),
+            ChoiceOption(label: _t('q17_energy'), value: 'energy', icon: '⚡'),
+            ChoiceOption(label: _t('q17_healthcare'), value: 'healthcare', icon: '💊'),
+            ChoiceOption(label: _t('q17_retail'), value: 'retail', icon: '🛒'),
+            ChoiceOption(label: _t('q17_crypto'), value: 'crypto', icon: '₿'),
+            ChoiceOption(label: _t('q17_finance'), value: 'finance', icon: '🏦'),
+            ChoiceOption(label: _t('q17_real_estate'), value: 'real_estate', icon: '🏠'),
           ],
           selectedValues: _selectedIndustries,
           onToggle: _toggleIndustry,
           onContinue: _handleNext,
+          isArabic: _isArabic,
+          badgeText: _t('select_multiple'),
+          selectedText: _t('selected'),
+          continueText: _t('continue'),
         );
 
       // SECTION 4 — Learning Readiness & Portfolio Preferences
       case 18:
         return SingleChoiceCard(
-          title: 'How prepared do you feel to start investing?',
-          options: const [
-            ChoiceOption(label: 'I need a lot of help', value: 'need_help', icon: '🆘'),
-            ChoiceOption(label: 'Somewhat prepared', value: 'somewhat_prepared', icon: '🤔'),
-            ChoiceOption(label: 'Fully prepared', value: 'fully_prepared', icon: '💪'),
-            ChoiceOption(label: 'Very confident', value: 'very_confident', icon: '🌟'),
+          title: _t('q18_title'),
+          options: [
+            ChoiceOption(label: _t('q18_need_help'), value: 'need_help', icon: '🆘'),
+            ChoiceOption(label: _t('q18_somewhat'), value: 'somewhat_prepared', icon: '🤔'),
+            ChoiceOption(label: _t('q18_prepared'), value: 'fully_prepared', icon: '💪'),
+            ChoiceOption(label: _t('q18_confident'), value: 'very_confident', icon: '🌟'),
           ],
           selectedValue: answers.investmentReadinessText,
           onSelect: (v) => _handleSingleSelect('investmentReadinessText', v),
+          isArabic: _isArabic,
+          badgeText: _t('choose_one'),
         );
 
       case 19:
         return SingleChoiceCard(
-          title: 'How would you rate your understanding of passive income?',
-          options: const [
-            ChoiceOption(label: "I don't understand it", value: 'dont_understand', icon: '🤷'),
-            ChoiceOption(label: 'Basic understanding', value: 'basic', icon: '📖'),
-            ChoiceOption(label: 'Good understanding', value: 'good', icon: '🧠'),
-            ChoiceOption(label: 'Excellent understanding', value: 'excellent', icon: '🎯'),
+          title: _t('q19_title'),
+          options: [
+            ChoiceOption(label: _t('q19_dont'), value: 'dont_understand', icon: '🤷'),
+            ChoiceOption(label: _t('q19_basic'), value: 'basic', icon: '📖'),
+            ChoiceOption(label: _t('q19_good'), value: 'good', icon: '🧠'),
+            ChoiceOption(label: _t('q19_excellent'), value: 'excellent', icon: '🎯'),
           ],
           selectedValue: answers.passiveIncomeKnowledgeText,
           onSelect: (v) => _handleSingleSelect('passiveIncomeKnowledgeText', v),
+          isArabic: _isArabic,
+          badgeText: _t('choose_one'),
         );
 
       case 20:
         return SingleChoiceCard(
-          title: 'What is your preferred demo portfolio size inside Quantrock?',
-          options: const [
-            ChoiceOption(label: '\$1,000', value: '1k', icon: '💵'),
-            ChoiceOption(label: '\$10,000', value: '10k', icon: '💰'),
-            ChoiceOption(label: '\$25,000', value: '25k', icon: '💎'),
-            ChoiceOption(label: '\$50,000', value: '50k', icon: '🏆'),
-            ChoiceOption(label: '\$100,000', value: '100k', icon: '👑'),
+          title: _t('q20_title'),
+          options: [
+            ChoiceOption(label: _t('q20_1k'), value: '1k', icon: '💵'),
+            ChoiceOption(label: _t('q20_10k'), value: '10k', icon: '💰'),
+            ChoiceOption(label: _t('q20_25k'), value: '25k', icon: '💎'),
+            ChoiceOption(label: _t('q20_50k'), value: '50k', icon: '🏆'),
+            ChoiceOption(label: _t('q20_100k'), value: '100k', icon: '👑'),
           ],
           selectedValue: answers.preferredPortfolioSize,
           onSelect: (v) => _handleSingleSelect('preferredPortfolioSize', v),
+          isArabic: _isArabic,
+          badgeText: _t('choose_one'),
         );
 
       default:

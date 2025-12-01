@@ -6,6 +6,11 @@ class KnowledgeRatingCard extends StatefulWidget {
   final Map<String, int> ratings;
   final Function(String, int) onRatingChanged;
   final VoidCallback onContinue;
+  final bool isArabic;
+  final String helperText;
+  final String continueText;
+  final String rateAllText;
+  final String gotItText;
 
   const KnowledgeRatingCard({
     super.key,
@@ -14,6 +19,11 @@ class KnowledgeRatingCard extends StatefulWidget {
     required this.ratings,
     required this.onRatingChanged,
     required this.onContinue,
+    this.isArabic = false,
+    this.helperText = '1 = No knowledge, 5 = Excellent',
+    this.continueText = 'Continue',
+    this.rateAllText = 'Rate all areas to continue',
+    this.gotItText = 'Got it',
   });
 
   @override
@@ -113,9 +123,9 @@ class _KnowledgeRatingCardState extends State<KnowledgeRatingCard> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  child: const Text(
-                    'Got it',
-                    style: TextStyle(
+                  child: Text(
+                    widget.gotItText,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -132,60 +142,63 @@ class _KnowledgeRatingCardState extends State<KnowledgeRatingCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-      child: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              children: [
-                Text(
-                  widget.title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+    return Directionality(
+      textDirection: widget.isArabic ? TextDirection.rtl : TextDirection.ltr,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                children: [
+                  Text(
+                    widget.title,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  '1 = No knowledge, 5 = Excellent',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.white.withValues(alpha: 0.6),
+                  const SizedBox(height: 8),
+                  Text(
+                    widget.helperText,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.white.withValues(alpha: 0.6),
+                    ),
                   ),
-                ),
                 const SizedBox(height: 24),
                 ...widget.areas.map((area) {
                   final rating = widget.ratings[area] ?? 0;
                   return _buildRatingRow(area, rating);
-                }),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-          SizedBox(
-            width: double.infinity,
-            height: 56,
-            child: ElevatedButton(
-              onPressed: allRated ? widget.onContinue : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: allRated ? const Color(0xFF22C55E) : Colors.grey.shade700,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ),
-              child: Text(
-                allRated ? 'Continue' : 'Rate all areas to continue',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: allRated ? Colors.white : Colors.white60,
-                ),
+                  }),
+                ],
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              height: 56,
+              child: ElevatedButton(
+                onPressed: allRated ? widget.onContinue : null,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: allRated ? const Color(0xFF22C55E) : Colors.grey.shade700,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                ),
+                child: Text(
+                  allRated ? widget.continueText : widget.rateAllText,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: allRated ? Colors.white : Colors.white60,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

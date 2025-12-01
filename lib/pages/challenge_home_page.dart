@@ -11,11 +11,54 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
     with TickerProviderStateMixin {
   bool _isFirstCardExpanded = false;
   bool _isSecondCardExpanded = false;
+  String _selectedLanguage = 'en';
 
   late AnimationController _firstCardController;
   late AnimationController _secondCardController;
   late Animation<double> _firstCardAnimation;
   late Animation<double> _secondCardAnimation;
+
+  String _t(String key) {
+    final translations = {
+      'beginners': {'en': 'Beginners', 'ar': 'المبتدئين'},
+      'qualifiers': {'en': 'Qualifiers', 'ar': 'المؤهلين'},
+      'learn_challenge': {'en': 'Learn Challenge', 'ar': 'تحدي التعلم'},
+      'invest_challenge': {'en': 'Invest Challenge', 'ar': 'تحدي الاستثمار'},
+      'free_simulator': {'en': 'Free Simulator Training (Optional)', 'ar': 'تدريب محاكي مجاني (اختياري)'},
+      'premium_exclusive': {'en': 'Exclusively for Premium Pro Members', 'ar': 'حصرياً لأعضاء بريميوم برو'},
+      'learn_description': {'en': 'Designed for beginners who want to build a solid foundation in trading and gradually develop essential investment skills. It\'s ideal for newcomers, university students, and even high-school learners who wish to practice trading safely through a free, risk-free virtual portfolio simulator.', 'ar': 'مصمم للمبتدئين الذين يرغبون في بناء أساس متين في التداول وتطوير مهارات الاستثمار الأساسية تدريجياً. إنه مثالي للوافدين الجدد وطلاب الجامعات وحتى طلاب المدارس الثانوية الذين يرغبون في ممارسة التداول بأمان من خلال محاكي محفظة افتراضية مجاني وخالي من المخاطر.'},
+      'invest_description': {'en': 'Designed for qualified users, professionals, and Premium members, it offers real financial prizes within an advanced simulation environment that mimics the strategies of investors and hedge funds, without any actual risk. Participants manage a virtual portfolio of up to \$100,000 to trade in a 100% realistic market for 28 days.', 'ar': 'مصمم للمستخدمين المؤهلين والمحترفين وأعضاء بريميوم، يقدم جوائز مالية حقيقية ضمن بيئة محاكاة متقدمة تحاكي استراتيجيات المستثمرين وصناديق التحوط، دون أي مخاطر فعلية. يدير المشاركون محفظة افتراضية تصل إلى 100,000 دولار للتداول في سوق واقعي 100% لمدة 28 يوماً.'},
+      'rewards_benefits': {'en': 'Rewards & Benefits:', 'ar': 'المكافآت والمزايا:'},
+      'premium_upgrade': {'en': 'Premium upgrade', 'ar': 'ترقية بريميوم'},
+      'name_leaderboard': {'en': 'Name on Leaderboard', 'ar': 'الاسم في لوحة المتصدرين'},
+      '28_days_skills': {'en': '28 days of skill challenges', 'ar': '28 يوماً من تحديات المهارات'},
+      'investor_assessment': {'en': 'Investor Personality Assessment', 'ar': 'تقييم شخصية المستثمر'},
+      'cash_prize': {'en': 'Cash prize up to \$1,000', 'ar': 'جائزة نقدية تصل إلى 1,000 دولار'},
+      'full_access': {'en': 'Full access to all features', 'ar': 'وصول كامل لجميع الميزات'},
+      'certificate': {'en': 'Quantrock Certificate', 'ar': 'شهادة كوانتروك'},
+      '500_lessons': {'en': '500+ lessons', 'ar': '500+ درس'},
+      'start_learning': {'en': 'Start Learning Challenge', 'ar': 'ابدأ تحدي التعلم'},
+      'start_investment': {'en': 'Start Investment Challenge', 'ar': 'ابدأ تحدي الاستثمار'},
+      'about_challenge': {'en': 'About the Challenge', 'ar': 'عن التحدي'},
+      'challenge_subtitle': {'en': 'The largest investment challenge that combines training, competition, and real rewards.', 'ar': 'أكبر تحدي استثماري يجمع بين التدريب والمنافسة والمكافآت الحقيقية.'},
+      'monthly_prizes': {'en': 'Monthly Prizes', 'ar': 'الجوائز الشهرية'},
+      'premium_benefits': {'en': 'Premium Pro Membership Benefits', 'ar': 'مزايا عضوية بريميوم برو'},
+      'winner_announced': {'en': 'The winner is announced on the first day of every month and receives:', 'ar': 'يتم الإعلان عن الفائز في اليوم الأول من كل شهر ويحصل على:'},
+      'challenge_rules': {'en': 'Challenge Rules', 'ar': 'قواعد التحدي'},
+    };
+    return translations[key]?[_selectedLanguage] ?? translations[key]?['en'] ?? key;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final args = ModalRoute.of(context)?.settings.arguments as Map?;
+    if (args != null && args['language'] != null) {
+      setState(() {
+        _selectedLanguage = args['language'];
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -173,9 +216,9 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: const Color(0xFF22C55E), width: 1.5),
                 ),
-                child: const Text(
-                  'Beginners',
-                  style: TextStyle(
+                child: Text(
+                  _t('beginners'),
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
@@ -203,9 +246,9 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Learn Challenge',
-                          style: TextStyle(
+                        Text(
+                          _t('learn_challenge'),
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
@@ -213,7 +256,7 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          'Free Simulator Training (Optional)',
+                          _t('free_simulator'),
                           style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.8),
                             fontSize: 10,
@@ -231,9 +274,9 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  'Designed for beginners who want to build a solid foundation in trading and gradually develop essential investment skills. It\'s ideal for newcomers, university students, and even high-school learners who wish to practice trading safely through a free, risk-free virtual portfolio simulator.',
-                  style: TextStyle(
-                    color: const Color(0xFFCBD5E1),
+                  _t('learn_description'),
+                  style: const TextStyle(
+                    color: Color(0xFFCBD5E1),
                     fontSize: 14,
                     height: 1.4,
                   ),
@@ -285,7 +328,7 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
                     Navigator.pushNamed(
                       context,
                       '/challenge-signup',
-                      arguments: {'mode': 'free'},
+                      arguments: {'mode': 'free', 'language': _selectedLanguage},
                     );
                   },
                   child: Container(
@@ -296,10 +339,10 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: const Color(0xFF22C55E), width: 2),
                     ),
-                    child: const Text(
-                      'Start Learning Challenge',
+                    child: Text(
+                      _t('start_learning'),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -352,9 +395,9 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: const Color(0xFFA78BFA), width: 1.5),
                 ),
-                child: const Text(
-                  'Qualifiers',
-                  style: TextStyle(
+                child: Text(
+                  _t('qualifiers'),
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
@@ -382,9 +425,9 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Invest Challenge',
-                          style: TextStyle(
+                        Text(
+                          _t('invest_challenge'),
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
@@ -392,7 +435,7 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          'Exclusively for Premium Pro Members',
+                          _t('premium_exclusive'),
                           style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.8),
                             fontSize: 10,
@@ -410,9 +453,9 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  'Designed for qualified users, professionals, and Premium members, it offers real financial prizes within an advanced simulation environment that mimics the strategies of investors and hedge funds, without any actual risk. Participants manage a virtual portfolio of up to \$100,000 to trade in a 100% realistic market for 28 days.',
-                  style: TextStyle(
-                    color: const Color(0xFFCBD5E1),
+                  _t('invest_description'),
+                  style: const TextStyle(
+                    color: Color(0xFFCBD5E1),
                     fontSize: 14,
                     height: 1.4,
                   ),
@@ -468,7 +511,7 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
                     Navigator.pushNamed(
                       context,
                       '/challenge-signup',
-                      arguments: {'mode': 'premium'},
+                      arguments: {'mode': 'premium', 'language': _selectedLanguage},
                     );
                   },
                   child: Container(
@@ -479,10 +522,10 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: const Color(0xFFA78BFA), width: 2),
                     ),
-                    child: const Text(
-                      'Start Investment Challenge',
+                    child: Text(
+                      _t('start_investment'),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -697,18 +740,18 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'About the Challenge',
-            style: TextStyle(
+          Text(
+            _t('about_challenge'),
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 22,
               fontWeight: FontWeight.w700,
             ),
           ),
           const SizedBox(height: 12),
-          const Text(
-            'The largest investment challenge that combines training, competition, and real rewards.',
-            style: TextStyle(
+          Text(
+            _t('challenge_subtitle'),
+            style: const TextStyle(
               color: Color(0xFF3B82F6),
               fontSize: 13,
               fontWeight: FontWeight.w600,

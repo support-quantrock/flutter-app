@@ -18,6 +18,8 @@ class SingleChoiceCard extends StatelessWidget {
   final List<ChoiceOption> options;
   final String? selectedValue;
   final ValueChanged<String> onSelect;
+  final bool isArabic;
+  final String badgeText;
 
   const SingleChoiceCard({
     super.key,
@@ -26,46 +28,50 @@ class SingleChoiceCard extends StatelessWidget {
     required this.options,
     this.selectedValue,
     required this.onSelect,
+    this.isArabic = false,
+    this.badgeText = 'Choose one',
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: ListView(
-        children: [
-          // Question badge
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.cyan.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.help_outline, color: Colors.cyan, size: 16),
-                const SizedBox(width: 6),
-                Text(
-                  'Choose one',
-                  style: TextStyle(
-                    color: Colors.cyan,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
+    return Directionality(
+      textDirection: isArabic ? TextDirection.rtl : TextDirection.ltr,
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: ListView(
+          children: [
+            // Question badge
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.cyan.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.help_outline, color: Colors.cyan, size: 16),
+                  const SizedBox(width: 6),
+                  Text(
+                    badgeText,
+                    style: TextStyle(
+                      color: Colors.cyan,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+            const SizedBox(height: 16),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-          ),
           if (subtitle != null) ...[
             const SizedBox(height: 8),
             Text(
@@ -92,7 +98,8 @@ class SingleChoiceCard extends StatelessWidget {
               ),
             );
           }),
-        ],
+          ],
+        ),
       ),
     );
   }
