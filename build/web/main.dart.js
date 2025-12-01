@@ -68490,7 +68490,7 @@ r=q.e
 r===$&&A.a()
 r[a].h_(0).bs(new A.aaz(q),s)}},
 J(a){var s,r,q,p,o,n,m,l=this,k=null
-if(l.a.c.f==null)return B.C0
+if(l.a.c.f==null)return B.C_
 s=B.bN.q(0.2)
 r=A.O(16)
 q=A.b9(B.bN.q(0.3),1)
@@ -69782,7 +69782,7 @@ return A.F(r,A.a6(A.b([A.ba(r,A.F(B.a4,B.nw,B.h,r,r,r,r,40,r,r,r,r,40),B.v,!1,r,
 xD(a){var s=null,r=B.c.q(0.1),q=A.O(10)
 return A.F(s,A.bx(a,B.c,s,20),B.h,s,s,new A.D(r,s,s,q,s,s,B.l),s,40,s,s,s,s,40)},
 Vw(){var s=null,r=B.c.q(0.1),q=A.O(8),p=t.p
-return A.a6(A.b([A.F(s,A.a6(A.b([B.GU,B.a3,B.Xh,B.a3,A.F(s,B.Xs,B.h,s,s,new A.D(B.u.q(0.2),s,s,A.O(4),s,s,B.l),s,s,s,B.mY,s,s,s),B.cZ,B.Hb],p),B.k,B.j,B.i),B.h,s,s,new A.D(r,s,s,q,s,s,B.l),s,s,s,B.df,s,s,s),B.ca,A.ba(s,A.F(s,B.GI,B.h,s,s,new A.D(s,s,s,A.O(12),s,B.If,B.l),s,44,s,s,s,s,44),B.v,!1,s,s,s,s,s,s,s,s,s,s,s,s,s,new A.a91(this),s,s,s,s,s,s)],p),B.k,B.j,B.i)},
+return A.a6(A.b([A.F(s,A.a6(A.b([B.GU,B.a3,B.Xg,B.a3,A.F(s,B.Xs,B.h,s,s,new A.D(B.u.q(0.2),s,s,A.O(4),s,s,B.l),s,s,s,B.mY,s,s,s),B.cZ,B.Hb],p),B.k,B.j,B.i),B.h,s,s,new A.D(r,s,s,q,s,s,B.l),s,s,s,B.df,s,s,s),B.ca,A.ba(s,A.F(s,B.GI,B.h,s,s,new A.D(s,s,s,A.O(12),s,B.If,B.l),s,44,s,s,s,s,44),B.v,!1,s,s,s,s,s,s,s,s,s,s,s,s,s,new A.a91(this),s,s,s,s,s,s)],p),B.k,B.j,B.i)},
 x6(a,b){var s=null,r=t.p
 return A.aA(A.F(s,A.a1(A.b([A.a6(A.b([A.aA(A.z(a,s,s,B.z6,s),1),this.kw(a,12)],r),B.k,B.j,B.i),B.aC,A.z(b,s,s,B.cy,s)],r),B.y,B.j,B.i),B.h,s,s,s,s,s,s,B.fK,s,s,s),1)},
 x4(a,b,c){var s=null,r=b?B.cX:B.L,q=c?B.cX:B.L
@@ -69794,7 +69794,7 @@ W4(){var s=A.b(["All","D","W","M","Y"],t.s),r=t.p,q=A.a6(A.b([A.a6(A.b([B.X4,B.a
 p=A.Z(new A.a4(s,new A.a9a(this),p),p.h("at.E"))
 return A.a1(A.b([q,B.R,A.a6(p,B.k,B.j,B.i)],r),B.y,B.j,B.i)},
 W8(){var s=null,r=B.c.q(0.05),q=A.O(12),p=t.p
-return A.F(s,A.a1(A.b([A.a6(A.b([B.WD,B.c9,this.kw("Risk Level",14)],p),B.k,B.j,B.a7),B.R,A.a6(A.kP(10,new A.a9b(),!0,t.l),B.k,B.j,B.i),B.a8,B.OS,B.aC,B.C_],p),B.k,B.j,B.i),B.h,s,s,new A.D(r,s,s,q,s,s,B.l),s,s,s,B.as,s,s,s)},
+return A.F(s,A.a1(A.b([A.a6(A.b([B.WD,B.c9,this.kw("Risk Level",14)],p),B.k,B.j,B.a7),B.R,A.a6(A.kP(10,new A.a9b(),!0,t.l),B.k,B.j,B.i),B.a8,B.OS,B.aC,B.C0],p),B.k,B.j,B.i),B.h,s,s,new A.D(r,s,s,q,s,s,B.l),s,s,s,B.as,s,s,s)},
 Fv(a,b,c,d,e){var s=null,r=A.df(A.ib(A.bQ(A.z(e,s,s,A.ae(s,s,B.c,s,s,s,s,s,s,s,s,28,s,s,B.A,s,s,!0,s,s,s,s,s,s,s,s),s),s,s),s,s,new A.oT(c,a,B.fy,6,s),B.U),100,100),q=A.z(b,s,s,B.cx,s),p=t.p
 return A.a1(A.b([r,B.R,A.a6(A.b([q,B.cZ,this.kw(b==="Number of trades"?"Trades":"Days",12)],p),B.k,B.j,B.a7),B.aC,A.z(d,s,s,A.ae(s,s,a,s,s,s,s,s,s,s,s,14,s,s,B.D,s,s,!0,s,s,s,s,s,s,s,s),s)],p),B.k,B.j,B.i)},
 x7(a,b,c,d,e,f,g){var s,r=null,q=t.p,p=A.df(A.ib(A.bQ(A.a1(A.b([A.z(g,r,r,B.bn,r),A.z(c,r,r,A.ae(r,r,a,r,r,r,r,r,r,r,r,12,r,r,r,r,r,!0,r,r,r,r,r,r,r,r),r)],q),B.k,B.ag,B.i),r,r),r,r,new A.oT(d,a,B.fy,5,r),B.U),80,80),o=A.z(b,r,r,B.dG,B.ah)
@@ -70198,7 +70198,7 @@ n=A.b9(B.c.q(0.1),1)
 o=A.F(f,A.a6(A.b([A.bx(B.Ge,B.u,f,20),B.Q,A.aA(A.z("Your answers are anonymized, and we do not sell your data.",f,f,A.ae(f,f,B.c.q(0.7),f,f,f,f,f,f,f,f,14,f,f,f,f,f,!0,f,f,f,f,f,f,f,f),f),1)],c),B.k,B.j,B.i),B.h,f,f,new A.D(p,f,n,o,f,f,B.l),f,f,f,B.dg,f,f,f)
 n=A.mo(f,f,B.u,f,f,f,0,f,f,f,f,f,f,f,new A.bV(A.O(12),B.r),f,f,f,f,f)
 p=A.z(g.I("start_test").toUpperCase(),f,f,B.Tp,f)
-return A.h9(B.br,A.dr(!0,A.hO(new A.ax(B.ej,A.a1(A.b([B.N,d,B.V,e,B.a8,s,B.V,q,B.V,r,B.V,o,B.V,A.df(A.kt(A.a6(A.b([p,B.a3,A.bx(g.as==="ar"?B.fV:B.nc,B.c,f,f)],c),B.k,B.ag,B.i),new A.abr(g),n),56,1/0),B.ac,A.Jo(B.l6,A.b([B.X6,A.ba(f,B.Wz,B.v,!1,f,f,f,f,f,f,f,f,f,f,f,f,f,new A.abs(),f,f,f,f,f,f),B.Xi],c),0,0),A.Jo(B.l6,A.b([A.ba(f,B.Xp,B.v,!1,f,f,f,f,f,f,f,f,f,f,f,f,f,new A.abt(),f,f,f,f,f,f)],c),0,0),B.N,B.X9,B.V],c),B.k,B.j,B.i),f),f,B.a0),!0),f)},
+return A.h9(B.br,A.dr(!0,A.hO(new A.ax(B.ej,A.a1(A.b([B.N,d,B.V,e,B.a8,s,B.V,q,B.V,r,B.V,o,B.V,A.df(A.kt(A.a6(A.b([p,B.a3,A.bx(g.as==="ar"?B.fV:B.nc,B.c,f,f)],c),B.k,B.ag,B.i),new A.abr(g),n),56,1/0),B.ac,A.Jo(B.l6,A.b([B.X6,A.ba(f,B.Wz,B.v,!1,f,f,f,f,f,f,f,f,f,f,f,f,f,new A.abs(),f,f,f,f,f,f),B.Xh],c),0,0),A.Jo(B.l6,A.b([A.ba(f,B.Xp,B.v,!1,f,f,f,f,f,f,f,f,f,f,f,f,f,new A.abt(),f,f,f,f,f,f)],c),0,0),B.N,B.X9,B.V],c),B.k,B.j,B.i),f),f,B.a0),!0),f)},
 a3r(a){A.R1(new A.ac_(this),a,t.z)},
 xa(a,b,c){var s=null,r=t.p
 return A.a6(A.b([A.z(a,s,s,B.kZ,s),B.a3,A.aA(A.a1(A.b([A.z(b,s,s,B.hL,s),B.aC,A.z(c,s,s,B.hM,s)],r),B.y,B.j,B.i),1)],r),B.y,B.j,B.i)},
@@ -71273,7 +71273,7 @@ r=B.c.q(0.2)
 q=A.O(4)
 p=t.p
 q=A.a6(A.b([l,B.Q,B.GG,B.Q,A.aA(A.a1(A.b([s,B.kR,A.F(o,A.z(a.i(0,"country"),o,o,B.z1,o),B.h,o,o,new A.D(r,o,o,q,o,o,B.l),o,o,o,B.mX,o,o,o)],p),B.y,B.j,B.i),1)],p),B.k,B.j,B.i)
-r=A.a6(A.b([A.z("Portfolio value:",o,o,A.ae(o,o,B.c.q(0.7),o,o,o,o,o,o,o,o,12,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o),A.a6(A.b([B.X1,A.a1(A.b([A.z("90 days",o,o,A.ae(o,o,B.c.q(0.5),o,o,o,o,o,o,o,o,8,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o),B.Xe],p),B.k,B.j,B.i),B.Xd],p),B.k,B.j,B.i)],p),B.k,B.bu,B.i)
+r=A.a6(A.b([A.z("Portfolio value:",o,o,A.ae(o,o,B.c.q(0.7),o,o,o,o,o,o,o,o,12,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o),A.a6(A.b([B.X1,A.a1(A.b([A.z("90 days",o,o,A.ae(o,o,B.c.q(0.5),o,o,o,o,o,o,o,o,8,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o),B.Xd],p),B.k,B.j,B.i),B.Xc],p),B.k,B.j,B.i)],p),B.k,B.bu,B.i)
 s=B.dd.q(0.2)
 l=A.O(8)
 return A.F(o,A.a1(A.b([q,B.R,r,B.a8,A.F(o,A.z("+$360.00 (+1.49%)",o,o,B.Sm,B.ah),B.h,o,o,new A.D(s,o,o,l,o,o,B.l),o,o,o,B.iZ,o,o,1/0)],p),B.k,B.j,B.i),B.h,o,o,new A.D(n,o,o,m,o,o,B.l),o,o,B.ef,B.as,o,o,o)},
@@ -74421,13 +74421,13 @@ B.X7=new A.aC("Q",null,B.Vr,null,null,null,null)
 B.BY=new A.eZ(B.a4,null,null,B.X7,null)
 B.Xm=new A.aC("No mission data",null,null,null,null,null,null)
 B.BZ=new A.eZ(B.a4,null,null,B.Xm,null)
+B.X2=new A.aC("No game data",null,null,null,null,null,null)
+B.C_=new A.eZ(B.a4,null,null,B.X2,null)
 B.u=new A.k(1,0.13333333333333333,0.7725490196078432,0.3686274509803922,B.e)
 B.D=new A.fX(5)
 B.z8=new A.i(!0,B.u,null,null,null,null,12,B.D,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Xc=new A.aC("Level 3 - Low Risk",null,B.z8,null,null,null,null)
-B.C_=new A.eZ(B.a4,null,null,B.Xc,null)
-B.X2=new A.aC("No game data",null,null,null,null,null,null)
-B.C0=new A.eZ(B.a4,null,null,B.X2,null)
+B.Xi=new A.aC("Low Risk",null,B.z8,null,null,null,null)
+B.C0=new A.eZ(B.a4,null,null,B.Xi,null)
 B.ag=new A.kT(2,"center")
 B.i=new A.FX(1,"max")
 B.k=new A.mk(2,"center")
@@ -74442,8 +74442,8 @@ B.Es=new A.ia(B.a0,B.ag,B.i,B.k,null,B.aQ,null,0,B.Is,null)
 B.C1=new A.eZ(B.a4,null,null,B.Es,null)
 B.Wu=new A.aC("No holdings yet",null,B.dE,null,null,null,null)
 B.C2=new A.eZ(B.a4,null,null,B.Wu,null)
-B.Xf=new A.aC("No orders yet",null,B.dE,null,null,null,null)
-B.C3=new A.eZ(B.a4,null,null,B.Xf,null)
+B.Xe=new A.aC("No orders yet",null,B.dE,null,null,null,null)
+B.C3=new A.eZ(B.a4,null,null,B.Xe,null)
 B.C4=new A.md(null)
 B.C5=new A.tX(null,null,null,null,null,null,null,null,null)
 B.C6=new A.tZ(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
@@ -74821,8 +74821,8 @@ B.jv=new A.bD(8,"route")
 B.jw=new A.bD(9,"platformView")
 B.jx=new A.EW(0,"tight")
 B.dH=new A.i(!0,B.c,null,null,null,null,20,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Xg=new A.aC("28 day Skill challenge",null,B.dH,null,null,null,null)
-B.FF=new A.fv(1,B.jx,B.Xg,null)
+B.Xf=new A.aC("28 day Skill challenge",null,B.dH,null,null,null,null)
+B.FF=new A.fv(1,B.jx,B.Xf,null)
 B.FG=new A.v4(null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.FH=new A.v8(null)
 B.cK=new A.mx(0,"none")
@@ -77033,12 +77033,12 @@ B.X9=new A.aC("QUANTROCK LTD",null,B.S4,B.ah,null,null,null)
 B.Sk=new A.i(!0,B.c,null,null,null,null,null,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.Xb=new A.aC("OECD, MIT & CFA",null,B.Sk,null,null,null,null)
 B.VV=new A.i(!0,B.dd,null,null,null,null,12,B.D,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Xd=new A.aC("$20,000",null,B.VV,null,null,null,null)
-B.Xe=new A.aC(" \u27f6 ",null,B.hM,null,null,null,null)
-B.Xh=new A.aC("QR-78459321",null,B.cy,null,null,null,null)
+B.Xc=new A.aC("$20,000",null,B.VV,null,null,null,null)
+B.Xd=new A.aC(" \u27f6 ",null,B.hM,null,null,null,null)
+B.Xg=new A.aC("QR-78459321",null,B.cy,null,null,null,null)
 B.TL=new A.i(!0,B.u,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.zb=new A.aC("Got it",null,B.TL,null,null,null,null)
-B.Xi=new A.aC(", ",null,B.cx,null,null,null,null)
+B.Xh=new A.aC(", ",null,B.cx,null,null,null,null)
 B.Xj=new A.aC("Got it",null,null,null,null,null,null)
 B.Xl=new A.aC("Net Profit",null,B.cx,null,null,null,null)
 B.Xp=new A.aC("Privacy Policy",null,B.z4,null,null,null,null)
