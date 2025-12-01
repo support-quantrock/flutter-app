@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../models/lesson_models.dart';
-import 'image_placeholder.dart';
 
 class GameScreen extends StatefulWidget {
   final LessonScreen screen;
@@ -151,17 +150,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                     ),
                   ),
 
-                  const SizedBox(height: 20),
-
-                  // Image placeholder
-                  if (widget.screen.imagePrompt != null)
-                    ImagePlaceholder(
-                      prompt: widget.screen.imagePrompt!,
-                      imagePath: widget.screen.imagePath,
-                      height: 120,
-                    ),
-
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 16),
 
                   // Instruction
                   Text(
@@ -174,7 +163,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                     ),
                   ),
 
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 16),
 
                   // Balloons
                   Expanded(
@@ -186,7 +175,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 12),
 
                   // Hint text
                   Text(
@@ -239,8 +228,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 children: [
                   // Balloon
                   Container(
-                    width: 90,
-                    height: 110,
+                    width: 80,
+                    height: 95,
                     decoration: BoxDecoration(
                       gradient: RadialGradient(
                         center: const Alignment(-0.3, -0.3),
@@ -251,10 +240,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                         ],
                       ),
                       borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(45),
-                        topRight: Radius.circular(45),
-                        bottomLeft: Radius.circular(45),
-                        bottomRight: Radius.circular(45),
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
+                        bottomLeft: Radius.circular(40),
+                        bottomRight: Radius.circular(40),
                       ),
                       boxShadow: [
                         BoxShadow(
@@ -274,10 +263,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                   // String
                   Container(
                     width: 2,
-                    height: 30,
+                    height: 20,
                     color: Colors.white.withValues(alpha: 0.5),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 6),
                   // Label
                   Container(
                     padding: const EdgeInsets.symmetric(
