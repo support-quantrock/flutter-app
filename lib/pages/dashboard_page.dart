@@ -797,10 +797,6 @@ class _DashboardPageState extends State<DashboardPage>
   Widget _buildReturnCircle() {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.05),
-        borderRadius: BorderRadius.circular(12),
-      ),
       child: Column(
         children: [
           Row(
@@ -849,6 +845,15 @@ class _DashboardPageState extends State<DashboardPage>
                   ],
                 ),
               ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          const Text(
+            'Not Qualified',
+            style: TextStyle(
+              color: Colors.orange,
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
