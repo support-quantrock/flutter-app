@@ -900,8 +900,39 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
       'learning_challenge': {'en': 'Learning Challenge', 'ar': 'تحدي التعلم'},
       'investing_challenge': {'en': 'Investing Challenge', 'ar': 'تحدي الاستثمار'},
       'ready_for_challenge': {'en': 'Ready for Challenge', 'ar': 'جاهز للتحدي'},
+      // Goal labels
+      'capital_protection': {'en': 'Capital Protection', 'ar': 'حماية رأس المال'},
+      'extra_income': {'en': 'Extra Income', 'ar': 'دخل إضافي'},
+      'capital_growth': {'en': 'Capital Growth', 'ar': 'نمو رأس المال'},
+      'long_term_wealth': {'en': 'Long-term Wealth', 'ar': 'الثروة طويلة الأجل'},
+      'short_term_trading': {'en': 'Short-term Trading', 'ar': 'التداول قصير الأجل'},
+      'not_specified': {'en': 'Not specified', 'ar': 'غير محدد'},
+      // Finance label
+      'finance': {'en': 'Finance', 'ar': 'المالية'},
+      'crypto_blockchain': {'en': 'Crypto/Blockchain', 'ar': 'العملات الرقمية/البلوكتشين'},
     };
     return translations[key]?[_selectedLanguage] ?? translations[key]?['en'] ?? key;
+  }
+
+  String _translateScoreLabel(String label) {
+    final keyMap = {
+      'Very Low Experience': 'very_low_experience',
+      'Low Experience': 'low_experience',
+      'Moderate Experience': 'moderate_experience',
+      'High Experience': 'high_experience',
+      'Beginner': 'beginner',
+      'Intermediate': 'intermediate',
+      'Expert': 'expert',
+      'Advanced': 'advanced',
+      'Unclear or Basic Objectives': 'unclear_objectives',
+      'Developing Objectives': 'developing_objectives',
+      'Strong, Defined Objectives': 'strong_objectives',
+      'Learning Challenge': 'learning_challenge',
+      'Investing Challenge': 'investing_challenge',
+      'Ready for Challenge': 'ready_for_challenge',
+    };
+    final key = keyMap[label];
+    return key != null ? _t(key) : label;
   }
 
   @override
@@ -1078,6 +1109,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                       result: totalScore,
                       pulseAnimation: _pulseAnimation,
                       onInfoTap: () => _showInfoModal('personality'),
+                      translateLabel: _translateScoreLabel,
                     ),
                   ),
 
@@ -1092,6 +1124,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                         riskTolerance: answers.riskTolerance,
                         investingGoal: answers.investingGoal,
                         literacyLabel: literacy.label,
+                        t: _t,
                       ),
                     ),
 
@@ -1137,6 +1170,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                         title: _t('investment_background'),
                         result: experience,
                         onInfoTap: () => _showInfoModal('personality'),
+                        translateLabel: _translateScoreLabel,
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -1147,6 +1181,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                         title: _t('financial_literacy'),
                         result: literacy,
                         onInfoTap: () => _showInfoModal('literacy'),
+                        translateLabel: _translateScoreLabel,
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -1157,6 +1192,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                         title: _t('objectives_motivation'),
                         result: motivation,
                         onInfoTap: () => _showInfoModal('strength'),
+                        translateLabel: _translateScoreLabel,
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -1167,6 +1203,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                         title: _t('learning_readiness'),
                         result: readiness,
                         onInfoTap: () => _showInfoModal('readiness'),
+                        translateLabel: _translateScoreLabel,
                       ),
                     ),
 
@@ -1176,7 +1213,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                     _AnimatedSlideIn(
                       controller: _mainController,
                       delay: 0.5,
-                      child: _PortfolioCard(suggestion: portfolio, literacyLabel: literacy.label),
+                      child: _PortfolioCard(suggestion: portfolio, literacyLabel: literacy.label, t: _t),
                     ),
 
                     const SizedBox(height: 20),
@@ -1188,6 +1225,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                       child: _RoboAdvisorSection(
                         allocations: allocations,
                         personalityLabel: personality.label,
+                        t: _t,
                       ),
                     ),
 
@@ -1279,11 +1317,13 @@ class _RiskAndGoalSection extends StatelessWidget {
   final String? riskTolerance;
   final String? investingGoal;
   final String literacyLabel;
+  final String Function(String) t;
 
   const _RiskAndGoalSection({
     required this.riskTolerance,
     required this.investingGoal,
     required this.literacyLabel,
+    required this.t,
   });
 
   Color _getRiskColor(String? risk) {
@@ -1315,11 +1355,11 @@ class _RiskAndGoalSection extends StatelessWidget {
   String _getGoalByLiteracy(String literacyLabel, String? investingGoal) {
     switch (literacyLabel) {
       case 'Beginner':
-        return 'Learn Challenge';
+        return t('learn_challenge');
       case 'Intermediate':
-        return '28 Days Skills';
+        return t('28_days_skills');
       case 'Expert':
-        return 'Investment Challenge';
+        return t('investment_challenge');
       default:
         return _getInvestingGoalLabel(investingGoal);
     }
@@ -1328,13 +1368,13 @@ class _RiskAndGoalSection extends StatelessWidget {
   String _getRiskByLiteracy(String literacyLabel) {
     switch (literacyLabel) {
       case 'Beginner':
-        return 'Low Risk';
+        return t('low_risk');
       case 'Intermediate':
-        return 'Medium Risk';
+        return t('medium_risk');
       case 'Expert':
-        return 'High Risk';
+        return t('high_risk');
       default:
-        return 'Not Set';
+        return t('not_set');
     }
   }
 
@@ -1401,7 +1441,7 @@ class _RiskAndGoalSection extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      'Risk Profile',
+                      t('risk_profile'),
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.white.withValues(alpha: 0.6),
@@ -1455,7 +1495,7 @@ class _RiskAndGoalSection extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      'Goal',
+                      t('goal'),
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.white.withValues(alpha: 0.6),
@@ -1570,10 +1610,12 @@ class _InterestsSection extends StatelessWidget {
 class _RoboAdvisorSection extends StatelessWidget {
   final List<AssetAllocation> allocations;
   final String personalityLabel;
+  final String Function(String) t;
 
   const _RoboAdvisorSection({
     required this.allocations,
     required this.personalityLabel,
+    required this.t,
   });
 
   @override
@@ -1622,16 +1664,16 @@ class _RoboAdvisorSection extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Portfolio Allocation',
-                      style: TextStyle(
+                    Text(
+                      t('portfolio_allocation'),
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
                       ),
                     ),
                     Text(
-                      'Optimized for $personalityLabel',
+                      '${t('optimized_for')} $personalityLabel',
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.cyan.withValues(alpha: 0.8),
@@ -1666,7 +1708,7 @@ class _RoboAdvisorSection extends StatelessWidget {
           const SizedBox(height: 20),
 
           // Allocation Details
-          ...allocations.map((allocation) => _AllocationRow(allocation: allocation)),
+          ...allocations.map((allocation) => _AllocationRow(allocation: allocation, t: t)),
         ],
       ),
     );
@@ -1675,8 +1717,9 @@ class _RoboAdvisorSection extends StatelessWidget {
 
 class _AllocationRow extends StatefulWidget {
   final AssetAllocation allocation;
+  final String Function(String) t;
 
-  const _AllocationRow({required this.allocation});
+  const _AllocationRow({required this.allocation, required this.t});
 
   @override
   State<_AllocationRow> createState() => _AllocationRowState();
@@ -1736,7 +1779,7 @@ class _AllocationRowState extends State<_AllocationRow>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.allocation.name,
+                      widget.t(widget.allocation.name.toLowerCase()),
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -1828,11 +1871,13 @@ class _MainPersonalityCard extends StatelessWidget {
   final ScoreResult result;
   final Animation<double> pulseAnimation;
   final VoidCallback onInfoTap;
+  final String Function(String)? translateLabel;
 
   const _MainPersonalityCard({
     required this.result,
     required this.pulseAnimation,
     required this.onInfoTap,
+    this.translateLabel,
   });
 
   @override
@@ -1895,7 +1940,7 @@ class _MainPersonalityCard extends StatelessWidget {
                 const SizedBox(height: 12),
 
                 Text(
-                  result.label,
+                  translateLabel != null ? translateLabel!(result.label) : result.label,
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w800,
@@ -1926,11 +1971,13 @@ class _ScoreCard extends StatefulWidget {
   final String title;
   final ScoreResult result;
   final VoidCallback onInfoTap;
+  final String Function(String)? translateLabel;
 
   const _ScoreCard({
     required this.title,
     required this.result,
     required this.onInfoTap,
+    this.translateLabel,
   });
 
   @override
@@ -2028,7 +2075,7 @@ class _ScoreCardState extends State<_ScoreCard> with SingleTickerProviderStateMi
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      widget.result.label,
+                      widget.translateLabel != null ? widget.translateLabel!(widget.result.label) : widget.result.label,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -2089,8 +2136,9 @@ class _ScoreCardState extends State<_ScoreCard> with SingleTickerProviderStateMi
 class _PortfolioCard extends StatelessWidget {
   final PortfolioSuggestion suggestion;
   final String literacyLabel;
+  final String Function(String) t;
 
-  const _PortfolioCard({required this.suggestion, required this.literacyLabel});
+  const _PortfolioCard({required this.suggestion, required this.literacyLabel, required this.t});
 
   String _getPortfolioByLiteracy() {
     switch (literacyLabel) {
@@ -2125,9 +2173,9 @@ class _PortfolioCard extends StatelessWidget {
             children: [
               const Icon(Icons.emoji_events_rounded, color: Colors.white, size: 32),
               const SizedBox(width: 12),
-              const Text(
-                'Suggested Portfolio',
-                style: TextStyle(
+              Text(
+                t('suggested_portfolio'),
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
@@ -2146,7 +2194,7 @@ class _PortfolioCard extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Based on your profile, this portfolio size is recommended to start your investment journey.',
+            t('portfolio_description'),
             style: TextStyle(
               fontSize: 14,
               color: Colors.white.withValues(alpha: 0.8),

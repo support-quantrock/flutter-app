@@ -573,10 +573,7 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
   Widget _buildRewardsSection({required bool isGreen, required List<Map<String, dynamic>> rewards}) {
     final color = isGreen ? const Color(0xFF22C55E) : const Color(0xFFA78BFA);
 
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: const EdgeInsets.all(12),
-      child: Column(
+    return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
@@ -619,8 +616,7 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
             ],
           ),
         ],
-      ),
-    );
+      );
   }
 
   Widget _buildRewardItem(IconData icon, String text, Color color) {
