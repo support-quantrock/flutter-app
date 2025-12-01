@@ -283,8 +283,6 @@ class _DashboardPageState extends State<DashboardPage>
                 _buildMetricsRow(),
                 const SizedBox(height: 16),
                 _buildProgressBar(),
-                const SizedBox(height: 8),
-                _buildExpandButton(),
                 const SizedBox(height: 16),
                 _buildOverviewTab(),
               ],
@@ -530,24 +528,6 @@ class _DashboardPageState extends State<DashboardPage>
     );
   }
 
-  Widget _buildExpandButton() {
-    return GestureDetector(
-      onTap: _toggleExpand,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: AnimatedRotation(
-          turns: _isExpanded ? 0.5 : 0,
-          duration: const Duration(milliseconds: 300),
-          child: const Icon(
-            Icons.keyboard_arrow_down,
-            color: Colors.white54,
-            size: 28,
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _buildExpandedContent() {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
@@ -589,18 +569,37 @@ class _DashboardPageState extends State<DashboardPage>
   }
 
   Widget _buildOverviewTab() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: const Color(0xFF3B82F6).withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: const Text(
-        'Overview',
-        style: TextStyle(
-          color: Color(0xFF3B82F6),
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
+    return GestureDetector(
+      onTap: _toggleExpand,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: const Color(0xFF3B82F6).withValues(alpha: 0.2),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Overview',
+              style: TextStyle(
+                color: Color(0xFF3B82F6),
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(width: 8),
+            AnimatedRotation(
+              turns: _isExpanded ? 0.5 : 0,
+              duration: const Duration(milliseconds: 300),
+              child: const Icon(
+                Icons.keyboard_arrow_down,
+                color: Color(0xFF3B82F6),
+                size: 20,
+              ),
+            ),
+          ],
         ),
       ),
     );
