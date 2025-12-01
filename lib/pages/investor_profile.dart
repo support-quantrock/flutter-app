@@ -320,11 +320,28 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   }
 
   String _getLevelTitle(int level) {
-    if (level <= 2) return 'Novice Investor';
-    if (level <= 4) return 'Rising Trader';
-    if (level <= 6) return 'Market Explorer';
-    if (level <= 8) return 'Portfolio Builder';
-    return 'Investment Master';
+    // Match level titles to current section theme
+    if (_step <= 9) {
+      // Section 1: Personal Information & Investment Background
+      if (level <= 2) return 'Profile Explorer';
+      if (level <= 3) return 'Background Builder';
+      return 'Experience Tracker';
+    } else if (_step <= 14) {
+      // Section 2: Financial Literacy & Personal Readiness
+      if (level <= 4) return 'Literacy Learner';
+      if (level <= 5) return 'Finance Scholar';
+      return 'Risk Analyst';
+    } else if (_step <= 17) {
+      // Section 3: Investment Objectives & User Motivation
+      if (level <= 6) return 'Goal Setter';
+      if (level <= 7) return 'Strategy Planner';
+      return 'Vision Builder';
+    } else {
+      // Section 4: Learning Readiness & Portfolio Preferences
+      if (level <= 8) return 'Ready Investor';
+      if (level <= 9) return 'Portfolio Designer';
+      return 'Investment Master';
+    }
   }
 
   void _awardXP(int xp) {
@@ -356,11 +373,13 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
   void _checkMilestones() {
     if (_step == 9) {
-      _showMilestonePopup('Background Complete!', 'Section 1 done!');
+      _showMilestonePopup('Investment Background Complete!', 'Your profile is ready!');
     } else if (_step == 14) {
-      _showMilestonePopup('Literacy Assessed!', 'Section 2 complete!');
+      _showMilestonePopup('Financial Literacy Assessed!', 'Your knowledge is measured!');
     } else if (_step == 17) {
-      _showMilestonePopup('Goals Defined!', 'Section 3 conquered!');
+      _showMilestonePopup('Investment Goals Defined!', 'Your strategy is set!');
+    } else if (_step == 20) {
+      _showMilestonePopup('Portfolio Preferences Set!', 'You are ready to invest!');
     }
   }
 
@@ -440,10 +459,10 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   }
 
   String _getSectionProgress() {
-    // Section 1: Questions 1-9 (9 questions)
-    // Section 2: Questions 10-14 (5 questions)
-    // Section 3: Questions 15-17 (3 questions)
-    // Section 4: Questions 18-20 (3 questions)
+    // Section 1: Questions 1-9 (9 questions) - Investment Background
+    // Section 2: Questions 10-14 (5 questions) - Financial Literacy
+    // Section 3: Questions 15-17 (3 questions) - Investment Goals
+    // Section 4: Questions 18-20 (3 questions) - Portfolio Preferences
 
     int sectionStart;
     int sectionEnd;
@@ -452,19 +471,19 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
     if (_step <= 9) {
       sectionStart = 1;
       sectionEnd = 9;
-      sectionName = 'Section 1';
+      sectionName = 'Investment Background';
     } else if (_step <= 14) {
       sectionStart = 10;
       sectionEnd = 14;
-      sectionName = 'Section 2';
+      sectionName = 'Financial Literacy';
     } else if (_step <= 17) {
       sectionStart = 15;
       sectionEnd = 17;
-      sectionName = 'Section 3';
+      sectionName = 'Investment Goals';
     } else {
       sectionStart = 18;
       sectionEnd = 20;
-      sectionName = 'Section 4';
+      sectionName = 'Portfolio Preferences';
     }
 
     final questionInSection = _step - sectionStart + 1;
