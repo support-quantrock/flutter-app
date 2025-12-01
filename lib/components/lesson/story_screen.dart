@@ -202,7 +202,20 @@ class _StoryScreenState extends State<StoryScreen>
                       ],
                     ),
 
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 16),
+
+                  // Categories image (Spending, Saving, Investing)
+                  if (widget.screen.videoPath != null)
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.asset(
+                        'assets/images/lessons/day2/day2_screen1_categories.png',
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+
+                  const SizedBox(height: 16),
 
                   // Story content
                   Expanded(
