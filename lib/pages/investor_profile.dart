@@ -72,8 +72,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   bool _goingForward = true;
   int _totalXP = 0;
   int _currentLevel = 1;
-  bool _showXPGain = false;
-  bool _showLevelUp = false;
   bool _showMilestone = false;
   String _milestoneTitle = '';
   String _selectedLanguage = 'en';
@@ -349,26 +347,13 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
     final newLevel = _calculateLevel(newXP);
 
     setState(() {
-      _showXPGain = true;
       _totalXP = newXP;
-
       if (newLevel > _currentLevel) {
         _currentLevel = newLevel;
-        _showLevelUp = true;
       }
     });
 
-    _xpAnimationController.forward(from: 0);
     _checkMilestones();
-
-    Future.delayed(const Duration(milliseconds: 1500), () {
-      if (mounted) {
-        setState(() {
-          _showXPGain = false;
-          _showLevelUp = false;
-        });
-      }
-    });
   }
 
   void _checkMilestones() {
@@ -1699,9 +1684,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
               },
             ),
 
-            // Level Up Popup
-            if (_showLevelUp) _buildLevelUpPopup(),
-
             // Milestone Popup
             if (_showMilestone) _buildMilestonePopup(),
           ],
@@ -1783,7 +1765,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   builder: (context, child) {
                     final sectionColors = _getSectionGradientColors();
                     return Transform.scale(
-                      scale: _showLevelUp ? _pulseAnimation.value : 1.0,
+                      scale: 1.0,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 12,
@@ -2020,84 +2002,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildLevelUpPopup() {
-    return AnimatedBuilder(
-      animation: _xpAnimationController,
-      builder: (context, child) {
-        final progress = Curves.elasticOut.transform(
-          (_xpAnimationController.value * 2).clamp(0.0, 1.0),
-        );
-        return Positioned.fill(
-          child: Container(
-            color: Colors.black.withValues(alpha: 0.5 * progress),
-            child: Center(
-              child: Transform.scale(
-                scale: progress,
-                child: Container(
-                  padding: const EdgeInsets.all(32),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Colors.amber.shade700,
-                        Colors.orange.shade800,
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(24),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.amber.withValues(alpha: 0.6),
-                        blurRadius: 30,
-                        spreadRadius: 5,
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.emoji_events,
-                        color: Colors.white,
-                        size: 64,
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'LEVEL UP!',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 2,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Level $_currentLevel',
-                        style: TextStyle(
-                          color: Colors.white.withValues(alpha: 0.9),
-                          fontSize: 20,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        _getLevelTitle(_currentLevel),
-                        style: TextStyle(
-                          color: Colors.white.withValues(alpha: 0.8),
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 
