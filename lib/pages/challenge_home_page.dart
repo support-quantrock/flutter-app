@@ -45,6 +45,35 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
       'premium_benefits': {'en': 'Premium Pro Membership Benefits', 'ar': 'مزايا عضوية بريميوم برو'},
       'winner_announced': {'en': 'The winner is announced on the first day of every month and receives:', 'ar': 'يتم الإعلان عن الفائز في اليوم الأول من كل شهر ويحصل على:'},
       'challenge_rules': {'en': 'Challenge Rules', 'ar': 'قواعد التحدي'},
+      // Learn Challenge monthly prizes
+      'prize_leaderboard': {'en': 'Their name listed on the monthly Leaderboard', 'ar': 'إدراج اسمهم في لوحة المتصدرين الشهرية'},
+      'prize_free_premium': {'en': 'One month of free Premium subscription', 'ar': 'شهر واحد من اشتراك بريميوم المجاني'},
+      'prize_nomination': {'en': 'Direct nomination to the next stage: the Investment Challenge', 'ar': 'الترشيح المباشر للمرحلة التالية: تحدي الاستثمار'},
+      // Invest Challenge benefits
+      'benefit_direct_access': {'en': 'Direct access to the Investment Challenge', 'ar': 'الوصول المباشر لتحدي الاستثمار'},
+      'benefit_realtime': {'en': 'Real-time analysis of global banks\' recommendations', 'ar': 'تحليل فوري لتوصيات البنوك العالمية'},
+      'benefit_tracking': {'en': 'Tracking of hedge funds\' and top politicians\' trades', 'ar': 'تتبع صفقات صناديق التحوط وكبار السياسيين'},
+      'benefit_smart_money': {'en': 'Smart Money Flow – Insight into institutional money movements', 'ar': 'تدفق الأموال الذكية - نظرة على تحركات الأموال المؤسسية'},
+      'benefit_analytics': {'en': 'Comprehensive performance analytics highlighting your strengths and weaknesses', 'ar': 'تحليلات أداء شاملة تبرز نقاط قوتك وضعفك'},
+      // Challenge Rules
+      'rule_start': {'en': 'Start anytime', 'ar': 'ابدأ في أي وقت'},
+      'rule_duration': {'en': '28-day duration (can continue indefinitely)', 'ar': 'مدة 28 يوماً (يمكن الاستمرار بشكل غير محدود)'},
+      'rule_lessons': {'en': 'Complete 28 days of daily skill lessons', 'ar': 'أكمل 28 يوماً من دروس المهارات اليومية'},
+      'rule_success': {'en': '70%+ success rate in daily exercises', 'ar': 'معدل نجاح 70%+ في التمارين اليومية'},
+      'rule_daily_loss': {'en': 'Daily loss limit: 5%', 'ar': 'حد الخسارة اليومية: 5%'},
+      'rule_total_loss': {'en': 'Total loss limit: 10%', 'ar': 'حد الخسارة الإجمالية: 10%'},
+      'rule_profit': {'en': 'Target profit threshold: 6%', 'ar': 'حد الربح المستهدف: 6%'},
+      'rule_profit_plus': {'en': 'Target profit threshold: 6%+', 'ar': 'حد الربح المستهدف: 6%+'},
+      'rule_max_weight': {'en': 'Maximum asset weight: 10%', 'ar': 'الحد الأقصى لوزن الأصل: 10%'},
+      'rule_min_trades': {'en': 'Minimum trades: 30', 'ar': 'الحد الأدنى للصفقات: 30'},
+      'rule_assets': {'en': 'Allowed assets: S&P 500 stocks / Gold / EUR/USD / Bitcoin', 'ar': 'الأصول المسموحة: أسهم S&P 500 / الذهب / EUR/USD / بيتكوين'},
+      'rule_leverage': {'en': 'Account leverage: 1:1', 'ar': 'رافعة الحساب: 1:1'},
+      'rule_rejoin': {'en': 'Winner can rejoin after 90 days', 'ar': 'يمكن للفائز إعادة الانضمام بعد 90 يوماً'},
+      // About Challenge content
+      'about_content': {
+        'en': 'Quantrock\'s Investment Simulation Challenge is designed to bridge the gap between academic knowledge and real-world trading practice. It takes you on a 28-day investment journey filled with practical learning, where participants receive daily interactive lessons and exercises aimed at enhancing their trading and investment skills step by step.\n\nThe challenge offers professionals, beginners, university students, and high-school students a realistic and risk-free experience. You will take on the role of a portfolio manager and executive trader inside a professional simulation environment that reflects the workflow of expert investors and replicates the markets with 100% accuracy.\n\nThis experience blends hands-on training, real competitive challenges, and tangible rewards—providing a realistic simulation that helps you develop your investment skills, strengthen your practical abilities, and progressively advance toward higher levels of professionalism.',
+        'ar': 'تم تصميم تحدي المحاكاة الاستثمارية من كوانتروك لسد الفجوة بين المعرفة الأكاديمية وممارسة التداول الحقيقية. يأخذك في رحلة استثمارية لمدة 28 يوماً مليئة بالتعلم العملي، حيث يتلقى المشاركون دروساً وتمارين تفاعلية يومية تهدف إلى تعزيز مهاراتهم في التداول والاستثمار خطوة بخطوة.\n\nيقدم التحدي للمحترفين والمبتدئين وطلاب الجامعات وطلاب المدارس الثانوية تجربة واقعية وخالية من المخاطر. ستتولى دور مدير المحفظة والمتداول التنفيذي داخل بيئة محاكاة احترافية تعكس سير عمل المستثمرين الخبراء وتكرر الأسواق بدقة 100%.\n\nتجمع هذه التجربة بين التدريب العملي والتحديات التنافسية الحقيقية والمكافآت الملموسة - مما يوفر محاكاة واقعية تساعدك على تطوير مهاراتك الاستثمارية وتعزيز قدراتك العملية والتقدم تدريجياً نحو مستويات أعلى من الاحترافية.'
+      },
     };
     return translations[key]?[_selectedLanguage] ?? translations[key]?['en'] ?? key;
   }
@@ -288,10 +317,10 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
               _buildRewardsSection(
                 isGreen: true,
                 rewards: [
-                  {'icon': Icons.workspace_premium, 'text': 'Premium upgrade'},
-                  {'icon': Icons.emoji_events, 'text': 'Name on Leaderboard'},
-                  {'icon': Icons.calendar_month, 'text': '28 days of skill challenges'},
-                  {'icon': Icons.psychology, 'text': 'Investor Personality Assessment'},
+                  {'icon': Icons.workspace_premium, 'text': _t('premium_upgrade')},
+                  {'icon': Icons.emoji_events, 'text': _t('name_leaderboard')},
+                  {'icon': Icons.calendar_month, 'text': _t('28_days_skills')},
+                  {'icon': Icons.psychology, 'text': _t('investor_assessment')},
                 ],
               ),
 
@@ -467,14 +496,14 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
               _buildRewardsSection(
                 isGreen: false,
                 rewards: [
-                  {'icon': Icons.attach_money, 'text': 'Cash prize up to \$1,000'},
-                  {'icon': Icons.lock_open, 'text': 'Full access to all features'},
-                  {'icon': Icons.emoji_events, 'text': 'Name on Leaderboard'},
-                  {'icon': Icons.psychology, 'text': 'Investor Personality Assessment'},
-                  {'icon': Icons.description, 'text': 'Quantrock Certificate'},
-                  {'icon': Icons.star, 'text': 'Premium upgrade'},
-                  {'icon': Icons.menu_book, 'text': '500+ lessons'},
-                  {'icon': Icons.track_changes, 'text': '28 days of skill challenges'},
+                  {'icon': Icons.attach_money, 'text': _t('cash_prize')},
+                  {'icon': Icons.lock_open, 'text': _t('full_access')},
+                  {'icon': Icons.emoji_events, 'text': _t('name_leaderboard')},
+                  {'icon': Icons.psychology, 'text': _t('investor_assessment')},
+                  {'icon': Icons.description, 'text': _t('certificate')},
+                  {'icon': Icons.star, 'text': _t('premium_upgrade')},
+                  {'icon': Icons.menu_book, 'text': _t('500_lessons')},
+                  {'icon': Icons.track_changes, 'text': _t('28_days_skills')},
                 ],
               ),
 
@@ -557,9 +586,9 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: color.withValues(alpha: 0.4)),
             ),
-            child: const Text(
-              'Rewards & Benefits:',
-              style: TextStyle(
+            child: Text(
+              _t('rewards_benefits'),
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
@@ -621,31 +650,31 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
 
     final List<String> monthlyPrizes = isGreen
         ? [
-            'Their name listed on the monthly Leaderboard',
-            'One month of free Premium subscription',
-            'Direct nomination to the next stage: the Investment Challenge',
+            _t('prize_leaderboard'),
+            _t('prize_free_premium'),
+            _t('prize_nomination'),
           ]
         : [
-            'Direct access to the Investment Challenge',
-            'Real-time analysis of global banks\' recommendations',
-            'Tracking of hedge funds\' and top politicians\' trades',
-            'Smart Money Flow – Insight into institutional money movements',
-            'Comprehensive performance analytics highlighting your strengths and weaknesses',
+            _t('benefit_direct_access'),
+            _t('benefit_realtime'),
+            _t('benefit_tracking'),
+            _t('benefit_smart_money'),
+            _t('benefit_analytics'),
           ];
 
     final List<String> rules = [
-      'Start anytime',
-      '28-day duration (can continue indefinitely)',
-      'Complete 28 days of daily skill lessons',
-      '70%+ success rate in daily exercises',
-      'Daily loss limit: 5%',
-      'Total loss limit: 10%',
-      'Target profit threshold: 6%${isGreen ? '' : '+'}',
-      'Maximum asset weight: 10%',
-      'Minimum trades: 30',
-      'Allowed assets: S&P 500 stocks / Gold / EUR/USD / Bitcoin',
-      'Account leverage: 1:1',
-      if (!isGreen) 'Winner can rejoin after 90 days',
+      _t('rule_start'),
+      _t('rule_duration'),
+      _t('rule_lessons'),
+      _t('rule_success'),
+      _t('rule_daily_loss'),
+      _t('rule_total_loss'),
+      isGreen ? _t('rule_profit') : _t('rule_profit_plus'),
+      _t('rule_max_weight'),
+      _t('rule_min_trades'),
+      _t('rule_assets'),
+      _t('rule_leverage'),
+      if (!isGreen) _t('rule_rejoin'),
     ];
 
     return Container(
@@ -660,7 +689,7 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            isGreen ? 'Monthly Prizes' : 'Premium Pro Membership Benefits',
+            isGreen ? _t('monthly_prizes') : _t('premium_benefits'),
             style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
@@ -669,9 +698,9 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
           ),
           if (isGreen) ...[
             const SizedBox(height: 8),
-            const Text(
-              'The winner is announced on the first day of every month and receives:',
-              style: TextStyle(
+            Text(
+              _t('winner_announced'),
+              style: const TextStyle(
                 color: Color(0xFFCBD5E1),
                 fontSize: 12,
                 height: 1.5,
@@ -681,9 +710,9 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
           const SizedBox(height: 12),
           ...monthlyPrizes.map((prize) => _buildBulletPoint(prize, color)),
           const SizedBox(height: 16),
-          const Text(
-            'Challenge Rules',
-            style: TextStyle(
+          Text(
+            _t('challenge_rules'),
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
               fontWeight: FontWeight.w700,
@@ -760,11 +789,9 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
           ),
           const SizedBox(height: 16),
           Text(
-            'Quantrock\'s Investment Simulation Challenge is designed to bridge the gap between academic knowledge and real-world trading practice. It takes you on a 28-day investment journey filled with practical learning, where participants receive daily interactive lessons and exercises aimed at enhancing their trading and investment skills step by step.\n\n'
-            'The challenge offers professionals, beginners, university students, and high-school students a realistic and risk-free experience. You will take on the role of a portfolio manager and executive trader inside a professional simulation environment that reflects the workflow of expert investors and replicates the markets with 100% accuracy.\n\n'
-            'This experience blends hands-on training, real competitive challenges, and tangible rewards—providing a realistic simulation that helps you develop your investment skills, strengthen your practical abilities, and progressively advance toward higher levels of professionalism.',
-            style: TextStyle(
-              color: const Color(0xFFCBD5E1),
+            _t('about_content'),
+            style: const TextStyle(
+              color: Color(0xFFCBD5E1),
               fontSize: 11,
               height: 1.6,
             ),
