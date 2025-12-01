@@ -1,8 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 import '../../models/lesson_models.dart';
-import 'image_placeholder.dart';
 
 class StoryScreen extends StatefulWidget {
   final LessonScreen screen;
@@ -23,9 +21,6 @@ class _StoryScreenState extends State<StoryScreen>
   late AnimationController _glowController;
   late AnimationController _particleController;
   late Animation<double> _glowAnimation;
-  VideoPlayerController? _videoController;
-  bool _isVideoInitialized = false;
-  bool _isVideoPlaying = false;
 
   @override
   void initState() {
@@ -43,45 +38,12 @@ class _StoryScreenState extends State<StoryScreen>
       duration: const Duration(milliseconds: 3000),
       vsync: this,
     )..repeat();
-
-    _initVideoPlayer();
-  }
-
-  Future<void> _initVideoPlayer() async {
-    if (widget.screen.videoPath != null) {
-      _videoController = VideoPlayerController.asset(widget.screen.videoPath!);
-      try {
-        await _videoController!.initialize();
-        _videoController!.setLooping(true);
-        _videoController!.play();
-        setState(() {
-          _isVideoInitialized = true;
-          _isVideoPlaying = true;
-        });
-      } catch (e) {
-        debugPrint('Error initializing video: $e');
-      }
-    }
-  }
-
-  void _toggleVideo() {
-    if (_videoController == null || !_isVideoInitialized) return;
-
-    setState(() {
-      if (_isVideoPlaying) {
-        _videoController!.pause();
-      } else {
-        _videoController!.play();
-      }
-      _isVideoPlaying = !_isVideoPlaying;
-    });
   }
 
   @override
   void dispose() {
     _glowController.dispose();
     _particleController.dispose();
-    _videoController?.dispose();
     super.dispose();
   }
 
@@ -110,34 +72,37 @@ class _StoryScreenState extends State<StoryScreen>
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
-                  // Story title with glow
+                  const Spacer(),
+
+                  // Quote text
                   AnimatedBuilder(
                     animation: _glowAnimation,
                     builder: (context, child) {
                       return Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 10,
-                        ),
+                        padding: const EdgeInsets.all(24),
                         decoration: BoxDecoration(
-                          color: Colors.amber.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.white.withValues(alpha: 0.05),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: Colors.amber.withValues(alpha: 0.3 * _glowAnimation.value),
+                          ),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.amber
-                                  .withValues(alpha: 0.3 * _glowAnimation.value),
+                              color: Colors.amber.withValues(alpha: 0.2 * _glowAnimation.value),
                               blurRadius: 20 * _glowAnimation.value,
                               spreadRadius: 2,
                             ),
                           ],
                         ),
                         child: Text(
-                          widget.screen.title ?? 'Story',
-                          style: const TextStyle(
+                          'Only those who let go of the consumer mindset may enter the world of investing.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
                             fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.amber,
-                            letterSpacing: 1,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white.withValues(alpha: 0.95),
+                            height: 1.6,
+                            fontStyle: FontStyle.italic,
                           ),
                         ),
                       );
@@ -146,102 +111,17 @@ class _StoryScreenState extends State<StoryScreen>
 
                   const SizedBox(height: 24),
 
-                  // Video or Image placeholder
-                  if (_isVideoInitialized && _videoController != null)
-                    GestureDetector(
-                      onTap: _toggleVideo,
-                      child: Container(
-                        height: 220,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.amber.withValues(alpha: 0.3),
-                              blurRadius: 20,
-                              spreadRadius: 2,
-                            ),
-                          ],
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              AspectRatio(
-                                aspectRatio: _videoController!.value.aspectRatio,
-                                child: VideoPlayer(_videoController!),
-                              ),
-                              if (!_isVideoPlaying)
-                                Container(
-                                  width: 60,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    color: Colors.amber.withValues(alpha: 0.9),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Icon(
-                                    Icons.play_arrow,
-                                    color: Colors.black,
-                                    size: 40,
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-                  else if (widget.screen.imagePrompt != null)
-                    ImagePlaceholder(
-                      prompt: widget.screen.imagePrompt!,
-                      imagePath: widget.screen.imagePath,
-                      height: 220,
-                      gradientColors: const [
-                        Color(0xFF1A1A2E),
-                        Color(0xFF4C1D95),
-                        Color(0xFF1A1A2E),
-                      ],
-                    ),
-
-                  const SizedBox(height: 16),
-
                   // Categories image (Spending, Saving, Investing)
-                  if (widget.screen.videoPath != null)
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        'assets/images/lessons/day2/day2_screen1_categories.png',
-                        height: 100,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-
-                  const SizedBox(height: 16),
-
-                  // Story content
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Container(
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.05),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: Colors.amber.withValues(alpha: 0.2),
-                          ),
-                        ),
-                        child: Text(
-                          widget.screen.content ?? '',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white.withValues(alpha: 0.9),
-                            height: 1.8,
-                          ),
-                        ),
-                      ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.asset(
+                      'assets/images/lessons/day2/day2_screen1_categories.png',
+                      height: 180,
+                      fit: BoxFit.cover,
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  const Spacer(),
 
                   // Continue button
                   SizedBox(
