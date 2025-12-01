@@ -591,11 +591,12 @@ class _DashboardPageState extends State<DashboardPage>
             ),
             const SizedBox(width: 8),
             AnimatedRotation(
-              turns: _isExpanded ? 0.5 : 0,
-              duration: const Duration(milliseconds: 300),
-              child: const Icon(
-                Icons.keyboard_arrow_down,
-                color: Color(0xFF3B82F6),
+              turns: _isExpanded ? 1.0 : 0,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+              child: Icon(
+                _isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                color: const Color(0xFF3B82F6),
                 size: 20,
               ),
             ),
