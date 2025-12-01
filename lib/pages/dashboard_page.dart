@@ -1016,61 +1016,55 @@ class _DashboardPageState extends State<DashboardPage>
     required Color color,
     required String target,
   }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.05),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          SizedBox(
-            width: 100,
-            height: 100,
-            child: CustomPaint(
-              painter: CircularProgressPainter(
-                progress: progress,
-                progressColor: color,
-                backgroundColor: const Color(0xFF374151),
-                strokeWidth: 6,
-              ),
-              child: Center(
-                child: Text(
-                  value,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
+    return Column(
+      children: [
+        SizedBox(
+          width: 100,
+          height: 100,
+          child: CustomPaint(
+            painter: CircularProgressPainter(
+              progress: progress,
+              progressColor: color,
+              backgroundColor: const Color(0xFF374151),
+              strokeWidth: 6,
+            ),
+            child: Center(
+              child: Text(
+                value,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  color: Color(0xFF9CA3AF),
-                  fontSize: 12,
-                ),
+        ),
+        const SizedBox(height: 12),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              label,
+              style: const TextStyle(
+                color: Color(0xFF9CA3AF),
+                fontSize: 12,
               ),
-              const SizedBox(width: 4),
-              _buildInfoIcon(label == 'Number of trades' ? 'Trades' : 'Days', size: 12),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Text(
-            target,
-            style: TextStyle(
-              color: color,
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
             ),
+            const SizedBox(width: 4),
+            _buildInfoIcon(label == 'Number of trades' ? 'Trades' : 'Days', size: 12),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Text(
+          target,
+          style: TextStyle(
+            color: color,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -1084,78 +1078,72 @@ class _DashboardPageState extends State<DashboardPage>
     required String targetValue,
   }) {
     return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.05),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          children: [
-            SizedBox(
-              width: 80,
-              height: 80,
-              child: CustomPaint(
-                painter: CircularProgressPainter(
-                  progress: progress,
-                  progressColor: color,
-                  backgroundColor: const Color(0xFF374151),
-                  strokeWidth: 5,
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        value,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        percentage,
-                        style: TextStyle(
-                          color: color,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+      child: Column(
+        children: [
+          SizedBox(
+            width: 80,
+            height: 80,
+            child: CustomPaint(
+              painter: CircularProgressPainter(
+                progress: progress,
+                progressColor: color,
+                backgroundColor: const Color(0xFF374151),
+                strokeWidth: 5,
               ),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: Text(
-                    label,
-                    style: const TextStyle(
-                      color: Color(0xFF9CA3AF),
-                      fontSize: 10,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      value,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    textAlign: TextAlign.center,
-                  ),
+                    Text(
+                      percentage,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 4),
-                _buildInfoIcon(
-                  label.contains('Profit') ? 'Profit' : (label.contains('Daily') ? 'Daily Loss' : 'Max Loss'),
-                  size: 10,
-                ),
-              ],
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '($targetPercentage) $targetValue',
-              style: const TextStyle(
-                color: Color(0xFF9CA3AF),
-                fontSize: 11,
               ),
             ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Flexible(
+                child: Text(
+                  label,
+                  style: const TextStyle(
+                    color: Color(0xFF9CA3AF),
+                    fontSize: 10,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(width: 4),
+              _buildInfoIcon(
+                label.contains('Profit') ? 'Profit' : (label.contains('Daily') ? 'Daily Loss' : 'Max Loss'),
+                size: 10,
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            '($targetPercentage) $targetValue',
+            style: const TextStyle(
+              color: Color(0xFF9CA3AF),
+              fontSize: 11,
+            ),
+          ),
+        ],
       ),
     );
   }
