@@ -919,7 +919,7 @@ class _DashboardPageState extends State<DashboardPage>
           const SizedBox(height: 4),
           const Center(
             child: Text(
-              'Level 3 - Low Risk',
+              'Low Risk',
               style: TextStyle(
                 color: Color(0xFF22C55E),
                 fontSize: 12,
