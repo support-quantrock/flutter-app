@@ -663,23 +663,23 @@ class _DashboardPageState extends State<DashboardPage>
           ),
           child: Row(
             children: [
-              // Learn section (teal/green gradient)
+              // Learn section (light to dark green)
               Expanded(
                 child: _buildGradientSection(
-                  [const Color(0xFF0D9488), const Color(0xFF22C55E)],
+                  [const Color(0xFF86EFAC), const Color(0xFF22C55E)],
                   isFirst: true,
                 ),
               ),
-              // Skills section (orange gradient)
+              // Skills section (light to dark orange)
               Expanded(
                 child: _buildGradientSection(
-                  [const Color(0xFFF97316), const Color(0xFFEA580C)],
+                  [const Color(0xFFFED7AA), const Color(0xFFEA580C)],
                 ),
               ),
-              // Invest section (blue gradient)
+              // Invest section (light to dark blue)
               Expanded(
                 child: _buildGradientSection(
-                  [const Color(0xFF60A5FA), const Color(0xFF3B82F6)],
+                  [const Color(0xFFBFDBFE), const Color(0xFF3B82F6)],
                   isLast: true,
                 ),
               ),
