@@ -750,7 +750,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                 ),
                 const SizedBox(height: 16),
                 const Text(
-                  'QUANTROCK LTD, Dubai, United Arab Emirates',
+                  'QUANTROCK LTD',
                   style: TextStyle(
                     color: Color(0xFF6B7280),
                     fontSize: 11,

@@ -68834,7 +68834,7 @@ s=A.b([B.aS.q(0.3),B.aq.q(0.3)],t.O)
 r=A.P(24)
 q=A.b9(B.aS.q(0.5),2)
 this.b.toString
-return A.iG(A.E(p,A.a1(A.b([B.Yo,B.R,B.Yt,B.a6,A.H("Gate Opener",p,p,B.hJ,p)],t.p),B.k,B.j,B.i),B.h,p,p,new A.C(p,p,q,r,p,new A.be(B.aE,B.aD,B.B,s,p,p),B.l),p,p,p,B.bG,p,p,p),o)},
+return A.iG(A.E(p,A.a1(A.b([B.Yn,B.R,B.Ys,B.a6,A.H("Gate Opener",p,p,B.hJ,p)],t.p),B.k,B.j,B.i),B.h,p,p,new A.C(p,p,q,r,p,new A.be(B.aE,B.aD,B.B,s,p,p),B.l),p,p,p,B.bG,p,p,p),o)},
 $S:17}
 A.ael.prototype={
 $2(a,b){return A.d1(B.ao,A.kP(80,new A.aek(this.a,a),!0,t.l),B.G,B.am,null)},
@@ -69435,7 +69435,7 @@ r=this.VK()
 q=B.b7.q(0.4)
 p=A.P(20)
 o=A.b9(B.E.q(0.2),1)
-return A.ha(B.br,A.dr(!0,A.a1(A.b([m,A.aC(A.hO(A.a1(A.b([s,B.V,r,B.V,A.E(n,A.a1(A.b([B.Yy,B.R,B.Z1,B.N,A.H("Quantrock's Investment Simulation Challenge is designed to bridge the gap between academic knowledge and real-world trading practice. It takes you on a 28-day investment journey filled with practical learning, where participants receive daily interactive lessons and exercises aimed at enhancing their trading and investment skills step by step.\n\nThe challenge offers professionals, beginners, university students, and high-school students a realistic and risk-free experience. You will take on the role of a portfolio manager and executive trader inside a professional simulation environment that reflects the workflow of expert investors and replicates the markets with 100% accuracy.\n\nThis experience blends hands-on training, real competitive challenges, and tangible rewards\u2014providing a realistic simulation that helps you develop your investment skills, strengthen your practical abilities, and progressively advance toward higher levels of professionalism.",n,n,A.af(n,n,B.cH,n,n,n,n,n,n,n,n,11,n,n,n,n,1.6,!0,n,n,n,n,n,n,n,n),n)],l),B.y,B.j,B.i),B.h,n,n,new A.C(q,n,o,p,n,n,B.l),n,n,n,B.bG,n,n,n),B.d_],l),B.k,B.j,B.i),B.aj,B.a0),1)],l),B.k,B.j,B.i),!0),n)},
+return A.ha(B.br,A.dr(!0,A.a1(A.b([m,A.aC(A.hO(A.a1(A.b([s,B.V,r,B.V,A.E(n,A.a1(A.b([B.Yx,B.R,B.Z1,B.N,A.H("Quantrock's Investment Simulation Challenge is designed to bridge the gap between academic knowledge and real-world trading practice. It takes you on a 28-day investment journey filled with practical learning, where participants receive daily interactive lessons and exercises aimed at enhancing their trading and investment skills step by step.\n\nThe challenge offers professionals, beginners, university students, and high-school students a realistic and risk-free experience. You will take on the role of a portfolio manager and executive trader inside a professional simulation environment that reflects the workflow of expert investors and replicates the markets with 100% accuracy.\n\nThis experience blends hands-on training, real competitive challenges, and tangible rewards\u2014providing a realistic simulation that helps you develop your investment skills, strengthen your practical abilities, and progressively advance toward higher levels of professionalism.",n,n,A.af(n,n,B.cH,n,n,n,n,n,n,n,n,11,n,n,n,n,1.6,!0,n,n,n,n,n,n,n,n),n)],l),B.y,B.j,B.i),B.h,n,n,new A.C(q,n,o,p,n,n,B.l),n,n,n,B.bG,n,n,n),B.d_],l),B.k,B.j,B.i),B.aj,B.a0),1)],l),B.k,B.j,B.i),!0),n)},
 VL(){var s,r,q,p,o,n,m,l=this,k=null,j=A.P(24),i=A.b([new A.bL(0,B.a4,B.u.q(0.4),B.u8,12)],t.V),h=A.P(24),g=A.b9(B.u.q(0.5),2),f=B.u.q(0.2),e=A.P(16)
 e=A.E(k,B.Zv,B.h,k,k,new A.C(f,k,A.b9(B.u,1.5),e,k,k,B.l),k,k,k,B.j0,k,k,k)
 f=t.p
@@ -69451,11 +69451,11 @@ o===$&&A.a()
 o=A.a4L(B.a0,l.Fp(!0),o)
 n=B.u.q(0.2)
 m=A.P(12)
-return A.E(k,A.E(k,new A.ay(B.ar,A.a1(A.b([e,B.R,s,B.N,new A.ay(B.eh,r,k),B.N,p,q,o,new A.ay(B.ei,A.bi(k,A.E(k,B.YP,B.h,k,k,new A.C(n,k,A.b9(B.u,2),m,k,k,B.l),k,k,k,B.fL,k,k,1/0),B.x,!1,k,k,k,k,k,k,k,k,k,k,k,k,k,new A.a8q(l),k,k,k,k,k,k),k)],f),B.k,B.j,B.i),k),B.h,k,k,new A.C(k,k,g,h,k,B.JC,B.l),k,k,k,k,k,k,k),B.h,k,k,new A.C(k,k,k,j,i,k,B.l),k,k,k,k,k,k,k)},
+return A.E(k,A.E(k,new A.ay(B.ar,A.a1(A.b([e,B.R,s,B.N,new A.ay(B.eh,r,k),B.N,p,q,o,new A.ay(B.ei,A.bi(k,A.E(k,B.YO,B.h,k,k,new A.C(n,k,A.b9(B.u,2),m,k,k,B.l),k,k,k,B.fL,k,k,1/0),B.x,!1,k,k,k,k,k,k,k,k,k,k,k,k,k,new A.a8q(l),k,k,k,k,k,k),k)],f),B.k,B.j,B.i),k),B.h,k,k,new A.C(k,k,g,h,k,B.JC,B.l),k,k,k,k,k,k,k),B.h,k,k,new A.C(k,k,k,j,i,k,B.l),k,k,k,k,k,k,k)},
 VK(){var s,r,q,p,o,n,m,l=this,k=null,j=A.P(24),i=A.b([new A.bL(0,B.a4,B.bC.q(0.4),B.u8,12)],t.V),h=A.P(24),g=A.b9(B.bC.q(0.5),2),f=B.bC.q(0.2),e=A.P(16)
 e=A.E(k,B.Z8,B.h,k,k,new A.C(f,k,A.b9(B.bC,1.5),e,k,k,B.l),k,k,k,B.j0,k,k,k)
 f=t.p
-s=A.a7(A.b([A.E(k,B.Ip,B.h,k,k,new A.C(B.b7,k,A.b9(B.bC,2),k,k,k,B.S),k,56,k,k,k,k,56),B.Q,A.aC(A.a1(A.b([B.Yx,B.f4,A.H("Exclusively for Premium Pro Members",k,k,A.af(k,k,B.c.q(0.8),k,k,k,k,k,k,k,k,10,k,k,B.D,k,k,!0,k,k,k,k,k,k,k,k),k)],f),B.y,B.j,B.i),1)],f),B.y,B.j,B.i)
+s=A.a7(A.b([A.E(k,B.Ip,B.h,k,k,new A.C(B.b7,k,A.b9(B.bC,2),k,k,k,B.S),k,56,k,k,k,k,56),B.Q,A.aC(A.a1(A.b([B.Yw,B.f4,A.H("Exclusively for Premium Pro Members",k,k,A.af(k,k,B.c.q(0.8),k,k,k,k,k,k,k,k,10,k,k,B.D,k,k,!0,k,k,k,k,k,k,k,k),k)],f),B.y,B.j,B.i),1)],f),B.y,B.j,B.i)
 r=A.H("Designed for qualified users, professionals, and Premium members, it offers real financial prizes within an advanced simulation environment that mimics the strategies of investors and hedge funds, without any actual risk. Participants manage a virtual portfolio of up to $100,000 to trade in a 100% realistic market for 28 days.",k,k,A.af(k,k,B.cH,k,k,k,k,k,k,k,k,14,k,k,k,k,1.4,!0,k,k,k,k,k,k,k,k),k)
 q=t.N
 p=t.z
@@ -69569,7 +69569,7 @@ A.aji(s,"/dashboard",r,r)}},
 I(a){return A.ha(B.br,A.dr(!0,A.a1(A.b([this.Wj(),A.aC(A.hO(this.VC(),B.aj,B.a0),1)],t.p),B.k,B.j,B.i),!0),null)},
 Wj(){var s=null,r=B.c.q(0.1)
 return A.E(s,A.a7(A.b([A.bi(s,A.E(B.a3,B.nx,B.h,s,s,s,s,40,s,s,s,s,40),B.x,!1,s,s,s,s,s,s,s,s,s,s,s,s,s,new A.a8w(this),s,s,s,s,s,s),B.GV,B.yE],t.p),B.k,B.j,B.i),B.h,s,s,new A.C(B.br,s,new A.cx(B.r,B.r,new A.c4(r,1,B.a5,-1),B.r),s,s,s,B.l),s,s,s,B.df,s,s,s)},
-VC(){var s,r,q=this,p=null,o=A.P(20),n=A.b9(B.E.q(0.2),1),m=t.p,l=A.b([B.Yn,B.a6,B.Z5,B.V],m),k=q.gOx()
+VC(){var s,r,q=this,p=null,o=A.P(20),n=A.b9(B.E.q(0.2),1),m=t.p,l=A.b([B.Ym,B.a6,B.Z5,B.V],m),k=q.gOx()
 B.b.L(l,new A.a4(k,new A.a8v(q),A.a0(k).h("a4<1,f>")))
 l.push(B.V)
 l.push(q.W8())
@@ -69596,7 +69596,7 @@ q=A.b9(s?B.cI:B.aS,2)
 p=t.p
 o=A.b([],p)
 n=a.c
-if(n)o.push(A.dT(h,A.E(h,B.YL,B.h,h,h,B.Ag,h,h,h,B.j0,h,h,h),h,h,0,h,-21,h))
+if(n)o.push(A.dT(h,A.E(h,B.YK,B.h,h,h,B.Ag,h,h,h,B.j0,h,h,h),h,h,0,h,-21,h))
 m=A.aC(A.a1(A.b([B.Zb,B.aC,A.H(a.b,h,h,B.hI,h)],p),B.y,B.j,B.i),1)
 l=A.H(a.d,h,h,B.bn,h)
 k=this.a.c==="free"
@@ -69663,18 +69663,18 @@ A.QZ(new A.a9d(a,r),s,t.z)},
 ks(a,b){var s=null,r=B.c.q(0.5)
 return A.bi(s,A.by(B.cq,r,s,b),B.x,!1,s,s,s,s,s,s,s,s,s,s,s,s,s,new A.a94(this,a),s,s,s,s,s,s)},
 o9(a){return this.ks(a,16)},
-I(a){var s=this,r=null,q=s.Xd(),p=A.P(20),o=A.b9(B.E.q(0.2),1),n=s.Vs(),m=t.p,l=A.a1(A.b([A.a7(A.b([B.YK,B.a2,s.o9("Net Assets")],m),B.k,B.j,B.i),B.aC,A.a7(A.b([B.Y5,B.a2,B.OW],m),B.bW,B.j,B.i),B.a6,A.a7(A.b([B.Yq,B.YF,B.Yf],m),B.k,B.j,B.i)],m),B.y,B.j,B.i),k=A.a7(A.b([s.x0("Cash Available","$7,500"),B.cu,s.x0("Invest Value","$2,800"),B.cu,s.x0("Market Value","$3,000")],m),B.k,B.j,B.i),j=A.a1(A.b([A.d1(B.ao,A.b([A.E(r,r,B.h,r,r,new A.C(r,r,r,A.P(4),r,B.Jy,B.l),r,8,r,r,r,r,r),A.dT(r,A.ib(r,r,r,new A.IX(r),B.Sg),r,r,12,r,-4,r)],m),B.G,B.am,r),B.a6,B.zS],m),B.k,B.j,B.i),i=B.E.q(0.2),h=A.P(8),g=s.d,f=g?1:0
-n=A.a1(A.b([n,B.ac,l,B.N,k,B.N,j,B.N,A.bi(r,A.E(r,A.a7(A.b([B.Yp,B.a2,A.D5(A.by(g?B.Hr:B.ep,B.E,r,20),B.b0,B.c_,f)],m),B.k,B.ak,B.i),B.h,r,r,new A.C(i,r,r,h,r,r,B.l),r,r,r,B.df,r,r,1/0),B.x,!1,r,r,r,r,r,r,r,r,r,r,r,r,r,s.ga3Q(),r,r,r,r,r,r)],m),B.k,B.j,B.i)
+I(a){var s=this,r=null,q=s.Xd(),p=A.P(20),o=A.b9(B.E.q(0.2),1),n=s.Vs(),m=t.p,l=A.a1(A.b([A.a7(A.b([B.YJ,B.a2,s.o9("Net Assets")],m),B.k,B.j,B.i),B.aC,A.a7(A.b([B.Y5,B.a2,B.OW],m),B.bW,B.j,B.i),B.a6,A.a7(A.b([B.Yp,B.YE,B.Yf],m),B.k,B.j,B.i)],m),B.y,B.j,B.i),k=A.a7(A.b([s.x0("Cash Available","$7,500"),B.cu,s.x0("Invest Value","$2,800"),B.cu,s.x0("Market Value","$3,000")],m),B.k,B.j,B.i),j=A.a1(A.b([A.d1(B.ao,A.b([A.E(r,r,B.h,r,r,new A.C(r,r,r,A.P(4),r,B.Jy,B.l),r,8,r,r,r,r,r),A.dT(r,A.ib(r,r,r,new A.IX(r),B.Sg),r,r,12,r,-4,r)],m),B.G,B.am,r),B.a6,B.zS],m),B.k,B.j,B.i),i=B.E.q(0.2),h=A.P(8),g=s.d,f=g?1:0
+n=A.a1(A.b([n,B.ac,l,B.N,k,B.N,j,B.N,A.bi(r,A.E(r,A.a7(A.b([B.Yo,B.a2,A.D5(A.by(g?B.Hr:B.ep,B.E,r,20),B.b0,B.c_,f)],m),B.k,B.ak,B.i),B.h,r,r,new A.C(i,r,r,h,r,r,B.l),r,r,r,B.df,r,r,1/0),B.x,!1,r,r,r,r,r,r,r,r,r,r,r,r,r,s.ga3Q(),r,r,r,r,r,r)],m),B.k,B.j,B.i)
 l=s.x
 l===$&&A.a()
 k=A.a7(A.b([A.aC(A.bQ(A.H("Learn",r,r,A.af(r,r,B.c.q(0.9),r,r,r,r,r,r,r,r,12,r,r,B.I,r,r,!0,r,r,r,r,r,r,r,r),r),r,r),1),A.aC(A.bQ(A.H("Skills",r,r,A.af(r,r,B.c.q(0.9),r,r,r,r,r,r,r,r,12,r,r,B.I,r,r,!0,r,r,r,r,r,r,r,r),r),r,r),1),A.aC(A.bQ(A.H("Invest",r,r,A.af(r,r,B.c.q(0.9),r,r,r,r,r,r,r,r,12,r,r,B.I,r,r,!0,r,r,r,r,r,r,r,r),r),r,r),1)],m),B.k,B.j,B.i)
 j=A.P(2)
 i=t.O
-j=A.a1(A.b([k,B.a6,A.E(r,A.a7(A.b([A.aC(s.VF(A.b([B.mb,B.u],i),!0),1),A.aC(s.VE(A.b([B.DI,B.EM],i)),1),A.aC(s.VG(A.b([B.E3,B.E],i),!0),1)],m),B.k,B.j,B.i),B.h,r,r,new A.C(r,r,r,j,r,r,B.l),r,16,r,r,r,r,r),B.a6,A.a7(A.b([A.aC(B.yH,3),A.a1(A.b([A.ib(r,r,r,new A.Pw(B.E,r),B.Sh),B.aC,B.Yw],m),B.k,B.j,B.i),A.aC(B.yH,3)],m),B.k,B.j,B.i)],m),B.y,B.j,B.i)
+j=A.a1(A.b([k,B.a6,A.E(r,A.a7(A.b([A.aC(s.VF(A.b([B.mb,B.u],i),!0),1),A.aC(s.VE(A.b([B.DI,B.EM],i)),1),A.aC(s.VG(A.b([B.E3,B.E],i),!0),1)],m),B.k,B.j,B.i),B.h,r,r,new A.C(r,r,r,j,r,r,B.l),r,16,r,r,r,r,r),B.a6,A.a7(A.b([A.aC(B.yH,3),A.a1(A.b([A.ib(r,r,r,new A.Pw(B.E,r),B.Sh),B.aC,B.Yv],m),B.k,B.j,B.i),A.aC(B.yH,3)],m),B.k,B.j,B.i)],m),B.y,B.j,B.i)
 i=s.W0()
 k=B.c.q(0.05)
 h=A.P(12)
-p=A.E(r,A.a1(A.b([new A.ay(B.aj,n,r),A.a4L(B.a0,A.E(r,A.a1(A.b([B.Ga,B.ac,j,B.V,i,B.V,A.bQ(A.E(r,A.a1(A.b([A.a7(A.b([B.Zg,B.c7,s.ks("Net Profit",14)],m),B.k,B.j,B.a8),B.R,A.df(A.ib(B.C3,r,r,new A.oT(0.65,B.u,B.fA,8,r),B.U),140,140)],m),B.k,B.j,B.i),B.h,r,r,new A.C(k,r,r,h,r,r,B.l),r,r,r,B.ar,r,r,r),r,r),B.N,A.bQ(s.W4(),r,r),B.V,A.a1(A.b([A.a7(A.b([B.YA,B.a2,s.o9("Trades")],m),B.k,B.j,B.i),B.N,A.a7(A.b([s.Fr(B.u,"Number of trades",1,"10","10"),s.Fr(B.E,"Challenge Days",1,"15","15")],m),B.k,B.eL,B.i),B.ac,A.a7(A.b([s.x3(B.u,"Profit Target","6%",0.75,"8%","$1600","$1200"),s.x3(B.aM,"Max Daily Loss","2.5%",0.5,"5%","$1000","$500"),s.x3(B.aM,"Max Loss Limit","9.4%",0.94,"10%","$1600","$1500")],m),B.k,B.eL,B.i)],m),B.y,B.j,B.i),B.V,s.Vu(),B.V,s.W7()],m),B.y,B.j,B.i),B.h,r,r,r,r,r,r,B.mV,r,r,r),l)],m),B.k,B.j,B.i),B.h,r,r,new A.C(r,r,o,p,r,B.Jm,B.l),r,r,B.ar,r,r,r,r)
+p=A.E(r,A.a1(A.b([new A.ay(B.aj,n,r),A.a4L(B.a0,A.E(r,A.a1(A.b([B.Ga,B.ac,j,B.V,i,B.V,A.bQ(A.E(r,A.a1(A.b([A.a7(A.b([B.Zg,B.c7,s.ks("Net Profit",14)],m),B.k,B.j,B.a8),B.R,A.df(A.ib(B.C3,r,r,new A.oT(0.65,B.u,B.fA,8,r),B.U),140,140)],m),B.k,B.j,B.i),B.h,r,r,new A.C(k,r,r,h,r,r,B.l),r,r,r,B.ar,r,r,r),r,r),B.N,A.bQ(s.W4(),r,r),B.V,A.a1(A.b([A.a7(A.b([B.Yz,B.a2,s.o9("Trades")],m),B.k,B.j,B.i),B.N,A.a7(A.b([s.Fr(B.u,"Number of trades",1,"10","10"),s.Fr(B.E,"Challenge Days",1,"15","15")],m),B.k,B.eL,B.i),B.ac,A.a7(A.b([s.x3(B.u,"Profit Target","6%",0.75,"8%","$1600","$1200"),s.x3(B.aM,"Max Daily Loss","2.5%",0.5,"5%","$1000","$500"),s.x3(B.aM,"Max Loss Limit","9.4%",0.94,"10%","$1600","$1500")],m),B.k,B.eL,B.i)],m),B.y,B.j,B.i),B.V,s.Vu(),B.V,s.W7()],m),B.y,B.j,B.i),B.h,r,r,r,r,r,r,B.mV,r,r,r),l)],m),B.k,B.j,B.i),B.h,r,r,new A.C(r,r,o,p,r,B.Jm,B.l),r,r,B.ar,r,r,r,r)
 o=B.c.q(0.05)
 l=A.P(12)
 l=A.b([A.E(r,A.a7(A.b([s.wY("watchlist","Watch List"),s.wY("holding","Holding"),s.wY("orders","Orders")],m),B.k,B.j,B.i),B.h,r,r,new A.C(o,r,r,l,r,r,B.l),r,r,r,r,r,r,r),B.N],m)
@@ -69695,11 +69695,11 @@ return A.E(s,s,B.h,s,s,new A.C(s,s,s,new A.cr(r,q,r,q),s,new A.be(B.ah,B.ap,B.B,
 VF(a,b){return this.wZ(a,b,!1)},
 VE(a){return this.wZ(a,!1,!1)},
 VG(a,b){return this.wZ(a,!1,b)},
-W0(){var s=A.b(["All","D","W","M","Y"],t.s),r=t.p,q=A.a7(A.b([A.a7(A.b([B.YS,B.a2,this.o9("Portfolio Performance")],r),B.k,B.j,B.i),B.Ik],r),B.k,B.bu,B.i),p=t.pn
+W0(){var s=A.b(["All","D","W","M","Y"],t.s),r=t.p,q=A.a7(A.b([A.a7(A.b([B.YR,B.a2,this.o9("Portfolio Performance")],r),B.k,B.j,B.i),B.Ik],r),B.k,B.bu,B.i),p=t.pn
 p=A.Z(new A.a4(s,new A.a97(this),p),p.h("au.E"))
 return A.a1(A.b([q,B.R,A.a7(p,B.k,B.j,B.i)],r),B.y,B.j,B.i)},
 W4(){var s=null,r=B.c.q(0.05),q=A.P(12),p=t.p
-return A.E(s,A.a1(A.b([A.a7(A.b([B.Yi,B.c7,this.ks("Risk Level",14)],p),B.k,B.j,B.a8),B.R,A.a7(A.kP(10,new A.a98(),!0,t.l),B.k,B.j,B.i),B.a6,B.Qv,B.aC,B.C1],p),B.k,B.j,B.i),B.h,s,s,new A.C(r,s,s,q,s,s,B.l),s,s,s,B.ar,s,s,s)},
+return A.E(s,A.a1(A.b([A.a7(A.b([B.Yh,B.c7,this.ks("Risk Level",14)],p),B.k,B.j,B.a8),B.R,A.a7(A.kP(10,new A.a98(),!0,t.l),B.k,B.j,B.i),B.a6,B.Qv,B.aC,B.C1],p),B.k,B.j,B.i),B.h,s,s,new A.C(r,s,s,q,s,s,B.l),s,s,s,B.ar,s,s,s)},
 Fr(a,b,c,d,e){var s=null,r=A.df(A.ib(A.bQ(A.H(e,s,s,A.af(s,s,B.c,s,s,s,s,s,s,s,s,28,s,s,B.A,s,s,!0,s,s,s,s,s,s,s,s),s),s,s),s,s,new A.oT(c,a,B.fA,6,s),B.U),100,100),q=A.H(b,s,s,B.cw,s),p=t.p
 return A.a1(A.b([r,B.R,A.a7(A.b([q,B.cZ,this.ks(b==="Number of trades"?"Trades":"Days",12)],p),B.k,B.j,B.a8),B.aC,A.H(d,s,s,A.af(s,s,a,s,s,s,s,s,s,s,s,14,s,s,B.D,s,s,!0,s,s,s,s,s,s,s,s),s)],p),B.k,B.j,B.i)},
 x3(a,b,c,d,e,f,g){var s,r=null,q=t.p,p=A.df(A.ib(A.bQ(A.a1(A.b([A.H(g,r,r,B.bn,r),A.H(c,r,r,A.af(r,r,a,r,r,r,r,r,r,r,r,12,r,r,r,r,r,!0,r,r,r,r,r,r,r,r),r)],q),B.k,B.ak,B.i),r,r),r,r,new A.oT(d,a,B.fA,5,r),B.U),80,80),o=A.H(b,r,r,B.dF,B.ag)
@@ -69708,7 +69708,7 @@ else s=B.f.D(b,"Daily")?"Daily Loss":"Max Loss"
 return A.aC(A.a1(A.b([p,B.yF,A.a7(A.b([new A.ku(1,B.fP,o,r),B.cZ,this.ks(s,10)],q),B.k,B.ak,B.i),B.aC,A.H("("+e+") "+f,r,r,B.z7,r)],q),B.k,B.j,B.i),1)},
 Vu(){var s,r,q=null,p=t.N,o=t.K,n=A.b([A.M(["label","Tech","value",45,"color",B.E],p,o),A.M(["label","Finance","value",25,"color",B.u],p,o),A.M(["label","Healthcare","value",15,"color",B.cI],p,o),A.M(["label","Energy","value",10,"color",B.En],p,o),A.M(["label","Other","value",5,"color",B.b6],p,o)],t.Mq)
 o=t.p
-p=A.a7(A.b([B.YD,B.a2,this.o9("Asset Allocation")],o),B.k,B.j,B.i)
+p=A.a7(A.b([B.YC,B.a2,this.o9("Asset Allocation")],o),B.k,B.j,B.i)
 s=t.r6
 s=A.Z(new A.a4(n,new A.a9_(),s),s.h("au.E"))
 s=A.df(A.ib(q,q,q,new A.EB(s,q),B.U),120,120)
@@ -69717,7 +69717,7 @@ r=A.Z(new A.a4(n,new A.a90(),r),r.h("au.E"))
 return A.a1(A.b([p,B.N,A.a7(A.b([s,B.Sj,A.aC(A.a1(r,B.k,B.j,B.i),1)],o),B.k,B.j,B.i)],o),B.y,B.j,B.i)},
 W7(){var s,r,q=null,p=t.N,o=t.K,n=A.b([A.M(["label","Win Rate","value","65%","color",B.u],p,o),A.M(["label","Loss Rate","value","35%","color",B.aM],p,o),A.M(["label","Max DD","value","-8.5%","color",B.aM],p,o),A.M(["label","AVG Loss","value","-$45","color",B.aM],p,o),A.M(["label","AVG Profit","value","+$89","color",B.u],p,o),A.M(["label","AVG RRR","value","1:2","color",B.E],p,o),A.M(["label","Profit Factor","value","1.98","color",B.u],p,o),A.M(["label","Sharpe Ratio","value","1.45","color",B.E],p,o),A.M(["label","Expectancy","value","$32","color",B.u],p,o)],t.Mq)
 o=t.p
-p=A.a7(A.b([B.YM,B.a2,this.o9("Statistics")],o),B.k,B.j,B.i)
+p=A.a7(A.b([B.YL,B.a2,this.o9("Statistics")],o),B.k,B.j,B.i)
 s=t.sn
 s=A.Z(new A.a4(n,new A.a99(this),s),s.h("au.E"))
 r=A.aoO(s,!0,!0,!0)
@@ -69985,7 +69985,7 @@ i=B.c.q(0.05)
 r=A.P(12)
 q=A.H(u.k,j,j,A.af(j,j,B.c.q(0.9),j,j,j,j,j,j,j,j,15,j,j,j,j,1.5,!0,j,j,j,j,j,j,j,j),j)
 p=A.H(u.l,j,j,A.af(j,j,B.c.q(0.8),j,j,j,j,j,j,j,j,15,j,j,j,j,1.5,!0,j,j,j,j,j,j,j,j),j)
-o=A.a7(A.b([B.YX,B.a2,B.GU],g),B.k,B.j,B.i)
+o=A.a7(A.b([B.YW,B.a2,B.GU],g),B.k,B.j,B.i)
 n=A.H("The test aims to accurately classify the user into one of the following levels:",j,j,A.af(j,j,B.c.q(0.8),j,j,j,j,j,j,j,j,15,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j)
 m=B.u.q(0.1)
 l=A.P(8)
@@ -69995,7 +69995,7 @@ l=A.P(10)
 m=A.b9(B.c.q(0.1),1)
 l=A.E(j,A.a7(A.b([A.by(B.Hv,B.u,j,20),B.Q,A.aC(A.H("Your answers are anonymized, and we do not sell your data.",j,j,A.af(j,j,B.c.q(0.7),j,j,j,j,j,j,j,j,14,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j),1)],g),B.k,B.j,B.i),B.h,j,j,new A.C(i,j,m,l,j,j,B.l),j,j,j,B.df,j,j,j)
 m=A.mp(j,j,B.u,j,j,j,0,j,j,j,j,j,j,j,new A.bV(A.P(12),B.r),j,j,j,j,j)
-return A.ha(B.br,A.dr(!0,A.hO(new A.ay(B.ej,A.a1(A.b([B.N,h,B.V,new A.Id(new A.abj(),B.YC,j),B.a6,B.Zu,B.V,s,B.V,r,B.V,l,B.V,A.df(A.kt(A.a7(A.b([B.YH,B.a2,B.Ih],g),B.k,B.ak,B.i),new A.abk(k),m),56,1/0),B.ac,A.Jk(B.l6,A.b([B.YV,A.bi(j,B.Yd,B.x,!1,j,j,j,j,j,j,j,j,j,j,j,j,j,new A.abl(),j,j,j,j,j,j),B.Zc],g),0,0),A.Jk(B.l6,A.b([A.bi(j,B.Zm,B.x,!1,j,j,j,j,j,j,j,j,j,j,j,j,j,new A.abm(),j,j,j,j,j,j)],g),0,0),B.N,B.Yg,B.V],g),B.k,B.j,B.i),j),j,B.a0),!0),j)},
+return A.ha(B.br,A.dr(!0,A.hO(new A.ay(B.ej,A.a1(A.b([B.N,h,B.V,new A.Id(new A.abj(),B.YB,j),B.a6,B.Zu,B.V,s,B.V,r,B.V,l,B.V,A.df(A.kt(A.a7(A.b([B.YG,B.a2,B.Ih],g),B.k,B.ak,B.i),new A.abk(k),m),56,1/0),B.ac,A.Jk(B.l6,A.b([B.YU,A.bi(j,B.Yd,B.x,!1,j,j,j,j,j,j,j,j,j,j,j,j,j,new A.abl(),j,j,j,j,j,j),B.Zc],g),0,0),A.Jk(B.l6,A.b([A.bi(j,B.Zm,B.x,!1,j,j,j,j,j,j,j,j,j,j,j,j,j,new A.abm(),j,j,j,j,j,j)],g),0,0),B.N,B.YX,B.V],g),B.k,B.j,B.i),j),j,B.a0),!0),j)},
 a3m(a){A.QZ(new A.abT(this),a,t.z)},
 x6(a,b,c){var s=null,r=t.p
 return A.a7(A.b([A.H(a,s,s,B.kZ,s),B.a2,A.aC(A.a1(A.b([A.H(b,s,s,B.hK,s),B.aC,A.H(c,s,s,B.hL,s)],r),B.y,B.j,B.i),1)],r),B.y,B.j,B.i)},
@@ -70220,7 +70220,7 @@ $0(){},
 $S:0}
 A.abT.prototype={
 $1(a){var s=A.P(20),r=this.a,q=t.p
-r=A.hO(A.a1(A.b([B.YN,B.N,r.x6("\ud83d\udd39","OECD","The Organization for Economic Co-operation and Development\nThe international standard for measuring financial literacy and financial behavior."),B.R,r.x6("\ud83d\udd39","MIT Learning Readiness Model","Used to measure educational readiness and motivation."),B.R,r.x6("\ud83d\udd39","CFA Investment Knowledge Framework","Used to measure the level of financial and investment knowledge and experience.")],q),B.y,B.j,B.a8),null,B.a0)
+r=A.hO(A.a1(A.b([B.YM,B.N,r.x6("\ud83d\udd39","OECD","The Organization for Economic Co-operation and Development\nThe international standard for measuring financial literacy and financial behavior."),B.R,r.x6("\ud83d\udd39","MIT Learning Readiness Model","Used to measure educational readiness and motivation."),B.R,r.x6("\ud83d\udd39","CFA Investment Knowledge Framework","Used to measure the level of financial and investment knowledge and experience.")],q),B.y,B.j,B.a8),null,B.a0)
 return A.aib(A.b([A.ajK(B.zd,new A.abS(a))],q),B.b7,r,new A.bV(s,B.r),B.Z0)},
 $S:92}
 A.abS.prototype={
@@ -70229,7 +70229,7 @@ return null},
 $S:0}
 A.abR.prototype={
 $1(a){var s=A.P(20)
-return A.aib(A.b([A.ajK(B.zd,new A.abQ(a))],t.p),B.b7,B.Se,new A.bV(s,B.r),B.Yz)},
+return A.aib(A.b([A.ajK(B.zd,new A.abQ(a))],t.p),B.b7,B.Se,new A.bV(s,B.r),B.Yy)},
 $S:92}
 A.abQ.prototype={
 $0(){A.ct(this.a,!1).ew(null)
@@ -70302,7 +70302,7 @@ m=B.p.q(0.5*s)
 r=A.b([B.m5,B.mt],t.O)
 q=A.P(24)
 p=A.b([new A.bL(5,B.a4,B.T.q(0.6),B.o,30)],t.V)
-return A.anX(0,A.E(o,A.bQ(A.iG(A.E(o,A.a1(A.b([B.Ie,B.N,B.Yk,B.a6,A.H("Level "+n.w,o,o,A.af(o,o,B.c.q(0.9),o,o,o,o,o,o,o,o,20,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o),B.aC,A.H(n.GV(n.w),o,o,A.af(o,o,B.c.q(0.8),o,o,o,o,o,o,o,o,16,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o)],t.p),B.k,B.j,B.a8),B.h,o,o,new A.C(o,o,o,q,p,new A.be(B.aE,B.aD,B.B,r,o,o),B.l),o,o,o,B.GM,o,o,o),s),o,o),B.h,m,o,o,o,o,o,o,o,o,o))},
+return A.anX(0,A.E(o,A.bQ(A.iG(A.E(o,A.a1(A.b([B.Ie,B.N,B.Yj,B.a6,A.H("Level "+n.w,o,o,A.af(o,o,B.c.q(0.9),o,o,o,o,o,o,o,o,20,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o),B.aC,A.H(n.GV(n.w),o,o,A.af(o,o,B.c.q(0.8),o,o,o,o,o,o,o,o,16,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o)],t.p),B.k,B.j,B.a8),B.h,o,o,new A.C(o,o,o,q,p,new A.be(B.aE,B.aD,B.B,r,o,o),B.l),o,o,o,B.GM,o,o,o),s),o,o),B.h,m,o,o,o,o,o,o,o,o,o))},
 $S:58}
 A.abo.prototype={
 $2(a,b){var s,r,q,p,o=null,n=this.a,m=n.CW
@@ -70701,7 +70701,7 @@ r.toString
 A.ct(r,!1).ew(!0)}},
 YX(){if(this.d>0)this.a1(new A.acu(this))},
 I(a){var s,r,q,p,o,n,m,l=this,k=null
-if(!l.f)return A.ha(B.cm,A.bQ(A.a1(A.b([B.Dn,B.ac,A.H("Lesson for Day "+l.a.c+" not found",k,k,B.yZ,k),B.ac,A.kt(B.YJ,new A.acw(a),k)],t.p),B.k,B.ak,B.i),k,k),k)
+if(!l.f)return A.ha(B.cm,A.bQ(A.a1(A.b([B.Dn,B.ac,A.H("Lesson for Day "+l.a.c+" not found",k,k,B.yZ,k),B.ac,A.kt(B.YI,new A.acw(a),k)],t.p),B.k,B.ak,B.i),k,k),k)
 s=l.e
 s===$&&A.a()
 r=l.d
@@ -70873,7 +70873,7 @@ j=A.M(["US","\ud83c\uddfa\ud83c\uddf8","GB","\ud83c\uddec\ud83c\udde7","CN","\ud
 l=A.H(j==null?"\ud83c\udff3\ufe0f":j,o,o,B.Vw,o)
 k=A.H(a.i(0,"name"),1,B.by,B.kY,B.ag)
 j=A.H("Portfolio:",o,o,A.af(o,o,B.c.q(0.7),o,o,o,o,o,o,o,o,10,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o)
-r=A.a7(A.b([A.H("$300K",o,o,A.af(o,o,B.c.q(0.8),o,o,o,o,o,o,o,o,10,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o),B.YE,A.H(a.i(0,"equity"),o,o,B.VN,o)],s),B.k,B.ak,B.i)
+r=A.a7(A.b([A.H("$300K",o,o,A.af(o,o,B.c.q(0.8),o,o,o,o,o,o,o,o,10,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o),B.YD,A.H(a.i(0,"equity"),o,o,B.VN,o)],s),B.k,B.ak,B.i)
 q=B.p.q(0.3)
 p=A.P(8)
 return A.a1(A.b([m,B.aC,l,B.a6,k,B.aC,j,r,B.f4,A.E(o,A.a1(A.b([A.H(a.i(0,"profitAmount"),o,o,B.VD,o),A.H(a.i(0,"profit"),o,o,B.X1,o)],s),B.k,B.j,B.i),B.h,o,o,new A.C(q,o,o,p,o,o,B.l),o,o,o,B.n0,o,o,o)],s),B.k,B.j,B.i)},
@@ -71017,14 +71017,14 @@ r=B.c.q(0.2)
 q=A.P(4)
 p=t.p
 q=A.a7(A.b([l,B.Q,B.HX,B.Q,A.aC(A.a1(A.b([s,B.kR,A.E(o,A.H(a.i(0,"country"),o,o,B.z2,o),B.h,o,o,new A.C(r,o,o,q,o,o,B.l),o,o,o,B.mZ,o,o,o)],p),B.y,B.j,B.i),1)],p),B.k,B.j,B.i)
-r=A.a7(A.b([A.H("Portfolio value:",o,o,A.af(o,o,B.c.q(0.7),o,o,o,o,o,o,o,o,12,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o),A.a7(A.b([B.YO,A.a1(A.b([A.H("90 days",o,o,A.af(o,o,B.c.q(0.5),o,o,o,o,o,o,o,o,8,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o),B.Z4],p),B.k,B.j,B.i),B.Z3],p),B.k,B.j,B.i)],p),B.k,B.bu,B.i)
+r=A.a7(A.b([A.H("Portfolio value:",o,o,A.af(o,o,B.c.q(0.7),o,o,o,o,o,o,o,o,12,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o),A.a7(A.b([B.YN,A.a1(A.b([A.H("90 days",o,o,A.af(o,o,B.c.q(0.5),o,o,o,o,o,o,o,o,8,o,o,o,o,o,!0,o,o,o,o,o,o,o,o),o),B.Z4],p),B.k,B.j,B.i),B.Z3],p),B.k,B.j,B.i)],p),B.k,B.bu,B.i)
 s=B.dc.q(0.2)
 l=A.P(8)
 return A.E(o,A.a1(A.b([q,B.R,r,B.a6,A.E(o,A.H("+$360.00 (+1.49%)",o,o,B.U1,B.ag),B.h,o,o,new A.C(s,o,o,l,o,o,B.l),o,o,o,B.j_,o,o,1/0)],p),B.k,B.j,B.i),B.h,o,o,new A.C(n,o,o,m,o,o,B.l),o,o,B.ed,B.ar,o,o,o)},
 $S:66}
 A.IU.prototype={
 I(a){var s=null,r=t.p
-return A.ha(B.br,A.dr(!0,new A.ay(B.aj,A.a1(A.b([B.Yv,B.a6,A.H("Track your investments and portfolio performance",s,s,A.af(s,s,B.c.q(0.6),s,s,s,s,s,s,s,s,14,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s),B.d_,A.aC(A.bQ(A.a1(A.b([A.E(s,B.Io,B.h,s,s,new A.C(B.ai.q(0.2),s,s,s,s,s,B.S),s,100,s,s,s,s,100),B.V,A.H("Coming Soon",s,s,A.af(s,s,B.c.q(0.8),s,s,s,s,s,s,s,s,20,s,s,B.D,s,s,!0,s,s,s,s,s,s,s,s),s),B.a6,A.H("Portfolio tracking and analytics",s,s,A.af(s,s,B.c.q(0.5),s,s,s,s,s,s,s,s,14,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s)],r),B.k,B.ak,B.i),s,s),1)],r),B.y,B.j,B.i),s),!0),s)}}
+return A.ha(B.br,A.dr(!0,new A.ay(B.aj,A.a1(A.b([B.Yu,B.a6,A.H("Track your investments and portfolio performance",s,s,A.af(s,s,B.c.q(0.6),s,s,s,s,s,s,s,s,14,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s),B.d_,A.aC(A.bQ(A.a1(A.b([A.E(s,B.Io,B.h,s,s,new A.C(B.ai.q(0.2),s,s,s,s,s,B.S),s,100,s,s,s,s,100),B.V,A.H("Coming Soon",s,s,A.af(s,s,B.c.q(0.8),s,s,s,s,s,s,s,s,20,s,s,B.D,s,s,!0,s,s,s,s,s,s,s,s),s),B.a6,A.H("Portfolio tracking and analytics",s,s,A.af(s,s,B.c.q(0.5),s,s,s,s,s,s,s,s,14,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s)],r),B.k,B.ak,B.i),s,s),1)],r),B.y,B.j,B.i),s),!0),s)}}
 A.a4E.prototype={}
 A.af5.prototype={
 $1(a){return!1},
@@ -74159,8 +74159,8 @@ B.Zf=new A.a9("No question data",null,null,null,null,null,null)
 B.BZ=new A.f_(B.a3,null,null,B.Zf,null)
 B.A=new A.fX(6)
 B.X5=new A.h(!0,B.c,null,null,null,null,40,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.YW=new A.a9("Q",null,B.X5,null,null,null,null)
-B.C_=new A.f_(B.a3,null,null,B.YW,null)
+B.YV=new A.a9("Q",null,B.X5,null,null,null,null)
+B.C_=new A.f_(B.a3,null,null,B.YV,null)
 B.Zi=new A.a9("No mission data",null,null,null,null,null,null)
 B.C0=new A.f_(B.a3,null,null,B.Zi,null)
 B.u=new A.j(1,0.13333333333333333,0.7725490196078432,0.3686274509803922,B.e)
@@ -74168,8 +74168,8 @@ B.D=new A.fX(5)
 B.z9=new A.h(!0,B.u,null,null,null,null,12,B.D,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.Z2=new A.a9("Level 3 - Low Risk",null,B.z9,null,null,null,null)
 B.C1=new A.f_(B.a3,null,null,B.Z2,null)
-B.YQ=new A.a9("No game data",null,null,null,null,null,null)
-B.C2=new A.f_(B.a3,null,null,B.YQ,null)
+B.YP=new A.a9("No game data",null,null,null,null,null,null)
+B.C2=new A.f_(B.a3,null,null,B.YP,null)
 B.ak=new A.kT(2,"center")
 B.i=new A.FV(1,"max")
 B.k=new A.ml(2,"center")
@@ -74178,8 +74178,8 @@ B.h=new A.oX(0,"none")
 B.V1=new A.h(!0,B.u,null,null,null,null,22,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.Ye=new A.a9("+$500",null,B.V1,null,null,null,null)
 B.dD=new A.h(!0,B.b6,null,null,null,null,14,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.YR=new A.a9("+5.0%",null,B.dD,null,null,null,null)
-B.JK=s([B.Ye,B.YR],t.p)
+B.YQ=new A.a9("+5.0%",null,B.dD,null,null,null,null)
+B.JK=s([B.Ye,B.YQ],t.p)
 B.FH=new A.ia(B.a0,B.ak,B.i,B.k,null,B.aJ,null,0,B.JK,null)
 B.C3=new A.f_(B.a3,null,null,B.FH,null)
 B.Y8=new A.a9("No holdings yet",null,B.dD,null,null,null,null)
@@ -74570,8 +74570,8 @@ B.YY=new A.a9("What is the purpose of QIQT?",null,B.UX,null,null,null,null)
 B.GU=new A.eD(1,B.em,B.YY,null)
 B.bm=new A.h(!0,B.c,null,null,null,null,18,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.ag=new A.jK(2,"center")
-B.YG=new A.a9("Start Your Challenge",null,B.bm,B.ag,null,null,null)
-B.GV=new A.eD(1,B.em,B.YG,null)
+B.YF=new A.a9("Start Your Challenge",null,B.bm,B.ag,null,null,null)
+B.GV=new A.eD(1,B.em,B.YF,null)
 B.dG=new A.h(!0,B.c,null,null,null,null,20,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.Z9=new A.a9("28 day Skill challenge",null,B.dG,null,null,null,null)
 B.GW=new A.eD(1,B.em,B.Z9,null)
@@ -76203,48 +76203,48 @@ B.dC=new A.qk(1,"doNotPop")
 B.xT=new A.qk(2,"bubble")
 B.kl=new A.fF(null,null)
 B.dE=new A.h(!0,null,null,null,null,null,24,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.YB=new A.a9("\u2b50",null,B.dE,null,null,null,null)
+B.YA=new A.a9("\u2b50",null,B.dE,null,null,null,null)
 B.Q=new A.cc(12,null,null,null)
 B.Y7=new A.a9("Mission",null,B.dG,null,null,null,null)
-B.Lb=s([B.YB,B.Q,B.Y7],t.p)
+B.Lb=s([B.YA,B.Q,B.Y7],t.p)
 B.Qq=new A.h9(B.az,B.j,B.a8,B.k,null,B.aJ,null,0,B.Lb,null)
 B.X2=new A.h(!0,B.u,null,null,null,null,15,B.D,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Yr=new A.a9("Beginner",null,B.X2,null,null,null,null)
+B.Yq=new A.a9("Beginner",null,B.X2,null,null,null,null)
 B.T9=new A.h(!0,B.b6,null,null,null,null,15,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.zc=new A.a9("/",null,B.T9,null,null,null,null)
 B.X3=new A.h(!0,B.E,null,null,null,null,15,B.D,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.YT=new A.a9("Intermediate",null,B.X3,null,null,null,null)
+B.YS=new A.a9("Intermediate",null,B.X3,null,null,null,null)
 B.Xu=new A.h(!0,B.cI,null,null,null,null,15,B.D,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.Zx=new A.a9("Advanced",null,B.Xu,null,null,null,null)
-B.KE=s([B.Yr,B.zc,B.YT,B.zc,B.Zx],t.p)
+B.KE=s([B.Yq,B.zc,B.YS,B.zc,B.Zx],t.p)
 B.Qr=new A.h9(B.az,B.h9,B.i,B.k,null,B.aJ,null,0,B.KE,null)
 B.kZ=new A.h(!0,null,null,null,null,null,14,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.YI=new A.a9("\ud83c\udfa8",null,B.kZ,null,null,null,null)
+B.YH=new A.a9("\ud83c\udfa8",null,B.kZ,null,null,null,null)
 B.c7=new A.cc(6,null,null,null)
 B.Wq=new A.h(!0,B.T,null,null,null,null,12,B.D,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Yj=new A.a9("AI Image Prompt",null,B.Wq,null,null,null,null)
-B.JS=s([B.YI,B.c7,B.Yj],t.p)
+B.Yi=new A.a9("AI Image Prompt",null,B.Wq,null,null,null,null)
+B.JS=s([B.YH,B.c7,B.Yi],t.p)
 B.Qs=new A.h9(B.az,B.j,B.a8,B.k,null,B.aJ,null,0,B.JS,null)
 B.Iu=new A.bt(B.er,16,B.c,null,null)
 B.kY=new A.h(!0,B.c,null,null,null,null,12,B.D,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Yu=new A.a9("QIPA",null,B.kY,null,null,null,null)
-B.Kx=s([B.Iu,B.c7,B.Yu],t.p)
+B.Yt=new A.a9("QIPA",null,B.kY,null,null,null,null)
+B.Kx=s([B.Iu,B.c7,B.Yt],t.p)
 B.Qt=new A.h9(B.az,B.j,B.i,B.k,null,B.aJ,null,0,B.Kx,null)
 B.z1=new A.h(!0,null,null,null,null,null,18,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.YU=new A.a9("Continue",null,B.z1,null,null,null,null)
+B.YT=new A.a9("Continue",null,B.z1,null,null,null,null)
 B.a2=new A.cc(8,null,null,null)
 B.Id=new A.bt(B.ne,20,null,null,null)
-B.LM=s([B.YU,B.a2,B.Id],t.p)
+B.LM=s([B.YT,B.a2,B.Id],t.p)
 B.km=new A.h9(B.az,B.ak,B.i,B.k,null,B.aJ,null,0,B.LM,null)
 B.Ya=new A.a9("\u2753",null,B.dE,null,null,null,null)
 B.XP=new A.h(!0,B.ae,null,null,null,null,20,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Ym=new A.a9("Question",null,B.XP,null,null,null,null)
-B.KS=s([B.Ya,B.Q,B.Ym],t.p)
+B.Yl=new A.a9("Question",null,B.XP,null,null,null,null)
+B.KS=s([B.Ya,B.Q,B.Yl],t.p)
 B.Qu=new A.h9(B.az,B.j,B.a8,B.k,null,B.aJ,null,0,B.KS,null)
 B.dF=new A.h(!0,B.b6,null,null,null,null,10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Yh=new A.a9("1",null,B.dF,null,null,null,null)
+B.Yg=new A.a9("1",null,B.dF,null,null,null,null)
 B.Yb=new A.a9("10",null,B.dF,null,null,null,null)
-B.KP=s([B.Yh,B.Yb],t.p)
+B.KP=s([B.Yg,B.Yb],t.p)
 B.Qv=new A.h9(B.az,B.bu,B.i,B.k,null,B.aJ,null,0,B.KP,null)
 B.WT=new A.h(!0,null,null,null,null,null,28,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.ze=new A.a9("\ud83c\udf89",null,B.WT,null,null,null,null)
@@ -76428,8 +76428,8 @@ B.Sd=new A.a5(B.cQ,!0,!1,!1,!1,B.b2)
 B.z3=new A.h(!0,B.H,null,null,null,null,14,null,null,null,null,null,1.5,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.Yc=new A.a9(u.k,null,B.z3,null,null,null,null)
 B.R=new A.cc(null,12,null,null)
-B.Ys=new A.a9(u.l,null,B.z3,null,null,null,null)
-B.JQ=s([B.Yc,B.R,B.Ys],t.p)
+B.Yr=new A.a9(u.l,null,B.z3,null,null,null,null)
+B.JQ=s([B.Yc,B.R,B.Yr],t.p)
 B.FG=new A.ia(B.a0,B.j,B.a8,B.y,null,B.aJ,null,0,B.JQ,null)
 B.Se=new A.xZ(B.a0,null,B.FG,null)
 B.Sf=new A.I(1e5,1e5)
@@ -76469,8 +76469,8 @@ B.Sr=new A.iC(3,"hide")
 B.a0Y=new A.iC(4,"remove")
 B.yL=new A.iC(5,"timeout")
 B.Ss=new A.qD(null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Yl=new A.a9("Visit: www.quantrock.com for terms and conditions",null,null,null,null,null,null)
-B.St=new A.nU(B.Yl,null,null,null,null,null,null,null,null,null,null,null,null,B.bZ,null,null,null,B.G,null)
+B.Yk=new A.a9("Visit: www.quantrock.com for terms and conditions",null,null,null,null,null,null)
+B.St=new A.nU(B.Yk,null,null,null,null,null,null,null,null,null,null,null,null,B.bZ,null,null,null,B.G,null)
 B.yM=new A.y6(0,"permissive")
 B.Su=new A.y6(1,"normal")
 B.Sv=new A.y6(2,"forced")
@@ -76838,47 +76838,47 @@ B.z5=new A.h(!0,B.u,null,null,null,null,12,null,null,null,null,null,null,null,nu
 B.Yd=new A.a9("Terms and Conditions",null,B.z5,null,null,null,null)
 B.UD=new A.h(!0,B.u,null,null,null,null,14,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.Yf=new A.a9(" (+5.00%)",null,B.UD,null,null,null,null)
+B.Yh=new A.a9("Risk Level",null,B.cw,null,null,null,null)
+B.Tf=new A.h(!0,B.c,null,null,null,null,28,B.A,null,2,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
+B.Yj=new A.a9("LEVEL UP!",null,B.Tf,null,null,null,null)
+B.Ym=new A.a9("\ud83d\ude80 Start Your Trading Simulation",null,B.hJ,null,null,null,null)
+B.Yn=new A.a9("\ud83c\udfc5",null,B.z6,null,null,null,null)
+B.VW=new A.h(!0,B.E,null,null,null,null,14,B.D,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
+B.Yo=new A.a9("Overview",null,B.VW,null,null,null,null)
+B.Yp=new A.a9("Unrealized P/L: ",null,B.dD,null,null,null,null)
+B.z0=new A.h(!0,B.H,null,null,null,null,14,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
+B.Ys=new A.a9("Badge Unlocked!",null,B.z0,null,null,null,null)
+B.Yu=new A.a9("Tracker",null,B.hI,null,null,null,null)
+B.TP=new A.h(!0,B.b6,null,null,null,null,11,B.D,null,1,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
+B.Yv=new A.a9("STAGE",null,B.TP,null,null,null,null)
+B.Yw=new A.a9("Invest Challenge",null,B.bm,null,null,null,null)
+B.Yx=new A.a9("About the Challenge",null,B.yY,null,null,null,null)
+B.Yy=new A.a9("Quantrock Investor Qualification Test (QIQT)",null,B.bm,null,null,null,null)
+B.Yz=new A.a9("Objectives",null,B.f7,null,null,null,null)
+B.WD=new A.h(!0,B.c,null,null,null,null,52,B.jz,null,4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
+B.YB=new A.a9("QIQT",null,B.WD,null,null,null,null)
+B.YC=new A.a9("Asset Allocation",null,B.f7,null,null,null,null)
+B.YD=new A.a9(" \u2192 ",null,B.z2,null,null,null,null)
+B.Xg=new A.h(!0,B.u,null,null,null,null,14,B.D,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
+B.YE=new A.a9("+$500.00",null,B.Xg,null,null,null,null)
+B.V4=new A.h(!0,B.c,null,null,null,null,18,B.A,null,1,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
+B.YG=new A.a9("START TEST",null,B.V4,null,null,null,null)
+B.YI=new A.a9("Go Back",null,null,null,null,null,null)
+B.zb=new A.a9("Got it",null,B.d0,null,null,null,null)
+B.YJ=new A.a9("Net Assets",null,B.dD,null,null,null,null)
+B.X6=new A.h(!0,B.c,null,null,null,null,11,B.A,null,0.5,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
+B.YK=new A.a9("POPULAR",null,B.X6,null,null,null,null)
+B.YL=new A.a9("Statistics",null,B.f7,null,null,null,null)
+B.YM=new A.a9("The test is based on globally recognized standards:",null,B.z0,null,null,null,null)
+B.YN=new A.a9("$10,000",null,B.hL,null,null,null,null)
+B.YO=new A.a9("Start Learning Challenge",null,B.bn,B.ag,null,null,null)
+B.YR=new A.a9("Portfolio Performance",null,B.f7,null,null,null,null)
+B.YU=new A.a9("By proceeding, you agree with ",null,B.cw,null,null,null,null)
+B.WE=new A.h(!0,null,null,null,null,null,18,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
+B.YW=new A.a9("\ud83c\udfaf",null,B.WE,null,null,null,null)
 B.Fy=new A.j(1,0.4196078431372549,0.4470588235294118,0.5019607843137255,B.e)
 B.TK=new A.h(!0,B.Fy,null,null,null,null,11,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Yg=new A.a9("QUANTROCK LTD, Dubai, United Arab Emirates",null,B.TK,B.ag,null,null,null)
-B.Yi=new A.a9("Risk Level",null,B.cw,null,null,null,null)
-B.Tf=new A.h(!0,B.c,null,null,null,null,28,B.A,null,2,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Yk=new A.a9("LEVEL UP!",null,B.Tf,null,null,null,null)
-B.Yn=new A.a9("\ud83d\ude80 Start Your Trading Simulation",null,B.hJ,null,null,null,null)
-B.Yo=new A.a9("\ud83c\udfc5",null,B.z6,null,null,null,null)
-B.VW=new A.h(!0,B.E,null,null,null,null,14,B.D,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Yp=new A.a9("Overview",null,B.VW,null,null,null,null)
-B.Yq=new A.a9("Unrealized P/L: ",null,B.dD,null,null,null,null)
-B.z0=new A.h(!0,B.H,null,null,null,null,14,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Yt=new A.a9("Badge Unlocked!",null,B.z0,null,null,null,null)
-B.Yv=new A.a9("Tracker",null,B.hI,null,null,null,null)
-B.TP=new A.h(!0,B.b6,null,null,null,null,11,B.D,null,1,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.Yw=new A.a9("STAGE",null,B.TP,null,null,null,null)
-B.Yx=new A.a9("Invest Challenge",null,B.bm,null,null,null,null)
-B.Yy=new A.a9("About the Challenge",null,B.yY,null,null,null,null)
-B.Yz=new A.a9("Quantrock Investor Qualification Test (QIQT)",null,B.bm,null,null,null,null)
-B.YA=new A.a9("Objectives",null,B.f7,null,null,null,null)
-B.WD=new A.h(!0,B.c,null,null,null,null,52,B.jz,null,4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.YC=new A.a9("QIQT",null,B.WD,null,null,null,null)
-B.YD=new A.a9("Asset Allocation",null,B.f7,null,null,null,null)
-B.YE=new A.a9(" \u2192 ",null,B.z2,null,null,null,null)
-B.Xg=new A.h(!0,B.u,null,null,null,null,14,B.D,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.YF=new A.a9("+$500.00",null,B.Xg,null,null,null,null)
-B.V4=new A.h(!0,B.c,null,null,null,null,18,B.A,null,1,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.YH=new A.a9("START TEST",null,B.V4,null,null,null,null)
-B.YJ=new A.a9("Go Back",null,null,null,null,null,null)
-B.zb=new A.a9("Got it",null,B.d0,null,null,null,null)
-B.YK=new A.a9("Net Assets",null,B.dD,null,null,null,null)
-B.X6=new A.h(!0,B.c,null,null,null,null,11,B.A,null,0.5,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.YL=new A.a9("POPULAR",null,B.X6,null,null,null,null)
-B.YM=new A.a9("Statistics",null,B.f7,null,null,null,null)
-B.YN=new A.a9("The test is based on globally recognized standards:",null,B.z0,null,null,null,null)
-B.YO=new A.a9("$10,000",null,B.hL,null,null,null,null)
-B.YP=new A.a9("Start Learning Challenge",null,B.bn,B.ag,null,null,null)
-B.YS=new A.a9("Portfolio Performance",null,B.f7,null,null,null,null)
-B.YV=new A.a9("By proceeding, you agree with ",null,B.cw,null,null,null,null)
-B.WE=new A.h(!0,null,null,null,null,null,18,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.YX=new A.a9("\ud83c\udfaf",null,B.WE,null,null,null,null)
+B.YX=new A.a9("QUANTROCK LTD",null,B.TK,B.ag,null,null,null)
 B.Vg=new A.h(!0,B.cH,null,null,null,null,12,null,null,null,null,null,1.5,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.Z_=new A.a9("The winner is announced on the first day of every month and receives:",null,B.Vg,null,null,null,null)
 B.U_=new A.h(!0,B.c,null,null,null,null,null,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
