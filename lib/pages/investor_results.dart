@@ -530,83 +530,65 @@ class InvestorScoring {
 
   // Portfolio allocation based on user's selected asset classes
   static List<AssetAllocation> getPortfolioAllocation(ScoreResult personality, QuestionnaireAnswers answers) {
-    final selectedAssets = answers.assetClasses;
+    // This method is kept for legacy compatibility but not used
+    return getPortfolioAllocationByScore(50);
+  }
 
-    // If user selected 'none' or no assets, return default balanced allocation
-    if (selectedAssets.isEmpty || selectedAssets.contains('none')) {
-      return [
-        AssetAllocation(
-          name: 'Stocks',
-          percentage: 40,
-          color: const Color(0xFF3B82F6),
-          icon: Icons.trending_up,
-        ),
-        AssetAllocation(
-          name: 'Bonds',
-          percentage: 30,
-          color: const Color(0xFF22C55E),
-          icon: Icons.account_balance,
-        ),
-        AssetAllocation(
-          name: 'ETFs',
-          percentage: 20,
-          color: const Color(0xFF8B5CF6),
-          icon: Icons.pie_chart,
-        ),
-        AssetAllocation(
-          name: 'Cash',
-          percentage: 10,
-          color: const Color(0xFF6B7280),
-          icon: Icons.account_balance_wallet,
-        ),
-      ];
+  static List<AssetAllocation> getPortfolioAllocationByScore(int totalScore) {
+    // Fixed items: Stocks, ETFs, Crypto, Bonds
+    // Percentages vary based on total score (0-100)
+
+    double stocksPercent;
+    double etfsPercent;
+    double cryptoPercent;
+    double bondsPercent;
+
+    if (totalScore <= 40) {
+      // Low score (Beginner) - Conservative allocation
+      stocksPercent = 30;
+      etfsPercent = 35;
+      cryptoPercent = 5;
+      bondsPercent = 30;
+    } else if (totalScore <= 70) {
+      // Medium score (Intermediate) - Balanced allocation
+      stocksPercent = 35;
+      etfsPercent = 30;
+      cryptoPercent = 15;
+      bondsPercent = 20;
+    } else {
+      // High score (Expert) - Aggressive allocation
+      stocksPercent = 40;
+      etfsPercent = 25;
+      cryptoPercent = 25;
+      bondsPercent = 10;
     }
 
-    // Asset metadata mapping
-    final assetInfo = {
-      'stocks': {'name': 'Stocks', 'color': const Color(0xFF3B82F6), 'icon': Icons.trending_up},
-      'etfs': {'name': 'ETFs', 'color': const Color(0xFF8B5CF6), 'icon': Icons.pie_chart},
-      'crypto': {'name': 'Crypto', 'color': const Color(0xFFF59E0B), 'icon': Icons.currency_bitcoin},
-      'bonds': {'name': 'Bonds', 'color': const Color(0xFF22C55E), 'icon': Icons.account_balance},
-      'real_estate': {'name': 'Real Estate', 'color': const Color(0xFFEC4899), 'icon': Icons.home_work},
-    };
-
-    // Calculate allocation based on selected assets
-    final validAssets = selectedAssets.where((a) => assetInfo.containsKey(a)).toList();
-
-    if (validAssets.isEmpty) {
-      return [
-        AssetAllocation(
-          name: 'Diversified Portfolio',
-          percentage: 100,
-          color: const Color(0xFF3B82F6),
-          icon: Icons.pie_chart,
-        ),
-      ];
-    }
-
-    // Distribute allocation evenly among selected assets
-    final baseAllocation = 100 ~/ validAssets.length;
-    final remainder = 100 % validAssets.length;
-
-    List<AssetAllocation> allocations = [];
-    for (int i = 0; i < validAssets.length; i++) {
-      final asset = validAssets[i];
-      final info = assetInfo[asset]!;
-      final percentage = baseAllocation + (i < remainder ? 1 : 0);
-
-      allocations.add(AssetAllocation(
-        name: info['name'] as String,
-        percentage: percentage.toDouble(),
-        color: info['color'] as Color,
-        icon: info['icon'] as IconData,
-      ));
-    }
-
-    // Sort by percentage descending
-    allocations.sort((a, b) => b.percentage.compareTo(a.percentage));
-
-    return allocations;
+    return [
+      AssetAllocation(
+        name: 'Stocks',
+        percentage: stocksPercent,
+        color: const Color(0xFF3B82F6),
+        icon: Icons.trending_up,
+      ),
+      AssetAllocation(
+        name: 'ETFs',
+        percentage: etfsPercent,
+        color: const Color(0xFF8B5CF6),
+        icon: Icons.pie_chart,
+      ),
+      AssetAllocation(
+        name: 'Crypto',
+        percentage: cryptoPercent,
+        color: const Color(0xFFF59E0B),
+        icon: Icons.currency_bitcoin,
+      ),
+      AssetAllocation(
+        name: 'Bonds',
+        percentage: bondsPercent,
+        color: const Color(0xFF22C55E),
+        icon: Icons.account_balance,
+      ),
+    ];
   }
 }
 
@@ -950,7 +932,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
     final personality = InvestorScoring.calculatePersonality(answers);
     final strength = InvestorScoring.calculateStrength(answers);
     final portfolio = InvestorScoring.getSuggestedPortfolio(strength, personality, readiness);
-    final allocations = InvestorScoring.getPortfolioAllocation(personality, answers);
+    final allocations = InvestorScoring.getPortfolioAllocationByScore(totalScore.score);
 
     return Scaffold(
       body: Stack(
