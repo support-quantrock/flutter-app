@@ -1226,40 +1226,44 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           ),
           const SizedBox(height: 12),
           // Identification items
-          _buildIdentificationItem('Actual investment experience'),
-          _buildIdentificationItem('Financial background and basic financial knowledge'),
-          _buildIdentificationItem('Investment objectives and personal motivations'),
-          _buildIdentificationItem('Level of readiness and willingness to learn'),
-          _buildIdentificationItem('The most suitable learning path for the user'),
-          _buildIdentificationItem('The appropriate challenge level within Quantrock'),
-          _buildIdentificationItem('The recommended demo portfolio size'),
-          _buildIdentificationItem('Understanding the user\'s motivations for using Quantrock'),
+          _buildIdentificationItem('Investment objectives', Icons.flag_rounded),
+          _buildIdentificationItem('Investment experience', Icons.trending_up_rounded),
+          _buildIdentificationItem('Financial knowledge and literacy', Icons.school_rounded),
+          _buildIdentificationItem('Level of readiness and willingness to learn', Icons.lightbulb_rounded),
+          _buildIdentificationItem('The appropriate challenge level', Icons.emoji_events_rounded),
+          _buildIdentificationItem('The appropriate simulated portfolio size', Icons.account_balance_wallet_rounded),
+          _buildIdentificationItem('The best learning path', Icons.route_rounded),
+          _buildIdentificationItem('The motivation for using the Quantrock app', Icons.rocket_launch_rounded),
         ],
       ),
     );
   }
 
-  Widget _buildIdentificationItem(String text) {
+  Widget _buildIdentificationItem(String text, IconData icon) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(bottom: 10),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 7),
-            width: 6,
-            height: 6,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Color(0xFF22C55E),
+            width: 32,
+            height: 32,
+            decoration: BoxDecoration(
+              color: const Color(0xFF22C55E).withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              icon,
+              color: const Color(0xFF22C55E),
+              size: 18,
             ),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 12),
           Expanded(
             child: Text(
               text,
               style: TextStyle(
-                color: Colors.white.withValues(alpha: 0.75),
+                color: Colors.white.withValues(alpha: 0.85),
                 fontSize: 14,
                 height: 1.4,
               ),
