@@ -1396,11 +1396,21 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                _t('purpose_subtitle'),
-                style: const TextStyle(
-                  color: Colors.white70,
+              const Text(
+                'QIQT is an intelligent qualification test built on OECD, MIT, and CFA standards, designed to measure your investment experience, financial literacy, motivations, and readiness to learn.',
+                style: TextStyle(
+                  color: Colors.white,
                   fontSize: 14,
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 12),
+              const Text(
+                'QIQT helps you assess your financial knowledge, investment background, and determine your ideal path inside Quantrock-whether in challenges, daily lessons, or selecting the appropriate demo portfolio size.',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  height: 1.5,
                 ),
               ),
               const SizedBox(height: 16),
