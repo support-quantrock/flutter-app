@@ -132,28 +132,11 @@ class _GameGridCardState extends State<_GameGridCard>
     super.dispose();
   }
 
-  Color _getGradientColor1() {
-    final colors = [
-      Colors.cyan.shade400,
-      Colors.purple.shade400,
-      Colors.orange.shade400,
-      Colors.green.shade400,
-      Colors.pink.shade400,
-      Colors.blue.shade400,
-    ];
-    return colors[widget.index % colors.length];
-  }
+  // QIQT gradient colors
+  static const Color _primaryColor = Color(0xFF22C55E);
 
-  Color _getGradientColor2() {
-    final colors = [
-      Colors.blue.shade600,
-      Colors.deepPurple.shade600,
-      Colors.deepOrange.shade600,
-      Colors.teal.shade600,
-      Colors.red.shade600,
-      Colors.indigo.shade600,
-    ];
-    return colors[widget.index % colors.length];
+  List<Color> _getQIQTGradient() {
+    return const [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)];
   }
 
   @override
@@ -178,7 +161,7 @@ class _GameGridCardState extends State<_GameGridCard>
                     ? LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: [_getGradientColor1(), _getGradientColor2()],
+                        colors: _getQIQTGradient(),
                       )
                     : null,
                 color: widget.isSelected
@@ -194,7 +177,7 @@ class _GameGridCardState extends State<_GameGridCard>
                 boxShadow: widget.isSelected
                     ? [
                         BoxShadow(
-                          color: _getGradientColor1().withValues(alpha: 0.5),
+                          color: _primaryColor.withValues(alpha: 0.5),
                           blurRadius: 20,
                           offset: const Offset(0, 8),
                         ),
@@ -247,7 +230,7 @@ class _GameGridCardState extends State<_GameGridCard>
                       ),
                       child: Icon(
                         Icons.check,
-                        color: _getGradientColor1(),
+                        color: _primaryColor,
                         size: 16,
                       ),
                     ),

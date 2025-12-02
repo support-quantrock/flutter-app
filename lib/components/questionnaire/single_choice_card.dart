@@ -173,10 +173,11 @@ class _GameOptionCardState extends State<_GameOptionCard>
               padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
                 gradient: widget.isSelected
-                    ? LinearGradient(
+                    ? const LinearGradient(
                         colors: [
-                          Colors.cyan.shade400,
-                          Colors.blue.shade600,
+                          Color(0xFF22C55E),
+                          Color(0xFF3B82F6),
+                          Color(0xFFA855F7),
                         ],
                       )
                     : null,
@@ -186,14 +187,14 @@ class _GameOptionCardState extends State<_GameOptionCard>
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
                   color: widget.isSelected
-                      ? Colors.cyan
+                      ? const Color(0xFF22C55E)
                       : Colors.white.withValues(alpha: 0.15),
                   width: widget.isSelected ? 2 : 1,
                 ),
                 boxShadow: widget.isSelected
                     ? [
                         BoxShadow(
-                          color: Colors.cyan.withValues(alpha: 0.4),
+                          color: const Color(0xFF3B82F6).withValues(alpha: 0.4),
                           blurRadius: 15,
                           offset: const Offset(0, 5),
                         ),
@@ -251,7 +252,7 @@ class _GameOptionCardState extends State<_GameOptionCard>
                     child: widget.isSelected
                         ? const Icon(
                             Icons.check,
-                            color: Colors.cyan,
+                            color: Color(0xFF22C55E),
                             size: 18,
                           )
                         : null,
