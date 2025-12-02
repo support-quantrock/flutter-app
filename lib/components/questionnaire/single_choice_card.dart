@@ -18,6 +18,8 @@ class SingleChoiceCard extends StatelessWidget {
   final List<ChoiceOption> options;
   final String? selectedValue;
   final ValueChanged<String> onSelect;
+  final bool isArabic;
+  final String badgeText;
 
   const SingleChoiceCard({
     super.key,
@@ -26,47 +28,50 @@ class SingleChoiceCard extends StatelessWidget {
     required this.options,
     this.selectedValue,
     required this.onSelect,
+    this.isArabic = false,
+    this.badgeText = 'Choose one',
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Question badge
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.cyan.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.help_outline, color: Colors.cyan, size: 16),
-                const SizedBox(width: 6),
-                Text(
-                  'Choose one',
-                  style: TextStyle(
-                    color: Colors.cyan,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
+    return Directionality(
+      textDirection: isArabic ? TextDirection.rtl : TextDirection.ltr,
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: ListView(
+          children: [
+            // Question badge
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.cyan.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.help_outline, color: Colors.cyan, size: 16),
+                  const SizedBox(width: 6),
+                  Text(
+                    badgeText,
+                    style: TextStyle(
+                      color: Colors.cyan,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+            const SizedBox(height: 16),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-          ),
           if (subtitle != null) ...[
             const SizedBox(height: 8),
             Text(
@@ -78,24 +83,23 @@ class SingleChoiceCard extends StatelessWidget {
             ),
           ],
           const SizedBox(height: 24),
-          Expanded(
-            child: ListView.separated(
-              itemCount: options.length,
-              separatorBuilder: (_, __) => const SizedBox(height: 12),
-              itemBuilder: (context, index) {
-                final option = options[index];
-                final isSelected = selectedValue == option.value;
+          ...options.asMap().entries.map((entry) {
+            final index = entry.key;
+            final option = entry.value;
+            final isSelected = selectedValue == option.value;
 
-                return _GameOptionCard(
-                  option: option,
-                  isSelected: isSelected,
-                  onTap: () => onSelect(option.value),
-                  index: index,
-                );
-              },
-            ),
-          ),
-        ],
+            return Padding(
+              padding: EdgeInsets.only(bottom: index < options.length - 1 ? 12 : 0),
+              child: _GameOptionCard(
+                option: option,
+                isSelected: isSelected,
+                onTap: () => onSelect(option.value),
+                index: index,
+              ),
+            );
+          }),
+          ],
+        ),
       ),
     );
   }
@@ -122,6 +126,7 @@ class _GameOptionCardState extends State<_GameOptionCard>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
+  // ignore: unused_field - used for setState triggers
   bool _isPressed = false;
 
   @override
@@ -168,10 +173,11 @@ class _GameOptionCardState extends State<_GameOptionCard>
               padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
                 gradient: widget.isSelected
-                    ? LinearGradient(
+                    ? const LinearGradient(
                         colors: [
-                          Colors.cyan.shade400,
-                          Colors.blue.shade600,
+                          Color(0xFF22C55E),
+                          Color(0xFF3B82F6),
+                          Color(0xFFA855F7),
                         ],
                       )
                     : null,
@@ -181,14 +187,14 @@ class _GameOptionCardState extends State<_GameOptionCard>
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
                   color: widget.isSelected
-                      ? Colors.cyan
+                      ? const Color(0xFF22C55E)
                       : Colors.white.withValues(alpha: 0.15),
                   width: widget.isSelected ? 2 : 1,
                 ),
                 boxShadow: widget.isSelected
                     ? [
                         BoxShadow(
-                          color: Colors.cyan.withValues(alpha: 0.4),
+                          color: const Color(0xFF3B82F6).withValues(alpha: 0.4),
                           blurRadius: 15,
                           offset: const Offset(0, 5),
                         ),
@@ -199,27 +205,27 @@ class _GameOptionCardState extends State<_GameOptionCard>
                 children: [
                   // Icon container with glow effect
                   Container(
-                    width: 50,
-                    height: 50,
+                    width: 44,
+                    height: 44,
                     decoration: BoxDecoration(
                       color: widget.isSelected
                           ? Colors.white.withValues(alpha: 0.2)
                           : Colors.white.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
                       child: Text(
                         widget.option.icon,
-                        style: const TextStyle(fontSize: 26),
+                        style: const TextStyle(fontSize: 22),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  const SizedBox(width: 14),
                   Expanded(
                     child: Text(
                       widget.option.label,
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight:
                             widget.isSelected ? FontWeight.w600 : FontWeight.w500,
                         color: Colors.white,
@@ -246,7 +252,7 @@ class _GameOptionCardState extends State<_GameOptionCard>
                     child: widget.isSelected
                         ? const Icon(
                             Icons.check,
-                            color: Colors.cyan,
+                            color: Color(0xFF22C55E),
                             size: 18,
                           )
                         : null,
