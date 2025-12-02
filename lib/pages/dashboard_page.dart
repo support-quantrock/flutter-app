@@ -1169,6 +1169,14 @@ class _DashboardPageState extends State<DashboardPage>
   }
 
   Widget _buildAssetAllocationWithTabs() {
+    final allocations = [
+      {'label': 'Tech', 'value': 45.0, 'color': const Color(0xFF3B82F6)},
+      {'label': 'Finance', 'value': 25.0, 'color': const Color(0xFF22C55E)},
+      {'label': 'Healthcare', 'value': 15.0, 'color': const Color(0xFFA855F7)},
+      {'label': 'Energy', 'value': 10.0, 'color': const Color(0xFFF97316)},
+      {'label': 'Other', 'value': 5.0, 'color': const Color(0xFF9CA3AF)},
+    ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -1188,6 +1196,60 @@ class _DashboardPageState extends State<DashboardPage>
           ],
         ),
         const SizedBox(height: 16),
+        // Donut chart with sector breakdown
+        Row(
+          children: [
+            SizedBox(
+              width: 120,
+              height: 120,
+              child: CustomPaint(
+                painter: DonutChartPainter(
+                  segments: allocations.map((a) =>
+                    DonutSegment(a['value'] as double, a['color'] as Color)
+                  ).toList(),
+                ),
+              ),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: Column(
+                children: allocations.map((a) => Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 12,
+                        height: 12,
+                        decoration: BoxDecoration(
+                          color: a['color'] as Color,
+                          borderRadius: BorderRadius.circular(3),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        a['label'] as String,
+                        style: const TextStyle(
+                          color: Color(0xFF9CA3AF),
+                          fontSize: 12,
+                        ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        '${(a['value'] as double).toInt()}%',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                )).toList(),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
         // Tab buttons
         Row(
           children: [
