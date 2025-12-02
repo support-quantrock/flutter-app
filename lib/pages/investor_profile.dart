@@ -203,7 +203,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       'q15_wealth': {'en': 'Long-term Wealth', 'ar': 'الثروة طويلة الأجل'},
       'q15_speculation': {'en': 'Short-term Trading', 'ar': 'التداول قصير الأجل'},
 
-      'q16_title': {'en': 'What is your goal with Quantrock?', 'ar': 'ما هو هدفك مع كوانتروك؟'},
+      'q16_title': {'en': 'What is your goal from using Quantrock?', 'ar': 'ما هو هدفك من استخدام كوانتروك؟'},
       'q16_learn': {'en': 'Learn about investing', 'ar': 'تعلم الاستثمار'},
       'q16_challenge': {'en': 'Take trading challenges', 'ar': 'خوض تحديات التداول'},
       'q16_test': {'en': 'Test my strategies', 'ar': 'اختبار استراتيجياتي'},
@@ -1356,7 +1356,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
         // Responsive height based on screen width - scales proportionally
         final imageHeight = screenWidth * 0.55; // 55% of screen width for aspect ratio
 
-        return Container(
+        return SizedBox(
           height: imageHeight.clamp(180.0, 400.0), // Min 180, max 400
           width: double.infinity,
           child: Image.asset(

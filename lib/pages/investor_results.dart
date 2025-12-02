@@ -898,6 +898,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
       'developing_objectives': {'en': 'Developing Objectives', 'ar': 'أهداف قيد التطوير'},
       'strong_objectives': {'en': 'Strong, Defined Objectives', 'ar': 'أهداف قوية ومحددة'},
       'learning_challenge': {'en': 'Learning Challenge', 'ar': 'تحدي التعلم'},
+      'skill_challenge': {'en': 'Skill Challenge', 'ar': 'تحدي المهارات'},
       'investing_challenge': {'en': 'Investing Challenge', 'ar': 'تحدي الاستثمار'},
       'ready_for_challenge': {'en': 'Ready for Challenge', 'ar': 'جاهز للتحدي'},
       // Goal labels
@@ -928,11 +929,23 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
       'Developing Objectives': 'developing_objectives',
       'Strong, Defined Objectives': 'strong_objectives',
       'Learning Challenge': 'learning_challenge',
+      'Skill Challenge': 'skill_challenge',
       'Investing Challenge': 'investing_challenge',
       'Ready for Challenge': 'ready_for_challenge',
     };
     final key = keyMap[label];
     return key != null ? _t(key) : label;
+  }
+
+  String _getChallengeTitle(String level) {
+    switch (level) {
+      case 'Beginner':
+        return _t('learning_challenge');
+      case 'Intermediate':
+        return _t('skill_challenge');
+      default: // Advanced/Expert
+        return _t('investing_challenge');
+    }
   }
 
   @override
@@ -1200,7 +1213,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                       controller: _mainController,
                       delay: 0.45,
                       child: _ScoreCard(
-                        title: _t('learning_readiness'),
+                        title: _getChallengeTitle(totalScore.label),
                         result: readiness,
                         onInfoTap: () => _showInfoModal('readiness'),
                         translateLabel: _translateScoreLabel,
