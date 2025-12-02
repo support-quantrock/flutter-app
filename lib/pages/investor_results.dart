@@ -847,70 +847,469 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
   bool _showContent = false;
   String _selectedLanguage = 'en';
 
-  bool get _isArabic => _selectedLanguage == 'ar';
+  bool get _isRTL => _selectedLanguage == 'ar' || _selectedLanguage == 'ur';
 
   String _t(String key) {
     final translations = {
-      'congratulations': {'en': 'Congratulations!', 'ar': 'تهانينا!'},
-      'your_investor_profile': {'en': 'Your Investor Profile', 'ar': 'ملفك الاستثماري'},
-      'risk_profile': {'en': 'Risk Profile', 'ar': 'ملف المخاطر'},
-      'goal': {'en': 'Goal', 'ar': 'الهدف'},
-      'low_risk': {'en': 'Low Risk', 'ar': 'مخاطر منخفضة'},
-      'medium_risk': {'en': 'Medium Risk', 'ar': 'مخاطر متوسطة'},
-      'high_risk': {'en': 'High Risk', 'ar': 'مخاطر عالية'},
-      'not_set': {'en': 'Not Set', 'ar': 'غير محدد'},
-      'learn_challenge': {'en': 'Learn Challenge', 'ar': 'تحدي التعلم'},
-      '28_days_skills': {'en': '28 Days Skills', 'ar': 'مهارات 28 يوم'},
-      'investment_challenge': {'en': 'Investment Challenge', 'ar': 'تحدي الاستثمار'},
-      'interested_industries': {'en': 'Interested Industries', 'ar': 'الصناعات المهتم بها'},
-      'asset_experience': {'en': 'Asset Experience', 'ar': 'خبرة الأصول'},
-      'investment_background': {'en': '1: Investment Background', 'ar': '1: الخلفية الاستثمارية'},
-      'financial_literacy': {'en': '2: Financial Literacy', 'ar': '2: الثقافة المالية'},
-      'objectives_motivation': {'en': '3: Objectives & Motivation', 'ar': '3: الأهداف والدوافع'},
-      'learning_readiness': {'en': '4: Learning Readiness', 'ar': '4: الاستعداد للتعلم'},
-      'suggested_portfolio': {'en': 'Suggested Portfolio', 'ar': 'المحفظة المقترحة'},
-      'portfolio_description': {'en': 'Based on your profile, this portfolio size is recommended to start your investment journey.', 'ar': 'بناءً على ملفك الشخصي، يُوصى بحجم المحفظة هذا لبدء رحلتك الاستثمارية.'},
-      'portfolio_allocation': {'en': 'Portfolio Allocation', 'ar': 'توزيع المحفظة'},
-      'optimized_for': {'en': 'Optimized for', 'ar': 'محسّن لـ'},
-      'share_results': {'en': 'Share Results', 'ar': 'مشاركة النتائج'},
-      'start_trading': {'en': 'Start Trading', 'ar': 'ابدأ التداول'},
-      'stocks': {'en': 'Stocks', 'ar': 'أسهم'},
-      'etfs': {'en': 'ETFs', 'ar': 'صناديق المؤشرات'},
-      'crypto': {'en': 'Crypto', 'ar': 'عملات رقمية'},
-      'bonds': {'en': 'Bonds', 'ar': 'سندات'},
-      'real_estate': {'en': 'Real Estate', 'ar': 'عقارات'},
-      'none': {'en': 'None', 'ar': 'لا شيء'},
-      'tech': {'en': 'Tech', 'ar': 'التقنية'},
-      'ev': {'en': 'EV', 'ar': 'السيارات الكهربائية'},
-      'energy': {'en': 'Energy', 'ar': 'الطاقة'},
-      'healthcare': {'en': 'Healthcare', 'ar': 'الرعاية الصحية'},
-      'retail': {'en': 'Retail', 'ar': 'التجزئة'},
+      'congratulations': {
+        'en': 'Congratulations!',
+        'ar': 'تهانينا!',
+        'fr': 'Félicitations!',
+        'es': '¡Felicitaciones!',
+        'zh': '恭喜！',
+        'ur': 'مبارک ہو!'
+      },
+      'your_investor_profile': {
+        'en': 'Your Investor Profile',
+        'ar': 'ملفك الاستثماري',
+        'fr': 'Votre Profil Investisseur',
+        'es': 'Tu Perfil de Inversor',
+        'zh': '您的投资者档案',
+        'ur': 'آپ کا سرمایہ کار پروفائل'
+      },
+      'risk_profile': {
+        'en': 'Risk Profile',
+        'ar': 'ملف المخاطر',
+        'fr': 'Profil de Risque',
+        'es': 'Perfil de Riesgo',
+        'zh': '风险档案',
+        'ur': 'خطرے کا پروفائل'
+      },
+      'goal': {
+        'en': 'Goal',
+        'ar': 'الهدف',
+        'fr': 'Objectif',
+        'es': 'Objetivo',
+        'zh': '目标',
+        'ur': 'مقصد'
+      },
+      'low_risk': {
+        'en': 'Low Risk',
+        'ar': 'مخاطر منخفضة',
+        'fr': 'Risque Faible',
+        'es': 'Riesgo Bajo',
+        'zh': '低风险',
+        'ur': 'کم خطرہ'
+      },
+      'medium_risk': {
+        'en': 'Medium Risk',
+        'ar': 'مخاطر متوسطة',
+        'fr': 'Risque Moyen',
+        'es': 'Riesgo Medio',
+        'zh': '中等风险',
+        'ur': 'درمیانہ خطرہ'
+      },
+      'high_risk': {
+        'en': 'High Risk',
+        'ar': 'مخاطر عالية',
+        'fr': 'Risque Élevé',
+        'es': 'Riesgo Alto',
+        'zh': '高风险',
+        'ur': 'زیادہ خطرہ'
+      },
+      'not_set': {
+        'en': 'Not Set',
+        'ar': 'غير محدد',
+        'fr': 'Non Défini',
+        'es': 'No Definido',
+        'zh': '未设置',
+        'ur': 'سیٹ نہیں'
+      },
+      'learn_challenge': {
+        'en': 'Learn Challenge',
+        'ar': 'تحدي التعلم',
+        'fr': 'Défi Apprentissage',
+        'es': 'Desafío de Aprendizaje',
+        'zh': '学习挑战',
+        'ur': 'سیکھنے کا چیلنج'
+      },
+      '28_days_skills': {
+        'en': '28 Days Skills',
+        'ar': 'مهارات 28 يوم',
+        'fr': 'Compétences 28 Jours',
+        'es': 'Habilidades 28 Días',
+        'zh': '28天技能',
+        'ur': '28 دن کی مہارتیں'
+      },
+      'investment_challenge': {
+        'en': 'Investment Challenge',
+        'ar': 'تحدي الاستثمار',
+        'fr': 'Défi Investissement',
+        'es': 'Desafío de Inversión',
+        'zh': '投资挑战',
+        'ur': 'سرمایہ کاری کا چیلنج'
+      },
+      'interested_industries': {
+        'en': 'Interested Industries',
+        'ar': 'الصناعات المهتم بها',
+        'fr': 'Industries d\'Intérêt',
+        'es': 'Industrias de Interés',
+        'zh': '感兴趣的行业',
+        'ur': 'دلچسپی کی صنعتیں'
+      },
+      'asset_experience': {
+        'en': 'Asset Experience',
+        'ar': 'خبرة الأصول',
+        'fr': 'Expérience des Actifs',
+        'es': 'Experiencia en Activos',
+        'zh': '资产经验',
+        'ur': 'اثاثوں کا تجربہ'
+      },
+      'investment_background': {
+        'en': '1: Investment Background',
+        'ar': '1: الخلفية الاستثمارية',
+        'fr': '1: Parcours Investissement',
+        'es': '1: Antecedentes de Inversión',
+        'zh': '1: 投资背景',
+        'ur': '1: سرمایہ کاری کا پس منظر'
+      },
+      'financial_literacy': {
+        'en': '2: Financial Literacy',
+        'ar': '2: الثقافة المالية',
+        'fr': '2: Littératie Financière',
+        'es': '2: Educación Financiera',
+        'zh': '2: 金融素养',
+        'ur': '2: مالی خواندگی'
+      },
+      'objectives_motivation': {
+        'en': '3: Objectives & Motivation',
+        'ar': '3: الأهداف والدوافع',
+        'fr': '3: Objectifs & Motivation',
+        'es': '3: Objetivos y Motivación',
+        'zh': '3: 目标与动机',
+        'ur': '3: مقاصد اور حوصلہ افزائی'
+      },
+      'learning_readiness': {
+        'en': '4: Learning Readiness',
+        'ar': '4: الاستعداد للتعلم',
+        'fr': '4: Préparation à l\'Apprentissage',
+        'es': '4: Preparación para Aprender',
+        'zh': '4: 学习准备',
+        'ur': '4: سیکھنے کی تیاری'
+      },
+      'suggested_portfolio': {
+        'en': 'Suggested Portfolio',
+        'ar': 'المحفظة المقترحة',
+        'fr': 'Portefeuille Suggéré',
+        'es': 'Portafolio Sugerido',
+        'zh': '建议投资组合',
+        'ur': 'تجویز کردہ پورٹ فولیو'
+      },
+      'portfolio_description': {
+        'en': 'Based on your profile, this portfolio size is recommended to start your investment journey.',
+        'ar': 'بناءً على ملفك الشخصي، يُوصى بحجم المحفظة هذا لبدء رحلتك الاستثمارية.',
+        'fr': 'Basé sur votre profil, cette taille de portefeuille est recommandée pour commencer votre parcours d\'investissement.',
+        'es': 'Según tu perfil, se recomienda este tamaño de portafolio para comenzar tu viaje de inversión.',
+        'zh': '根据您的档案，建议此投资组合规模开始您的投资之旅。',
+        'ur': 'آپ کے پروفائل کی بنیاد پر، اپنے سرمایہ کاری کے سفر کو شروع کرنے کے لیے اس پورٹ فولیو سائز کی سفارش کی جاتی ہے۔'
+      },
+      'portfolio_allocation': {
+        'en': 'Portfolio Allocation',
+        'ar': 'توزيع المحفظة',
+        'fr': 'Allocation du Portefeuille',
+        'es': 'Asignación del Portafolio',
+        'zh': '投资组合配置',
+        'ur': 'پورٹ فولیو مختص'
+      },
+      'optimized_for': {
+        'en': 'Optimized for',
+        'ar': 'محسّن لـ',
+        'fr': 'Optimisé pour',
+        'es': 'Optimizado para',
+        'zh': '优化于',
+        'ur': 'کے لیے بہتر بنایا گیا'
+      },
+      'share_results': {
+        'en': 'Share Results',
+        'ar': 'مشاركة النتائج',
+        'fr': 'Partager les Résultats',
+        'es': 'Compartir Resultados',
+        'zh': '分享结果',
+        'ur': 'نتائج شیئر کریں'
+      },
+      'start_trading': {
+        'en': 'Start Trading',
+        'ar': 'ابدأ التداول',
+        'fr': 'Commencer à Trader',
+        'es': 'Comenzar a Operar',
+        'zh': '开始交易',
+        'ur': 'ٹریڈنگ شروع کریں'
+      },
+      'stocks': {
+        'en': 'Stocks',
+        'ar': 'أسهم',
+        'fr': 'Actions',
+        'es': 'Acciones',
+        'zh': '股票',
+        'ur': 'اسٹاکس'
+      },
+      'etfs': {
+        'en': 'ETFs',
+        'ar': 'صناديق المؤشرات',
+        'fr': 'ETFs',
+        'es': 'ETFs',
+        'zh': 'ETFs',
+        'ur': 'ای ٹی ایفز'
+      },
+      'crypto': {
+        'en': 'Crypto',
+        'ar': 'عملات رقمية',
+        'fr': 'Crypto',
+        'es': 'Cripto',
+        'zh': '加密货币',
+        'ur': 'کرپٹو'
+      },
+      'bonds': {
+        'en': 'Bonds',
+        'ar': 'سندات',
+        'fr': 'Obligations',
+        'es': 'Bonos',
+        'zh': '债券',
+        'ur': 'بانڈز'
+      },
+      'real_estate': {
+        'en': 'Real Estate',
+        'ar': 'عقارات',
+        'fr': 'Immobilier',
+        'es': 'Bienes Raíces',
+        'zh': '房地产',
+        'ur': 'رئیل اسٹیٹ'
+      },
+      'none': {
+        'en': 'None',
+        'ar': 'لا شيء',
+        'fr': 'Aucun',
+        'es': 'Ninguno',
+        'zh': '无',
+        'ur': 'کوئی نہیں'
+      },
+      'tech': {
+        'en': 'Tech',
+        'ar': 'التقنية',
+        'fr': 'Tech',
+        'es': 'Tecnología',
+        'zh': '科技',
+        'ur': 'ٹیکنالوجی'
+      },
+      'ev': {
+        'en': 'EV',
+        'ar': 'السيارات الكهربائية',
+        'fr': 'VE',
+        'es': 'VE',
+        'zh': '电动汽车',
+        'ur': 'ای وی'
+      },
+      'energy': {
+        'en': 'Energy',
+        'ar': 'الطاقة',
+        'fr': 'Énergie',
+        'es': 'Energía',
+        'zh': '能源',
+        'ur': 'توانائی'
+      },
+      'healthcare': {
+        'en': 'Healthcare',
+        'ar': 'الرعاية الصحية',
+        'fr': 'Santé',
+        'es': 'Salud',
+        'zh': '医疗保健',
+        'ur': 'صحت کی دیکھ بھال'
+      },
+      'retail': {
+        'en': 'Retail',
+        'ar': 'التجزئة',
+        'fr': 'Commerce',
+        'es': 'Comercio',
+        'zh': '零售',
+        'ur': 'ریٹیل'
+      },
       // Score labels
-      'very_low_experience': {'en': 'Very Low Experience', 'ar': 'خبرة منخفضة جداً'},
-      'low_experience': {'en': 'Low Experience', 'ar': 'خبرة منخفضة'},
-      'moderate_experience': {'en': 'Moderate Experience', 'ar': 'خبرة متوسطة'},
-      'high_experience': {'en': 'High Experience', 'ar': 'خبرة عالية'},
-      'beginner': {'en': 'Beginner', 'ar': 'مبتدئ'},
-      'intermediate': {'en': 'Intermediate', 'ar': 'متوسط'},
-      'expert': {'en': 'Expert', 'ar': 'متقدم'},
-      'advanced': {'en': 'Advanced', 'ar': 'متقدم'},
-      'unclear_objectives': {'en': 'Unclear or Basic Objectives', 'ar': 'أهداف غير واضحة أو أساسية'},
-      'developing_objectives': {'en': 'Developing Objectives', 'ar': 'أهداف قيد التطوير'},
-      'strong_objectives': {'en': 'Strong, Defined Objectives', 'ar': 'أهداف قوية ومحددة'},
-      'learning_challenge': {'en': 'Learning Challenge', 'ar': 'تحدي التعلم'},
-      'skill_challenge': {'en': 'Skill Challenge', 'ar': 'تحدي المهارات'},
-      'investing_challenge': {'en': 'Investing Challenge', 'ar': 'تحدي الاستثمار'},
-      'ready_for_challenge': {'en': 'Ready for Challenge', 'ar': 'جاهز للتحدي'},
+      'very_low_experience': {
+        'en': 'Very Low Experience',
+        'ar': 'خبرة منخفضة جداً',
+        'fr': 'Très Faible Expérience',
+        'es': 'Experiencia Muy Baja',
+        'zh': '经验非常少',
+        'ur': 'بہت کم تجربہ'
+      },
+      'low_experience': {
+        'en': 'Low Experience',
+        'ar': 'خبرة منخفضة',
+        'fr': 'Faible Expérience',
+        'es': 'Experiencia Baja',
+        'zh': '经验较少',
+        'ur': 'کم تجربہ'
+      },
+      'moderate_experience': {
+        'en': 'Moderate Experience',
+        'ar': 'خبرة متوسطة',
+        'fr': 'Expérience Modérée',
+        'es': 'Experiencia Moderada',
+        'zh': '中等经验',
+        'ur': 'معتدل تجربہ'
+      },
+      'high_experience': {
+        'en': 'High Experience',
+        'ar': 'خبرة عالية',
+        'fr': 'Grande Expérience',
+        'es': 'Alta Experiencia',
+        'zh': '丰富经验',
+        'ur': 'زیادہ تجربہ'
+      },
+      'beginner': {
+        'en': 'Beginner',
+        'ar': 'مبتدئ',
+        'fr': 'Débutant',
+        'es': 'Principiante',
+        'zh': '初学者',
+        'ur': 'نوآموز'
+      },
+      'intermediate': {
+        'en': 'Intermediate',
+        'ar': 'متوسط',
+        'fr': 'Intermédiaire',
+        'es': 'Intermedio',
+        'zh': '中级',
+        'ur': 'درمیانہ'
+      },
+      'expert': {
+        'en': 'Expert',
+        'ar': 'متقدم',
+        'fr': 'Expert',
+        'es': 'Experto',
+        'zh': '专家',
+        'ur': 'ماہر'
+      },
+      'advanced': {
+        'en': 'Advanced',
+        'ar': 'متقدم',
+        'fr': 'Avancé',
+        'es': 'Avanzado',
+        'zh': '高级',
+        'ur': 'ایڈوانسڈ'
+      },
+      'unclear_objectives': {
+        'en': 'Unclear or Basic Objectives',
+        'ar': 'أهداف غير واضحة أو أساسية',
+        'fr': 'Objectifs Flous ou Basiques',
+        'es': 'Objetivos Poco Claros o Básicos',
+        'zh': '目标不明确或基础',
+        'ur': 'غیر واضح یا بنیادی مقاصد'
+      },
+      'developing_objectives': {
+        'en': 'Developing Objectives',
+        'ar': 'أهداف قيد التطوير',
+        'fr': 'Objectifs en Développement',
+        'es': 'Objetivos en Desarrollo',
+        'zh': '发展中的目标',
+        'ur': 'ترقی پذیر مقاصد'
+      },
+      'strong_objectives': {
+        'en': 'Strong, Defined Objectives',
+        'ar': 'أهداف قوية ومحددة',
+        'fr': 'Objectifs Forts et Définis',
+        'es': 'Objetivos Fuertes y Definidos',
+        'zh': '明确的强目标',
+        'ur': 'مضبوط، واضح مقاصد'
+      },
+      'learning_challenge': {
+        'en': 'Learning Challenge',
+        'ar': 'تحدي التعلم',
+        'fr': 'Défi d\'Apprentissage',
+        'es': 'Desafío de Aprendizaje',
+        'zh': '学习挑战',
+        'ur': 'سیکھنے کا چیلنج'
+      },
+      'skill_challenge': {
+        'en': 'Skill Challenge',
+        'ar': 'تحدي المهارات',
+        'fr': 'Défi de Compétences',
+        'es': 'Desafío de Habilidades',
+        'zh': '技能挑战',
+        'ur': 'مہارت کا چیلنج'
+      },
+      'investing_challenge': {
+        'en': 'Investing Challenge',
+        'ar': 'تحدي الاستثمار',
+        'fr': 'Défi d\'Investissement',
+        'es': 'Desafío de Inversión',
+        'zh': '投资挑战',
+        'ur': 'سرمایہ کاری کا چیلنج'
+      },
+      'ready_for_challenge': {
+        'en': 'Ready for Challenge',
+        'ar': 'جاهز للتحدي',
+        'fr': 'Prêt pour le Défi',
+        'es': 'Listo para el Desafío',
+        'zh': '准备迎接挑战',
+        'ur': 'چیلنج کے لیے تیار'
+      },
       // Goal labels
-      'capital_protection': {'en': 'Capital Protection', 'ar': 'حماية رأس المال'},
-      'extra_income': {'en': 'Extra Income', 'ar': 'دخل إضافي'},
-      'capital_growth': {'en': 'Capital Growth', 'ar': 'نمو رأس المال'},
-      'long_term_wealth': {'en': 'Long-term Wealth', 'ar': 'الثروة طويلة الأجل'},
-      'short_term_trading': {'en': 'Short-term Trading', 'ar': 'التداول قصير الأجل'},
-      'not_specified': {'en': 'Not specified', 'ar': 'غير محدد'},
+      'capital_protection': {
+        'en': 'Capital Protection',
+        'ar': 'حماية رأس المال',
+        'fr': 'Protection du Capital',
+        'es': 'Protección del Capital',
+        'zh': '资本保护',
+        'ur': 'سرمائے کا تحفظ'
+      },
+      'extra_income': {
+        'en': 'Extra Income',
+        'ar': 'دخل إضافي',
+        'fr': 'Revenu Supplémentaire',
+        'es': 'Ingresos Extra',
+        'zh': '额外收入',
+        'ur': 'اضافی آمدنی'
+      },
+      'capital_growth': {
+        'en': 'Capital Growth',
+        'ar': 'نمو رأس المال',
+        'fr': 'Croissance du Capital',
+        'es': 'Crecimiento del Capital',
+        'zh': '资本增长',
+        'ur': 'سرمائے کی نمو'
+      },
+      'long_term_wealth': {
+        'en': 'Long-term Wealth',
+        'ar': 'الثروة طويلة الأجل',
+        'fr': 'Richesse à Long Terme',
+        'es': 'Riqueza a Largo Plazo',
+        'zh': '长期财富',
+        'ur': 'طویل مدتی دولت'
+      },
+      'short_term_trading': {
+        'en': 'Short-term Trading',
+        'ar': 'التداول قصير الأجل',
+        'fr': 'Trading à Court Terme',
+        'es': 'Trading a Corto Plazo',
+        'zh': '短期交易',
+        'ur': 'قلیل مدتی ٹریڈنگ'
+      },
+      'not_specified': {
+        'en': 'Not specified',
+        'ar': 'غير محدد',
+        'fr': 'Non spécifié',
+        'es': 'No especificado',
+        'zh': '未指定',
+        'ur': 'غیر متعین'
+      },
       // Finance label
-      'finance': {'en': 'Finance', 'ar': 'المالية'},
-      'crypto_blockchain': {'en': 'Crypto/Blockchain', 'ar': 'العملات الرقمية/البلوكتشين'},
+      'finance': {
+        'en': 'Finance',
+        'ar': 'المالية',
+        'fr': 'Finance',
+        'es': 'Finanzas',
+        'zh': '金融',
+        'ur': 'فنانس'
+      },
+      'crypto_blockchain': {
+        'en': 'Crypto/Blockchain',
+        'ar': 'العملات الرقمية/البلوكتشين',
+        'fr': 'Crypto/Blockchain',
+        'es': 'Cripto/Blockchain',
+        'zh': '加密货币/区块链',
+        'ur': 'کرپٹو/بلاک چین'
+      },
     };
     return translations[key]?[_selectedLanguage] ?? translations[key]?['en'] ?? key;
   }
@@ -1262,7 +1661,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
                           Expanded(
                             child: _ActionButton(
                               label: _t('start_trading'),
-                              icon: _isArabic ? Icons.arrow_back_rounded : Icons.arrow_forward_rounded,
+                              icon: _isRTL ? Icons.arrow_back_rounded : Icons.arrow_forward_rounded,
                               isPrimary: true,
                               onTap: () => Navigator.pushReplacementNamed(
                                 context,
