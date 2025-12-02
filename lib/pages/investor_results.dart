@@ -857,7 +857,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Félicitations!',
         'es': '¡Felicitaciones!',
         'zh': '恭喜！',
-        'hi': 'مبارک ہو!'
+        'hi': 'बधाई हो!'
       },
       'your_investor_profile': {
         'en': 'Your Investor Profile',
@@ -865,7 +865,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Votre Profil Investisseur',
         'es': 'Tu Perfil de Inversor',
         'zh': '您的投资者档案',
-        'hi': 'آپ کا سرمایہ کار پروفائل'
+        'hi': 'आपका निवेशक प्रोफ़ाइल'
       },
       'risk_profile': {
         'en': 'Risk Profile',
@@ -873,7 +873,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Profil de Risque',
         'es': 'Perfil de Riesgo',
         'zh': '风险档案',
-        'hi': 'خطرے کا پروفائل'
+        'hi': 'जोखिम प्रोफ़ाइल'
       },
       'goal': {
         'en': 'Goal',
@@ -881,7 +881,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Objectif',
         'es': 'Objetivo',
         'zh': '目标',
-        'hi': 'مقصد'
+        'hi': 'लक्ष्य'
       },
       'low_risk': {
         'en': 'Low Risk',
@@ -889,7 +889,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Risque Faible',
         'es': 'Riesgo Bajo',
         'zh': '低风险',
-        'hi': 'کم خطرہ'
+        'hi': 'कम जोखिम'
       },
       'medium_risk': {
         'en': 'Medium Risk',
@@ -897,7 +897,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Risque Moyen',
         'es': 'Riesgo Medio',
         'zh': '中等风险',
-        'hi': 'درمیانہ خطرہ'
+        'hi': 'मध्यम जोखिम'
       },
       'high_risk': {
         'en': 'High Risk',
@@ -905,7 +905,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Risque Élevé',
         'es': 'Riesgo Alto',
         'zh': '高风险',
-        'hi': 'زیادہ خطرہ'
+        'hi': 'उच्च जोखिम'
       },
       'not_set': {
         'en': 'Not Set',
@@ -913,7 +913,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Non Défini',
         'es': 'No Definido',
         'zh': '未设置',
-        'hi': 'سیٹ نہیں'
+        'hi': 'सेट नहीं'
       },
       'learn_challenge': {
         'en': 'Learn Challenge',
@@ -921,7 +921,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Défi Apprentissage',
         'es': 'Desafío de Aprendizaje',
         'zh': '学习挑战',
-        'hi': 'سیکھنے کا چیلنج'
+        'hi': 'सीखने की चुनौती'
       },
       '28_days_skills': {
         'en': '28 Days Skills',
@@ -929,7 +929,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Compétences 28 Jours',
         'es': 'Habilidades 28 Días',
         'zh': '28天技能',
-        'hi': '28 دن کی مہارتیں'
+        'hi': '28 दिन कौशल'
       },
       'investment_challenge': {
         'en': 'Investment Challenge',
@@ -937,7 +937,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Défi Investissement',
         'es': 'Desafío de Inversión',
         'zh': '投资挑战',
-        'hi': 'سرمایہ کاری کا چیلنج'
+        'hi': 'निवेश चुनौती'
       },
       'interested_industries': {
         'en': 'Interested Industries',
@@ -945,7 +945,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Industries d\'Intérêt',
         'es': 'Industrias de Interés',
         'zh': '感兴趣的行业',
-        'hi': 'دلچسپی کی صنعتیں'
+        'hi': 'रुचि के उद्योग'
       },
       'asset_experience': {
         'en': 'Asset Experience',
@@ -953,7 +953,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Expérience des Actifs',
         'es': 'Experiencia en Activos',
         'zh': '资产经验',
-        'hi': 'اثاثوں کا تجربہ'
+        'hi': 'संपत्ति अनुभव'
       },
       'investment_background': {
         'en': '1: Investment Background',
@@ -961,7 +961,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': '1: Parcours Investissement',
         'es': '1: Antecedentes de Inversión',
         'zh': '1: 投资背景',
-        'hi': '1: سرمایہ کاری کا پس منظر'
+        'hi': '1: निवेश पृष्ठभूमि'
       },
       'financial_literacy': {
         'en': '2: Financial Literacy',
@@ -969,7 +969,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': '2: Littératie Financière',
         'es': '2: Educación Financiera',
         'zh': '2: 金融素养',
-        'hi': '2: مالی خواندگی'
+        'hi': '2: वित्तीय साक्षरता'
       },
       'objectives_motivation': {
         'en': '3: Objectives & Motivation',
@@ -977,7 +977,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': '3: Objectifs & Motivation',
         'es': '3: Objetivos y Motivación',
         'zh': '3: 目标与动机',
-        'hi': '3: مقاصد اور حوصلہ افزائی'
+        'hi': '3: उद्देश्य और प्रेरणा'
       },
       'learning_readiness': {
         'en': '4: Learning Readiness',
@@ -985,7 +985,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': '4: Préparation à l\'Apprentissage',
         'es': '4: Preparación para Aprender',
         'zh': '4: 学习准备',
-        'hi': '4: سیکھنے کی تیاری'
+        'hi': '4: सीखने की तैयारी'
       },
       'suggested_portfolio': {
         'en': 'Suggested Portfolio',
@@ -993,7 +993,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Portefeuille Suggéré',
         'es': 'Portafolio Sugerido',
         'zh': '建议投资组合',
-        'hi': 'تجویز کردہ پورٹ فولیو'
+        'hi': 'सुझाया गया पोर्टफोलियो'
       },
       'portfolio_description': {
         'en': 'Based on your profile, this portfolio size is recommended to start your investment journey.',
@@ -1001,7 +1001,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Basé sur votre profil, cette taille de portefeuille est recommandée pour commencer votre parcours d\'investissement.',
         'es': 'Según tu perfil, se recomienda este tamaño de portafolio para comenzar tu viaje de inversión.',
         'zh': '根据您的档案，建议此投资组合规模开始您的投资之旅。',
-        'hi': 'آپ کے پروفائل کی بنیاد پر، اپنے سرمایہ کاری کے سفر کو شروع کرنے کے لیے اس پورٹ فولیو سائز کی سفارش کی جاتی ہے۔'
+        'hi': 'आपकी प्रोफ़ाइल के आधार पर, अपनी निवेश यात्रा शुरू करने के लिए इस पोर्टफोलियो आकार की सिफारिश की जाती है।'
       },
       'portfolio_allocation': {
         'en': 'Portfolio Allocation',
@@ -1009,7 +1009,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Allocation du Portefeuille',
         'es': 'Asignación del Portafolio',
         'zh': '投资组合配置',
-        'hi': 'پورٹ فولیو مختص'
+        'hi': 'पोर्टफोलियो आवंटन'
       },
       'optimized_for': {
         'en': 'Optimized for',
@@ -1017,7 +1017,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Optimisé pour',
         'es': 'Optimizado para',
         'zh': '优化于',
-        'hi': 'کے لیے بہتر بنایا گیا'
+        'hi': 'के लिए अनुकूलित'
       },
       'share_results': {
         'en': 'Share Results',
@@ -1025,7 +1025,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Partager les Résultats',
         'es': 'Compartir Resultados',
         'zh': '分享结果',
-        'hi': 'نتائج شیئر کریں'
+        'hi': 'परिणाम साझा करें'
       },
       'start_trading': {
         'en': 'Start Trading',
@@ -1033,7 +1033,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Commencer à Trader',
         'es': 'Comenzar a Operar',
         'zh': '开始交易',
-        'hi': 'ٹریڈنگ شروع کریں'
+        'hi': 'ट्रेडिंग शुरू करें'
       },
       'stocks': {
         'en': 'Stocks',
@@ -1041,7 +1041,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Actions',
         'es': 'Acciones',
         'zh': '股票',
-        'hi': 'اسٹاکس'
+        'hi': 'स्टॉक्स'
       },
       'etfs': {
         'en': 'ETFs',
@@ -1049,7 +1049,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'ETFs',
         'es': 'ETFs',
         'zh': 'ETFs',
-        'hi': 'ای ٹی ایفز'
+        'hi': 'ईटीएफ'
       },
       'crypto': {
         'en': 'Crypto',
@@ -1057,7 +1057,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Crypto',
         'es': 'Cripto',
         'zh': '加密货币',
-        'hi': 'کرپٹو'
+        'hi': 'क्रिप्टो'
       },
       'bonds': {
         'en': 'Bonds',
@@ -1065,7 +1065,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Obligations',
         'es': 'Bonos',
         'zh': '债券',
-        'hi': 'بانڈز'
+        'hi': 'बॉन्ड्स'
       },
       'real_estate': {
         'en': 'Real Estate',
@@ -1073,7 +1073,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Immobilier',
         'es': 'Bienes Raíces',
         'zh': '房地产',
-        'hi': 'رئیل اسٹیٹ'
+        'hi': 'रियल एस्टेट'
       },
       'none': {
         'en': 'None',
@@ -1081,7 +1081,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Aucun',
         'es': 'Ninguno',
         'zh': '无',
-        'hi': 'کوئی نہیں'
+        'hi': 'कोई नहीं'
       },
       'tech': {
         'en': 'Tech',
@@ -1089,7 +1089,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Tech',
         'es': 'Tecnología',
         'zh': '科技',
-        'hi': 'ٹیکنالوجی'
+        'hi': 'टेक'
       },
       'ev': {
         'en': 'EV',
@@ -1097,7 +1097,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'VE',
         'es': 'VE',
         'zh': '电动汽车',
-        'hi': 'ای وی'
+        'hi': 'ईवी'
       },
       'energy': {
         'en': 'Energy',
@@ -1105,7 +1105,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Énergie',
         'es': 'Energía',
         'zh': '能源',
-        'hi': 'توانائی'
+        'hi': 'ऊर्जा'
       },
       'healthcare': {
         'en': 'Healthcare',
@@ -1113,7 +1113,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Santé',
         'es': 'Salud',
         'zh': '医疗保健',
-        'hi': 'صحت کی دیکھ بھال'
+        'hi': 'स्वास्थ्य सेवा'
       },
       'retail': {
         'en': 'Retail',
@@ -1121,7 +1121,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Commerce',
         'es': 'Comercio',
         'zh': '零售',
-        'hi': 'ریٹیل'
+        'hi': 'रिटेल'
       },
       // Score labels
       'very_low_experience': {
@@ -1130,7 +1130,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Très Faible Expérience',
         'es': 'Experiencia Muy Baja',
         'zh': '经验非常少',
-        'hi': 'بہت کم تجربہ'
+        'hi': 'बहुत कम अनुभव'
       },
       'low_experience': {
         'en': 'Low Experience',
@@ -1138,7 +1138,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Faible Expérience',
         'es': 'Experiencia Baja',
         'zh': '经验较少',
-        'hi': 'کم تجربہ'
+        'hi': 'कम अनुभव'
       },
       'moderate_experience': {
         'en': 'Moderate Experience',
@@ -1146,7 +1146,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Expérience Modérée',
         'es': 'Experiencia Moderada',
         'zh': '中等经验',
-        'hi': 'معتدل تجربہ'
+        'hi': 'मध्यम अनुभव'
       },
       'high_experience': {
         'en': 'High Experience',
@@ -1154,7 +1154,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Grande Expérience',
         'es': 'Alta Experiencia',
         'zh': '丰富经验',
-        'hi': 'زیادہ تجربہ'
+        'hi': 'उच्च अनुभव'
       },
       'beginner': {
         'en': 'Beginner',
@@ -1162,7 +1162,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Débutant',
         'es': 'Principiante',
         'zh': '初学者',
-        'hi': 'نوآموز'
+        'hi': 'शुरुआती'
       },
       'intermediate': {
         'en': 'Intermediate',
@@ -1170,7 +1170,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Intermédiaire',
         'es': 'Intermedio',
         'zh': '中级',
-        'hi': 'درمیانہ'
+        'hi': 'मध्यवर्ती'
       },
       'expert': {
         'en': 'Expert',
@@ -1178,7 +1178,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Expert',
         'es': 'Experto',
         'zh': '专家',
-        'hi': 'ماہر'
+        'hi': 'विशेषज्ञ'
       },
       'advanced': {
         'en': 'Advanced',
@@ -1186,7 +1186,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Avancé',
         'es': 'Avanzado',
         'zh': '高级',
-        'hi': 'ایڈوانسڈ'
+        'hi': 'उन्नत'
       },
       'unclear_objectives': {
         'en': 'Unclear or Basic Objectives',
@@ -1194,7 +1194,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Objectifs Flous ou Basiques',
         'es': 'Objetivos Poco Claros o Básicos',
         'zh': '目标不明确或基础',
-        'hi': 'غیر واضح یا بنیادی مقاصد'
+        'hi': 'अस्पष्ट या बुनियादी उद्देश्य'
       },
       'developing_objectives': {
         'en': 'Developing Objectives',
@@ -1202,7 +1202,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Objectifs en Développement',
         'es': 'Objetivos en Desarrollo',
         'zh': '发展中的目标',
-        'hi': 'ترقی پذیر مقاصد'
+        'hi': 'विकासशील उद्देश्य'
       },
       'strong_objectives': {
         'en': 'Strong, Defined Objectives',
@@ -1210,7 +1210,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Objectifs Forts et Définis',
         'es': 'Objetivos Fuertes y Definidos',
         'zh': '明确的强目标',
-        'hi': 'مضبوط، واضح مقاصد'
+        'hi': 'मजबूत, परिभाषित उद्देश्य'
       },
       'learning_challenge': {
         'en': 'Learning Challenge',
@@ -1218,7 +1218,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Défi d\'Apprentissage',
         'es': 'Desafío de Aprendizaje',
         'zh': '学习挑战',
-        'hi': 'سیکھنے کا چیلنج'
+        'hi': 'सीखने की चुनौती'
       },
       'skill_challenge': {
         'en': 'Skill Challenge',
@@ -1226,7 +1226,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Défi de Compétences',
         'es': 'Desafío de Habilidades',
         'zh': '技能挑战',
-        'hi': 'مہارت کا چیلنج'
+        'hi': 'कौशल चुनौती'
       },
       'investing_challenge': {
         'en': 'Investing Challenge',
@@ -1234,7 +1234,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Défi d\'Investissement',
         'es': 'Desafío de Inversión',
         'zh': '投资挑战',
-        'hi': 'سرمایہ کاری کا چیلنج'
+        'hi': 'निवेश चुनौती'
       },
       'ready_for_challenge': {
         'en': 'Ready for Challenge',
@@ -1242,7 +1242,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Prêt pour le Défi',
         'es': 'Listo para el Desafío',
         'zh': '准备迎接挑战',
-        'hi': 'چیلنج کے لیے تیار'
+        'hi': 'चुनौती के लिए तैयार'
       },
       // Goal labels
       'capital_protection': {
@@ -1251,7 +1251,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Protection du Capital',
         'es': 'Protección del Capital',
         'zh': '资本保护',
-        'hi': 'سرمائے کا تحفظ'
+        'hi': 'पूंजी सुरक्षा'
       },
       'extra_income': {
         'en': 'Extra Income',
@@ -1259,7 +1259,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Revenu Supplémentaire',
         'es': 'Ingresos Extra',
         'zh': '额外收入',
-        'hi': 'اضافی آمدنی'
+        'hi': 'अतिरिक्त आय'
       },
       'capital_growth': {
         'en': 'Capital Growth',
@@ -1267,7 +1267,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Croissance du Capital',
         'es': 'Crecimiento del Capital',
         'zh': '资本增长',
-        'hi': 'سرمائے کی نمو'
+        'hi': 'पूंजी वृद्धि'
       },
       'long_term_wealth': {
         'en': 'Long-term Wealth',
@@ -1275,7 +1275,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Richesse à Long Terme',
         'es': 'Riqueza a Largo Plazo',
         'zh': '长期财富',
-        'hi': 'طویل مدتی دولت'
+        'hi': 'दीर्घकालिक धन'
       },
       'short_term_trading': {
         'en': 'Short-term Trading',
@@ -1283,7 +1283,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Trading à Court Terme',
         'es': 'Trading a Corto Plazo',
         'zh': '短期交易',
-        'hi': 'قلیل مدتی ٹریڈنگ'
+        'hi': 'अल्पकालिक ट्रेडिंग'
       },
       'not_specified': {
         'en': 'Not specified',
@@ -1291,7 +1291,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Non spécifié',
         'es': 'No especificado',
         'zh': '未指定',
-        'hi': 'غیر متعین'
+        'hi': 'निर्दिष्ट नहीं'
       },
       // Finance label
       'finance': {
@@ -1300,7 +1300,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Finance',
         'es': 'Finanzas',
         'zh': '金融',
-        'hi': 'فنانس'
+        'hi': 'वित्त'
       },
       'crypto_blockchain': {
         'en': 'Crypto/Blockchain',
@@ -1308,7 +1308,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'fr': 'Crypto/Blockchain',
         'es': 'Cripto/Blockchain',
         'zh': '加密货币/区块链',
-        'hi': 'کرپٹو/بلاک چین'
+        'hi': 'क्रिप्टो/ब्लॉकचेन'
       },
       // Info Modal - Personality (Investment Background)
       'info_personality_title': {
@@ -1778,8 +1778,10 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
     final portfolio = InvestorScoring.getSuggestedPortfolio(strength, personality, readiness);
     final allocations = InvestorScoring.getPortfolioAllocationByScore(totalScore.score);
 
-    return Scaffold(
-      body: Stack(
+    return Directionality(
+      textDirection: _isRTL ? TextDirection.rtl : TextDirection.ltr,
+      child: Scaffold(
+        body: Stack(
         children: [
           // Gradient Background
           Container(
@@ -2013,6 +2015,7 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
             ),
           ),
         ],
+      ),
       ),
     );
   }
@@ -2972,20 +2975,21 @@ class _ActionButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
-          color: isPrimary ? const Color(0xFF6366F1) : Colors.white,
+          color: isPrimary ? const Color(0xFF6366F1) : const Color(0xFF1E293B),
           borderRadius: BorderRadius.circular(14),
+          border: isPrimary ? null : Border.all(color: const Color(0xFF475569), width: 1),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (!isPrimary) Icon(icon, color: const Color(0xFF6366F1), size: 20),
+            if (!isPrimary) Icon(icon, color: const Color(0xFF94A3B8), size: 20),
             if (!isPrimary) const SizedBox(width: 8),
             Text(
               label,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
-                color: isPrimary ? Colors.white : const Color(0xFF6366F1),
+                color: isPrimary ? Colors.white : const Color(0xFF94A3B8),
               ),
             ),
             if (isPrimary) const SizedBox(width: 8),

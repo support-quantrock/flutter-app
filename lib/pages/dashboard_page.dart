@@ -879,15 +879,6 @@ class _DashboardPageState extends State<DashboardPage>
               ),
             ),
           ),
-          const SizedBox(height: 12),
-          const Text(
-            'Not Qualified',
-            style: TextStyle(
-              color: Colors.orange,
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
         ],
       ),
     );
@@ -1249,7 +1240,13 @@ class _DashboardPageState extends State<DashboardPage>
             ),
           ],
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 16),
+        // Separator line
+        Container(
+          height: 1,
+          color: Colors.white.withValues(alpha: 0.1),
+        ),
+        const SizedBox(height: 16),
         // Tab buttons
         Row(
           children: [
