@@ -1118,7 +1118,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                 ),
                 const SizedBox(height: 16),
                 const Text(
-                  'QUANTROCK LTD',
+                  '© 2025 Quantrock. All rights reserved.',
                   style: TextStyle(
                     color: Color(0xFF6B7280),
                     fontSize: 11,
@@ -1546,7 +1546,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
               _t('intro_text1'),
               style: TextStyle(
                 color: Colors.white.withValues(alpha: 0.9),
-                fontSize: 15,
+                fontSize: 13,
                 height: 1.5,
               ),
               textAlign: _isArabic ? TextAlign.right : TextAlign.left,
