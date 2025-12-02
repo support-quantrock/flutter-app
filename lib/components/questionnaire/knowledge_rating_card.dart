@@ -294,43 +294,11 @@ class _KnowledgeRatingCardState extends State<KnowledgeRatingCard> {
             children: List.generate(5, (index) {
               final value = index + 1;
               final isSelected = currentRating == value;
-              return GestureDetector(
+              return _RatingButton(
+                value: value,
+                isSelected: isSelected,
+                color: _getRatingColor(value),
                 onTap: () => widget.onRatingChanged(area, value),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: isSelected
-                        ? _getRatingColor(value)
-                        : Colors.white.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: isSelected
-                          ? _getRatingColor(value)
-                          : Colors.white.withValues(alpha: 0.2),
-                      width: isSelected ? 2 : 1,
-                    ),
-                    boxShadow: isSelected
-                        ? [
-                            BoxShadow(
-                              color: _getRatingColor(value).withValues(alpha: 0.4),
-                              blurRadius: 8,
-                            ),
-                          ]
-                        : null,
-                  ),
-                  child: Center(
-                    child: Text(
-                      '$value',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: isSelected ? Colors.white : Colors.white70,
-                      ),
-                    ),
-                  ),
-                ),
               );
             }),
           ),
@@ -354,5 +322,101 @@ class _KnowledgeRatingCardState extends State<KnowledgeRatingCard> {
       default:
         return Colors.grey;
     }
+  }
+}
+
+class _RatingButton extends StatefulWidget {
+  final int value;
+  final bool isSelected;
+  final Color color;
+  final VoidCallback onTap;
+
+  const _RatingButton({
+    required this.value,
+    required this.isSelected,
+    required this.color,
+    required this.onTap,
+  });
+
+  @override
+  State<_RatingButton> createState() => _RatingButtonState();
+}
+
+class _RatingButtonState extends State<_RatingButton>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 150),
+      vsync: this,
+    );
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.9).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (_) => _controller.forward(),
+      onTapUp: (_) {
+        _controller.reverse();
+        widget.onTap();
+      },
+      onTapCancel: () => _controller.reverse(),
+      child: AnimatedBuilder(
+        animation: _scaleAnimation,
+        builder: (context, child) {
+          return Transform.scale(
+            scale: _scaleAnimation.value,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: widget.isSelected
+                    ? widget.color
+                    : Colors.white.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: widget.isSelected
+                      ? widget.color
+                      : Colors.white.withValues(alpha: 0.2),
+                  width: widget.isSelected ? 2 : 1,
+                ),
+                boxShadow: widget.isSelected
+                    ? [
+                        BoxShadow(
+                          color: widget.color.withValues(alpha: 0.4),
+                          blurRadius: 8,
+                        ),
+                      ]
+                    : null,
+              ),
+              child: Center(
+                child: Text(
+                  '${widget.value}',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: widget.isSelected ? Colors.white : Colors.white70,
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }

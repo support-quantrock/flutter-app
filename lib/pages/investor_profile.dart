@@ -349,28 +349,12 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   }
 
   String _getLevelTitle(int level) {
-    // Match level titles to current section theme
-    if (_step <= 9) {
-      // Section 1: Personal Information & Investment Background
-      if (level <= 2) return 'Profile Explorer';
-      if (level <= 3) return 'Background Builder';
-      return 'Experience Tracker';
-    } else if (_step <= 14) {
-      // Section 2: Financial Literacy & Personal Readiness
-      if (level <= 4) return 'Literacy Learner';
-      if (level <= 5) return 'Finance Scholar';
-      return 'Risk Analyst';
-    } else if (_step <= 17) {
-      // Section 3: Investment Objectives & User Motivation
-      if (level <= 6) return 'Goal Setter';
-      if (level <= 7) return 'Strategy Planner';
-      return 'Vision Builder';
-    } else {
-      // Section 4: Learning Readiness & Portfolio Preferences
-      if (level <= 8) return 'Ready Investor';
-      if (level <= 9) return 'Portfolio Designer';
-      return 'Investment Master';
-    }
+    // Level badges: Novice → Rising Trader → Market Explorer → Portfolio Builder → Investment Master
+    if (level <= 1) return 'Novice';
+    if (level <= 2) return 'Rising Trader';
+    if (level <= 3) return 'Market Explorer';
+    if (level <= 4) return 'Portfolio Builder';
+    return 'Investment Master';
   }
 
   void _awardXP(int xp) {
@@ -388,14 +372,14 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   }
 
   void _checkMilestones() {
-    if (_step == 9) {
-      _showMilestonePopup('Investment Background Complete!', 'Your profile is ready!');
-    } else if (_step == 14) {
-      _showMilestonePopup('Financial Literacy Assessed!', 'Your knowledge is measured!');
-    } else if (_step == 17) {
-      _showMilestonePopup('Investment Goals Defined!', 'Your strategy is set!');
+    if (_step == 5) {
+      _showMilestonePopup('5 Questions Complete!', 'Great start on your journey!');
+    } else if (_step == 10) {
+      _showMilestonePopup('Halfway There!', '10 questions answered!');
+    } else if (_step == 15) {
+      _showMilestonePopup('Almost Done!', 'Just 5 more to go!');
     } else if (_step == 20) {
-      _showMilestonePopup('Portfolio Preferences Set!', 'You are ready to invest!');
+      _showMilestonePopup('Quest Complete!', 'You are ready to invest!');
     }
   }
 
@@ -1988,8 +1972,8 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                       width: constraints.maxWidth,
                       child: Row(
                         children: () {
-                          // Section boundaries (actual question numbers)
-                          final sectionBounds = [0, 9, 14, 17, 20];
+                          // Section boundaries at milestones (5, 10, 15, 20)
+                          final sectionBounds = [0, 5, 10, 15, 20];
                           final segmentWidgets = <Widget>[];
                           // Equal visual width for each section (25% each)
                           final sectionWidth = constraints.maxWidth / 4;
@@ -2040,10 +2024,10 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                       ),
                     ),
                   ),
-                  // Milestone markers - equally spaced with QIQT gradient colors
+                  // Milestone markers - at 5, 10, 15, 20 questions
                   ...List.generate(4, (index) {
-                    // Milestone positions at equal intervals (25%, 50%, 75%, 100%)
-                    final milestoneSteps = [9, 14, 17, 20];
+                    // Milestone positions at 5, 10, 15, 20 questions (25%, 50%, 75%, 100%)
+                    final milestoneSteps = [5, 10, 15, 20];
                     final isReached = _step >= milestoneSteps[index];
                     final milestoneColor = milestoneColors[index];
                     // Equal spacing: each at 25%, 50%, 75%, 100%
