@@ -1424,32 +1424,31 @@ class _DashboardPageState extends State<DashboardPage>
         Padding(
           padding: const EdgeInsets.only(bottom: 12),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               GestureDetector(
                 onTap: () {
                   // TODO: Handle add to watchlist
                 },
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF22C55E).withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: const Color(0xFF22C55E).withValues(alpha: 0.3)),
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.add, color: const Color(0xFF22C55E), size: 18),
-                      const SizedBox(width: 4),
                       Text(
                         'Add',
                         style: TextStyle(
-                          color: const Color(0xFF22C55E),
+                          color: Colors.white,
                           fontSize: 14,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
+                      const SizedBox(width: 6),
+                      Icon(Icons.add, color: Colors.white, size: 18),
                     ],
                   ),
                 ),
