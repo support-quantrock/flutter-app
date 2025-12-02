@@ -2126,12 +2126,22 @@ class _DashboardPageState extends State<DashboardPage>
           const SizedBox(height: 8),
           _buildOrderDetailRow(
             const Text('SL', style: TextStyle(color: Color(0xFFEF4444), fontSize: 13, fontWeight: FontWeight.w500)),
-            Text('\$ ${stopLoss.toStringAsFixed(2)}', style: const TextStyle(color: Color(0xFFEF4444), fontSize: 13)),
+            Row(
+              children: [
+                Text('\$ ${stopLoss.toStringAsFixed(2)}', style: const TextStyle(color: Color(0xFFEF4444), fontSize: 13)),
+                Text(' (${((entryPrice - stopLoss) / entryPrice * 100).toStringAsFixed(1)}%)', style: const TextStyle(color: Color(0xFFEF4444), fontSize: 12)),
+              ],
+            ),
           ),
           const SizedBox(height: 8),
           _buildOrderDetailRow(
             const Text('TP', style: TextStyle(color: Color(0xFF22C55E), fontSize: 13, fontWeight: FontWeight.w500)),
-            Text('\$ ${takeProfit.toStringAsFixed(2)}', style: const TextStyle(color: Color(0xFF22C55E), fontSize: 13)),
+            Row(
+              children: [
+                Text('\$ ${takeProfit.toStringAsFixed(2)}', style: const TextStyle(color: Color(0xFF22C55E), fontSize: 13)),
+                Text(' (${((takeProfit - entryPrice) / entryPrice * 100).toStringAsFixed(1)}%)', style: const TextStyle(color: Color(0xFF22C55E), fontSize: 12)),
+              ],
+            ),
           ),
           const SizedBox(height: 16),
           // Profit/Loss or Buttons
@@ -2294,12 +2304,22 @@ class _DashboardPageState extends State<DashboardPage>
           const SizedBox(height: 8),
           _buildOrderDetailRow(
             const Text('SL', style: TextStyle(color: Color(0xFFEF4444), fontSize: 13, fontWeight: FontWeight.w500)),
-            Text('\$ ${stopLoss.toStringAsFixed(2)}', style: const TextStyle(color: Color(0xFFEF4444), fontSize: 13)),
+            Row(
+              children: [
+                Text('\$ ${stopLoss.toStringAsFixed(2)}', style: const TextStyle(color: Color(0xFFEF4444), fontSize: 13)),
+                Text(' (${((avgPrice - stopLoss) / avgPrice * 100).toStringAsFixed(1)}%)', style: const TextStyle(color: Color(0xFFEF4444), fontSize: 12)),
+              ],
+            ),
           ),
           const SizedBox(height: 8),
           _buildOrderDetailRow(
             const Text('TP', style: TextStyle(color: Color(0xFF22C55E), fontSize: 13, fontWeight: FontWeight.w500)),
-            Text('\$ ${takeProfit.toStringAsFixed(2)}', style: const TextStyle(color: Color(0xFF22C55E), fontSize: 13)),
+            Row(
+              children: [
+                Text('\$ ${takeProfit.toStringAsFixed(2)}', style: const TextStyle(color: Color(0xFF22C55E), fontSize: 13)),
+                Text(' (${((takeProfit - avgPrice) / avgPrice * 100).toStringAsFixed(1)}%)', style: const TextStyle(color: Color(0xFF22C55E), fontSize: 12)),
+              ],
+            ),
           ),
           const SizedBox(height: 16),
           Container(
