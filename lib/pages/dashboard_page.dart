@@ -2190,7 +2190,18 @@ class _DashboardPageState extends State<DashboardPage>
               children: [
                 Expanded(
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        _isModifyingOrder = true;
+                      });
+                      _openAnalysisModal({
+                        'symbol': symbol,
+                        'name': name,
+                        'price': currentPrice.toString(),
+                        'change': '0',
+                        'isPositive': true,
+                      });
+                    },
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
@@ -2206,7 +2217,7 @@ class _DashboardPageState extends State<DashboardPage>
                 const SizedBox(width: 12),
                 Expanded(
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () => setState(() => _showCancelModal = true),
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
