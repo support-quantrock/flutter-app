@@ -884,48 +884,33 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
             child: Column(
               children: [
                 const SizedBox(height: 16),
-                // Top Badges
+                // Top Row: Logo on left, Language selector on right
                 Row(
-                  children: [
-                    Expanded(
-                      child: _buildIntroBadgeWithInfo(
-                        Icons.verified,
-                        'OECD, MIT & CFA',
-                        'Global Trusted Standards',
-                        () => _showStandardsInfoPopup(context),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _buildIntroBadge(
-                        Icons.star,
-                        'SMART CLASSIFICATION',
-                        'Beginner to Advanced',
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 24),
-                // QIQT Badge with Language Selector
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ShaderMask(
-                      shaderCallback: (bounds) => const LinearGradient(
-                        colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
-                      ).createShader(bounds),
-                      child: const Text(
-                        'QIQT',
-                        style: TextStyle(
-                          fontSize: 52,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.white,
-                          letterSpacing: 4,
-                        ),
-                      ),
+                    // Logo
+                    Image.asset(
+                      'assets/images/logo.png',
+                      height: 40,
+                      fit: BoxFit.contain,
+                      errorBuilder: (context, error, stackTrace) {
+                        // Fallback if logo not found
+                        return Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFFA855F7), Color(0xFF3B82F6)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Icon(Icons.hexagon, color: Colors.white, size: 24),
+                        );
+                      },
                     ),
-                    const SizedBox(width: 16),
                     // Language Selector Dropdown
                     PopupMenuButton<String>(
                       onSelected: (value) => setState(() => _selectedLanguage = value),
@@ -960,6 +945,44 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                       ],
                     ),
                   ],
+                ),
+                const SizedBox(height: 20),
+                // Top Badges
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildIntroBadgeWithInfo(
+                        Icons.verified,
+                        'OECD, MIT & CFA',
+                        'Global Trusted Standards',
+                        () => _showStandardsInfoPopup(context),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: _buildIntroBadge(
+                        Icons.star,
+                        'SMART CLASSIFICATION',
+                        'Beginner to Advanced',
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                // QIQT Badge
+                ShaderMask(
+                  shaderCallback: (bounds) => const LinearGradient(
+                    colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+                  ).createShader(bounds),
+                  child: const Text(
+                    'QIQT',
+                    style: TextStyle(
+                      fontSize: 52,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      letterSpacing: 4,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 8),
                 // Subtitle (smaller, one line)
