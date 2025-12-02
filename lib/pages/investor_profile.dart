@@ -1135,18 +1135,27 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
   Widget _buildIntroBadge(IconData icon, String title, String subtitle) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.transparent,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: const Color(0xFF22C55E),
-          width: 1.5,
+        gradient: const LinearGradient(
+          colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
         ),
       ),
-      child: Row(
-        children: [
-          Icon(icon, color: const Color(0xFF22C55E), size: 22),
+      child: Container(
+        margin: const EdgeInsets.all(1.5),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        decoration: BoxDecoration(
+          color: const Color(0xFF0A0A0A),
+          borderRadius: BorderRadius.circular(10.5),
+        ),
+        child: Row(
+          children: [
+            ShaderMask(
+              shaderCallback: (bounds) => const LinearGradient(
+                colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+              ).createShader(bounds),
+              child: Icon(icon, color: Colors.white, size: 22),
+            ),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -1173,58 +1182,74 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
             ),
           ),
         ],
+        ),
       ),
     );
   }
 
   Widget _buildIntroBadgeWithInfo(IconData icon, String title, String subtitle, VoidCallback onInfoTap) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.transparent,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: const Color(0xFF22C55E),
-          width: 1.5,
+        gradient: const LinearGradient(
+          colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
         ),
       ),
-      child: Row(
-        children: [
-          Icon(icon, color: const Color(0xFF22C55E), size: 22),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Text(
-                  subtitle,
-                  style: const TextStyle(
-                    color: Color(0xFF9CA3AF),
-                    fontSize: 10,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+      child: Container(
+        margin: const EdgeInsets.all(1.5),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        decoration: BoxDecoration(
+          color: const Color(0xFF0A0A0A),
+          borderRadius: BorderRadius.circular(10.5),
+        ),
+        child: Row(
+          children: [
+            ShaderMask(
+              shaderCallback: (bounds) => const LinearGradient(
+                colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+              ).createShader(bounds),
+              child: Icon(icon, color: Colors.white, size: 22),
             ),
-          ),
-          GestureDetector(
-            onTap: onInfoTap,
-            child: const Icon(
-              Icons.info_outline,
-              color: Color(0xFF22C55E),
-              size: 20,
+            const SizedBox(width: 8),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
+                      color: Color(0xFF9CA3AF),
+                      fontSize: 10,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            GestureDetector(
+              onTap: onInfoTap,
+              child: ShaderMask(
+                shaderCallback: (bounds) => const LinearGradient(
+                  colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+                ).createShader(bounds),
+                child: const Icon(
+                  Icons.info_outline,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
