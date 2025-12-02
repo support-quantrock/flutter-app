@@ -1419,14 +1419,79 @@ class _DashboardPageState extends State<DashboardPage>
 
   Widget _buildWatchList() {
     return Column(
-      children: watchlistStocks.map((stock) => _buildAssetRow(
-        stock['symbol'] as String,
-        stock['name'] as String,
-        stock['price'] as String,
-        stock['change'] as String,
-        stock['isPositive'] as bool,
-        stock['color'] as Color,
-      )).toList(),
+      children: [
+        // Add Button Row
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  // TODO: Handle add to watchlist
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF22C55E).withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: const Color(0xFF22C55E).withValues(alpha: 0.3)),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.add, color: const Color(0xFF22C55E), size: 18),
+                      const SizedBox(width: 4),
+                      Text(
+                        'Add',
+                        style: TextStyle(
+                          color: const Color(0xFF22C55E),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        // Column Headers
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Asset',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.5),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                'Price / Change%',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.5),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+        // Stock List
+        ...watchlistStocks.map((stock) => _buildAssetRow(
+          stock['symbol'] as String,
+          stock['name'] as String,
+          stock['price'] as String,
+          stock['change'] as String,
+          stock['isPositive'] as bool,
+          stock['color'] as Color,
+        )),
+      ],
     );
   }
 
@@ -2896,7 +2961,7 @@ class _DashboardPageState extends State<DashboardPage>
                               Switch(
                                 value: _protectorEnabled,
                                 onChanged: (value) => setState(() => _protectorEnabled = value),
-                                activeColor: const Color(0xFFFBBF24),
+                                activeThumbColor: const Color(0xFFFBBF24),
                                 activeTrackColor: const Color(0xFFF59E0B),
                               ),
                               const SizedBox(width: 12),
@@ -3390,7 +3455,7 @@ class _DashboardPageState extends State<DashboardPage>
               const SizedBox(height: 16),
 
               Text(
-                'Your ${_tradeType} order for ${_inputValue.isEmpty ? "0" : _inputValue} of ${_selectedStock['symbol']} has been placed successfully. Thank you for trading with Quantrock',
+                'Your $_tradeType order for ${_inputValue.isEmpty ? "0" : _inputValue} of ${_selectedStock['symbol']} has been placed successfully. Thank you for trading with Quantrock',
                 style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 13, height: 1.7),
                 textAlign: TextAlign.center,
               ),
