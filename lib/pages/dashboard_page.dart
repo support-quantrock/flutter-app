@@ -977,6 +977,7 @@ class _DashboardPageState extends State<DashboardPage>
             ),
           ],
         ),
+        const SizedBox(height: 16),
         // Second row: Profit, Daily Loss, Max Loss
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
