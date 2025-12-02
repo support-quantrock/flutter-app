@@ -1404,26 +1404,14 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                 ),
               ),
               const SizedBox(height: 16),
-              // Beginner
-              _buildLevelItem(
-                _t('beginner'),
-                const Color(0xFF22C55E),
-                [_t('item_objectives'), _t('item_experience')],
-              ),
-              const SizedBox(height: 12),
-              // Intermediate
-              _buildLevelItem(
-                _t('intermediate'),
-                const Color(0xFF3B82F6),
-                [_t('item_literacy'), _t('item_readiness')],
-              ),
-              const SizedBox(height: 12),
-              // Advanced
-              _buildLevelItem(
-                _t('advanced'),
-                const Color(0xFFA855F7),
-                [_t('item_challenge'), _t('item_portfolio'), _t('item_path'), _t('item_motivation')],
-              ),
+              _buildWhitePointItem(_t('item_objectives')),
+              _buildWhitePointItem(_t('item_experience')),
+              _buildWhitePointItem(_t('item_literacy')),
+              _buildWhitePointItem(_t('item_readiness')),
+              _buildWhitePointItem(_t('item_challenge')),
+              _buildWhitePointItem(_t('item_portfolio')),
+              _buildWhitePointItem(_t('item_path')),
+              _buildWhitePointItem(_t('item_motivation')),
             ],
           ),
         ),
@@ -1449,41 +1437,20 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
     );
   }
 
-  Widget _buildLevelItem(String level, Color color, List<String> items) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withValues(alpha: 0.3)),
-      ),
-      child: Column(
+  Widget _buildWhitePointItem(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            level,
-            style: TextStyle(
-              color: color,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
+          const Icon(Icons.check_circle, color: Colors.white, size: 18),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(color: Colors.white, fontSize: 14),
             ),
           ),
-          const SizedBox(height: 8),
-          ...items.map((item) => Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: Row(
-              children: [
-                Icon(Icons.check_circle, color: color, size: 16),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    item,
-                    style: const TextStyle(color: Colors.white70, fontSize: 13),
-                  ),
-                ),
-              ],
-            ),
-          )),
         ],
       ),
     );
