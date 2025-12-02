@@ -955,20 +955,40 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   ],
                 ),
                 const SizedBox(height: 24),
-                // QIQT Badge
-                ShaderMask(
-                  shaderCallback: (bounds) => const LinearGradient(
-                    colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
-                  ).createShader(bounds),
-                  child: const Text(
-                    'QIQT',
-                    style: TextStyle(
-                      fontSize: 52,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white,
-                      letterSpacing: 4,
+                // QIQT Badge with Info Icon
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ShaderMask(
+                      shaderCallback: (bounds) => const LinearGradient(
+                        colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+                      ).createShader(bounds),
+                      child: const Text(
+                        'QIQT',
+                        style: TextStyle(
+                          fontSize: 52,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.white,
+                          letterSpacing: 4,
+                        ),
+                      ),
                     ),
-                  ),
+                    const SizedBox(width: 8),
+                    GestureDetector(
+                      onTap: () => _showQIQTLevelsPopup(),
+                      child: ShaderMask(
+                        shaderCallback: (bounds) => const LinearGradient(
+                          colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+                        ).createShader(bounds),
+                        child: const Icon(
+                          Icons.info_outline,
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 8),
                 // Subtitle (smaller, one line)
@@ -982,9 +1002,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 24),
-                // Hero Image
-                _buildChartIllustration(),
                 const SizedBox(height: 24),
                 // Description
                 _buildQIQTDescription(),
@@ -1341,6 +1358,137 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
     );
   }
 
+  void _showQIQTLevelsPopup() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: const Color(0xFF1E293B),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        title: Row(
+          children: [
+            ShaderMask(
+              shaderCallback: (bounds) => const LinearGradient(
+                colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+              ).createShader(bounds),
+              child: const Text(
+                'QIQT',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
+              ),
+            ),
+            const Text(
+              ' Classification',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+          ],
+        ),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                _t('purpose_subtitle'),
+                style: const TextStyle(
+                  color: Colors.white70,
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Beginner
+              _buildLevelItem(
+                _t('beginner'),
+                const Color(0xFF22C55E),
+                [_t('item_objectives'), _t('item_experience')],
+              ),
+              const SizedBox(height: 12),
+              // Intermediate
+              _buildLevelItem(
+                _t('intermediate'),
+                const Color(0xFF3B82F6),
+                [_t('item_literacy'), _t('item_readiness')],
+              ),
+              const SizedBox(height: 12),
+              // Advanced
+              _buildLevelItem(
+                _t('advanced'),
+                const Color(0xFFA855F7),
+                [_t('item_challenge'), _t('item_portfolio'), _t('item_path'), _t('item_motivation')],
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+                ),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                _t('got_it'),
+                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLevelItem(String level, Color color, List<String> items) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            level,
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+          const SizedBox(height: 8),
+          ...items.map((item) => Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: Row(
+              children: [
+                Icon(Icons.check_circle, color: color, size: 16),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    item,
+                    style: const TextStyle(color: Colors.white70, fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+          )),
+        ],
+      ),
+    );
+  }
+
   void _showQIQTInfoPopup() {
     showDialog(
       context: context,
@@ -1404,66 +1552,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
     );
   }
 
-  Widget _buildChartIllustration() {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final screenWidth = MediaQuery.of(context).size.width;
-        // Responsive height based on screen width - scales proportionally
-        final imageHeight = screenWidth * 0.55; // 55% of screen width for aspect ratio
-
-        return SizedBox(
-          height: imageHeight.clamp(180.0, 400.0), // Min 180, max 400
-          width: double.infinity,
-          child: Image.asset(
-            'assets/images/qiqt_hero.png',
-            fit: BoxFit.cover,
-            width: double.infinity,
-            alignment: Alignment.center,
-            errorBuilder: (context, error, stackTrace) {
-              // Fallback to mascot image if hero image fails
-              return Center(
-                child: Container(
-                  width: 140,
-                  height: 140,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFF8B5CF6).withValues(alpha: 0.3),
-                        blurRadius: 20,
-                      ),
-                    ],
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(70),
-                    child: Image.asset(
-                      'assets/images/mascot.png',
-                      fit: BoxFit.cover,
-                      errorBuilder: (ctx, err, stack) {
-                        return Container(
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                              colors: [Color(0xFF8B5CF6), Color(0xFF6366F1)],
-                            ),
-                          ),
-                          child: const Icon(
-                            Icons.person,
-                            color: Colors.white,
-                            size: 50,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        );
-      },
-    );
-  }
-
   Widget _buildQIQTDescription() {
     return Directionality(
       textDirection: _isArabic ? TextDirection.rtl : TextDirection.ltr,
@@ -1481,16 +1569,6 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
               _t('intro_text1'),
               style: TextStyle(
                 color: Colors.white.withValues(alpha: 0.9),
-                fontSize: 15,
-                height: 1.5,
-              ),
-              textAlign: _isArabic ? TextAlign.right : TextAlign.left,
-            ),
-            const SizedBox(height: 12),
-            Text(
-              _t('intro_text2'),
-              style: TextStyle(
-                color: Colors.white.withValues(alpha: 0.8),
                 fontSize: 15,
                 height: 1.5,
               ),
