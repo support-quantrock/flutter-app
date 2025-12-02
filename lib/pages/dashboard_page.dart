@@ -1501,9 +1501,13 @@ class _DashboardPageState extends State<DashboardPage>
     final profitColor = isPositive ? const Color(0xFF22C55E) : const Color(0xFFEF4444);
 
     return GestureDetector(
-      onTap: () {
-        // Handle tap - can navigate to stock detail
-      },
+      onTap: () => _openAnalysisModal({
+        'symbol': symbol,
+        'name': name,
+        'price': currentPrice.toString(),
+        'change': profitPercent.toStringAsFixed(2),
+        'isPositive': isPositive,
+      }),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
