@@ -14,6 +14,7 @@ class _DashboardPageState extends State<DashboardPage>
   final String _selectedTab = 'Overview';
   String _selectedTimePeriod = 'All';
   String _selectedBottomTab = 'watchlist';
+  String _selectedOrderTab = 'Open';
   late AnimationController _expandController;
   late Animation<double> _expandAnimation;
 
@@ -1723,17 +1724,604 @@ class _DashboardPageState extends State<DashboardPage>
   }
 
   Widget _buildOrdersList() {
-    return Container(
-      padding: const EdgeInsets.all(40),
-      child: const Center(
-        child: Text(
-          'No orders yet',
-          style: TextStyle(
-            color: Color(0xFF9CA3AF),
-            fontSize: 14,
+    return Column(
+      children: [
+        // Order Status Tabs
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.05),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              _buildOrderTabButton('Open', 2),
+              _buildOrderTabButton('Pending', 4),
+              _buildOrderTabButton('Closed', 4),
+            ],
+          ),
+        ),
+        const SizedBox(height: 16),
+        // Order Content based on selected tab
+        if (_selectedOrderTab == 'Open') ..._buildOpenOrders(),
+        if (_selectedOrderTab == 'Pending') ..._buildPendingOrders(),
+        if (_selectedOrderTab == 'Closed') ..._buildClosedOrders(),
+      ],
+    );
+  }
+
+  Widget _buildOrderTabButton(String tab, int count) {
+    final isSelected = _selectedOrderTab == tab;
+    return Expanded(
+      child: GestureDetector(
+        onTap: () => setState(() => _selectedOrderTab = tab),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          decoration: BoxDecoration(
+            color: isSelected ? const Color(0xFF3B82F6) : Colors.transparent,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Center(
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: tab,
+                    style: TextStyle(
+                      color: isSelected ? Colors.white : const Color(0xFF9CA3AF),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  TextSpan(
+                    text: ' ($count)',
+                    style: TextStyle(
+                      color: isSelected ? Colors.white.withValues(alpha: 0.7) : const Color(0xFF6B7280),
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  List<Widget> _buildOpenOrders() {
+    return [
+      _buildOrderCard(
+        date: '08-10-2025 14:23',
+        symbol: 'AAPL',
+        name: 'Apple Inc',
+        logoUrl: 'https://logo.clearbit.com/apple.com',
+        portfolioPercent: 12,
+        orderType: 'New Buy',
+        orderPercent: '20%',
+        units: 250,
+        invested: 60500,
+        currentValue: 60700,
+        entryPrice: 245.50,
+        currentPrice: 250.00,
+        stopLoss: 240.00,
+        takeProfit: 260.00,
+        profitAmount: 360.00,
+        profitPercent: 1.49,
+        isPositive: true,
+        showButtons: false,
+      ),
+      const SizedBox(height: 12),
+      _buildOrderCard(
+        date: '05-10-2025 09:45',
+        symbol: 'AAPL',
+        name: 'Apple Inc',
+        logoUrl: 'https://logo.clearbit.com/apple.com',
+        portfolioPercent: 8,
+        orderType: 'Add',
+        orderPercent: '10%',
+        units: 150,
+        invested: 45200,
+        currentValue: 44280,
+        entryPrice: 301.33,
+        currentPrice: 295.20,
+        stopLoss: 290.00,
+        takeProfit: 315.00,
+        profitAmount: -920.00,
+        profitPercent: -2.04,
+        isPositive: false,
+        showButtons: false,
+      ),
+    ];
+  }
+
+  List<Widget> _buildPendingOrders() {
+    return [
+      _buildOrderCard(
+        date: '15-03-2025 11:30',
+        symbol: 'TSLA',
+        name: 'Tesla Inc',
+        logoUrl: 'https://logo.clearbit.com/tesla.com',
+        portfolioPercent: 5,
+        orderType: 'New Buy',
+        orderPercent: '10%',
+        units: 100,
+        invested: 24000,
+        currentValue: 24500,
+        entryPrice: 240.00,
+        currentPrice: 245.00,
+        stopLoss: 235.00,
+        takeProfit: 255.00,
+        isPositive: true,
+        showButtons: true,
+      ),
+      const SizedBox(height: 12),
+      _buildOrderCard(
+        date: '14-03-2025 16:10',
+        symbol: 'MSFT',
+        name: 'Microsoft Corp',
+        logoUrl: 'https://logo.clearbit.com/microsoft.com',
+        portfolioPercent: 10,
+        orderType: 'Add',
+        orderPercent: '10%',
+        units: 200,
+        invested: 68000,
+        currentValue: 68400,
+        entryPrice: 340.00,
+        currentPrice: 342.00,
+        stopLoss: 330.00,
+        takeProfit: 355.00,
+        isPositive: true,
+        showButtons: true,
+      ),
+      const SizedBox(height: 12),
+      _buildOrderCard(
+        date: '13-03-2025 10:05',
+        symbol: 'AAPL',
+        name: 'Apple Inc',
+        logoUrl: 'https://logo.clearbit.com/apple.com',
+        portfolioPercent: 8,
+        orderType: 'Reduce',
+        orderPercent: '10%',
+        units: 50,
+        invested: 17500,
+        currentValue: 15750,
+        entryPrice: 175.00,
+        currentPrice: 175.00,
+        stopLoss: 165.00,
+        takeProfit: 185.00,
+        isPositive: false,
+        isReduce: true,
+        showButtons: true,
+      ),
+      const SizedBox(height: 12),
+      _buildOrderCard(
+        date: '12-03-2025 13:52',
+        symbol: 'NVDA',
+        name: 'NVIDIA Corp',
+        logoUrl: 'https://logo.clearbit.com/nvidia.com',
+        portfolioPercent: 12,
+        orderType: 'Sold Out',
+        orderPercent: '100%',
+        units: 0,
+        invested: 51200,
+        currentValue: 0,
+        entryPrice: 512.00,
+        currentPrice: 512.00,
+        stopLoss: 490.00,
+        takeProfit: 530.00,
+        isPositive: false,
+        isReduce: true,
+        showButtons: true,
+      ),
+    ];
+  }
+
+  List<Widget> _buildClosedOrders() {
+    return [
+      _buildOrderCard(
+        date: '20-09-2025 15:30',
+        symbol: 'AMZN',
+        name: 'Amazon Inc',
+        logoUrl: 'https://logo.clearbit.com/amazon.com',
+        portfolioPercent: 7,
+        orderType: 'Reduce',
+        orderPercent: '10%',
+        units: 80,
+        invested: 12000,
+        currentValue: 12800,
+        entryPrice: 150.00,
+        currentPrice: 160.00,
+        stopLoss: 145.00,
+        takeProfit: 170.00,
+        profitAmount: 800.00,
+        profitPercent: 6.67,
+        isPositive: true,
+        isReduce: true,
+        showButtons: false,
+      ),
+      const SizedBox(height: 12),
+      _buildOrderCard(
+        date: '15-09-2025 12:18',
+        symbol: 'NFLX',
+        name: 'Netflix Inc',
+        logoUrl: 'https://logo.clearbit.com/netflix.com',
+        portfolioPercent: 4,
+        orderType: 'Soldout',
+        orderPercent: '10%',
+        units: 50,
+        invested: 20000,
+        currentValue: 21000,
+        entryPrice: 400.00,
+        currentPrice: 420.00,
+        stopLoss: 390.00,
+        takeProfit: 440.00,
+        profitAmount: 1000.00,
+        profitPercent: 5.00,
+        isPositive: true,
+        isReduce: true,
+        showButtons: false,
+      ),
+      const SizedBox(height: 12),
+      _buildClosedOrderCard(
+        date: '10-09-2025 09:42',
+        symbol: 'META',
+        name: 'Meta Platforms',
+        logoUrl: 'https://logo.clearbit.com/meta.com',
+        portfolioPercent: 6,
+        status: 'Cancelled',
+        units: 120,
+        invested: 35400,
+        avgPrice: 295.00,
+        stopLoss: 285.00,
+        takeProfit: 330.00,
+        statusMessage: 'Cancelled by User',
+      ),
+      const SizedBox(height: 12),
+      _buildClosedOrderCard(
+        date: '05-09-2025 16:55',
+        symbol: 'GOOGL',
+        name: 'Alphabet Inc',
+        logoUrl: 'https://logo.clearbit.com/google.com',
+        portfolioPercent: 9,
+        status: 'Rejected',
+        units: 200,
+        invested: 28500,
+        avgPrice: 142.50,
+        stopLoss: 135.00,
+        takeProfit: 155.00,
+        statusMessage: 'Not enough money',
+      ),
+    ];
+  }
+
+  Widget _buildOrderCard({
+    required String date,
+    required String symbol,
+    required String name,
+    required String logoUrl,
+    required int portfolioPercent,
+    required String orderType,
+    required String orderPercent,
+    required int units,
+    required double invested,
+    required double currentValue,
+    required double entryPrice,
+    required double currentPrice,
+    required double stopLoss,
+    required double takeProfit,
+    double? profitAmount,
+    double? profitPercent,
+    required bool isPositive,
+    bool isReduce = false,
+    required bool showButtons,
+  }) {
+    final orderTypeColor = isReduce ? const Color(0xFFEF4444) : const Color(0xFF22C55E);
+    final valueColor = isPositive ? const Color(0xFF22C55E) : const Color(0xFFEF4444);
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Date
+          Text(
+            date,
+            style: const TextStyle(color: Color(0xFF6B7280), fontSize: 11),
+          ),
+          const SizedBox(height: 8),
+          // Header
+          Row(
+            children: [
+              Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      logoUrl,
+                      width: 40,
+                      height: 40,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF3B82F6),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Center(
+                          child: Text(symbol[0], style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(symbol, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                      Text(name, style: const TextStyle(color: Color(0xFF9CA3AF), fontSize: 12)),
+                    ],
+                  ),
+                ],
+              ),
+              const Spacer(),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF3B82F6).withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  children: [
+                    Container(width: 6, height: 6, decoration: const BoxDecoration(color: Color(0xFF3B82F6), shape: BoxShape.circle)),
+                    const SizedBox(width: 6),
+                    Text('Portfolio $portfolioPercent%', style: const TextStyle(color: Color(0xFF3B82F6), fontSize: 11, fontWeight: FontWeight.w500)),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          // Order Details
+          _buildOrderDetailRow(
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(text: orderType, style: TextStyle(color: orderTypeColor, fontSize: 13, fontWeight: FontWeight.w500)),
+                  TextSpan(text: ' $orderPercent', style: TextStyle(color: orderTypeColor, fontSize: 13)),
+                  const TextSpan(text: ' → ', style: TextStyle(color: Colors.white, fontSize: 13)),
+                  const TextSpan(text: 'Units', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 13)),
+                ],
+              ),
+            ),
+            Text(units.toString(), style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w500)),
+          ),
+          const SizedBox(height: 8),
+          _buildOrderDetailRow(
+            const Text('Invested', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 13)),
+            Row(
+              children: [
+                Text('\$ ${_formatNumber(invested)}', style: const TextStyle(color: Colors.white, fontSize: 13)),
+                const Text(' → ', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 13)),
+                Text('\$ ${_formatNumber(currentValue)}', style: TextStyle(color: valueColor, fontSize: 13, fontWeight: FontWeight.w500)),
+              ],
+            ),
+          ),
+          const SizedBox(height: 8),
+          _buildOrderDetailRow(
+            const Text('Entry Price', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 13)),
+            Row(
+              children: [
+                Text('\$ ${entryPrice.toStringAsFixed(2)}', style: const TextStyle(color: Colors.white, fontSize: 13)),
+                const Text(' → ', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 13)),
+                Text('\$ ${currentPrice.toStringAsFixed(2)}', style: TextStyle(color: valueColor, fontSize: 13, fontWeight: FontWeight.w500)),
+              ],
+            ),
+          ),
+          const SizedBox(height: 8),
+          _buildOrderDetailRow(
+            const Text('SL', style: TextStyle(color: Color(0xFFEF4444), fontSize: 13, fontWeight: FontWeight.w500)),
+            Text('\$ ${stopLoss.toStringAsFixed(2)}', style: const TextStyle(color: Color(0xFFEF4444), fontSize: 13)),
+          ),
+          const SizedBox(height: 8),
+          _buildOrderDetailRow(
+            const Text('TP', style: TextStyle(color: Color(0xFF22C55E), fontSize: 13, fontWeight: FontWeight.w500)),
+            Text('\$ ${takeProfit.toStringAsFixed(2)}', style: const TextStyle(color: Color(0xFF22C55E), fontSize: 13)),
+          ),
+          const SizedBox(height: 16),
+          // Profit/Loss or Buttons
+          if (showButtons)
+            Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF3B82F6).withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Center(
+                        child: Text('Modify Order', style: TextStyle(color: Color(0xFF3B82F6), fontSize: 13, fontWeight: FontWeight.w600)),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFEF4444).withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Center(
+                        child: Text('Cancel Order', style: TextStyle(color: Color(0xFFEF4444), fontSize: 13, fontWeight: FontWeight.w600)),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          else if (profitAmount != null && profitPercent != null)
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              decoration: BoxDecoration(
+                color: (isPositive ? const Color(0xFF22C55E) : const Color(0xFFEF4444)).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '${isPositive ? '+' : ''}\$${profitAmount.abs().toStringAsFixed(2)}',
+                    style: TextStyle(color: isPositive ? const Color(0xFF22C55E) : const Color(0xFFEF4444), fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    '(${isPositive ? '+' : ''}${profitPercent.toStringAsFixed(2)}%)',
+                    style: TextStyle(color: isPositive ? const Color(0xFF22C55E) : const Color(0xFFEF4444), fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildClosedOrderCard({
+    required String date,
+    required String symbol,
+    required String name,
+    required String logoUrl,
+    required int portfolioPercent,
+    required String status,
+    required int units,
+    required double invested,
+    required double avgPrice,
+    required double stopLoss,
+    required double takeProfit,
+    required String statusMessage,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(date, style: const TextStyle(color: Color(0xFF6B7280), fontSize: 11)),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      logoUrl,
+                      width: 40,
+                      height: 40,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(color: const Color(0xFF3B82F6), borderRadius: BorderRadius.circular(8)),
+                        child: Center(child: Text(symbol[0], style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold))),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(symbol, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                      Text(name, style: const TextStyle(color: Color(0xFF9CA3AF), fontSize: 12)),
+                    ],
+                  ),
+                ],
+              ),
+              const Spacer(),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(color: const Color(0xFF3B82F6).withValues(alpha: 0.2), borderRadius: BorderRadius.circular(12)),
+                child: Row(
+                  children: [
+                    Container(width: 6, height: 6, decoration: const BoxDecoration(color: Color(0xFF3B82F6), shape: BoxShape.circle)),
+                    const SizedBox(width: 6),
+                    Text('Portfolio $portfolioPercent%', style: const TextStyle(color: Color(0xFF3B82F6), fontSize: 11, fontWeight: FontWeight.w500)),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildOrderDetailRow(
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(text: status, style: const TextStyle(color: Color(0xFFF59E0B), fontSize: 13, fontWeight: FontWeight.w500)),
+                  const TextSpan(text: ' → ', style: TextStyle(color: Colors.white, fontSize: 13)),
+                  const TextSpan(text: 'Units', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 13)),
+                ],
+              ),
+            ),
+            Text(units.toString(), style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w500)),
+          ),
+          const SizedBox(height: 8),
+          _buildOrderDetailRow(
+            const Text('Invested', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 13)),
+            Text('\$ ${_formatNumber(invested)}', style: const TextStyle(color: Colors.white, fontSize: 13)),
+          ),
+          const SizedBox(height: 8),
+          _buildOrderDetailRow(
+            const Text('Avg Price', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 13)),
+            Text('\$ ${avgPrice.toStringAsFixed(2)}', style: const TextStyle(color: Colors.white, fontSize: 13)),
+          ),
+          const SizedBox(height: 8),
+          _buildOrderDetailRow(
+            const Text('SL', style: TextStyle(color: Color(0xFFEF4444), fontSize: 13, fontWeight: FontWeight.w500)),
+            Text('\$ ${stopLoss.toStringAsFixed(2)}', style: const TextStyle(color: Color(0xFFEF4444), fontSize: 13)),
+          ),
+          const SizedBox(height: 8),
+          _buildOrderDetailRow(
+            const Text('TP', style: TextStyle(color: Color(0xFF22C55E), fontSize: 13, fontWeight: FontWeight.w500)),
+            Text('\$ ${takeProfit.toStringAsFixed(2)}', style: const TextStyle(color: Color(0xFF22C55E), fontSize: 13)),
+          ),
+          const SizedBox(height: 16),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            decoration: BoxDecoration(
+              color: const Color(0xFFF59E0B).withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Center(
+              child: Text(statusMessage, style: const TextStyle(color: Color(0xFFF59E0B), fontSize: 14, fontWeight: FontWeight.w500)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOrderDetailRow(Widget label, Widget value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [label, value],
     );
   }
 
