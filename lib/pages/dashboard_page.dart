@@ -1498,6 +1498,73 @@ class _DashboardPageState extends State<DashboardPage>
   Widget _buildHoldingList() {
     return Column(
       children: [
+        // Add and Filter Buttons Row
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: Row(
+            children: [
+              // Add Button
+              GestureDetector(
+                onTap: () {
+                  // TODO: Handle add holding
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Add',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Icon(Icons.add, color: Colors.white, size: 18),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              // Filter Button
+              GestureDetector(
+                onTap: () {
+                  // TODO: Handle filter
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Filter',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Icon(Icons.filter_list, color: Colors.white, size: 18),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
         // AAPL Holding
         _buildHoldingCard(
           symbol: 'AAPL',
