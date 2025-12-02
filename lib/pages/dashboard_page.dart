@@ -2285,10 +2285,23 @@ class _DashboardPageState extends State<DashboardPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Date
-          Text(
-            date,
-            style: const TextStyle(color: Color(0xFF6B7280), fontSize: 11),
+          // Order Type and Date Row
+          Row(
+            children: [
+              Text(
+                isReduce ? 'Sell' : 'Buy',
+                style: TextStyle(
+                  color: orderTypeColor,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                date,
+                style: const TextStyle(color: Color(0xFF6B7280), fontSize: 11),
+              ),
+            ],
           ),
           const SizedBox(height: 8),
           // Header
@@ -2349,8 +2362,8 @@ class _DashboardPageState extends State<DashboardPage>
             RichText(
               text: TextSpan(
                 children: [
-                  TextSpan(text: orderType, style: TextStyle(color: orderTypeColor, fontSize: 13, fontWeight: FontWeight.w500)),
-                  TextSpan(text: ' $orderPercent', style: TextStyle(color: orderTypeColor, fontSize: 13)),
+                  TextSpan(text: 'Order ', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 13)),
+                  TextSpan(text: orderPercent, style: TextStyle(color: orderTypeColor, fontSize: 13, fontWeight: FontWeight.w500)),
                   const TextSpan(text: ' → ', style: TextStyle(color: Colors.white, fontSize: 13)),
                   const TextSpan(text: 'Units', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 13)),
                 ],
