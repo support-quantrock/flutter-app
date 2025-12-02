@@ -1919,10 +1919,10 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   Widget _buildQuestProgress() {
     final primaryColor = _getSectionPrimaryColor();
 
-    // QIQT gradient colors for each section
+    // Purple gradient colors for each section
     final milestoneColors = [
-      const Color(0xFF22C55E), // Section 1 - Green
-      const Color(0xFF3B82F6), // Section 2 - Blue
+      const Color(0xFFA855F7), // Section 1 - Purple
+      const Color(0xFFA855F7), // Section 2 - Purple
       const Color(0xFFA855F7), // Section 3 - Purple
       const Color(0xFFA855F7), // Section 4 - Purple
     ];
