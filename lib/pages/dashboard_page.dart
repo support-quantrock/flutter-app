@@ -15,6 +15,7 @@ class _DashboardPageState extends State<DashboardPage>
   String _selectedTimePeriod = 'All';
   String _selectedBottomTab = 'watchlist';
   String _selectedOrderTab = 'Open';
+  String _selectedAllocationTab = 'objectives'; // 'objectives' or 'statistics'
   late AnimationController _expandController;
   late Animation<double> _expandAnimation;
 
@@ -590,18 +591,8 @@ class _DashboardPageState extends State<DashboardPage>
           Center(child: _buildRiskLevel()),
           const SizedBox(height: 24),
 
-          // Objectives
-          _buildObjectives(),
-
-          const SizedBox(height: 24),
-
-          // Asset Allocation
-          _buildAssetAllocation(),
-
-          const SizedBox(height: 24),
-
-          // Statistics Grid
-          _buildStatisticsGrid(),
+          // Asset Allocation with Tabs
+          _buildAssetAllocationWithTabs(),
         ],
       ),
     );
@@ -980,20 +971,6 @@ class _DashboardPageState extends State<DashboardPage>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            const Text(
-              'Objectives',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(width: 8),
-            _buildInfoIcon('Trades'),
-          ],
-        ),
         // First row: Trades and Days
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1187,6 +1164,74 @@ class _DashboardPageState extends State<DashboardPage>
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildAssetAllocationWithTabs() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Header with title
+        Row(
+          children: [
+            const Text(
+              'Asset Allocation',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(width: 8),
+            _buildInfoIcon('Asset Allocation'),
+          ],
+        ),
+        const SizedBox(height: 16),
+        // Tab buttons
+        Row(
+          children: [
+            _buildAllocationTabButton('objectives', 'Objectives'),
+            const SizedBox(width: 12),
+            _buildAllocationTabButton('statistics', 'Statistics'),
+          ],
+        ),
+        const SizedBox(height: 16),
+        // Tab content
+        if (_selectedAllocationTab == 'objectives')
+          _buildObjectives()
+        else
+          _buildStatisticsGrid(),
+      ],
+    );
+  }
+
+  Widget _buildAllocationTabButton(String tab, String label) {
+    final isSelected = _selectedAllocationTab == tab;
+    return GestureDetector(
+      onTap: () => setState(() => _selectedAllocationTab = tab),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        decoration: BoxDecoration(
+          gradient: isSelected
+              ? const LinearGradient(
+                  colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+                )
+              : null,
+          color: isSelected ? null : Colors.transparent,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(
+            color: isSelected ? Colors.transparent : Colors.white.withValues(alpha: 0.3),
+          ),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+          ),
+        ),
       ),
     );
   }
