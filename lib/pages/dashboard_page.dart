@@ -2359,16 +2359,7 @@ class _DashboardPageState extends State<DashboardPage>
           const SizedBox(height: 16),
           // Order Details
           _buildOrderDetailRow(
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(text: 'Order ', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 13)),
-                  TextSpan(text: orderPercent, style: TextStyle(color: orderTypeColor, fontSize: 13, fontWeight: FontWeight.w500)),
-                  const TextSpan(text: ' → ', style: TextStyle(color: Colors.white, fontSize: 13)),
-                  const TextSpan(text: 'Units', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 13)),
-                ],
-              ),
-            ),
+            const Text('Quantity', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 13)),
             Text(units.toString(), style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w500)),
           ),
           const SizedBox(height: 8),
