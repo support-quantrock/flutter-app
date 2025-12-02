@@ -1989,8 +1989,12 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                     final position = milestoneSteps[index] / totalQuestions;
                     final isReached = _step >= milestoneSteps[index];
                     final milestoneColor = milestoneColors[index];
+                    // Adjust last milestone position to stay within bounds
+                    final leftPosition = index == 3
+                        ? constraints.maxWidth - 16
+                        : constraints.maxWidth * position - 8;
                     return Positioned(
-                      left: constraints.maxWidth * position - 8,
+                      left: leftPosition,
                       top: -2,
                       child: Container(
                         width: 16,
