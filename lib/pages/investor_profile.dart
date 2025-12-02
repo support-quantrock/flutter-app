@@ -1347,16 +1347,17 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
     return LayoutBuilder(
       builder: (context, constraints) {
         final screenWidth = MediaQuery.of(context).size.width;
-        // Responsive height based on screen width
-        final imageHeight = screenWidth < 400 ? 200.0 : (screenWidth < 600 ? 260.0 : 320.0);
+        // Responsive height based on screen width - scales proportionally
+        final imageHeight = screenWidth * 0.55; // 55% of screen width for aspect ratio
 
         return Container(
-          height: imageHeight,
+          height: imageHeight.clamp(180.0, 400.0), // Min 180, max 400
           width: double.infinity,
           child: Image.asset(
             'assets/images/qiqt_hero.png',
-            fit: BoxFit.contain,
+            fit: BoxFit.cover,
             width: double.infinity,
+            alignment: Alignment.center,
             errorBuilder: (context, error, stackTrace) {
               // Fallback to mascot image if hero image fails
               return Center(
