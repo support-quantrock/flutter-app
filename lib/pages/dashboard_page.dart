@@ -2069,7 +2069,7 @@ class _DashboardPageState extends State<DashboardPage>
   List<Widget> _buildOpenOrders() {
     return [
       _buildOrderCard(
-        date: '08-10-2025 14:23',
+        date: '08-10-2025 2:23 PM',
         symbol: 'AAPL',
         name: 'Apple Inc',
         logoUrl: 'https://logo.clearbit.com/apple.com',
@@ -2090,7 +2090,7 @@ class _DashboardPageState extends State<DashboardPage>
       ),
       const SizedBox(height: 12),
       _buildOrderCard(
-        date: '05-10-2025 09:45',
+        date: '05-10-2025 9:45 AM',
         symbol: 'AAPL',
         name: 'Apple Inc',
         logoUrl: 'https://logo.clearbit.com/apple.com',
@@ -2115,7 +2115,7 @@ class _DashboardPageState extends State<DashboardPage>
   List<Widget> _buildPendingOrders() {
     return [
       _buildOrderCard(
-        date: '15-03-2025 11:30',
+        date: '15-03-2025 11:30 AM',
         symbol: 'TSLA',
         name: 'Tesla Inc',
         logoUrl: 'https://logo.clearbit.com/tesla.com',
@@ -2134,7 +2134,7 @@ class _DashboardPageState extends State<DashboardPage>
       ),
       const SizedBox(height: 12),
       _buildOrderCard(
-        date: '14-03-2025 16:10',
+        date: '14-03-2025 4:10 PM',
         symbol: 'MSFT',
         name: 'Microsoft Corp',
         logoUrl: 'https://logo.clearbit.com/microsoft.com',
@@ -2153,7 +2153,7 @@ class _DashboardPageState extends State<DashboardPage>
       ),
       const SizedBox(height: 12),
       _buildOrderCard(
-        date: '13-03-2025 10:05',
+        date: '13-03-2025 10:05 AM',
         symbol: 'AAPL',
         name: 'Apple Inc',
         logoUrl: 'https://logo.clearbit.com/apple.com',
@@ -2173,7 +2173,7 @@ class _DashboardPageState extends State<DashboardPage>
       ),
       const SizedBox(height: 12),
       _buildOrderCard(
-        date: '12-03-2025 13:52',
+        date: '12-03-2025 1:52 PM',
         symbol: 'NVDA',
         name: 'NVIDIA Corp',
         logoUrl: 'https://logo.clearbit.com/nvidia.com',
@@ -2238,7 +2238,7 @@ class _DashboardPageState extends State<DashboardPage>
         ),
       ),
       _buildOrderCard(
-        date: '20-09-2025 15:30',
+        date: '20-09-2025 3:30 PM',
         symbol: 'AMZN',
         name: 'Amazon Inc',
         logoUrl: 'https://logo.clearbit.com/amazon.com',
@@ -2260,7 +2260,7 @@ class _DashboardPageState extends State<DashboardPage>
       ),
       const SizedBox(height: 12),
       _buildOrderCard(
-        date: '15-09-2025 12:18',
+        date: '15-09-2025 12:18 PM',
         symbol: 'NFLX',
         name: 'Netflix Inc',
         logoUrl: 'https://logo.clearbit.com/netflix.com',
@@ -2368,7 +2368,7 @@ class _DashboardPageState extends State<DashboardPage>
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 14),
           // Header
           Row(
             children: [
@@ -2472,51 +2472,19 @@ class _DashboardPageState extends State<DashboardPage>
           const SizedBox(height: 16),
           // Profit/Loss or Buttons
           if (showButtons)
-            Row(
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _isModifyingOrder = true;
-                      });
-                      _openAnalysisModal({
-                        'symbol': symbol,
-                        'name': name,
-                        'price': currentPrice.toString(),
-                        'change': '0',
-                        'isPositive': true,
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF3B82F6).withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Center(
-                        child: Text('Modify Order', style: TextStyle(color: Color(0xFF3B82F6), fontSize: 13, fontWeight: FontWeight.w600)),
-                      ),
-                    ),
-                  ),
+            GestureDetector(
+              onTap: () => setState(() => _showCancelModal = true),
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFEF4444).withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () => setState(() => _showCancelModal = true),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFEF4444).withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Center(
-                        child: Text('Cancel Order', style: TextStyle(color: Color(0xFFEF4444), fontSize: 13, fontWeight: FontWeight.w600)),
-                      ),
-                    ),
-                  ),
+                child: const Center(
+                  child: Text('Cancel Order', style: TextStyle(color: Color(0xFFEF4444), fontSize: 13, fontWeight: FontWeight.w600)),
                 ),
-              ],
+              ),
             )
           else if (profitAmount != null && profitPercent != null)
             Container(
