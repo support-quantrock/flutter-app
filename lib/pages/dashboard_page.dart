@@ -18,6 +18,32 @@ class _DashboardPageState extends State<DashboardPage>
   late AnimationController _expandController;
   late Animation<double> _expandAnimation;
 
+  // Trading Modal States
+  bool _showAnalysisModal = false;
+  bool _showTakeProfitModal = false;
+  bool _showStopLossModal = false;
+  bool _showSuccessModal = false;
+  bool _showCancelModal = false;
+  bool _isModifyingOrder = false;
+  String _tradeType = 'buy'; // 'buy' or 'sell'
+  String _orderType = 'market'; // 'market' or 'limit'
+  String _inputType = 'amount'; // 'amount' or 'units'
+  bool _protectorEnabled = false;
+  Map<String, dynamic> _selectedStock = {'symbol': 'MCD', 'name': "McDonald's Corporation", 'price': 307.77, 'change': 3.01};
+  double _riskPercentage = 0;
+  String _inputValue = '';
+  final double _availableFunds = 59462.33;
+
+  // Stop Loss States
+  double _slPercent = 1.0;
+  double _slAmount = 100.0;
+  double _slPrice = 99.0;
+
+  // Take Profit States
+  double _tpPercent = 1.0;
+  double _tpAmount = 100.0;
+  double _tpPrice = 101.0;
+
   final List<Map<String, dynamic>> watchlistStocks = [
     {'symbol': 'MSFT', 'name': 'Microsoft Corporation', 'price': '378.91', 'change': '+1.24', 'isPositive': true, 'color': Color(0xFF00A4EF)},
     {'symbol': 'AAPL', 'name': 'Apple Inc.', 'price': '178.72', 'change': '+2.34', 'isPositive': true, 'color': Color(0xFF555555)},
@@ -189,23 +215,33 @@ class _DashboardPageState extends State<DashboardPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
-      body: SafeArea(
-        child: Column(
-          children: [
-            _buildHeader(),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    _buildAccountCard(),
-                    const SizedBox(height: 16),
-                    _buildBottomTabs(),
-                  ],
+      body: Stack(
+        children: [
+          SafeArea(
+            child: Column(
+              children: [
+                _buildHeader(),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        _buildAccountCard(),
+                        const SizedBox(height: 16),
+                        _buildBottomTabs(),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+          // Trading Modals
+          if (_showAnalysisModal) _buildAnalysisModal(),
+          if (_showTakeProfitModal) _buildTakeProfitModal(),
+          if (_showStopLossModal) _buildStopLossModal(),
+          if (_showSuccessModal) _buildSuccessModal(),
+          if (_showCancelModal) _buildCancelModal(),
+        ],
       ),
     );
   }
@@ -2346,14 +2382,22 @@ class _DashboardPageState extends State<DashboardPage>
   }
 
   Widget _buildAssetRow(String symbol, String name, String price, String change, bool isPositive, Color iconColor) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.05),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
+    return GestureDetector(
+      onTap: () => _openAnalysisModal({
+        'symbol': symbol,
+        'name': name,
+        'price': price,
+        'change': change,
+        'isPositive': isPositive,
+      }),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.05),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
         children: [
           Container(
             width: 44,
@@ -2426,6 +2470,995 @@ class _DashboardPageState extends State<DashboardPage>
             ],
           ),
         ],
+      ),
+      ),
+    );
+  }
+
+  // Helper methods for trading calculations
+  String _calculateInputValue(double percentage) {
+    if (_inputType == 'amount') {
+      return (_availableFunds * percentage / 100).toStringAsFixed(2);
+    } else {
+      final unitPrice = (_selectedStock['price'] as num).toDouble();
+      final units = ((_availableFunds * percentage / 100) / unitPrice).floor();
+      return units.toString();
+    }
+  }
+
+  void _calculateTakeProfitValues(double percentage) {
+    final basePrice = (_selectedStock['price'] as num).toDouble();
+    final profitPrice = basePrice * (1 + percentage / 100);
+    final amount = (double.tryParse(_inputValue) ?? 0) * percentage / 100;
+
+    setState(() {
+      _tpPercent = percentage;
+      _tpPrice = profitPrice;
+      _tpAmount = amount;
+    });
+  }
+
+  void _calculateStopLossValues(double percentage) {
+    final basePrice = (_selectedStock['price'] as num).toDouble();
+    final lossPrice = basePrice * (1 - percentage / 100);
+    final amount = (double.tryParse(_inputValue) ?? 0) * percentage / 100;
+
+    setState(() {
+      _slPercent = percentage;
+      _slPrice = lossPrice;
+      _slAmount = amount;
+    });
+  }
+
+  void _openAnalysisModal(Map<String, dynamic> stock) {
+    setState(() {
+      _selectedStock = {
+        'symbol': stock['symbol'],
+        'name': stock['name'],
+        'price': double.tryParse(stock['price'].toString().replaceAll(',', '')) ?? 0,
+        'change': double.tryParse(stock['change'].toString().replaceAll('+', '').replaceAll(',', '')) ?? 0,
+      };
+      _showAnalysisModal = true;
+      _riskPercentage = 0;
+      _inputValue = '';
+      _protectorEnabled = false;
+      _slPercent = 1.0;
+      _tpPercent = 1.0;
+    });
+  }
+
+  // Analysis Modal
+  Widget _buildAnalysisModal() {
+    final stockPrice = (_selectedStock['price'] as num).toDouble();
+    final stockChange = (_selectedStock['change'] as num).toDouble();
+    final isPositiveChange = stockChange >= 0;
+
+    return Container(
+      color: Colors.black.withValues(alpha: 0.9),
+      child: SafeArea(
+        child: Column(
+          children: [
+            // Header
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.white.withValues(alpha: 0.1))),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () => setState(() => _showAnalysisModal = false),
+                    child: const Icon(Icons.arrow_back, color: Colors.white, size: 24),
+                  ),
+                  const Text('Analysis', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+                  const Icon(Icons.star, color: Color(0xFFFBBF24), size: 24),
+                ],
+              ),
+            ),
+
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Stock Header
+                    Row(
+                      children: [
+                        Container(
+                          width: 64,
+                          height: 64,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFDC2626),
+                            borderRadius: BorderRadius.circular(32),
+                          ),
+                          child: Center(
+                            child: Text(
+                              _selectedStock['symbol'].toString().substring(0, 1),
+                              style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(_selectedStock['symbol'].toString(), style: const TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold)),
+                            Text(_selectedStock['name'].toString(), style: const TextStyle(color: Color(0xFFA855F7), fontSize: 15)),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Stock Price
+                    Row(
+                      children: [
+                        Text('\$ ${stockPrice.toStringAsFixed(2)}', style: const TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
+                        const SizedBox(width: 12),
+                        Text(
+                          '${isPositiveChange ? '+' : ''}${stockChange.toStringAsFixed(2)}%',
+                          style: TextStyle(color: isPositiveChange ? const Color(0xFF22C55E) : const Color(0xFFEF4444), fontSize: 20, fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Market Status
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF9CA3AF).withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF9CA3AF), shape: BoxShape.circle)),
+                          const SizedBox(width: 8),
+                          const Text('MARKET OPEN', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 13, fontWeight: FontWeight.w600)),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Trade Type Buttons
+                    Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () => setState(() => _tradeType = 'buy'),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              decoration: BoxDecoration(
+                                color: _tradeType == 'buy' ? const Color(0xFF22C55E) : const Color(0xFF1A1A2E),
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(color: _tradeType == 'buy' ? const Color(0xFF22C55E) : const Color(0xFF8B5CF6).withValues(alpha: 0.3), width: 2),
+                              ),
+                              child: Center(
+                                child: Text('Buy/Long', style: TextStyle(color: _tradeType == 'buy' ? Colors.white : const Color(0xFF9CA3AF), fontSize: 20, fontWeight: FontWeight.bold)),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () => setState(() => _tradeType = 'sell'),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              decoration: BoxDecoration(
+                                color: _tradeType == 'sell' ? const Color(0xFFEF4444) : const Color(0xFF1A1A2E),
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(color: _tradeType == 'sell' ? const Color(0xFFEF4444) : const Color(0xFF8B5CF6).withValues(alpha: 0.3), width: 2),
+                              ),
+                              child: Center(
+                                child: Text('Sell/Short', style: TextStyle(color: _tradeType == 'sell' ? Colors.white : const Color(0xFF9CA3AF), fontSize: 20, fontWeight: FontWeight.bold)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Order Type Tabs
+                    Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () => setState(() => _orderType = 'market'),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              decoration: BoxDecoration(
+                                border: Border(bottom: BorderSide(color: _orderType == 'market' ? const Color(0xFF8B5CF6) : Colors.transparent, width: 2)),
+                              ),
+                              child: Center(
+                                child: Text('Market', style: TextStyle(color: _orderType == 'market' ? Colors.white : const Color(0xFF9CA3AF), fontSize: 17, fontWeight: FontWeight.w600)),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () => setState(() => _orderType = 'limit'),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              decoration: BoxDecoration(
+                                border: Border(bottom: BorderSide(color: _orderType == 'limit' ? const Color(0xFF8B5CF6) : Colors.transparent, width: 2)),
+                              ),
+                              child: Center(
+                                child: Text('Limit/Stop', style: TextStyle(color: _orderType == 'limit' ? Colors.white : const Color(0xFF9CA3AF), fontSize: 17, fontWeight: FontWeight.w600)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Price Row
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Buy Price', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 12)),
+                            const SizedBox(height: 6),
+                            Text('\$${stockPrice.toStringAsFixed(2)}', style: const TextStyle(color: Color(0xFF3B82F6), fontSize: 20, fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            const Text('Available Funds', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 12)),
+                            const SizedBox(height: 6),
+                            Text('\$${_formatNumber(_availableFunds)}', style: const TextStyle(color: Color(0xFF22C55E), fontSize: 20, fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Input Toggle
+                    Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(colors: [Color(0xFF8B5CF6), Color(0xFFEC4899)]),
+                          borderRadius: BorderRadius.circular(35),
+                        ),
+                        padding: const EdgeInsets.all(2.5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF0A0A15),
+                            borderRadius: BorderRadius.circular(33),
+                          ),
+                          padding: const EdgeInsets.all(3),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              GestureDetector(
+                                onTap: () => setState(() => _inputType = 'units'),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                                  decoration: BoxDecoration(
+                                    color: _inputType == 'units' ? const Color(0xFF8B5CF6).withValues(alpha: 0.3) : Colors.transparent,
+                                    borderRadius: BorderRadius.circular(31),
+                                  ),
+                                  child: Text('Units', style: TextStyle(color: _inputType == 'units' ? Colors.white : const Color(0xFF6B7280), fontSize: 17, fontWeight: FontWeight.bold)),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () => setState(() => _inputType = 'amount'),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                                  decoration: BoxDecoration(
+                                    color: _inputType == 'amount' ? const Color(0xFF8B5CF6).withValues(alpha: 0.3) : Colors.transparent,
+                                    borderRadius: BorderRadius.circular(31),
+                                  ),
+                                  child: Text('Amount', style: TextStyle(color: _inputType == 'amount' ? Colors.white : const Color(0xFF6B7280), fontSize: 17, fontWeight: FontWeight.bold)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Risk Slider
+                    Column(
+                      children: [
+                        GestureDetector(
+                          onHorizontalDragUpdate: (details) {
+                            final RenderBox box = context.findRenderObject() as RenderBox;
+                            final width = box.size.width - 32;
+                            final percentage = ((details.localPosition.dx - 16) / width * 100).clamp(0.0, 100.0);
+                            setState(() {
+                              _riskPercentage = percentage;
+                              _inputValue = _calculateInputValue(percentage);
+                            });
+                          },
+                          child: Container(
+                            height: 32,
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(colors: [Color(0xFF22C55E), Color(0xFFFBBF24), Color(0xFFF97316), Color(0xFFEF4444)]),
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  left: (_riskPercentage / 100 * (MediaQuery.of(context).size.width - 64)).clamp(0.0, MediaQuery.of(context).size.width - 64 - 24),
+                                  top: 4,
+                                  child: Container(
+                                    width: 24,
+                                    height: 24,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                      boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.25), blurRadius: 4, offset: const Offset(0, 2))],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Text('Low Risk (0%)', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 12, fontWeight: FontWeight.w600)),
+                            Text('High Risk (100%)', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 12, fontWeight: FontWeight.w600)),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Amount Input
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF1A1A2E),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: const Color(0xFF8B5CF6), width: 2),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              style: const TextStyle(color: Color(0xFF6B7280), fontSize: 17),
+                              decoration: InputDecoration(
+                                hintText: _inputType == 'units' ? 'quantity...' : 'amount...',
+                                hintStyle: const TextStyle(color: Color(0xFF6B7280)),
+                                border: InputBorder.none,
+                              ),
+                              keyboardType: TextInputType.number,
+                              onChanged: (value) => setState(() => _inputValue = value),
+                              controller: TextEditingController(text: _inputValue),
+                            ),
+                          ),
+                          Text(_inputType == 'units' ? 'QTY' : 'USD', style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w600)),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Equity Info
+                    Center(
+                      child: RichText(
+                        text: TextSpan(
+                          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                          children: [
+                            TextSpan(
+                              text: _inputType == 'units'
+                                  ? '${((double.tryParse(_inputValue) ?? 0) * stockPrice).toStringAsFixed(2)} USD'
+                                  : '${((double.tryParse(_inputValue) ?? 0) / stockPrice).toStringAsFixed(2)} QUANTITY',
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            const TextSpan(text: ' | OF EQUITY ', style: TextStyle(color: Colors.white)),
+                            TextSpan(text: '${_riskPercentage.toStringAsFixed(0)}%', style: const TextStyle(color: Color(0xFF3B82F6))),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Quantrock Protector
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF1A1A2E),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Switch(
+                                value: _protectorEnabled,
+                                onChanged: (value) => setState(() => _protectorEnabled = value),
+                                activeColor: const Color(0xFFFBBF24),
+                                activeTrackColor: const Color(0xFFF59E0B),
+                              ),
+                              const SizedBox(width: 12),
+                              const Text('Quantrock Protector', style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w600)),
+                            ],
+                          ),
+                          if (_protectorEnabled) ...[
+                            const SizedBox(height: 16),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _calculateStopLossValues(_slPercent);
+                                      setState(() => _showStopLossModal = true);
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: const [
+                                            Text('StopLoss ', style: TextStyle(color: Color(0xFFEF4444), fontSize: 15, fontWeight: FontWeight.w600)),
+                                            Icon(Icons.info_outline, color: Color(0xFF9CA3AF), size: 14),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text('\$ ${_slAmount.toStringAsFixed(2)}', style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                                        Text('${_slPercent.toStringAsFixed(2)}%', style: const TextStyle(color: Color(0xFF9CA3AF), fontSize: 15)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _calculateTakeProfitValues(_tpPercent);
+                                      setState(() => _showTakeProfitModal = true);
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: const [
+                                            Text('TakeProfit ', style: TextStyle(color: Color(0xFF22C55E), fontSize: 15, fontWeight: FontWeight.w600)),
+                                            Icon(Icons.info_outline, color: Color(0xFF9CA3AF), size: 14),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text('\$ ${_tpAmount.toStringAsFixed(2)}', style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                                        Text('${_tpPercent.toStringAsFixed(2)}%', style: const TextStyle(color: Color(0xFF9CA3AF), fontSize: 15)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Warning Box
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFEAB308).withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text('!', style: TextStyle(color: Color(0xFFEAB308), fontSize: 22, fontWeight: FontWeight.bold)),
+                          SizedBox(width: 12),
+                          Expanded(
+                            child: Text(
+                              'Attention! The trade will be executed at market conditions, difference with requested price may be significant!',
+                              style: TextStyle(color: Color(0xFFEAB308), fontSize: 14, height: 1.3),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Confirm Button
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _showAnalysisModal = false;
+                          _showSuccessModal = true;
+                        });
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(vertical: 18),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(colors: [Color(0xFF22C55E), Color(0xFF16A34A)]),
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Center(
+                          child: Text(_isModifyingOrder ? 'Modify' : 'Confirm', style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Take Profit Modal
+  Widget _buildTakeProfitModal() {
+    return Container(
+      color: Colors.black.withValues(alpha: 0.7),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(colors: [Color(0xFF0F172A), Color(0xFF1E293B), Color(0xFF0F172A)], begin: Alignment.topLeft, end: Alignment.bottomRight),
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+              border: Border.all(color: const Color(0xFF22C55E), width: 2),
+            ),
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              children: [
+                // Header
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF22C55E).withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Center(child: Text('📈', style: TextStyle(fontSize: 26))),
+                    ),
+                    const SizedBox(width: 12),
+                    const Text('Take Profit', style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                const SizedBox(height: 24),
+
+                // Slider
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text('0%', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 15, fontWeight: FontWeight.w600)),
+                        Text('100%', style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 15, fontWeight: FontWeight.w600)),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    GestureDetector(
+                      onHorizontalDragUpdate: (details) {
+                        final width = MediaQuery.of(context).size.width - 48;
+                        final percentage = (details.localPosition.dx / width * 100).clamp(0.0, 100.0);
+                        _calculateTakeProfitValues(percentage);
+                      },
+                      child: Container(
+                        height: 8,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1E293B),
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(color: const Color(0xFF22C55E)),
+                        ),
+                        child: FractionallySizedBox(
+                          alignment: Alignment.centerLeft,
+                          widthFactor: _tpPercent / 100,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(colors: [Color(0xFF22C55E), Color(0xFF10B981), Color(0xFF22C55E)]),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+
+                // Inputs Row
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const Text('Percent', style: TextStyle(color: Color(0xFF22C55E), fontSize: 15, fontWeight: FontWeight.w600)),
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF1E293B),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: const Color(0xFF22C55E), width: 2),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text('%', style: TextStyle(color: Color(0xFF22C55E), fontSize: 17, fontWeight: FontWeight.w600)),
+                                const SizedBox(width: 4),
+                                Text(_tpPercent.toStringAsFixed(2), style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w600)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const Text('Amount', style: TextStyle(color: Color(0xFF22C55E), fontSize: 15, fontWeight: FontWeight.w600)),
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF1E293B),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: const Color(0xFF22C55E), width: 2),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text('\$', style: TextStyle(color: Color(0xFF22C55E), fontSize: 17, fontWeight: FontWeight.w600)),
+                                const SizedBox(width: 4),
+                                Text(_tpAmount.toStringAsFixed(2), style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w600)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const Text('Price', style: TextStyle(color: Color(0xFF22C55E), fontSize: 15, fontWeight: FontWeight.w600)),
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF1E293B),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: const Color(0xFF22C55E), width: 2),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text('\$', style: TextStyle(color: Color(0xFF22C55E), fontSize: 17, fontWeight: FontWeight.w600)),
+                                const SizedBox(width: 4),
+                                Text(_tpPrice.toStringAsFixed(2), style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w600)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+
+                // Confirm Button
+                GestureDetector(
+                  onTap: () => setState(() => _showTakeProfitModal = false),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(colors: [Color(0xFF22C55E), Color(0xFF16A34A)]),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Center(
+                      child: Text('CONFIRM', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold, letterSpacing: 1)),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Stop Loss Modal
+  Widget _buildStopLossModal() {
+    return Container(
+      color: Colors.black.withValues(alpha: 0.7),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(colors: [Color(0xFF0F172A), Color(0xFF1E293B), Color(0xFF0F172A)], begin: Alignment.topLeft, end: Alignment.bottomRight),
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+              border: Border.all(color: const Color(0xFFEF4444), width: 2),
+            ),
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              children: [
+                // Header
+                const Text('Set Stop Loss', style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 24),
+
+                // Slider
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text('0%', style: TextStyle(color: Color(0xFFEF4444), fontSize: 15, fontWeight: FontWeight.w600)),
+                        Text('100%', style: TextStyle(color: Color(0xFFEF4444), fontSize: 15, fontWeight: FontWeight.w600)),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    GestureDetector(
+                      onHorizontalDragUpdate: (details) {
+                        final width = MediaQuery.of(context).size.width - 48;
+                        final percentage = (details.localPosition.dx / width * 100).clamp(0.0, 100.0);
+                        _calculateStopLossValues(percentage);
+                      },
+                      child: Container(
+                        height: 8,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1E293B),
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(color: const Color(0xFFEF4444)),
+                        ),
+                        child: FractionallySizedBox(
+                          alignment: Alignment.centerLeft,
+                          widthFactor: _slPercent / 100,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(colors: [Color(0xFFEF4444), Color(0xFFDC2626), Color(0xFFEF4444)]),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+
+                // Inputs Row
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const Text('Percent', style: TextStyle(color: Color(0xFFEF4444), fontSize: 15, fontWeight: FontWeight.w600)),
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF1E293B),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: const Color(0xFFEF4444), width: 2),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text('%', style: TextStyle(color: Color(0xFFEF4444), fontSize: 17, fontWeight: FontWeight.w600)),
+                                const SizedBox(width: 4),
+                                Text(_slPercent.toStringAsFixed(2), style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w600)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const Text('Amount', style: TextStyle(color: Color(0xFFEF4444), fontSize: 15, fontWeight: FontWeight.w600)),
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF1E293B),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: const Color(0xFFEF4444), width: 2),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text('\$', style: TextStyle(color: Color(0xFFEF4444), fontSize: 17, fontWeight: FontWeight.w600)),
+                                const SizedBox(width: 4),
+                                Text(_slAmount.toStringAsFixed(2), style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w600)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const Text('Price', style: TextStyle(color: Color(0xFFEF4444), fontSize: 15, fontWeight: FontWeight.w600)),
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF1E293B),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: const Color(0xFFEF4444), width: 2),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text('\$', style: TextStyle(color: Color(0xFFEF4444), fontSize: 17, fontWeight: FontWeight.w600)),
+                                const SizedBox(width: 4),
+                                Text(_slPrice.toStringAsFixed(2), style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w600)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+
+                // Confirm Button
+                GestureDetector(
+                  onTap: () => setState(() => _showStopLossModal = false),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(colors: [Color(0xFFEF4444), Color(0xFFDC2626)]),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Center(
+                      child: Text('CONFIRM', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold, letterSpacing: 1)),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Success Modal
+  Widget _buildSuccessModal() {
+    return Container(
+      color: Colors.black.withValues(alpha: 0.85),
+      child: Center(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 32),
+          padding: const EdgeInsets.all(32),
+          decoration: BoxDecoration(
+            color: const Color(0xFF1E293B),
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Success Icon
+              Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF22C55E),
+                  shape: BoxShape.circle,
+                  boxShadow: [BoxShadow(color: const Color(0xFF22C55E).withValues(alpha: 0.3), blurRadius: 20, spreadRadius: 5)],
+                ),
+                child: const Center(
+                  child: Icon(Icons.check, color: Colors.white, size: 36),
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              const Text('Order Successful', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 16),
+
+              Text(
+                'Your ${_tradeType} order for ${_inputValue.isEmpty ? "0" : _inputValue} of ${_selectedStock['symbol']} has been placed successfully. Thank you for trading with Quantrock',
+                style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 13, height: 1.7),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32),
+
+              // OK Button
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _showSuccessModal = false;
+                    _selectedBottomTab = 'holding';
+                  });
+                },
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(colors: [Color(0xFF22C55E), Color(0xFF16A34A)]),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Center(
+                    child: Text('OK', style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Cancel Modal
+  Widget _buildCancelModal() {
+    return Container(
+      color: Colors.black.withValues(alpha: 0.85),
+      child: Center(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 32),
+          padding: const EdgeInsets.all(32),
+          decoration: BoxDecoration(
+            color: const Color(0xFF1E293B),
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Cancel Icon
+              Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFEF4444),
+                  shape: BoxShape.circle,
+                  boxShadow: [BoxShadow(color: const Color(0xFFEF4444).withValues(alpha: 0.3), blurRadius: 20, spreadRadius: 5)],
+                ),
+                child: const Center(
+                  child: Icon(Icons.check, color: Colors.white, size: 36),
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              const Text('Order Cancelled', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 32),
+
+              // OK Button
+              GestureDetector(
+                onTap: () => setState(() => _showCancelModal = false),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(colors: [Color(0xFFEF4444), Color(0xFFDC2626)]),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Center(
+                    child: Text('OK', style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
