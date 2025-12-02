@@ -451,19 +451,19 @@ class _DashboardPageState extends State<DashboardPage>
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  child: Text(
-                    label,
-                    style: const TextStyle(
-                      color: Color(0xFF9CA3AF),
-                      fontSize: 11,
-                    ),
+                Text(
+                  label,
+                  style: const TextStyle(
+                    color: Color(0xFF9CA3AF),
+                    fontSize: 11,
                   ),
                 ),
+                const SizedBox(width: 4),
                 _buildInfoIcon(label, size: 12),
               ],
             ),
