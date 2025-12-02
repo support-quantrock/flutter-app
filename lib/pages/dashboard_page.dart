@@ -2354,14 +2354,17 @@ class _DashboardPageState extends State<DashboardPage>
                 isReduce ? 'Sell' : 'Buy',
                 style: TextStyle(
                   color: orderTypeColor,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(width: 8),
-              Text(
-                date,
-                style: const TextStyle(color: Color(0xFF6B7280), fontSize: 11),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    date,
+                    style: const TextStyle(color: Color(0xFF6B7280), fontSize: 11),
+                  ),
+                ),
               ),
             ],
           ),
