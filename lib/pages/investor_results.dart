@@ -1310,6 +1310,290 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'zh': '加密货币/区块链',
         'hi': 'کرپٹو/بلاک چین'
       },
+      // Info Modal - Personality (Investment Background)
+      'info_personality_title': {
+        'en': 'Personal Information & Investment Background (0-40 pts)',
+        'ar': 'المعلومات الشخصية والخلفية الاستثمارية (0-40 نقطة)',
+        'fr': 'Informations Personnelles & Parcours d\'Investissement (0-40 pts)',
+        'es': 'Información Personal y Antecedentes de Inversión (0-40 pts)',
+        'zh': '个人信息与投资背景 (0-40分)',
+        'hi': 'ذاتی معلومات اور سرمایہ کاری کا پس منظر (0-40 پوائنٹس)'
+      },
+      'info_very_low_exp': {
+        'en': 'Very Low Experience (0-10)',
+        'ar': 'خبرة منخفضة جداً (0-10)',
+        'fr': 'Très Faible Expérience (0-10)',
+        'es': 'Experiencia Muy Baja (0-10)',
+        'zh': '经验非常少 (0-10)',
+        'hi': 'بہت کم تجربہ (0-10)'
+      },
+      'info_very_low_exp_desc': {
+        'en': 'No portfolio, no knowledge, short time horizon, minimal exposure.',
+        'ar': 'لا محفظة، لا معرفة، أفق زمني قصير، تعرض محدود.',
+        'fr': 'Pas de portefeuille, pas de connaissances, horizon temporel court, exposition minimale.',
+        'es': 'Sin portafolio, sin conocimientos, horizonte temporal corto, exposición mínima.',
+        'zh': '无投资组合，无知识，短期视野，接触最少。',
+        'hi': 'کوئی پورٹ فولیو نہیں، کوئی علم نہیں، مختصر وقت کا افق، کم سے کم نمائش۔'
+      },
+      'info_low_exp': {
+        'en': 'Low Experience (11-20)',
+        'ar': 'خبرة منخفضة (11-20)',
+        'fr': 'Faible Expérience (11-20)',
+        'es': 'Experiencia Baja (11-20)',
+        'zh': '经验较少 (11-20)',
+        'hi': 'کم تجربہ (11-20)'
+      },
+      'info_low_exp_desc': {
+        'en': 'Beginner investor, small portfolio, limited knowledge.',
+        'ar': 'مستثمر مبتدئ، محفظة صغيرة، معرفة محدودة.',
+        'fr': 'Investisseur débutant, petit portefeuille, connaissances limitées.',
+        'es': 'Inversor principiante, portafolio pequeño, conocimientos limitados.',
+        'zh': '初级投资者，小型投资组合，知识有限。',
+        'hi': 'ابتدائی سرمایہ کار، چھوٹا پورٹ فولیو، محدود علم۔'
+      },
+      'info_mod_exp': {
+        'en': 'Moderate Experience (21-30)',
+        'ar': 'خبرة متوسطة (21-30)',
+        'fr': 'Expérience Modérée (21-30)',
+        'es': 'Experiencia Moderada (21-30)',
+        'zh': '中等经验 (21-30)',
+        'hi': 'معتدل تجربہ (21-30)'
+      },
+      'info_mod_exp_desc': {
+        'en': 'Some investment history, several asset classes, average chart reading.',
+        'ar': 'بعض التاريخ الاستثماري، عدة فئات أصول، قراءة رسوم بيانية متوسطة.',
+        'fr': 'Quelques antécédents d\'investissement, plusieurs classes d\'actifs, lecture de graphiques moyenne.',
+        'es': 'Algo de historial de inversión, varias clases de activos, lectura de gráficos promedio.',
+        'zh': '有一些投资历史，多种资产类别，一般的图表阅读能力。',
+        'hi': 'کچھ سرمایہ کاری کی تاریخ، کئی اثاثہ جات کی کلاسیں، اوسط چارٹ ریڈنگ۔'
+      },
+      'info_high_exp': {
+        'en': 'High Experience (31-40)',
+        'ar': 'خبرة عالية (31-40)',
+        'fr': 'Grande Expérience (31-40)',
+        'es': 'Alta Experiencia (31-40)',
+        'zh': '丰富经验 (31-40)',
+        'hi': 'زیادہ تجربہ (31-40)'
+      },
+      'info_high_exp_desc': {
+        'en': 'Strong portfolio size, good knowledge, diversified exposure, long time horizon.',
+        'ar': 'حجم محفظة قوي، معرفة جيدة، تعرض متنوع، أفق زمني طويل.',
+        'fr': 'Taille de portefeuille importante, bonnes connaissances, exposition diversifiée, horizon temporel long.',
+        'es': 'Tamaño de portafolio fuerte, buen conocimiento, exposición diversificada, horizonte temporal largo.',
+        'zh': '投资组合规模大，知识丰富，多元化接触，长期视野。',
+        'hi': 'مضبوط پورٹ فولیو سائز، اچھا علم، متنوع نمائش، طویل وقت کا افق۔'
+      },
+      'info_what_measures': {
+        'en': 'What This Measures',
+        'ar': 'ما الذي يقيسه هذا',
+        'fr': 'Ce Que Cela Mesure',
+        'es': 'Qué Mide Esto',
+        'zh': '这测量什么',
+        'hi': 'یہ کیا ماپتا ہے'
+      },
+      'info_personality_measures': {
+        'en': 'Real investment involvement • Portfolio size & history • Knowledge level • Asset exposure • Time horizon confidence',
+        'ar': 'المشاركة الاستثمارية الحقيقية • حجم المحفظة والتاريخ • مستوى المعرفة • التعرض للأصول • ثقة الأفق الزمني',
+        'fr': 'Implication réelle dans l\'investissement • Taille et historique du portefeuille • Niveau de connaissances • Exposition aux actifs • Confiance dans l\'horizon temporel',
+        'es': 'Participación real en inversiones • Tamaño e historial del portafolio • Nivel de conocimiento • Exposición a activos • Confianza en el horizonte temporal',
+        'zh': '实际投资参与 • 投资组合规模和历史 • 知识水平 • 资产接触 • 时间视野信心',
+        'hi': 'حقیقی سرمایہ کاری کی شمولیت • پورٹ فولیو سائز اور تاریخ • علم کی سطح • اثاثوں کی نمائش • وقت کے افق کا اعتماد'
+      },
+      // Info Modal - Literacy (Financial Literacy)
+      'info_literacy_title': {
+        'en': 'Financial Literacy (0-30 pts)',
+        'ar': 'الثقافة المالية (0-30 نقطة)',
+        'fr': 'Littératie Financière (0-30 pts)',
+        'es': 'Educación Financiera (0-30 pts)',
+        'zh': '金融素养 (0-30分)',
+        'hi': 'مالی خواندگی (0-30 پوائنٹس)'
+      },
+      'info_lit_beginner': {
+        'en': 'Beginner (0-10)',
+        'ar': 'مبتدئ (0-10)',
+        'fr': 'Débutant (0-10)',
+        'es': 'Principiante (0-10)',
+        'zh': '初学者 (0-10)',
+        'hi': 'نوآموز (0-10)'
+      },
+      'info_lit_beginner_desc': {
+        'en': 'Limited risk understanding, building savings habits, learning financial fundamentals.',
+        'ar': 'فهم محدود للمخاطر، بناء عادات الادخار، تعلم أساسيات المالية.',
+        'fr': 'Compréhension limitée des risques, développement des habitudes d\'épargne, apprentissage des fondamentaux financiers.',
+        'es': 'Comprensión limitada del riesgo, desarrollando hábitos de ahorro, aprendiendo fundamentos financieros.',
+        'zh': '风险理解有限，建立储蓄习惯，学习金融基础知识。',
+        'hi': 'خطرے کی محدود سمجھ، بچت کی عادات بنانا، مالی بنیادی باتیں سیکھنا۔'
+      },
+      'info_lit_intermediate': {
+        'en': 'Intermediate (11-20)',
+        'ar': 'متوسط (11-20)',
+        'fr': 'Intermédiaire (11-20)',
+        'es': 'Intermedio (11-20)',
+        'zh': '中级 (11-20)',
+        'hi': 'درمیانہ (11-20)'
+      },
+      'info_lit_intermediate_desc': {
+        'en': 'Good understanding of risk, consistent saving, has emergency fund and basic planning.',
+        'ar': 'فهم جيد للمخاطر، ادخار منتظم، لديه صندوق طوارئ وتخطيط أساسي.',
+        'fr': 'Bonne compréhension des risques, épargne régulière, fonds d\'urgence et planification de base.',
+        'es': 'Buena comprensión del riesgo, ahorro constante, tiene fondo de emergencia y planificación básica.',
+        'zh': '对风险有良好理解，持续储蓄，有应急基金和基本规划。',
+        'hi': 'خطرے کی اچھی سمجھ، مسلسل بچت، ایمرجنسی فنڈ اور بنیادی منصوبہ بندی۔'
+      },
+      'info_lit_expert': {
+        'en': 'Expert (21-30)',
+        'ar': 'خبير (21-30)',
+        'fr': 'Expert (21-30)',
+        'es': 'Experto (21-30)',
+        'zh': '专家 (21-30)',
+        'hi': 'ماہر (21-30)'
+      },
+      'info_lit_expert_desc': {
+        'en': 'Strong risk understanding, mature saving habits, comprehensive retirement planning.',
+        'ar': 'فهم قوي للمخاطر، عادات ادخار ناضجة، تخطيط شامل للتقاعد.',
+        'fr': 'Forte compréhension des risques, habitudes d\'épargne matures, planification complète de la retraite.',
+        'es': 'Fuerte comprensión del riesgo, hábitos de ahorro maduros, planificación integral de jubilación.',
+        'zh': '对风险有深刻理解，成熟的储蓄习惯，全面的退休规划。',
+        'hi': 'خطرے کی مضبوط سمجھ، پختہ بچت کی عادات، جامع ریٹائرمنٹ پلاننگ۔'
+      },
+      'info_literacy_measures': {
+        'en': 'Risk understanding • Saving discipline • Emergency fund stability • Retirement planning • Behavioral profile',
+        'ar': 'فهم المخاطر • انضباط الادخار • استقرار صندوق الطوارئ • تخطيط التقاعد • الملف السلوكي',
+        'fr': 'Compréhension des risques • Discipline d\'épargne • Stabilité du fonds d\'urgence • Planification de retraite • Profil comportemental',
+        'es': 'Comprensión del riesgo • Disciplina de ahorro • Estabilidad del fondo de emergencia • Planificación de jubilación • Perfil conductual',
+        'zh': '风险理解 • 储蓄纪律 • 应急基金稳定性 • 退休规划 • 行为特征',
+        'hi': 'خطرے کی سمجھ • بچت کی نظم و ضبط • ایمرجنسی فنڈ کا استحکام • ریٹائرمنٹ پلاننگ • رویے کا پروفائل'
+      },
+      // Info Modal - Strength (Objectives & Motivation)
+      'info_strength_title': {
+        'en': 'Investment Objectives & Motivation (0-15 pts)',
+        'ar': 'أهداف الاستثمار والدوافع (0-15 نقطة)',
+        'fr': 'Objectifs d\'Investissement & Motivation (0-15 pts)',
+        'es': 'Objetivos de Inversión y Motivación (0-15 pts)',
+        'zh': '投资目标与动机 (0-15分)',
+        'hi': 'سرمایہ کاری کے مقاصد اور حوصلہ افزائی (0-15 پوائنٹس)'
+      },
+      'info_str_unclear': {
+        'en': 'Unclear or Basic Objectives (0-5)',
+        'ar': 'أهداف غير واضحة أو أساسية (0-5)',
+        'fr': 'Objectifs Flous ou Basiques (0-5)',
+        'es': 'Objetivos Poco Claros o Básicos (0-5)',
+        'zh': '目标不明确或基础 (0-5)',
+        'hi': 'غیر واضح یا بنیادی مقاصد (0-5)'
+      },
+      'info_str_unclear_desc': {
+        'en': 'User is still exploring investing or focusing on protection.',
+        'ar': 'المستخدم لا يزال يستكشف الاستثمار أو يركز على الحماية.',
+        'fr': 'L\'utilisateur explore encore l\'investissement ou se concentre sur la protection.',
+        'es': 'El usuario aún está explorando la inversión o enfocándose en la protección.',
+        'zh': '用户仍在探索投资或专注于保护。',
+        'hi': 'صارف ابھی بھی سرمایہ کاری کی تلاش میں ہے یا تحفظ پر توجہ دے رہا ہے۔'
+      },
+      'info_str_developing': {
+        'en': 'Developing Objectives (6-10)',
+        'ar': 'أهداف قيد التطوير (6-10)',
+        'fr': 'Objectifs en Développement (6-10)',
+        'es': 'Objetivos en Desarrollo (6-10)',
+        'zh': '发展中的目标 (6-10)',
+        'hi': 'ترقی پذیر مقاصد (6-10)'
+      },
+      'info_str_developing_desc': {
+        'en': 'Focus on income, growth, or learning.',
+        'ar': 'التركيز على الدخل أو النمو أو التعلم.',
+        'fr': 'Concentration sur le revenu, la croissance ou l\'apprentissage.',
+        'es': 'Enfoque en ingresos, crecimiento o aprendizaje.',
+        'zh': '专注于收入、增长或学习。',
+        'hi': 'آمدنی، ترقی، یا سیکھنے پر توجہ۔'
+      },
+      'info_str_strong': {
+        'en': 'Strong, Defined Objectives (11-15)',
+        'ar': 'أهداف قوية ومحددة (11-15)',
+        'fr': 'Objectifs Forts et Définis (11-15)',
+        'es': 'Objetivos Fuertes y Definidos (11-15)',
+        'zh': '明确的强目标 (11-15)',
+        'hi': 'مضبوط، واضح مقاصد (11-15)'
+      },
+      'info_str_strong_desc': {
+        'en': 'User aims for advanced goals like wealth-building or strategy testing.',
+        'ar': 'يهدف المستخدم إلى أهداف متقدمة مثل بناء الثروة أو اختبار الاستراتيجيات.',
+        'fr': 'L\'utilisateur vise des objectifs avancés comme la création de richesse ou le test de stratégies.',
+        'es': 'El usuario apunta a objetivos avanzados como la creación de riqueza o prueba de estrategias.',
+        'zh': '用户追求高级目标，如财富积累或策略测试。',
+        'hi': 'صارف ایڈوانسڈ اہداف کا ہدف رکھتا ہے جیسے دولت کی تعمیر یا حکمت عملی کی جانچ۔'
+      },
+      'info_strength_measures': {
+        'en': 'Investment goals • Intent behind using Quantrock • Industry interests • Motivation strength',
+        'ar': 'أهداف الاستثمار • النية وراء استخدام Quantrock • الاهتمامات الصناعية • قوة الدافع',
+        'fr': 'Objectifs d\'investissement • Intention derrière l\'utilisation de Quantrock • Intérêts industriels • Force de motivation',
+        'es': 'Objetivos de inversión • Intención detrás del uso de Quantrock • Intereses industriales • Fuerza de motivación',
+        'zh': '投资目标 • 使用Quantrock的意图 • 行业兴趣 • 动机强度',
+        'hi': 'سرمایہ کاری کے مقاصد • Quantrock استعمال کرنے کا ارادہ • صنعتی دلچسپیاں • حوصلہ افزائی کی طاقت'
+      },
+      // Info Modal - Readiness (Learning Readiness)
+      'info_readiness_title': {
+        'en': 'Learning Readiness (0-15 pts)',
+        'ar': 'الاستعداد للتعلم (0-15 نقطة)',
+        'fr': 'Préparation à l\'Apprentissage (0-15 pts)',
+        'es': 'Preparación para Aprender (0-15 pts)',
+        'zh': '学习准备 (0-15分)',
+        'hi': 'سیکھنے کی تیاری (0-15 پوائنٹس)'
+      },
+      'info_read_learning': {
+        'en': 'Learning Challenge (0-5)',
+        'ar': 'تحدي التعلم (0-5)',
+        'fr': 'Défi d\'Apprentissage (0-5)',
+        'es': 'Desafío de Aprendizaje (0-5)',
+        'zh': '学习挑战 (0-5)',
+        'hi': 'سیکھنے کا چیلنج (0-5)'
+      },
+      'info_read_learning_desc': {
+        'en': 'Needs foundation and learning before investing. Focus on education first.',
+        'ar': 'يحتاج إلى أساس وتعلم قبل الاستثمار. التركيز على التعليم أولاً.',
+        'fr': 'A besoin de fondations et d\'apprentissage avant d\'investir. Concentrez-vous d\'abord sur l\'éducation.',
+        'es': 'Necesita fundamentos y aprendizaje antes de invertir. Enfóquese primero en la educación.',
+        'zh': '在投资之前需要基础和学习。首先专注于教育。',
+        'hi': 'سرمایہ کاری سے پہلے بنیاد اور سیکھنے کی ضرورت ہے۔ پہلے تعلیم پر توجہ دیں۔'
+      },
+      'info_read_investing': {
+        'en': 'Investing Challenge (6-10)',
+        'ar': 'تحدي الاستثمار (6-10)',
+        'fr': 'Défi d\'Investissement (6-10)',
+        'es': 'Desafío de Inversión (6-10)',
+        'zh': '投资挑战 (6-10)',
+        'hi': 'سرمایہ کاری کا چیلنج (6-10)'
+      },
+      'info_read_investing_desc': {
+        'en': 'Has knowledge but needs guided practice. Ready for investment challenges.',
+        'ar': 'لديه معرفة لكن يحتاج إلى ممارسة موجهة. جاهز لتحديات الاستثمار.',
+        'fr': 'A des connaissances mais a besoin de pratique guidée. Prêt pour les défis d\'investissement.',
+        'es': 'Tiene conocimientos pero necesita práctica guiada. Listo para desafíos de inversión.',
+        'zh': '有知识但需要指导实践。准备好迎接投资挑战。',
+        'hi': 'علم ہے لیکن رہنمائی کی مشق کی ضرورت ہے۔ سرمایہ کاری کے چیلنجز کے لیے تیار۔'
+      },
+      'info_read_ready': {
+        'en': 'Ready for Challenge (10-15)',
+        'ar': 'جاهز للتحدي (10-15)',
+        'fr': 'Prêt pour le Défi (10-15)',
+        'es': 'Listo para el Desafío (10-15)',
+        'zh': '准备迎接挑战 (10-15)',
+        'hi': 'چیلنج کے لیے تیار (10-15)'
+      },
+      'info_read_ready_desc': {
+        'en': 'Fully confident and prepared for advanced trading tests or challenges.',
+        'ar': 'واثق تماماً ومستعد لاختبارات أو تحديات التداول المتقدمة.',
+        'fr': 'Entièrement confiant et préparé pour des tests ou défis de trading avancés.',
+        'es': 'Completamente confiado y preparado para pruebas o desafíos de trading avanzados.',
+        'zh': '完全有信心并准备好进行高级交易测试或挑战。',
+        'hi': 'مکمل طور پر پراعتماد اور ایڈوانسڈ ٹریڈنگ ٹیسٹس یا چیلنجز کے لیے تیار۔'
+      },
+      'info_readiness_measures': {
+        'en': 'Self-assessed preparedness • Understanding of passive income • Confidence and portfolio preference',
+        'ar': 'الاستعداد الذاتي المقيم • فهم الدخل السلبي • الثقة وتفضيل المحفظة',
+        'fr': 'Préparation auto-évaluée • Compréhension des revenus passifs • Confiance et préférence de portefeuille',
+        'es': 'Preparación autoevaluada • Comprensión de ingresos pasivos • Confianza y preferencia de portafolio',
+        'zh': '自我评估的准备程度 • 对被动收入的理解 • 信心和投资组合偏好',
+        'hi': 'خود تشخیص شدہ تیاری • غیر فعال آمدنی کی سمجھ • اعتماد اور پورٹ فولیو کی ترجیح'
+      },
     };
     return translations[key]?[_selectedLanguage] ?? translations[key]?['en'] ?? key;
   }
@@ -1417,9 +1701,57 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
     super.dispose();
   }
 
+  InfoCategory _getTranslatedInfoContent(String category) {
+    switch (category) {
+      case 'personality':
+        return InfoCategory(
+          title: _t('info_personality_title'),
+          items: [
+            InfoItem(emoji: '🔴', label: _t('info_very_low_exp'), color: const Color(0xFFEF4444), description: _t('info_very_low_exp_desc')),
+            InfoItem(emoji: '🟠', label: _t('info_low_exp'), color: const Color(0xFFF59E0B), description: _t('info_low_exp_desc')),
+            InfoItem(emoji: '🔵', label: _t('info_mod_exp'), color: const Color(0xFF3B82F6), description: _t('info_mod_exp_desc')),
+            InfoItem(emoji: '🟢', label: _t('info_high_exp'), color: const Color(0xFF22C55E), description: _t('info_high_exp_desc')),
+            InfoItem(emoji: '📋', label: _t('info_what_measures'), color: const Color(0xFF6366F1), description: _t('info_personality_measures')),
+          ],
+        );
+      case 'literacy':
+        return InfoCategory(
+          title: _t('info_literacy_title'),
+          items: [
+            InfoItem(emoji: '🟠', label: _t('info_lit_beginner'), color: const Color(0xFFF59E0B), description: _t('info_lit_beginner_desc')),
+            InfoItem(emoji: '🔵', label: _t('info_lit_intermediate'), color: const Color(0xFF3B82F6), description: _t('info_lit_intermediate_desc')),
+            InfoItem(emoji: '🟢', label: _t('info_lit_expert'), color: const Color(0xFF22C55E), description: _t('info_lit_expert_desc')),
+            InfoItem(emoji: '📋', label: _t('info_what_measures'), color: const Color(0xFF6366F1), description: _t('info_literacy_measures')),
+          ],
+        );
+      case 'strength':
+        return InfoCategory(
+          title: _t('info_strength_title'),
+          items: [
+            InfoItem(emoji: '🟠', label: _t('info_str_unclear'), color: const Color(0xFFF59E0B), description: _t('info_str_unclear_desc')),
+            InfoItem(emoji: '🔵', label: _t('info_str_developing'), color: const Color(0xFF3B82F6), description: _t('info_str_developing_desc')),
+            InfoItem(emoji: '🟢', label: _t('info_str_strong'), color: const Color(0xFF22C55E), description: _t('info_str_strong_desc')),
+            InfoItem(emoji: '📋', label: _t('info_what_measures'), color: const Color(0xFF8B5CF6), description: _t('info_strength_measures')),
+          ],
+        );
+      case 'readiness':
+        return InfoCategory(
+          title: _t('info_readiness_title'),
+          items: [
+            InfoItem(emoji: '🟠', label: _t('info_read_learning'), color: const Color(0xFFF59E0B), description: _t('info_read_learning_desc')),
+            InfoItem(emoji: '🔵', label: _t('info_read_investing'), color: const Color(0xFF3B82F6), description: _t('info_read_investing_desc')),
+            InfoItem(emoji: '🟢', label: _t('info_read_ready'), color: const Color(0xFF22C55E), description: _t('info_read_ready_desc')),
+            InfoItem(emoji: '📋', label: _t('info_what_measures'), color: const Color(0xFF10B981), description: _t('info_readiness_measures')),
+          ],
+        );
+      default:
+        return InfoCategory(title: '', items: []);
+    }
+  }
+
   void _showInfoModal(String category) {
-    final info = infoContent[category];
-    if (info == null) return;
+    final info = _getTranslatedInfoContent(category);
+    if (info.title.isEmpty) return;
 
     showModalBottomSheet(
       context: context,
