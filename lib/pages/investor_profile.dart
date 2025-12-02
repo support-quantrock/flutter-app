@@ -1347,95 +1347,55 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
     return LayoutBuilder(
       builder: (context, constraints) {
         final screenWidth = MediaQuery.of(context).size.width;
-        final imageHeight = screenWidth < 400 ? 180.0 : (screenWidth < 600 ? 220.0 : 280.0);
+        // Responsive height based on screen width
+        final imageHeight = screenWidth < 400 ? 200.0 : (screenWidth < 600 ? 260.0 : 320.0);
 
         return Container(
           height: imageHeight,
           width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                // Background green bull vs red bear stock market image
-                Image.network(
-                  'https://cdn.pixabay.com/photo/2016/11/27/21/42/stock-1863880_1280.jpg',
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    // Fallback gradient if network image fails
-                    return Container(
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [Color(0xFF1A1A2E), Color(0xFF16213E), Color(0xFF0F172A)],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                // Dark overlay for better contrast
-                Container(
+          child: Image.asset(
+            'assets/images/qiqt_hero.png',
+            fit: BoxFit.contain,
+            width: double.infinity,
+            errorBuilder: (context, error, stackTrace) {
+              // Fallback to mascot image if hero image fails
+              return Center(
+                child: Container(
+                  width: 140,
+                  height: 140,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black.withValues(alpha: 0.3),
-                        Colors.black.withValues(alpha: 0.6),
-                      ],
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF8B5CF6).withValues(alpha: 0.3),
+                        blurRadius: 20,
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(70),
+                    child: Image.asset(
+                      'assets/images/mascot.png',
+                      fit: BoxFit.cover,
+                      errorBuilder: (ctx, err, stack) {
+                        return Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                              colors: [Color(0xFF8B5CF6), Color(0xFF6366F1)],
+                            ),
+                          ),
+                          child: const Icon(
+                            Icons.person,
+                            color: Colors.white,
+                            size: 50,
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
-                // Main hero image on top
-                Image.asset(
-                  'assets/images/qiqt_hero.png',
-                  fit: BoxFit.contain,
-                  errorBuilder: (context, error, stackTrace) {
-                    // Fallback to mascot image if hero image fails
-                    return Center(
-                      child: Container(
-                        width: 140,
-                        height: 140,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color(0xFF8B5CF6).withValues(alpha: 0.3),
-                              blurRadius: 20,
-                            ),
-                          ],
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(70),
-                          child: Image.asset(
-                            'assets/images/mascot.png',
-                            fit: BoxFit.cover,
-                            errorBuilder: (ctx, err, stack) {
-                              return Container(
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  gradient: LinearGradient(
-                                    colors: [Color(0xFF8B5CF6), Color(0xFF6366F1)],
-                                  ),
-                                ),
-                                child: const Icon(
-                                  Icons.person,
-                                  color: Colors.white,
-                                  size: 50,
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
+              );
+            },
           ),
         );
       },
