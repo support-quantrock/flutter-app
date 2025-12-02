@@ -591,8 +591,8 @@ class _DashboardPageState extends State<DashboardPage>
           Center(child: _buildRiskLevel()),
           const SizedBox(height: 24),
 
-          // Asset Allocation with Tabs
-          _buildAssetAllocationWithTabs(),
+          // Asset Allocation
+          _buildAssetAllocation(),
         ],
       ),
     );
