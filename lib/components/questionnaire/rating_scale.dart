@@ -226,12 +226,8 @@ class _RatingScaleState extends State<RatingScale>
                   padding: const EdgeInsets.symmetric(vertical: 18),
                   decoration: BoxDecoration(
                     gradient: widget.selectedValue != null
-                        ? const LinearGradient(
-                            colors: [
-                              Color(0xFF22C55E),
-                              Color(0xFF3B82F6),
-                              Color(0xFFA855F7),
-                            ],
+                        ? LinearGradient(
+                            colors: [Colors.cyan, Colors.blue.shade600],
                           )
                         : null,
                     color: widget.selectedValue != null
@@ -241,7 +237,7 @@ class _RatingScaleState extends State<RatingScale>
                     boxShadow: widget.selectedValue != null
                         ? [
                             BoxShadow(
-                              color: const Color(0xFF3B82F6).withValues(alpha: _glowAnimation.value),
+                              color: Colors.cyan.withValues(alpha: _glowAnimation.value),
                               blurRadius: 20,
                               offset: const Offset(0, 8),
                             ),

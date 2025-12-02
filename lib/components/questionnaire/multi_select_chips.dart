@@ -7,10 +7,6 @@ class MultiSelectChips extends StatelessWidget {
   final List<String> selectedValues;
   final ValueChanged<String> onToggle;
   final VoidCallback onContinue;
-  final bool isArabic;
-  final String badgeText;
-  final String selectedText;
-  final String continueText;
 
   const MultiSelectChips({
     super.key,
@@ -19,115 +15,102 @@ class MultiSelectChips extends StatelessWidget {
     required this.selectedValues,
     required this.onToggle,
     required this.onContinue,
-    this.isArabic = false,
-    this.badgeText = 'Select multiple',
-    this.selectedText = 'selected',
-    this.continueText = 'Continue',
   });
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: isArabic ? TextDirection.rtl : TextDirection.ltr,
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Question badge with counter
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.green.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Question badge with counter
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                          decoration: BoxDecoration(
-                            color: Colors.green.withValues(alpha: 0.2),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.check_box_outlined, color: Colors.green.shade400, size: 16),
-                              const SizedBox(width: 6),
-                              Text(
-                                badgeText,
-                                style: TextStyle(
-                                  color: Colors.green.shade400,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        if (selectedValues.isNotEmpty)
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                            decoration: BoxDecoration(
-                              color: Colors.amber.withValues(alpha: 0.2),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(Icons.star, color: Colors.amber, size: 14),
-                                const SizedBox(width: 4),
-                                Text(
-                                  '${selectedValues.length} $selectedText',
-                                  style: TextStyle(
-                                    color: Colors.amber,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                      ],
+                    Icon(Icons.check_box_outlined, color: Colors.green.shade400, size: 16),
+                    const SizedBox(width: 6),
+                    Text(
+                      'Select multiple',
+                      style: TextStyle(
+                        color: Colors.green.shade400,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  const SizedBox(height: 16),
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Wrap(
-                    spacing: 12,
-                    runSpacing: 12,
-                    children: options.asMap().entries.map((entry) {
-                      final index = entry.key;
-                      final option = entry.value;
-                      final isSelected = selectedValues.contains(option.value);
-                      return _GameChip(
-                        option: option,
-                        isSelected: isSelected,
-                        onTap: () => onToggle(option.value),
-                        index: index,
-                      );
-                    }).toList(),
-                  ),
                   ],
                 ),
               ),
+              const SizedBox(width: 12),
+              if (selectedValues.isNotEmpty)
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.amber.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.star, color: Colors.amber, size: 14),
+                      const SizedBox(width: 4),
+                      Text(
+                        '${selectedValues.length} selected',
+                        style: TextStyle(
+                          color: Colors.amber,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
-            const SizedBox(height: 16),
-            // Animated continue button
-            _ContinueButton(
-              enabled: selectedValues.isNotEmpty,
-              onPressed: onContinue,
-              continueText: continueText,
-              isArabic: isArabic,
+          ),
+          const SizedBox(height: 24),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: options.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final option = entry.value;
+                  final isSelected = selectedValues.contains(option.value);
+                  return _GameChip(
+                    option: option,
+                    isSelected: isSelected,
+                    onTap: () => onToggle(option.value),
+                    index: index,
+                  );
+                }).toList(),
+              ),
             ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 16),
+          // Animated continue button
+          _ContinueButton(
+            enabled: selectedValues.isNotEmpty,
+            onPressed: onContinue,
+          ),
+        ],
       ),
     );
   }
@@ -237,26 +220,26 @@ class _GameChipState extends State<_GameChip>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    width: 28,
-                    height: 28,
+                    width: 32,
+                    height: 32,
                     decoration: BoxDecoration(
                       color: widget.isSelected
                           ? Colors.white.withValues(alpha: 0.25)
                           : Colors.white.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(6),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     child: Center(
                       child: Text(
                         widget.option.icon,
-                        style: const TextStyle(fontSize: 14),
+                        style: const TextStyle(fontSize: 18),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 10),
                   Text(
                     widget.option.label,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                       fontWeight:
                           widget.isSelected ? FontWeight.w600 : FontWeight.w500,
                       color: Colors.white,
@@ -291,14 +274,10 @@ class _GameChipState extends State<_GameChip>
 class _ContinueButton extends StatefulWidget {
   final bool enabled;
   final VoidCallback onPressed;
-  final String continueText;
-  final bool isArabic;
 
   const _ContinueButton({
     required this.enabled,
     required this.onPressed,
-    this.continueText = 'Continue',
-    this.isArabic = false,
   });
 
   @override
@@ -342,12 +321,8 @@ class _ContinueButtonState extends State<_ContinueButton>
             padding: const EdgeInsets.symmetric(vertical: 18),
             decoration: BoxDecoration(
               gradient: widget.enabled
-                  ? const LinearGradient(
-                      colors: [
-                        Color(0xFF22C55E),
-                        Color(0xFF3B82F6),
-                        Color(0xFFA855F7),
-                      ],
+                  ? LinearGradient(
+                      colors: [Colors.cyan, Colors.blue.shade600],
                     )
                   : null,
               color: widget.enabled
@@ -357,7 +332,7 @@ class _ContinueButtonState extends State<_ContinueButton>
               boxShadow: widget.enabled
                   ? [
                       BoxShadow(
-                        color: const Color(0xFF3B82F6).withValues(alpha: _glowAnimation.value),
+                        color: Colors.cyan.withValues(alpha: _glowAnimation.value),
                         blurRadius: 20,
                         offset: const Offset(0, 8),
                       ),
@@ -368,7 +343,7 @@ class _ContinueButtonState extends State<_ContinueButton>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  widget.continueText,
+                  'Continue',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -380,7 +355,7 @@ class _ContinueButtonState extends State<_ContinueButton>
                 if (widget.enabled) ...[
                   const SizedBox(width: 8),
                   Icon(
-                    widget.isArabic ? Icons.arrow_back_rounded : Icons.arrow_forward_rounded,
+                    Icons.arrow_forward_rounded,
                     color: Colors.white,
                     size: 20,
                   ),
