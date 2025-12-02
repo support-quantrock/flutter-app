@@ -1254,7 +1254,7 @@ class _DashboardPageState extends State<DashboardPage>
         Row(
           children: [
             _buildAllocationTabButton('objectives', 'Objectives'),
-            const SizedBox(width: 12),
+            const Spacer(),
             _buildAllocationTabButton('statistics', 'Statistics'),
           ],
         ),
@@ -1394,24 +1394,7 @@ class _DashboardPageState extends State<DashboardPage>
       {'label': 'Expectancy', 'value': '\$32', 'color': const Color(0xFF22C55E)},
     ];
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            const Text(
-              'Statistics',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(width: 8),
-            _buildInfoIcon('Statistics'),
-          ],
-        ),
-        GridView.count(
+    return GridView.count(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           crossAxisCount: 3,
@@ -1423,9 +1406,7 @@ class _DashboardPageState extends State<DashboardPage>
             stat['value'] as String,
             stat['color'] as Color,
           )).toList(),
-        ),
-      ],
-    );
+        );
   }
 
   Widget _buildStatBox(String label, String value, Color valueColor) {
