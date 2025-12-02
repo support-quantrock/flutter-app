@@ -132,7 +132,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       'q4_no': {'en': 'No portfolio', 'ar': 'لا يوجد محفظة'},
       'q4_used_to': {'en': 'I used to have one', 'ar': 'كان لدي واحدة سابقاً'},
 
-      'q5_title': {'en': 'What is the approximate size of your current or latest portfolio?', 'ar': 'ما هو الحجم التقريبي لمحفظتك الحالية أو الأخيرة؟'},
+      'q5_title': {'en': 'What is the approximate size of your current, latest or future portfolio?', 'ar': 'ما هو الحجم التقريبي لمحفظتك الحالية أو الأخيرة أو المستقبلية؟'},
       'q5_less1k': {'en': 'Less than \$0.00 - \$1,000', 'ar': 'أقل من 0.00\$ - 1,000\$'},
       'q5_1k_10k': {'en': '\$1,000–\$10,000', 'ar': '1,000\$–10,000\$'},
       'q5_10k_25k': {'en': '\$10,000–\$25,000', 'ar': '10,000\$–25,000\$'},
@@ -152,6 +152,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       'q7_crypto': {'en': 'Cryptocurrency', 'ar': 'عملات رقمية'},
       'q7_bonds': {'en': 'Bonds', 'ar': 'سندات'},
       'q7_real_estate': {'en': 'Real Estate', 'ar': 'عقارات'},
+      'q7_commodities': {'en': 'Commodities', 'ar': 'سلع'},
+      'q7_metals': {'en': 'Metals', 'ar': 'معادن'},
+      'q7_forex': {'en': 'Forex', 'ar': 'فوركس'},
       'q7_none': {'en': 'None', 'ar': 'لا شيء'},
 
       'q8_title': {'en': 'How comfortable are you reading financial charts?', 'ar': 'ما مدى ارتياحك في قراءة الرسوم البيانية المالية؟'},
@@ -619,6 +622,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
             ChoiceOption(label: _t('q7_crypto'), value: 'crypto', icon: '₿'),
             ChoiceOption(label: _t('q7_bonds'), value: 'bonds', icon: '📜'),
             ChoiceOption(label: _t('q7_real_estate'), value: 'real_estate', icon: '🏠'),
+            ChoiceOption(label: _t('q7_commodities'), value: 'commodities', icon: '🛢️'),
+            ChoiceOption(label: _t('q7_metals'), value: 'metals', icon: '🥇'),
+            ChoiceOption(label: _t('q7_forex'), value: 'forex', icon: '💱'),
             ChoiceOption(label: _t('q7_none'), value: 'none', icon: '🚫'),
           ],
           selectedValues: _selectedAssets,
