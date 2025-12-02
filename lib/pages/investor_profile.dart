@@ -1927,73 +1927,78 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
             ],
           ),
           const SizedBox(height: 8),
-          Stack(
-            children: [
-              Container(
-                height: 12,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(6),
-                ),
-              ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeOutCubic,
-                height: 12,
-                width: (MediaQuery.of(context).size.width - 48) * progress,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: sectionColors,
-                  ),
-                  borderRadius: BorderRadius.circular(6),
-                  boxShadow: [
-                    BoxShadow(
-                      color: primaryColor.withValues(alpha: 0.5),
-                      blurRadius: 8,
-                    ),
-                  ],
-                ),
-              ),
-              // Milestone markers - each with its section color
-              ...List.generate(4, (index) {
-                // Milestone positions at 9/20, 14/20, 17/20, 20/20
-                final milestoneSteps = [9, 14, 17, 20];
-                final position = milestoneSteps[index] / totalQuestions;
-                final isReached = _step >= milestoneSteps[index];
-                final milestoneColor = milestoneColors[index];
-                return Positioned(
-                  left: (MediaQuery.of(context).size.width - 48) * position - 8,
-                  top: -2,
-                  child: Container(
-                    width: 16,
-                    height: 16,
+          LayoutBuilder(
+            builder: (context, constraints) {
+              return Stack(
+                children: [
+                  Container(
+                    height: 12,
+                    width: constraints.maxWidth,
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: isReached ? milestoneColor : Colors.grey.shade700,
-                      border: Border.all(
-                        color: isReached ? milestoneColor : Colors.grey,
-                        width: 2,
-                      ),
-                      boxShadow: isReached
-                          ? [
-                              BoxShadow(
-                                color: milestoneColor.withValues(alpha: 0.5),
-                                blurRadius: 6,
-                              ),
-                            ]
-                          : null,
+                      color: Colors.white.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(6),
                     ),
-                    child: isReached
-                        ? const Icon(
-                            Icons.check,
-                            size: 10,
-                            color: Colors.white,
-                          )
-                        : null,
                   ),
-                );
-              }),
-            ],
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeOutCubic,
+                    height: 12,
+                    width: constraints.maxWidth * progress,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: sectionColors,
+                      ),
+                      borderRadius: BorderRadius.circular(6),
+                      boxShadow: [
+                        BoxShadow(
+                          color: primaryColor.withValues(alpha: 0.5),
+                          blurRadius: 8,
+                        ),
+                      ],
+                    ),
+                  ),
+                  // Milestone markers - each with its section color
+                  ...List.generate(4, (index) {
+                    // Milestone positions at 9/20, 14/20, 17/20, 20/20
+                    final milestoneSteps = [9, 14, 17, 20];
+                    final position = milestoneSteps[index] / totalQuestions;
+                    final isReached = _step >= milestoneSteps[index];
+                    final milestoneColor = milestoneColors[index];
+                    return Positioned(
+                      left: constraints.maxWidth * position - 8,
+                      top: -2,
+                      child: Container(
+                        width: 16,
+                        height: 16,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: isReached ? milestoneColor : Colors.grey.shade700,
+                          border: Border.all(
+                            color: isReached ? milestoneColor : Colors.grey,
+                            width: 2,
+                          ),
+                          boxShadow: isReached
+                              ? [
+                                  BoxShadow(
+                                    color: milestoneColor.withValues(alpha: 0.5),
+                                    blurRadius: 6,
+                                  ),
+                                ]
+                              : null,
+                        ),
+                        child: isReached
+                            ? const Icon(
+                                Icons.check,
+                                size: 10,
+                                color: Colors.white,
+                              )
+                            : null,
+                      ),
+                    );
+                  }),
+                ],
+              );
+            },
           ),
         ],
       ),
