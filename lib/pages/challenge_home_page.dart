@@ -13,6 +13,8 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
   bool _isSecondCardExpanded = false;
   String _selectedLanguage = 'en';
 
+  bool get _isRTL => _selectedLanguage == 'ar';
+
   late AnimationController _firstCardController;
   late AnimationController _secondCardController;
   late Animation<double> _firstCardAnimation;
@@ -142,7 +144,9 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Directionality(
+      textDirection: _isRTL ? TextDirection.rtl : TextDirection.ltr,
+      child: Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
       body: SafeArea(
         child: Column(
@@ -165,6 +169,7 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
             ),
           ],
         ),
+      ),
       ),
     );
   }

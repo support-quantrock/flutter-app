@@ -25,7 +25,7 @@ class _DashboardPageState extends State<DashboardPage>
   bool _showStopLossModal = false;
   bool _showSuccessModal = false;
   bool _showCancelModal = false;
-  bool _isModifyingOrder = false;
+  final bool _isModifyingOrder = false;
   String _tradeType = 'buy'; // 'buy' or 'sell'
   String _orderType = 'market'; // 'market' or 'limit'
   String _inputType = 'amount'; // 'amount' or 'units'
