@@ -1551,37 +1551,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
               ),
               textAlign: _isArabic ? TextAlign.right : TextAlign.left,
             ),
-            const SizedBox(height: 20),
-            // Purpose section header
-            Row(
-              children: [
-                const Text(
-                  '🎯',
-                  style: TextStyle(fontSize: 18),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    _t('purpose_title'),
-                    style: const TextStyle(
-                      color: Color(0xFF22C55E),
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Text(
-              _t('purpose_subtitle'),
-              style: TextStyle(
-                color: Colors.white.withValues(alpha: 0.8),
-                fontSize: 15,
-              ),
-              textAlign: _isArabic ? TextAlign.right : TextAlign.left,
-            ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 10),
             // Classification levels
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
