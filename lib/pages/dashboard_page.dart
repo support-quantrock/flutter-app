@@ -2134,6 +2134,47 @@ class _DashboardPageState extends State<DashboardPage>
 
   List<Widget> _buildClosedOrders() {
     return [
+      // Sort by and Filters row
+      Padding(
+        padding: const EdgeInsets.only(bottom: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () {
+                // TODO: Handle sort
+              },
+              child: const Text(
+                'Sort by',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                // TODO: Handle filters
+              },
+              child: Row(
+                children: [
+                  const Text(
+                    'Filters',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  const Icon(Icons.filter_list, color: Colors.white, size: 18),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
       _buildOrderCard(
         date: '20-09-2025 15:30',
         symbol: 'AMZN',
