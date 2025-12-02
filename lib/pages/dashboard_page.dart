@@ -1394,18 +1394,332 @@ class _DashboardPageState extends State<DashboardPage>
   }
 
   Widget _buildHoldingList() {
-    return Container(
-      padding: const EdgeInsets.all(40),
-      child: const Center(
-        child: Text(
-          'No holdings yet',
-          style: TextStyle(
-            color: Color(0xFF9CA3AF),
-            fontSize: 14,
+    return Column(
+      children: [
+        // AAPL Holding
+        _buildHoldingCard(
+          symbol: 'AAPL',
+          name: 'Apple Inc',
+          logoUrl: 'https://logo.clearbit.com/apple.com',
+          portfolioPercent: 12,
+          quantity: 250,
+          invested: 60500,
+          currentValue: 60700,
+          avgPrice: 245.50,
+          currentPrice: 250.00,
+          profitAmount: 360.00,
+          profitPercent: 1.49,
+          isPositive: true,
+        ),
+        const SizedBox(height: 12),
+        // NFLX Holding
+        _buildHoldingCard(
+          symbol: 'NFLX',
+          name: 'Netflix Inc',
+          logoUrl: 'https://logo.clearbit.com/netflix.com',
+          portfolioPercent: 8,
+          quantity: 150,
+          invested: 95000,
+          currentValue: 96792,
+          avgPrice: 633.33,
+          currentPrice: 645.28,
+          profitAmount: -1792.00,
+          profitPercent: -1.89,
+          isPositive: false,
+        ),
+        const SizedBox(height: 12),
+        // TSLA Holding
+        _buildHoldingCard(
+          symbol: 'TSLA',
+          name: 'Tesla Inc',
+          logoUrl: 'https://logo.clearbit.com/tesla.com',
+          portfolioPercent: 6,
+          quantity: 200,
+          invested: 45000,
+          currentValue: 47744,
+          avgPrice: 225.00,
+          currentPrice: 238.72,
+          profitAmount: 2744.00,
+          profitPercent: 6.10,
+          isPositive: true,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHoldingCard({
+    required String symbol,
+    required String name,
+    required String logoUrl,
+    required int portfolioPercent,
+    required int quantity,
+    required double invested,
+    required double currentValue,
+    required double avgPrice,
+    required double currentPrice,
+    required double profitAmount,
+    required double profitPercent,
+    required bool isPositive,
+  }) {
+    final profitColor = isPositive ? const Color(0xFF22C55E) : const Color(0xFFEF4444);
+
+    return GestureDetector(
+      onTap: () {
+        // Handle tap - can navigate to stock detail
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.05),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.1),
           ),
+        ),
+        child: Column(
+          children: [
+            // Header row with logo, name, and portfolio badge
+            Row(
+              children: [
+                // Logo and name
+                Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(
+                        logoUrl,
+                        width: 40,
+                        height: 40,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF3B82F6),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Center(
+                            child: Text(
+                              symbol[0],
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          symbol,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          name,
+                          style: const TextStyle(
+                            color: Color(0xFF9CA3AF),
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                // Portfolio badge
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF3B82F6).withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 6,
+                        height: 6,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF3B82F6),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        'Portfolio $portfolioPercent%',
+                        style: const TextStyle(
+                          color: Color(0xFF3B82F6),
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            // Details section
+            Column(
+              children: [
+                // Quantity row
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Quantity',
+                      style: TextStyle(
+                        color: Color(0xFF9CA3AF),
+                        fontSize: 13,
+                      ),
+                    ),
+                    Text(
+                      quantity.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                // Invested row
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Invested',
+                      style: TextStyle(
+                        color: Color(0xFF9CA3AF),
+                        fontSize: 13,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          '\$ ${_formatNumber(invested)}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const Text(
+                          ' → ',
+                          style: TextStyle(
+                            color: Color(0xFF9CA3AF),
+                            fontSize: 13,
+                          ),
+                        ),
+                        Text(
+                          '\$ ${_formatNumber(currentValue)}',
+                          style: TextStyle(
+                            color: isPositive ? const Color(0xFF22C55E) : const Color(0xFFEF4444),
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                // Avg Price row
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Avg Price',
+                      style: TextStyle(
+                        color: Color(0xFF9CA3AF),
+                        fontSize: 13,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          '\$ ${avgPrice.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const Text(
+                          ' → ',
+                          style: TextStyle(
+                            color: Color(0xFF9CA3AF),
+                            fontSize: 13,
+                          ),
+                        ),
+                        Text(
+                          '\$ ${currentPrice.toStringAsFixed(2)}',
+                          style: TextStyle(
+                            color: isPositive ? const Color(0xFF22C55E) : const Color(0xFFEF4444),
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            // Profit section
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              decoration: BoxDecoration(
+                color: profitColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '${isPositive ? '+' : ''}\$${profitAmount.abs().toStringAsFixed(2)}',
+                    style: TextStyle(
+                      color: profitColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    '(${isPositive ? '+' : ''}${profitPercent.toStringAsFixed(2)}%)',
+                    style: TextStyle(
+                      color: profitColor,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  String _formatNumber(double number) {
+    if (number >= 1000) {
+      return number.toStringAsFixed(0).replaceAllMapped(
+        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+        (Match m) => '${m[1]},',
+      );
+    }
+    return number.toStringAsFixed(2);
   }
 
   Widget _buildOrdersList() {
