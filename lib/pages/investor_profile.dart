@@ -1303,11 +1303,20 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           ),
         ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text(
-              'Got it',
-              style: TextStyle(color: Color(0xFF22C55E)),
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+                ),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Text(
+                'Got it',
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+              ),
             ),
           ),
         ],
@@ -1390,11 +1399,20 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
           ),
         ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text(
-              'Got it',
-              style: TextStyle(color: Color(0xFF22C55E)),
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+                ),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Text(
+                'Got it',
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+              ),
             ),
           ),
         ],
@@ -1899,16 +1917,14 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
   }
 
   Widget _buildQuestProgress() {
-    final progress = _step / totalQuestions;
-    final sectionColors = _getSectionGradientColors();
     final primaryColor = _getSectionPrimaryColor();
 
-    // Milestone colors for each section
+    // QIQT gradient colors for each section
     final milestoneColors = [
       const Color(0xFF22C55E), // Section 1 - Green
       const Color(0xFF3B82F6), // Section 2 - Blue
       const Color(0xFFA855F7), // Section 3 - Purple
-      const Color(0xFFF59E0B), // Section 4 - Gold
+      const Color(0xFFA855F7), // Section 4 - Purple
     ];
 
     return Container(
@@ -1964,35 +1980,77 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                       borderRadius: BorderRadius.circular(6),
                     ),
                   ),
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeOutCubic,
-                    height: 12,
-                    width: constraints.maxWidth * progress,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: sectionColors,
+                  // Multi-colored segmented progress bar
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: SizedBox(
+                      height: 12,
+                      width: constraints.maxWidth,
+                      child: Row(
+                        children: () {
+                          // Section boundaries (actual question numbers)
+                          final sectionBounds = [0, 9, 14, 17, 20];
+                          final segmentWidgets = <Widget>[];
+                          // Equal visual width for each section (25% each)
+                          final sectionWidth = constraints.maxWidth / 4;
+
+                          for (int i = 0; i < 4; i++) {
+                            final sectionStart = sectionBounds[i];
+                            final sectionEnd = sectionBounds[i + 1];
+                            final sectionLength = sectionEnd - sectionStart;
+
+                            // Calculate fill for this section
+                            double fillFraction = 0.0;
+                            if (_step >= sectionEnd) {
+                              fillFraction = 1.0; // Fully filled
+                            } else if (_step > sectionStart) {
+                              fillFraction = (_step - sectionStart) / sectionLength;
+                            }
+
+                            segmentWidgets.add(
+                              SizedBox(
+                                width: sectionWidth,
+                                child: Stack(
+                                  children: [
+                                    // Empty background (already covered by outer background)
+                                    AnimatedContainer(
+                                      duration: const Duration(milliseconds: 500),
+                                      curve: Curves.easeOutCubic,
+                                      height: 12,
+                                      width: sectionWidth * fillFraction,
+                                      decoration: BoxDecoration(
+                                        color: milestoneColors[i],
+                                        boxShadow: fillFraction > 0
+                                            ? [
+                                                BoxShadow(
+                                                  color: milestoneColors[i].withValues(alpha: 0.5),
+                                                  blurRadius: 8,
+                                                ),
+                                              ]
+                                            : null,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                          return segmentWidgets;
+                        }(),
                       ),
-                      borderRadius: BorderRadius.circular(6),
-                      boxShadow: [
-                        BoxShadow(
-                          color: primaryColor.withValues(alpha: 0.5),
-                          blurRadius: 8,
-                        ),
-                      ],
                     ),
                   ),
-                  // Milestone markers - each with its section color
+                  // Milestone markers - equally spaced with QIQT gradient colors
                   ...List.generate(4, (index) {
-                    // Milestone positions at 9/20, 14/20, 17/20, 20/20
+                    // Milestone positions at equal intervals (25%, 50%, 75%, 100%)
                     final milestoneSteps = [9, 14, 17, 20];
-                    final position = milestoneSteps[index] / totalQuestions;
                     final isReached = _step >= milestoneSteps[index];
                     final milestoneColor = milestoneColors[index];
-                    // Adjust last milestone position to stay within bounds
+                    // Equal spacing: each at 25%, 50%, 75%, 100%
+                    final equalPosition = (index + 1) / 4.0;
                     final leftPosition = index == 3
                         ? constraints.maxWidth - 16
-                        : constraints.maxWidth * position - 8;
+                        : constraints.maxWidth * equalPosition - 8;
                     return Positioned(
                       left: leftPosition,
                       top: -2,

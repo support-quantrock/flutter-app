@@ -112,23 +112,36 @@ class _KnowledgeRatingCardState extends State<KnowledgeRatingCard> {
                 ),
               ),
               const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => Navigator.pop(context),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF22C55E),
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color(0xFF22C55E),
+                        Color(0xFF3B82F6),
+                        Color(0xFFA855F7),
+                      ],
                     ),
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF3B82F6).withValues(alpha: 0.4),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
-                  child: Text(
-                    widget.gotItText,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                  child: Center(
+                    child: Text(
+                      widget.gotItText,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
@@ -176,23 +189,54 @@ class _KnowledgeRatingCardState extends State<KnowledgeRatingCard> {
               ),
             ),
             const SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              height: 56,
-              child: ElevatedButton(
-                onPressed: allRated ? widget.onContinue : null,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: allRated ? const Color(0xFF22C55E) : Colors.grey.shade700,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
+            GestureDetector(
+              onTap: allRated ? widget.onContinue : null,
+              child: Container(
+                width: double.infinity,
+                height: 56,
+                decoration: BoxDecoration(
+                  gradient: allRated
+                      ? const LinearGradient(
+                          colors: [
+                            Color(0xFF22C55E),
+                            Color(0xFF3B82F6),
+                            Color(0xFFA855F7),
+                          ],
+                        )
+                      : null,
+                  color: allRated ? null : Colors.grey.shade700,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: allRated
+                      ? [
+                          BoxShadow(
+                            color: const Color(0xFF3B82F6).withValues(alpha: 0.4),
+                            blurRadius: 20,
+                            offset: const Offset(0, 8),
+                          ),
+                        ]
+                      : null,
                 ),
-                child: Text(
-                  allRated ? widget.continueText : widget.rateAllText,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: allRated ? Colors.white : Colors.white60,
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        allRated ? widget.continueText : widget.rateAllText,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: allRated ? Colors.white : Colors.white60,
+                        ),
+                      ),
+                      if (allRated) ...[
+                        const SizedBox(width: 8),
+                        Icon(
+                          widget.isArabic ? Icons.arrow_back_rounded : Icons.arrow_forward_rounded,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ],
+                    ],
                   ),
                 ),
               ),
