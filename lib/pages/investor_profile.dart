@@ -295,6 +295,11 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       'standards_mit_desc': {'en': 'Used to measure educational readiness and motivation.', 'ar': 'يستخدم لقياس الاستعداد التعليمي والتحفيز.', 'fr': 'Utilisé pour mesurer la préparation éducative et la motivation.', 'es': 'Se utiliza para medir la preparación educativa y la motivación.', 'zh': '用于衡量教育准备程度和学习动机。', 'hi': 'शैक्षिक तत्परता और प्रेरणा को मापने के लिए उपयोग किया जाता है।'},
       'standards_cfa_title': {'en': 'CFA Investment Knowledge Framework', 'ar': 'إطار المعرفة الاستثمارية CFA', 'fr': 'Cadre de connaissances en investissement CFA', 'es': 'Marco de conocimiento de inversión CFA', 'zh': 'CFA投资知识框架', 'hi': 'CFA निवेश ज्ञान ढांचा'},
       'standards_cfa_desc': {'en': 'Used to measure the level of financial and investment knowledge and experience.', 'ar': 'يستخدم لقياس مستوى المعرفة والخبرة المالية والاستثمارية.', 'fr': 'Utilisé pour mesurer le niveau de connaissances et d\'expérience financières et d\'investissement.', 'es': 'Se utiliza para medir el nivel de conocimiento y experiencia financiera e inversión.', 'zh': '用于衡量金融和投资知识及经验水平。', 'hi': 'वित्तीय और निवेश ज्ञान और अनुभव के स्तर को मापने के लिए उपयोग किया जाता है।'},
+
+      // Legal/Consent
+      'consent_prefix': {'en': 'By proceeding, you agree with ', 'ar': 'بالمتابعة، فإنك توافق على ', 'fr': 'En continuant, vous acceptez les ', 'es': 'Al continuar, acepta los ', 'zh': '继续即表示您同意', 'hi': 'आगे बढ़कर, आप सहमत हैं '},
+      'terms_and_conditions': {'en': 'Terms and Conditions', 'ar': 'الشروط والأحكام', 'fr': 'Termes et Conditions', 'es': 'Términos y Condiciones', 'zh': '条款和条件', 'hi': 'नियम और शर्तें'},
+      'privacy_policy': {'en': 'Privacy Policy', 'ar': 'سياسة الخصوصية', 'fr': 'Politique de Confidentialité', 'es': 'Política de Privacidad', 'zh': '隐私政策', 'hi': 'गोपनीयता नीति'},
     };
 
     return translations[key]?[_selectedLanguage] ?? translations[key]?['en'] ?? key;
@@ -999,9 +1004,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                       shaderCallback: (bounds) => const LinearGradient(
                         colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
                       ).createShader(bounds),
-                      child: const Text(
-                        'QIQT',
-                        style: TextStyle(
+                      child: Text(
+                        _t('qiqt_title'),
+                        style: const TextStyle(
                           fontSize: 52,
                           fontWeight: FontWeight.w900,
                           color: Colors.white,
@@ -1111,18 +1116,18 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                 Wrap(
                   alignment: WrapAlignment.center,
                   children: [
-                    const Text(
-                      'By proceeding, you agree with ',
-                      style: TextStyle(
+                    Text(
+                      _t('consent_prefix'),
+                      style: const TextStyle(
                         color: Color(0xFF9CA3AF),
                         fontSize: 12,
                       ),
                     ),
                     GestureDetector(
                       onTap: () {},
-                      child: const Text(
-                        'Terms and Conditions',
-                        style: TextStyle(
+                      child: Text(
+                        _t('terms_and_conditions'),
+                        style: const TextStyle(
                           color: Color(0xFF22C55E),
                           fontSize: 12,
                           decoration: TextDecoration.underline,
@@ -1140,9 +1145,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   children: [
                     GestureDetector(
                       onTap: () {},
-                      child: const Text(
-                        'Privacy Policy',
-                        style: TextStyle(
+                      child: Text(
+                        _t('privacy_policy'),
+                        style: const TextStyle(
                           color: Color(0xFF22C55E),
                           fontSize: 12,
                           decoration: TextDecoration.underline,
@@ -1407,9 +1412,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
               shaderCallback: (bounds) => const LinearGradient(
                 colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
               ).createShader(bounds),
-              child: const Text(
-                'QIQT',
-                style: TextStyle(
+              child: Text(
+                _t('qiqt_title'),
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 22,
