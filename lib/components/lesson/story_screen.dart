@@ -63,22 +63,24 @@ class _StoryScreenState extends State<StoryScreen>
     });
 
     _initVideoPlayer();
-    _initTtsAndStartNarration();
+    _initTts();
   }
 
-  Future<void> _initTtsAndStartNarration() async {
+  Future<void> _initTts() async {
     await _tts.setLanguage('en-US');
     await _tts.setSpeechRate(0.45); // Slower for clarity
     await _tts.setVolume(1.0);
     await _tts.setPitch(1.0);
+  }
 
-    // Start narration after a short delay
-    await Future.delayed(const Duration(milliseconds: 500));
-    if (mounted && !_hasStartedNarration) {
+  // Called on user tap - browsers require user interaction for audio
+  Future<void> _startNarration() async {
+    if (_hasStartedNarration) return;
+    setState(() {
       _hasStartedNarration = true;
-      _typingController.forward();
-      await _tts.speak(_fullText);
-    }
+    });
+    _typingController.forward();
+    await _tts.speak(_fullText);
   }
 
   Future<void> _initVideoPlayer() async {
@@ -148,51 +150,78 @@ class _StoryScreenState extends State<StoryScreen>
                 children: [
                   const Spacer(),
 
-                  // Quote text
-                  AnimatedBuilder(
-                    animation: _glowAnimation,
-                    builder: (context, child) {
-                      return Container(
-                        padding: const EdgeInsets.all(24),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.05),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: Colors.amber.withValues(alpha: 0.3 * _glowAnimation.value),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.amber.withValues(alpha: 0.2 * _glowAnimation.value),
-                              blurRadius: 20 * _glowAnimation.value,
-                              spreadRadius: 2,
+                  // Quote text - tap to start narration
+                  GestureDetector(
+                    onTap: _startNarration,
+                    child: AnimatedBuilder(
+                      animation: _glowAnimation,
+                      builder: (context, child) {
+                        return Container(
+                          padding: const EdgeInsets.all(24),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.05),
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: Colors.amber.withValues(alpha: 0.3 * _glowAnimation.value),
                             ),
-                          ],
-                        ),
-                        child: Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(text: _displayedText),
-                              // Blinking cursor while typing
-                              if (_displayedText.length < _fullText.length)
-                                TextSpan(
-                                  text: '|',
-                                  style: TextStyle(
-                                    color: Colors.amber.withValues(alpha: _glowAnimation.value),
-                                  ),
-                                ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.amber.withValues(alpha: 0.2 * _glowAnimation.value),
+                                blurRadius: 20 * _glowAnimation.value,
+                                spreadRadius: 2,
+                              ),
                             ],
                           ),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white.withValues(alpha: 0.95),
-                            height: 1.6,
-                            fontStyle: FontStyle.italic,
+                          child: Column(
+                            children: [
+                              // Show tap to listen prompt before narration starts
+                              if (!_hasStartedNarration) ...[
+                                Icon(
+                                  Icons.volume_up,
+                                  color: Colors.amber.withValues(alpha: _glowAnimation.value),
+                                  size: 32,
+                                ),
+                                const SizedBox(height: 12),
+                                Text(
+                                  'Tap to listen',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.amber.withValues(alpha: _glowAnimation.value),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                              ],
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(text: _hasStartedNarration ? _displayedText : _fullText),
+                                    // Blinking cursor while typing
+                                    if (_hasStartedNarration && _displayedText.length < _fullText.length)
+                                      TextSpan(
+                                        text: '|',
+                                        style: TextStyle(
+                                          color: Colors.amber.withValues(alpha: _glowAnimation.value),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  color: _hasStartedNarration
+                                      ? Colors.white.withValues(alpha: 0.95)
+                                      : Colors.white.withValues(alpha: 0.5),
+                                  height: 1.6,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
 
                   const SizedBox(height: 24),
