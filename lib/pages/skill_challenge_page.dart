@@ -102,7 +102,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildSectionTitle('Quantrock Investment Championship'),
+                    _buildSectionTitle('Quantrock Challenges'),
                     _buildTabs(),
                     const SizedBox(height: 16),
                     if (_activeTab == 'training') ...[
