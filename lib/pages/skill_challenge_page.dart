@@ -804,28 +804,42 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
-          gradient: isTest && !isLocked
-              ? const LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [Color(0xFFFEF3C7), Color(0xFFFDE68A)],
-                )
-              : null,
+          gradient: isLocked
+              ? null
+              : isCompleted
+                  ? const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [Color(0xFF10B981), Color(0xFF059669)],
+                    )
+                  : isTest
+                      ? const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [Color(0xFFFEF3C7), Color(0xFFFDE68A)],
+                        )
+                      : null,
           color: isLocked
               ? Colors.white.withValues(alpha: 0.05)
-              : isTest
+              : isCompleted
                   ? null
-                  : Colors.white,
+                  : isTest
+                      ? null
+                      : Colors.white,
           borderRadius: BorderRadius.circular(16),
-          border: isTest && !isLocked
-              ? Border.all(color: const Color(0xFFF59E0B), width: 2)
-              : null,
+          border: isCompleted
+              ? Border.all(color: const Color(0xFF10B981), width: 2)
+              : isTest && !isLocked
+                  ? Border.all(color: const Color(0xFFF59E0B), width: 2)
+                  : null,
           boxShadow: !isLocked
               ? [
                   BoxShadow(
-                    color: isTest
-                        ? const Color(0xFFF59E0B).withValues(alpha: 0.3)
-                        : Colors.black.withValues(alpha: 0.1),
+                    color: isCompleted
+                        ? const Color(0xFF10B981).withValues(alpha: 0.3)
+                        : isTest
+                            ? const Color(0xFFF59E0B).withValues(alpha: 0.3)
+                            : Colors.black.withValues(alpha: 0.1),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -838,28 +852,32 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               padding: const EdgeInsets.all(14),
               child: Row(
                 children: [
-                  // Emoji icon
+                  // Emoji icon or check for completed
                   Container(
                     width: 44,
                     height: 44,
                     decoration: BoxDecoration(
                       color: isLocked
                           ? Colors.grey.withValues(alpha: 0.2)
-                          : isTest
-                              ? const Color(0xFFF59E0B).withValues(alpha: 0.2)
-                              : const Color(0xFFF0F4FF),
+                          : isCompleted
+                              ? Colors.white.withValues(alpha: 0.2)
+                              : isTest
+                                  ? const Color(0xFFF59E0B).withValues(alpha: 0.2)
+                                  : const Color(0xFFF0F4FF),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
-                      child: isTest && !isLocked
-                          ? const Icon(Icons.quiz, color: Color(0xFFF59E0B), size: 24)
-                          : Text(
-                              emoji,
-                              style: TextStyle(
-                                fontSize: 22,
-                                color: isLocked ? Colors.grey : null,
-                              ),
-                            ),
+                      child: isCompleted
+                          ? const Icon(Icons.check, color: Colors.white, size: 24)
+                          : isTest && !isLocked
+                              ? const Icon(Icons.quiz, color: Color(0xFFF59E0B), size: 24)
+                              : Text(
+                                  emoji,
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    color: isLocked ? Colors.grey : null,
+                                  ),
+                                ),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -869,11 +887,13 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                     decoration: BoxDecoration(
                       color: isLocked
                           ? Colors.grey.withValues(alpha: 0.2)
-                          : isTest
-                              ? const Color(0xFFF59E0B).withValues(alpha: 0.3)
-                              : isCurrent
-                                  ? const Color(0xFFFEF3C7)
-                                  : const Color(0xFFE0E7FF),
+                          : isCompleted
+                              ? Colors.white.withValues(alpha: 0.2)
+                              : isTest
+                                  ? const Color(0xFFF59E0B).withValues(alpha: 0.3)
+                                  : isCurrent
+                                      ? const Color(0xFFFEF3C7)
+                                      : const Color(0xFFE0E7FF),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
@@ -883,11 +903,13 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                         fontWeight: FontWeight.bold,
                         color: isLocked
                             ? Colors.grey
-                            : isTest
-                                ? const Color(0xFFB45309)
-                                : isCurrent
-                                    ? const Color(0xFFD97706)
-                                    : const Color(0xFF4338CA),
+                            : isCompleted
+                                ? Colors.white
+                                : isTest
+                                    ? const Color(0xFFB45309)
+                                    : isCurrent
+                                        ? const Color(0xFFD97706)
+                                        : const Color(0xFF4338CA),
                       ),
                     ),
                   ),
@@ -901,9 +923,11 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                         fontWeight: isTest ? FontWeight.w600 : FontWeight.w500,
                         color: isLocked
                             ? Colors.grey
-                            : isTest
-                                ? const Color(0xFFB45309)
-                                : const Color(0xFF1F2937),
+                            : isCompleted
+                                ? Colors.white
+                                : isTest
+                                    ? const Color(0xFFB45309)
+                                    : const Color(0xFF1F2937),
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -916,6 +940,12 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                       Icons.lock,
                       color: Colors.grey.withValues(alpha: 0.5),
                       size: 20,
+                    )
+                  else if (isCompleted)
+                    const Icon(
+                      Icons.check_circle,
+                      color: Colors.white,
+                      size: 24,
                     )
                   else if (!isDay2)
                     AnimatedRotation(
