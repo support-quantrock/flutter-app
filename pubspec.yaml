@@ -47,6 +47,9 @@ dependencies:
   # Video player for lesson videos
   video_player: ^2.9.3
 
+  # Text-to-Speech for lesson narration
+  flutter_tts: ^4.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

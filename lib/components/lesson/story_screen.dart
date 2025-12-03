@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:video_player/video_player.dart';
 import '../../models/lesson_models.dart';
 
@@ -21,10 +22,17 @@ class _StoryScreenState extends State<StoryScreen>
     with TickerProviderStateMixin {
   late AnimationController _glowController;
   late AnimationController _particleController;
+  late AnimationController _typingController;
   late Animation<double> _glowAnimation;
   VideoPlayerController? _videoController;
   bool _isVideoInitialized = false;
   bool _isVideoPlaying = false;
+
+  // TTS and typing animation
+  final FlutterTts _tts = FlutterTts();
+  String _displayedText = '';
+  static const String _fullText = 'Only those who let go of the consumer mindset may enter the world of investing.';
+  bool _hasStartedNarration = false;
 
   @override
   void initState() {
@@ -43,7 +51,34 @@ class _StoryScreenState extends State<StoryScreen>
       vsync: this,
     )..repeat();
 
+    // Typing animation controller - 5 seconds to match TTS duration
+    _typingController = AnimationController(
+      duration: const Duration(seconds: 5),
+      vsync: this,
+    )..addListener(() {
+      setState(() {
+        final charCount = (_typingController.value * _fullText.length).floor();
+        _displayedText = _fullText.substring(0, charCount);
+      });
+    });
+
     _initVideoPlayer();
+    _initTtsAndStartNarration();
+  }
+
+  Future<void> _initTtsAndStartNarration() async {
+    await _tts.setLanguage('en-US');
+    await _tts.setSpeechRate(0.45); // Slower for clarity
+    await _tts.setVolume(1.0);
+    await _tts.setPitch(1.0);
+
+    // Start narration after a short delay
+    await Future.delayed(const Duration(milliseconds: 500));
+    if (mounted && !_hasStartedNarration) {
+      _hasStartedNarration = true;
+      _typingController.forward();
+      await _tts.speak(_fullText);
+    }
   }
 
   Future<void> _initVideoPlayer() async {
@@ -80,6 +115,8 @@ class _StoryScreenState extends State<StoryScreen>
   void dispose() {
     _glowController.dispose();
     _particleController.dispose();
+    _typingController.dispose();
+    _tts.stop();
     _videoController?.dispose();
     super.dispose();
   }
@@ -131,8 +168,20 @@ class _StoryScreenState extends State<StoryScreen>
                             ),
                           ],
                         ),
-                        child: Text(
-                          'Only those who let go of the consumer mindset may enter the world of investing.',
+                        child: Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(text: _displayedText),
+                              // Blinking cursor while typing
+                              if (_displayedText.length < _fullText.length)
+                                TextSpan(
+                                  text: '|',
+                                  style: TextStyle(
+                                    color: Colors.amber.withValues(alpha: _glowAnimation.value),
+                                  ),
+                                ),
+                            ],
+                          ),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 20,
