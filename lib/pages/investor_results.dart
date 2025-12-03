@@ -680,7 +680,7 @@ final Map<String, InfoCategory> infoContent = {
     ],
   ),
   'strength': InfoCategory(
-    title: 'Learning Readiness (0-15 pts)',
+    title: 'Investment Objectives & Motivation (0-15 pts)',
     items: [
       InfoItem(
         emoji: '🟠',
@@ -972,12 +972,12 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'hi': '2: वित्तीय साक्षरता'
       },
       'objectives_motivation': {
-        'en': '3: Learning Readiness',
-        'ar': '3: الاستعداد للتعلم',
-        'fr': '3: Préparation à l\'Apprentissage',
-        'es': '3: Preparación para Aprender',
-        'zh': '3: 学习准备',
-        'hi': '3: सीखने की तैयारी'
+        'en': '3: Objectives & Motivation',
+        'ar': '3: الأهداف والدوافع',
+        'fr': '3: Objectifs & Motivation',
+        'es': '3: Objetivos y Motivación',
+        'zh': '3: 目标与动机',
+        'hi': '3: उद्देश्य और प्रेरणा'
       },
       'learning_readiness': {
         'en': '4: Learning Readiness',
