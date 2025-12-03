@@ -260,6 +260,31 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       'area_risk_management': {'en': 'Risk management', 'ar': 'إدارة المخاطر', 'fr': 'Gestion des risques', 'es': 'Gestión de riesgos', 'zh': '风险管理', 'hi': 'जोखिम प्रबंधन'},
       'area_technical_analysis': {'en': 'Technical and fundamental analysis', 'ar': 'التحليل الفني والأساسي', 'fr': 'Analyse technique et fondamentale', 'es': 'Análisis técnico y fundamental', 'zh': '技术和基本面分析', 'hi': 'तकनीकी और मौलिक विश्लेषण'},
       'area_portfolio_diversification': {'en': 'Portfolio diversification', 'ar': 'تنويع المحفظة', 'fr': 'Diversification du portefeuille', 'es': 'Diversificación de cartera', 'zh': '投资组合多元化', 'hi': 'पोर्टफोलियो विविधीकरण'},
+
+      // Info popup
+      'classification': {'en': 'Classification', 'ar': 'التصنيف', 'fr': 'Classification', 'es': 'Clasificación', 'zh': '分类', 'hi': 'वर्गीकरण'},
+      'info_popup_text1': {'en': 'QIQT is an intelligent qualification test built on OECD, MIT, and CFA standards, designed to measure your investment experience, financial literacy, motivations, and readiness to learn.', 'ar': 'QIQT هو اختبار تأهيل ذكي مبني على معايير OECD وMIT وCFA، مصمم لقياس خبرتك الاستثمارية ومعرفتك المالية ودوافعك واستعدادك للتعلم.', 'fr': 'QIQT est un test de qualification intelligent basé sur les normes OCDE, MIT et CFA, conçu pour mesurer votre expérience en investissement, vos connaissances financières, vos motivations et votre volonté d\'apprendre.', 'es': 'QIQT es una prueba de calificación inteligente basada en los estándares de OCDE, MIT y CFA, diseñada para medir su experiencia en inversión, conocimientos financieros, motivaciones y disposición para aprender.', 'zh': 'QIQT是基于OECD、MIT和CFA标准构建的智能资格测试，旨在衡量您的投资经验、金融素养、动机和学习意愿。', 'hi': 'QIQT एक बुद्धिमान योग्यता परीक्षण है जो OECD, MIT और CFA मानकों पर आधारित है, जो आपके निवेश अनुभव, वित्तीय साक्षरता, प्रेरणाओं और सीखने की तैयारी को मापने के लिए डिज़ाइन किया गया है।'},
+      'info_popup_text2': {'en': 'QIQT helps you assess your financial knowledge, investment background, and determine your ideal path inside Quantrock-whether in challenges, daily lessons, or selecting the appropriate demo portfolio size.', 'ar': 'يساعدك QIQT في تقييم معرفتك المالية وخلفيتك الاستثمارية وتحديد مسارك المثالي داخل كوانتروك سواء في التحديات أو الدروس اليومية أو اختيار حجم المحفظة التجريبية المناسب.', 'fr': 'QIQT vous aide à évaluer vos connaissances financières, votre expérience en investissement et à déterminer votre parcours idéal dans Quantrock, que ce soit dans les défis, les leçons quotidiennes ou le choix de la taille du portefeuille de démonstration appropriée.', 'es': 'QIQT le ayuda a evaluar sus conocimientos financieros, antecedentes de inversión y determinar su camino ideal dentro de Quantrock, ya sea en desafíos, lecciones diarias o seleccionando el tamaño de cartera de demostración apropiado.', 'zh': 'QIQT帮助您评估您的金融知识、投资背景，并确定您在Quantrock内的理想路径，无论是挑战、每日课程还是选择合适的模拟投资组合规模。', 'hi': 'QIQT आपकी वित्तीय जानकारी, निवेश पृष्ठभूमि का आकलन करने और Quantrock के अंदर आपके आदर्श मार्ग का निर्धारण करने में मदद करता है-चाहे चुनौतियों में, दैनिक पाठों में, या उपयुक्त डेमो पोर्टफोलियो आकार का चयन करने में।'},
+
+      // Level badges
+      'level_novice': {'en': 'Novice', 'ar': 'مبتدئ', 'fr': 'Novice', 'es': 'Novato', 'zh': '新手', 'hi': 'नौसिखिया'},
+      'level_rising_trader': {'en': 'Rising Trader', 'ar': 'متداول صاعد', 'fr': 'Trader en Progression', 'es': 'Trader Emergente', 'zh': '新兴交易者', 'hi': 'उभरता व्यापारी'},
+      'level_market_explorer': {'en': 'Market Explorer', 'ar': 'مستكشف السوق', 'fr': 'Explorateur de Marché', 'es': 'Explorador del Mercado', 'zh': '市场探索者', 'hi': 'बाजार अन्वेषक'},
+      'level_portfolio_builder': {'en': 'Portfolio Builder', 'ar': 'باني المحفظة', 'fr': 'Constructeur de Portefeuille', 'es': 'Constructor de Cartera', 'zh': '投资组合构建者', 'hi': 'पोर्टफोलियो निर्माता'},
+      'level_investment_master': {'en': 'Investment Master', 'ar': 'خبير الاستثمار', 'fr': 'Maître de l\'Investissement', 'es': 'Maestro de Inversión', 'zh': '投资大师', 'hi': 'निवेश मास्टर'},
+
+      // Milestone popups
+      'milestone_5_title': {'en': '5 Questions Complete!', 'ar': 'تم إكمال 5 أسئلة!', 'fr': '5 Questions Terminées!', 'es': '¡5 Preguntas Completadas!', 'zh': '已完成5个问题！', 'hi': '5 प्रश्न पूर्ण!'},
+      'milestone_5_subtitle': {'en': 'Great start on your journey!', 'ar': 'بداية رائعة في رحلتك!', 'fr': 'Excellent début de votre parcours!', 'es': '¡Gran comienzo en tu viaje!', 'zh': '您的旅程有了很好的开始！', 'hi': 'आपकी यात्रा की शानदार शुरुआत!'},
+      'milestone_10_title': {'en': 'Halfway There!', 'ar': 'في منتصف الطريق!', 'fr': 'À Mi-Chemin!', 'es': '¡A Mitad de Camino!', 'zh': '已完成一半！', 'hi': 'आधा रास्ता तय!'},
+      'milestone_10_subtitle': {'en': '10 questions answered!', 'ar': 'تم الإجابة على 10 أسئلة!', 'fr': '10 questions répondues!', 'es': '¡10 preguntas respondidas!', 'zh': '已回答10个问题！', 'hi': '10 प्रश्नों के उत्तर दिए गए!'},
+      'milestone_15_title': {'en': 'Almost Done!', 'ar': 'اقتربت من الانتهاء!', 'fr': 'Presque Terminé!', 'es': '¡Casi Listo!', 'zh': '即将完成！', 'hi': 'लगभग पूर्ण!'},
+      'milestone_15_subtitle': {'en': 'Just 5 more to go!', 'ar': 'باقي 5 أسئلة فقط!', 'fr': 'Plus que 5 à faire!', 'es': '¡Solo faltan 5 más!', 'zh': '还剩5个问题！', 'hi': 'बस 5 और बाकी हैं!'},
+      'milestone_20_title': {'en': 'Quest Complete!', 'ar': 'اكتملت المهمة!', 'fr': 'Quête Terminée!', 'es': '¡Misión Completada!', 'zh': '任务完成！', 'hi': 'खोज पूर्ण!'},
+      'milestone_20_subtitle': {'en': 'You are ready to invest!', 'ar': 'أنت مستعد للاستثمار!', 'fr': 'Vous êtes prêt à investir!', 'es': '¡Estás listo para invertir!', 'zh': '您已准备好投资！', 'hi': 'आप निवेश के लिए तैयार हैं!'},
+
+      // Footer
+      'copyright': {'en': '© 2025 Quantrock. All rights reserved.', 'ar': '© 2025 كوانتروك. جميع الحقوق محفوظة.', 'fr': '© 2025 Quantrock. Tous droits réservés.', 'es': '© 2025 Quantrock. Todos los derechos reservados.', 'zh': '© 2025 Quantrock。保留所有权利。', 'hi': '© 2025 क्वांट्रॉक। सर्वाधिकार सुरक्षित।'},
     };
 
     return translations[key]?[_selectedLanguage] ?? translations[key]?['en'] ?? key;
@@ -350,11 +375,11 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
   String _getLevelTitle(int level) {
     // Level badges: Novice → Rising Trader → Market Explorer → Portfolio Builder → Investment Master
-    if (level <= 1) return 'Novice';
-    if (level <= 2) return 'Rising Trader';
-    if (level <= 3) return 'Market Explorer';
-    if (level <= 4) return 'Portfolio Builder';
-    return 'Investment Master';
+    if (level <= 1) return _t('level_novice');
+    if (level <= 2) return _t('level_rising_trader');
+    if (level <= 3) return _t('level_market_explorer');
+    if (level <= 4) return _t('level_portfolio_builder');
+    return _t('level_investment_master');
   }
 
   void _awardXP(int xp) {
@@ -373,13 +398,13 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
   void _checkMilestones() {
     if (_step == 5) {
-      _showMilestonePopup('5 Questions Complete!', 'Great start on your journey!');
+      _showMilestonePopup(_t('milestone_5_title'), _t('milestone_5_subtitle'));
     } else if (_step == 10) {
-      _showMilestonePopup('Halfway There!', '10 questions answered!');
+      _showMilestonePopup(_t('milestone_10_title'), _t('milestone_10_subtitle'));
     } else if (_step == 15) {
-      _showMilestonePopup('Almost Done!', 'Just 5 more to go!');
+      _showMilestonePopup(_t('milestone_15_title'), _t('milestone_15_subtitle'));
     } else if (_step == 20) {
-      _showMilestonePopup('Quest Complete!', 'You are ready to invest!');
+      _showMilestonePopup(_t('milestone_20_title'), _t('milestone_20_subtitle'));
     }
   }
 
@@ -1117,9 +1142,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                   ],
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  '© 2025 Quantrock. All rights reserved.',
-                  style: TextStyle(
+                Text(
+                  _t('copyright'),
+                  style: const TextStyle(
                     color: Color(0xFF6B7280),
                     fontSize: 11,
                   ),
@@ -1381,9 +1406,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                 ),
               ),
             ),
-            const Text(
-              ' Classification',
-              style: TextStyle(
+            Text(
+              ' ${_t('classification')}',
+              style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -1396,18 +1421,18 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'QIQT is an intelligent qualification test built on OECD, MIT, and CFA standards, designed to measure your investment experience, financial literacy, motivations, and readiness to learn.',
-                style: TextStyle(
+              Text(
+                _t('info_popup_text1'),
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 14,
                   height: 1.5,
                 ),
               ),
               const SizedBox(height: 12),
-              const Text(
-                'QIQT helps you assess your financial knowledge, investment background, and determine your ideal path inside Quantrock-whether in challenges, daily lessons, or selecting the appropriate demo portfolio size.',
-                style: TextStyle(
+              Text(
+                _t('info_popup_text2'),
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 14,
                   height: 1.5,
@@ -1474,31 +1499,31 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        title: const Text(
-          'Quantrock Investor Qualification Test (QIQT)',
-          style: TextStyle(
+        title: Text(
+          _t('qiqt_subtitle'),
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
         ),
-        content: const SingleChildScrollView(
+        content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'QIQT is an intelligent qualification test built on OECD, MIT, and CFA standards, designed to measure your investment experience, financial literacy, motivations, and readiness to learn.',
-                style: TextStyle(
+                _t('info_popup_text1'),
+                style: const TextStyle(
                   color: Colors.white70,
                   fontSize: 14,
                   height: 1.5,
                 ),
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               Text(
-                'QIQT helps you assess your financial knowledge, investment background, and determine your ideal path inside Quantrock whether in challenges, daily lessons, or selecting the appropriate demo portfolio size.',
-                style: TextStyle(
+                _t('info_popup_text2'),
+                style: const TextStyle(
                   color: Colors.white70,
                   fontSize: 14,
                   height: 1.5,
@@ -1518,9 +1543,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                 ),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Text(
-                'Got it',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+              child: Text(
+                _t('got_it'),
+                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
               ),
             ),
           ),
