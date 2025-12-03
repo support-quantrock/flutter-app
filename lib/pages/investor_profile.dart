@@ -285,6 +285,16 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
 
       // Footer
       'copyright': {'en': '© 2025 Quantrock. All rights reserved.', 'ar': '© 2025 كوانتروك. جميع الحقوق محفوظة.', 'fr': '© 2025 Quantrock. Tous droits réservés.', 'es': '© 2025 Quantrock. Todos los derechos reservados.', 'zh': '© 2025 Quantrock。保留所有权利。', 'hi': '© 2025 क्वांट्रॉक। सर्वाधिकार सुरक्षित।'},
+
+      // Standards popup
+      'standards_title': {'en': 'OECD, MIT & CFA', 'ar': 'OECD، MIT و CFA', 'fr': 'OCDE, MIT & CFA', 'es': 'OCDE, MIT y CFA', 'zh': 'OECD、MIT 和 CFA', 'hi': 'OECD, MIT और CFA'},
+      'standards_intro': {'en': 'The test is based on globally recognized standards:', 'ar': 'يستند الاختبار إلى معايير معترف بها عالمياً:', 'fr': 'Le test est basé sur des normes mondialement reconnues:', 'es': 'La prueba se basa en estándares reconocidos a nivel mundial:', 'zh': '该测试基于全球公认的标准：', 'hi': 'यह परीक्षण विश्व स्तर पर मान्यता प्राप्त मानकों पर आधारित है:'},
+      'standards_oecd_title': {'en': 'OECD', 'ar': 'OECD', 'fr': 'OCDE', 'es': 'OCDE', 'zh': 'OECD', 'hi': 'OECD'},
+      'standards_oecd_desc': {'en': 'The Organization for Economic Co-operation and Development\nThe international standard for measuring financial literacy and financial behavior.', 'ar': 'منظمة التعاون الاقتصادي والتنمية\nالمعيار الدولي لقياس الثقافة المالية والسلوك المالي.', 'fr': 'L\'Organisation de coopération et de développement économiques\nLa norme internationale pour mesurer la littératie financière et le comportement financier.', 'es': 'La Organización para la Cooperación y el Desarrollo Económicos\nEl estándar internacional para medir la alfabetización financiera y el comportamiento financiero.', 'zh': '经济合作与发展组织\n衡量金融素养和金融行为的国际标准。', 'hi': 'आर्थिक सहयोग और विकास संगठन\nवित्तीय साक्षरता और वित्तीय व्यवहार को मापने के लिए अंतर्राष्ट्रीय मानक।'},
+      'standards_mit_title': {'en': 'MIT Learning Readiness Model', 'ar': 'نموذج MIT للاستعداد للتعلم', 'fr': 'Modèle de préparation à l\'apprentissage MIT', 'es': 'Modelo de preparación para el aprendizaje MIT', 'zh': 'MIT学习准备模型', 'hi': 'MIT लर्निंग रेडीनेस मॉडल'},
+      'standards_mit_desc': {'en': 'Used to measure educational readiness and motivation.', 'ar': 'يستخدم لقياس الاستعداد التعليمي والتحفيز.', 'fr': 'Utilisé pour mesurer la préparation éducative et la motivation.', 'es': 'Se utiliza para medir la preparación educativa y la motivación.', 'zh': '用于衡量教育准备程度和学习动机。', 'hi': 'शैक्षिक तत्परता और प्रेरणा को मापने के लिए उपयोग किया जाता है।'},
+      'standards_cfa_title': {'en': 'CFA Investment Knowledge Framework', 'ar': 'إطار المعرفة الاستثمارية CFA', 'fr': 'Cadre de connaissances en investissement CFA', 'es': 'Marco de conocimiento de inversión CFA', 'zh': 'CFA投资知识框架', 'hi': 'CFA निवेश ज्ञान ढांचा'},
+      'standards_cfa_desc': {'en': 'Used to measure the level of financial and investment knowledge and experience.', 'ar': 'يستخدم لقياس مستوى المعرفة والخبرة المالية والاستثمارية.', 'fr': 'Utilisé pour mesurer le niveau de connaissances et d\'expérience financières et d\'investissement.', 'es': 'Se utiliza para medir el nivel de conocimiento y experiencia financiera e inversión.', 'zh': '用于衡量金融和投资知识及经验水平。', 'hi': 'वित्तीय और निवेश ज्ञान और अनुभव के स्तर को मापने के लिए उपयोग किया जाता है।'},
     };
 
     return translations[key]?[_selectedLanguage] ?? translations[key]?['en'] ?? key;
@@ -1288,9 +1298,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        title: const Text(
-          'OECD, MIT & CFA',
-          style: TextStyle(
+        title: Text(
+          _t('standards_title'),
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
@@ -1300,9 +1310,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
-                'The test is based on globally recognized standards:',
-                style: TextStyle(
+              Text(
+                _t('standards_intro'),
+                style: const TextStyle(
                   color: Colors.white70,
                   fontSize: 14,
                 ),
@@ -1310,20 +1320,20 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
               const SizedBox(height: 16),
               _buildStandardItem(
                 '🔹',
-                'OECD',
-                'The Organization for Economic Co-operation and Development\nThe international standard for measuring financial literacy and financial behavior.',
+                _t('standards_oecd_title'),
+                _t('standards_oecd_desc'),
               ),
               const SizedBox(height: 12),
               _buildStandardItem(
                 '🔹',
-                'MIT Learning Readiness Model',
-                'Used to measure educational readiness and motivation.',
+                _t('standards_mit_title'),
+                _t('standards_mit_desc'),
               ),
               const SizedBox(height: 12),
               _buildStandardItem(
                 '🔹',
-                'CFA Investment Knowledge Framework',
-                'Used to measure the level of financial and investment knowledge and experience.',
+                _t('standards_cfa_title'),
+                _t('standards_cfa_desc'),
               ),
             ],
           ),
@@ -1339,9 +1349,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                 ),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Text(
-                'Got it',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+              child: Text(
+                _t('got_it'),
+                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
               ),
             ),
           ),
