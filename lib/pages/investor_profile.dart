@@ -300,6 +300,12 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       'consent_prefix': {'en': 'By proceeding, you agree with ', 'ar': 'بالمتابعة، فإنك توافق على ', 'fr': 'En continuant, vous acceptez les ', 'es': 'Al continuar, acepta los ', 'zh': '继续即表示您同意', 'hi': 'आगे बढ़कर, आप सहमत हैं '},
       'terms_and_conditions': {'en': 'Terms and Conditions', 'ar': 'الشروط والأحكام', 'fr': 'Termes et Conditions', 'es': 'Términos y Condiciones', 'zh': '条款和条件', 'hi': 'नियम और शर्तें'},
       'privacy_policy': {'en': 'Privacy Policy', 'ar': 'سياسة الخصوصية', 'fr': 'Politique de Confidentialité', 'es': 'Política de Privacidad', 'zh': '隐私政策', 'hi': 'गोपनीयता नीति'},
+
+      // Section names
+      'section_investment_background': {'en': 'Investment Background', 'ar': 'الخلفية الاستثمارية', 'fr': 'Contexte d\'Investissement', 'es': 'Antecedentes de Inversión', 'zh': '投资背景', 'hi': 'निवेश पृष्ठभूमि'},
+      'section_financial_literacy': {'en': 'Financial Literacy', 'ar': 'الثقافة المالية', 'fr': 'Littératie Financière', 'es': 'Alfabetización Financiera', 'zh': '金融素养', 'hi': 'वित्तीय साक्षरता'},
+      'section_investment_goals': {'en': 'Investment Goals', 'ar': 'أهداف الاستثمار', 'fr': 'Objectifs d\'Investissement', 'es': 'Objetivos de Inversión', 'zh': '投资目标', 'hi': 'निवेश लक्ष्य'},
+      'section_portfolio_preferences': {'en': 'Portfolio Preferences', 'ar': 'تفضيلات المحفظة', 'fr': 'Préférences de Portefeuille', 'es': 'Preferencias de Cartera', 'zh': '投资组合偏好', 'hi': 'पोर्टफोलियो प्राथमिकताएं'},
     };
 
     return translations[key]?[_selectedLanguage] ?? translations[key]?['en'] ?? key;
@@ -542,19 +548,19 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
     if (_step <= 9) {
       sectionStart = 1;
       sectionEnd = 9;
-      sectionName = 'Investment Background';
+      sectionName = _t('section_investment_background');
     } else if (_step <= 14) {
       sectionStart = 10;
       sectionEnd = 14;
-      sectionName = 'Financial Literacy';
+      sectionName = _t('section_financial_literacy');
     } else if (_step <= 17) {
       sectionStart = 15;
       sectionEnd = 17;
-      sectionName = 'Investment Goals';
+      sectionName = _t('section_investment_goals');
     } else {
       sectionStart = 18;
       sectionEnd = 20;
-      sectionName = 'Portfolio Preferences';
+      sectionName = _t('section_portfolio_preferences');
     }
 
     final questionInSection = _step - sectionStart + 1;
