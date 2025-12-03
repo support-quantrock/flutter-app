@@ -301,6 +301,9 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
       'terms_and_conditions': {'en': 'Terms and Conditions', 'ar': 'الشروط والأحكام', 'fr': 'Termes et Conditions', 'es': 'Términos y Condiciones', 'zh': '条款和条件', 'hi': 'नियम और शर्तें'},
       'privacy_policy': {'en': 'Privacy Policy', 'ar': 'سياسة الخصوصية', 'fr': 'Politique de Confidentialité', 'es': 'Política de Privacidad', 'zh': '隐私政策', 'hi': 'गोपनीयता नीति'},
 
+      // Privacy notice
+      'privacy_notice': {'en': 'Your answers are anonymized, and we do not sell your data.', 'ar': 'إجاباتك مجهولة الهوية، ونحن لا نبيع بياناتك.', 'fr': 'Vos réponses sont anonymisées et nous ne vendons pas vos données.', 'es': 'Sus respuestas son anónimas y no vendemos sus datos.', 'zh': '您的答案是匿名的，我们不会出售您的数据。', 'hi': 'आपके उत्तर गुमनाम हैं, और हम आपका डेटा नहीं बेचते हैं।'},
+
       // Section names
       'section_investment_background': {'en': 'Investment Background', 'ar': 'الخلفية الاستثمارية', 'fr': 'Contexte d\'Investissement', 'es': 'Antecedentes de Inversión', 'zh': '投资背景', 'hi': 'निवेश पृष्ठभूमि'},
       'section_financial_literacy': {'en': 'Financial Literacy', 'ar': 'الثقافة المالية', 'fr': 'Littératie Financière', 'es': 'Alfabetización Financiera', 'zh': '金融素养', 'hi': 'वित्तीय साक्षरता'},
@@ -1072,7 +1075,7 @@ class _InvestorProfilePageState extends State<InvestorProfilePage>
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(
-                          'Your answers are anonymized, and we do not sell your data.',
+                          _t('privacy_notice'),
                           style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.7),
                             fontSize: 14,
