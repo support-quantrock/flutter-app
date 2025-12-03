@@ -474,12 +474,12 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
   }
 
   Widget _buildPathIcons(int dayIndex, int currentDay) {
-    // Create a zigzag pattern with 5 lesson icons and 1 test icon
-    final isEven = dayIndex % 2 == 0;
+    // Create a single diagonal pattern - odd days L→R, even days R→L
+    final isOdd = dayIndex % 2 == 1;
     final isCompleted = currentDay < _currentDay;
     final isTestDay = (dayIndex + 1) % 6 == 0; // Every 6th position is a test
 
-    // Day 2 lesson appears at second icon position after Day 2 card
+    // Day 2 lesson appears at first icon position after Day 2 card
     final day2Lesson = _lessons.firstWhere((l) => l['day'] == 2);
     final showDay2Lesson = currentDay == 2;
 
@@ -487,16 +487,25 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
       builder: (context, constraints) {
         final width = constraints.maxWidth;
         final centerX = width / 2;
-        final offset = 60.0; // How far icons spread from center
+        final offset = 70.0; // How far icons spread from center
+
+        // Calculate start and end X positions for diagonal
+        final startX = isOdd ? centerX - offset : centerX + offset;
+        final endX = isOdd ? centerX + offset : centerX - offset;
+
+        // Helper to calculate X position for each icon (0-5)
+        double getX(int index) {
+          return startX + (endX - startX) * (index / 5) - 25;
+        }
 
         return SizedBox(
           height: 360,
           child: Stack(
             children: [
-              // Lesson Icon 1 - Day 2's lesson appears here after Day 2 card
+              // Lesson Icon 1
               Positioned(
                 top: 20,
-                left: isEven ? centerX - offset - 25 : centerX + offset - 25,
+                left: getX(0),
                 child: showDay2Lesson
                     ? _buildInteractiveLessonIcon(
                         lesson: day2Lesson,
@@ -510,7 +519,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               // Lesson Icon 2
               Positioned(
                 top: 75,
-                left: isEven ? centerX + 15 - 25 : centerX - 15 - 25,
+                left: getX(1),
                 child: _buildFloatingIcon(
                   icon: Icons.menu_book,
                   isCompleted: isCompleted,
@@ -519,7 +528,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               // Lesson Icon 3
               Positioned(
                 top: 130,
-                left: isEven ? centerX + offset - 25 : centerX - offset - 25,
+                left: getX(2),
                 child: _buildFloatingIcon(
                   icon: Icons.menu_book,
                   isCompleted: isCompleted,
@@ -528,7 +537,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               // Lesson Icon 4
               Positioned(
                 top: 185,
-                left: isEven ? centerX - 25 : centerX - 25,
+                left: getX(3),
                 child: _buildFloatingIcon(
                   icon: Icons.menu_book,
                   isCompleted: isCompleted,
@@ -537,7 +546,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               // Lesson Icon 5
               Positioned(
                 top: 240,
-                left: isEven ? centerX - offset - 25 : centerX + offset - 25,
+                left: getX(4),
                 child: _buildFloatingIcon(
                   icon: Icons.menu_book,
                   isCompleted: isCompleted,
@@ -546,7 +555,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               // Test Icon (crown/quiz)
               Positioned(
                 top: 295,
-                left: isEven ? centerX + 30 - 25 : centerX - 30 - 25,
+                left: getX(5),
                 child: _buildFloatingIcon(
                   icon: isTestDay ? Icons.quiz : Icons.workspace_premium,
                   isCompleted: isCompleted,
