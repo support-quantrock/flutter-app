@@ -13,22 +13,7 @@ final day2Lesson = LessonData(
       videoPath: 'assets/videos/lessons/day2/lesson1/story_animation.mp4',
       imagePrompt:
           'cartoon ancient stone gate glowing with blue runes in a magical forest, cute small guardian holding glowing lantern, fantasy adventure style, bright colors',
-      content: '''You walk along a glowing path inside a magical cartoon forest.
-The wind shimmers with golden sparkles… suddenly the ground shakes and a massive ancient stone gate rises, covered in blue glowing runes that pulse like a heartbeat.
-
-A tiny, adorable guardian appears — round head, long beard, sparkly eyes — holding a lantern glowing with warm golden light.
-
-He raises the lantern toward you and says:
-
-"Only those who let go of the consumer mindset may enter the world of investing."
-
-As he speaks, the runes on the gate rearrange themselves into three symbols:
-
-💸 Spending
-💰 Saving
-📈 Investing
-
-Only one begins to shine… the path of the investor.''',
+      content: '',
     ),
 
     // Screen 2: Content A - Consumer Mindset

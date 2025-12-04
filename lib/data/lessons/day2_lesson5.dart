@@ -13,20 +13,7 @@ final day2Lesson5 = LessonData(
       videoPath: 'assets/videos/lessons/day2/lesson5/story_animation.mp4',
       imagePrompt:
           'cartoon tiny smiling coin planting itself in soil and growing into a glowing money tree, magical meadow background, cute educational style',
-      content: '''You enter a peaceful cartoon meadow filled with tiny glowing coins scattered on the grass.
-
-A small coin jumps happily toward you — yes, the coin has a cute face —
-and says:
-
-"I may be small today, but with time… I grow into something amazing!"
-
-Suddenly, the coin plants itself in the soil…
-and BOOM!
-A glowing money tree sprouts, growing taller and taller, releasing golden leaves.
-
-A wise cartoon turtle wearing glasses appears and says:
-
-"Slow, steady, repeated actions turn tiny coins into great fortunes."''',
+      content: '',
     ),
 
     // Screen 2: Game - What Is Compounding?

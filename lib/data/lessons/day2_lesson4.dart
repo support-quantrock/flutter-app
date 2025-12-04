@@ -13,23 +13,7 @@ final day2Lesson4 = LessonData(
       videoPath: 'assets/videos/lessons/day2/lesson4/story_animation.mp4',
       imagePrompt:
           'cartoon rollercoaster shaped like a volatile stock market chart, cute character holding fear and greed glowing orbs, educational colorful style',
-      content: '''You find yourself in front of a giant cartoon rollercoaster shaped like a stock market chart.
-The tracks go up…
-then down…
-then sideways…
-just like market prices.
-
-A cartoon mentor appears, holding two glowing orbs:
-🔥 Fear (blue orb trembling)
-💰 Greed (red orb pulsing)
-
-He says:
-
-"Most people let emotions control their decisions.
-Investors learn to ride the rollercoaster without falling."
-
-He hands you a glowing seatbelt labeled:
-"Discipline."''',
+      content: '',
     ),
 
     // Screen 2: Game - Fear in Investing

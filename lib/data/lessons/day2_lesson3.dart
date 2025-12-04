@@ -13,26 +13,7 @@ final day2Lesson3 = LessonData(
       videoPath: 'assets/videos/lessons/day2/lesson3/story_animation.mp4',
       imagePrompt:
           'cartoon futuristic elevator rising above clouds, showing glowing multi-year financial timeline in the sky, cute robot guide floating next to character, colorful educational style',
-      content: '''You enter a tall crystal elevator glowing with soft blue light.
-The doors close… WHOOSH!
-It begins rising into the sky.
-
-Higher… Higher…
-Until the city below becomes tiny.
-
-Suddenly, the clouds part and a massive glowing timeline appears in the sky — stretching years into the future.
-
-A friendly cartoon robot guide floats beside you and says:
-
-"Investors rise above the noise…
-They see what others cannot."
-
-He points at waves below labeled:
-📉 Daily Drops
-📈 Weekly Moves
-🌟 Long-Term Growth
-
-The future is no longer a mystery.''',
+      content: '',
     ),
 
     // Screen 2: Game - Short-Term Noise
