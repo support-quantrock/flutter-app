@@ -13,19 +13,7 @@ final day2Lesson2 = LessonData(
       videoPath: 'assets/videos/lessons/day2/lesson2/story_animation.mp4',
       imagePrompt:
           'cartoon treasure hall filled with shiny objects and glowing distractions, with a wise cartoon owl mentor pointing toward a golden treasure chest labeled VALUE, colorful educational style',
-      content: '''You step inside a glowing cartoon hall filled with hundreds of shiny objects.
-Jewels sparkle… neon toys float in bubbles… golden gadgets spin in the air.
-
-A magical sign above you reads:
-"NOT EVERYTHING SHINY HAS VALUE."
-
-Suddenly a cartoon owl (your new investor mentor) lands on your shoulder.
-Wearing tiny glasses, he whispers:
-
-"Investors look beyond the glitter.
-They see the value hidden inside."
-
-A treasure chest glows golden at the end of the hall…''',
+      content: '',
     ),
 
     // Screen 2: Game - Price vs Value
