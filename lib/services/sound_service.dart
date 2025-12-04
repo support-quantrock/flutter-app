@@ -13,37 +13,45 @@ class SoundService {
   final AudioPlayer _goodPlayer = AudioPlayer();
   final AudioPlayer _bellPlayer = AudioPlayer();
 
-  Future<void> _safePlay(AudioPlayer player, String path) async {
+  // Free sound URLs from soundjay.com and similar free sources
+  static const String _revealUrl = 'https://www.soundjay.com/buttons/sounds/button-09a.mp3';
+  static const String _cheerUrl = 'https://www.soundjay.com/human/sounds/applause-01.mp3';
+  static const String _beepUrl = 'https://www.soundjay.com/buttons/sounds/button-10.mp3';
+  static const String _boomUrl = 'https://www.soundjay.com/mechanical/sounds/explosion-01.mp3';
+  static const String _goodUrl = 'https://www.soundjay.com/buttons/sounds/button-35.mp3';
+  static const String _bellUrl = 'https://www.soundjay.com/bells/sounds/bell-ringing-01.mp3';
+
+  Future<void> _safePlayUrl(AudioPlayer player, String url) async {
     try {
       await player.stop();
-      await player.play(AssetSource(path));
+      await player.play(UrlSource(url));
     } catch (e) {
-      debugPrint('Sound not available: $path');
+      debugPrint('Sound not available: $url');
     }
   }
 
   Future<void> playReveal() async {
-    await _safePlay(_revealPlayer, 'sounds/reveal.mp3');
+    await _safePlayUrl(_revealPlayer, _revealUrl);
   }
 
   Future<void> playCheer() async {
-    await _safePlay(_cheerPlayer, 'sounds/cheer.mp3');
+    await _safePlayUrl(_cheerPlayer, _cheerUrl);
   }
 
   Future<void> playBeep() async {
-    await _safePlay(_beepPlayer, 'sounds/beep.mp3');
+    await _safePlayUrl(_beepPlayer, _beepUrl);
   }
 
   Future<void> playBoom() async {
-    await _safePlay(_boomPlayer, 'sounds/boom.mp3');
+    await _safePlayUrl(_boomPlayer, _boomUrl);
   }
 
   Future<void> playGood() async {
-    await _safePlay(_goodPlayer, 'sounds/good.mp3');
+    await _safePlayUrl(_goodPlayer, _goodUrl);
   }
 
   Future<void> playBell() async {
-    await _safePlay(_bellPlayer, 'sounds/bell.mp3');
+    await _safePlayUrl(_bellPlayer, _bellUrl);
   }
 
   Future<void> playBellThreeTimes() async {
