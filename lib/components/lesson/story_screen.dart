@@ -169,48 +169,55 @@ class _StoryScreenState extends State<StoryScreen>
               padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
               child: Column(
                 children: [
-                  const Spacer(),
-
                   // Video player (plays first, then triggers narration)
                   if (_isVideoInitialized && _videoController != null)
-                    GestureDetector(
-                      onTap: _toggleVideo,
-                      child: Container(
-                        height: 200,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.amber.withValues(alpha: 0.3),
-                              blurRadius: 20,
-                              spreadRadius: 2,
-                            ),
-                          ],
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              AspectRatio(
-                                aspectRatio: _videoController!.value.aspectRatio,
-                                child: VideoPlayer(_videoController!),
+                    Expanded(
+                      flex: 3,
+                      child: GestureDetector(
+                        onTap: _toggleVideo,
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.amber.withValues(alpha: 0.3),
+                                blurRadius: 20,
+                                spreadRadius: 2,
                               ),
-                              if (!_isVideoPlaying)
-                                Container(
-                                  width: 60,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    color: Colors.amber.withValues(alpha: 0.9),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Icon(
-                                    Icons.play_arrow,
-                                    color: Colors.black,
-                                    size: 40,
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                SizedBox.expand(
+                                  child: FittedBox(
+                                    fit: BoxFit.cover,
+                                    child: SizedBox(
+                                      width: _videoController!.value.size.width,
+                                      height: _videoController!.value.size.height,
+                                      child: VideoPlayer(_videoController!),
+                                    ),
                                   ),
                                 ),
-                            ],
+                                if (!_isVideoPlaying)
+                                  Container(
+                                    width: 70,
+                                    height: 70,
+                                    decoration: BoxDecoration(
+                                      color: Colors.amber.withValues(alpha: 0.9),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Icon(
+                                      Icons.play_arrow,
+                                      color: Colors.black,
+                                      size: 50,
+                                    ),
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -280,7 +287,7 @@ class _StoryScreenState extends State<StoryScreen>
                     ),
                   ],
 
-                  const Spacer(),
+                  const SizedBox(height: 20),
 
                   // Continue button
                   SizedBox(
