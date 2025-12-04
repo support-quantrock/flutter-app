@@ -31,7 +31,7 @@ class _StoryScreenState extends State<StoryScreen>
   // TTS and typing animation
   final FlutterTts _tts = FlutterTts();
   String _displayedText = '';
-  static const String _fullText = 'Only those who let go of the consumer mindset may enter the world of investing.';
+  String get _fullText => widget.screen.content ?? '';
   bool _hasStartedNarration = false;
 
   @override
@@ -79,8 +79,11 @@ class _StoryScreenState extends State<StoryScreen>
     setState(() {
       _hasStartedNarration = true;
     });
-    _typingController.forward();
-    await _tts.speak(_fullText);
+    // Skip TTS and typing if content is empty (video has its own audio)
+    if (_fullText.isNotEmpty) {
+      _typingController.forward();
+      await _tts.speak(_fullText);
+    }
   }
 
   Future<void> _initVideoPlayer() async {
@@ -213,66 +216,69 @@ class _StoryScreenState extends State<StoryScreen>
                       ),
                     ),
 
-                  const SizedBox(height: 24),
+                  // Only show text box and categories if content is not empty
+                  if (_fullText.isNotEmpty) ...[
+                    const SizedBox(height: 24),
 
-                  // Quote text (appears with typing animation after video ends)
-                  AnimatedBuilder(
-                    animation: _glowAnimation,
-                    builder: (context, child) {
-                      return Container(
-                        padding: const EdgeInsets.all(24),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.05),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: Colors.amber.withValues(alpha: 0.3 * _glowAnimation.value),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.amber.withValues(alpha: 0.2 * _glowAnimation.value),
-                              blurRadius: 20 * _glowAnimation.value,
-                              spreadRadius: 2,
+                    // Quote text (appears with typing animation after video ends)
+                    AnimatedBuilder(
+                      animation: _glowAnimation,
+                      builder: (context, child) {
+                        return Container(
+                          padding: const EdgeInsets.all(24),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.05),
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: Colors.amber.withValues(alpha: 0.3 * _glowAnimation.value),
                             ),
-                          ],
-                        ),
-                        child: Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(text: _hasStartedNarration ? _displayedText : ''),
-                              // Blinking cursor while typing
-                              if (_hasStartedNarration && _displayedText.length < _fullText.length)
-                                TextSpan(
-                                  text: '|',
-                                  style: TextStyle(
-                                    color: Colors.amber.withValues(alpha: _glowAnimation.value),
-                                  ),
-                                ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.amber.withValues(alpha: 0.2 * _glowAnimation.value),
+                                blurRadius: 20 * _glowAnimation.value,
+                                spreadRadius: 2,
+                              ),
                             ],
                           ),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white.withValues(alpha: 0.95),
-                            height: 1.6,
-                            fontStyle: FontStyle.italic,
+                          child: Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(text: _hasStartedNarration ? _displayedText : ''),
+                                // Blinking cursor while typing
+                                if (_hasStartedNarration && _displayedText.length < _fullText.length)
+                                  TextSpan(
+                                    text: '|',
+                                    style: TextStyle(
+                                      color: Colors.amber.withValues(alpha: _glowAnimation.value),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white.withValues(alpha: 0.95),
+                              height: 1.6,
+                              fontStyle: FontStyle.italic,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  // Categories image (Spending, Saving, Investing)
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.asset(
-                      'assets/images/lessons/day2/day2_screen1_categories.png',
-                      height: 120,
-                      fit: BoxFit.cover,
+                        );
+                      },
                     ),
-                  ),
+
+                    const SizedBox(height: 16),
+
+                    // Categories image (Spending, Saving, Investing)
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        'assets/images/lessons/day2/day2_screen1_categories.png',
+                        height: 120,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
 
                   const Spacer(),
 
