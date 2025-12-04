@@ -10,7 +10,7 @@ final day2Lesson2 = LessonData(
       type: ScreenType.story,
       title: 'The Hall of Shiny Distractions',
       imagePath: 'assets/images/lessons/day2/lesson2/story.png',
-      videoPath: 'assets/videos/lessons/day2/lesson2/story_animation.mp4',
+      videoPath: 'https://drive.google.com/uc?export=download&id=1f9khxZNgKJ07piugBRNbogTAdMKW3Tu2',
       imagePrompt:
           'cartoon treasure hall filled with shiny objects and glowing distractions, with a wise cartoon owl mentor pointing toward a golden treasure chest labeled VALUE, colorful educational style',
       content: '',

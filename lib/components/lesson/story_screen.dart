@@ -88,7 +88,15 @@ class _StoryScreenState extends State<StoryScreen>
 
   Future<void> _initVideoPlayer() async {
     if (widget.screen.videoPath != null) {
-      _videoController = VideoPlayerController.asset(widget.screen.videoPath!);
+      final videoPath = widget.screen.videoPath!;
+
+      // Support both URL and asset-based videos
+      if (videoPath.startsWith('http://') || videoPath.startsWith('https://')) {
+        _videoController = VideoPlayerController.networkUrl(Uri.parse(videoPath));
+      } else {
+        _videoController = VideoPlayerController.asset(videoPath);
+      }
+
       try {
         await _videoController!.initialize();
         _videoController!.setLooping(false); // Play only once
