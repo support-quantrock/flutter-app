@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../models/lesson_models.dart';
+import '../../services/sound_service.dart';
 
 class RewardScreen extends StatefulWidget {
   final LessonScreen screen;
@@ -68,6 +69,11 @@ class _RewardScreenState extends State<RewardScreen>
     });
     Future.delayed(const Duration(milliseconds: 800), () {
       _badgeController.forward();
+    });
+
+    // Play bell sound 3 times for lesson complete
+    Future.delayed(const Duration(milliseconds: 500), () {
+      SoundService().playBellThreeTimes();
     });
   }
 

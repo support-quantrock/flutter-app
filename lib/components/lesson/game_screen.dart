@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../models/lesson_models.dart';
+import '../../services/sound_service.dart';
 
 class GameScreen extends StatefulWidget {
   final LessonScreen screen;
@@ -70,7 +71,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     if (gameData == null) return;
 
     if (index == gameData.correctIndex) {
-      // Correct answer
+      // Correct answer - play boom sound
+      SoundService().playBoom();
       setState(() {
         _poppedIndex = index;
         _showConfetti = true;
@@ -81,7 +83,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         widget.onContinue();
       });
     } else {
-      // Wrong answer - shake
+      // Wrong answer - play beep sound and shake
+      SoundService().playBeep();
       setState(() {
         _wrongAnswer = true;
         _wrongIndex = index;

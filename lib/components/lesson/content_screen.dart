@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../models/lesson_models.dart';
+import '../../services/sound_service.dart';
 import 'image_placeholder.dart';
 
 class ContentScreen extends StatefulWidget {
@@ -75,11 +76,16 @@ class _ContentScreenState extends State<ContentScreen>
   void _revealBullet(int index) {
     if (_revealedBullets.contains(index)) return;
 
+    // Play reveal sound
+    SoundService().playReveal();
+
     setState(() {
       _revealedBullets.add(index);
       if (widget.screen.bullets != null &&
           _revealedBullets.length >= widget.screen.bullets!.length) {
         _allRevealed = true;
+        // Play cheer sound when all cards revealed
+        SoundService().playCheer();
       }
     });
   }

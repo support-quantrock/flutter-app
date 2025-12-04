@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../models/lesson_models.dart';
+import '../../services/sound_service.dart';
 import 'image_placeholder.dart';
 
 class QuestionScreen extends StatefulWidget {
@@ -68,9 +69,18 @@ class _QuestionScreenState extends State<QuestionScreen>
     final questionData = widget.screen.questionData;
     if (questionData == null) return;
 
+    final isCorrect = index == questionData.correctIndex;
+
+    // Play sound based on answer
+    if (isCorrect) {
+      SoundService().playGood();
+    } else {
+      SoundService().playBeep();
+    }
+
     setState(() {
       _selectedIndex = index;
-      _isCorrect = index == questionData.correctIndex;
+      _isCorrect = isCorrect;
       _showFeedback = true;
     });
 

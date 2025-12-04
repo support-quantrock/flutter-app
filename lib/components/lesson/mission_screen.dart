@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../models/lesson_models.dart';
+import '../../services/sound_service.dart';
 import 'image_placeholder.dart';
 
 class MissionScreen extends StatefulWidget {
@@ -64,9 +65,18 @@ class _MissionScreenState extends State<MissionScreen>
     final missionData = widget.screen.missionData;
     if (missionData == null) return;
 
+    final isCorrect = _selectedIndex == missionData.correctIndex;
+
+    // Play sound based on answer
+    if (isCorrect) {
+      SoundService().playGood();
+    } else {
+      SoundService().playBeep();
+    }
+
     setState(() {
       _submitted = true;
-      _isCorrect = _selectedIndex == missionData.correctIndex;
+      _isCorrect = isCorrect;
     });
 
     _feedbackController.forward();
