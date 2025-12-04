@@ -41,8 +41,9 @@ class MyApp extends StatelessWidget {
           if (settings.name == '/lesson') {
             final args = settings.arguments as Map<String, dynamic>?;
             final day = args?['day'] as int? ?? 1;
+            final lessonNumber = args?['lessonNumber'] as int? ?? 1;
             return MaterialPageRoute(
-              builder: (context) => LessonPage(day: day),
+              builder: (context) => LessonPage(day: day, lessonNumber: lessonNumber),
             );
           }
           if (settings.name == '/challenge-signup') {

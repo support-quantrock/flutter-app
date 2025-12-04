@@ -7,7 +7,7 @@ class NanoBananaService {
   static const String _baseUrl =
       'https://generativelanguage.googleapis.com/v1beta/models';
   static const String _model = 'gemini-2.0-flash-exp-image-generation';
-  static const String defaultApiKey = 'AIzaSyBvuKfyu8kStx-TJYtk949PRjYfkoHMl6g';
+  static const String defaultApiKey = ''; // Add your Gemini API key here
 
   NanoBananaService({String? apiKey}) : apiKey = apiKey ?? defaultApiKey;
 

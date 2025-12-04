@@ -479,10 +479,6 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     final isCompleted = currentDay < _currentDay;
     final isTestDay = (dayIndex + 1) % 6 == 0; // Every 6th position is a test
 
-    // Day 2 lesson appears at first icon position after Day 2 card
-    final day2Lesson = _lessons.firstWhere((l) => l['day'] == 2);
-    final showDay2Lesson = currentDay == 2;
-
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
@@ -502,64 +498,64 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
           height: 360,
           child: Stack(
             children: [
-              // Lesson Icon 1
+              // Lesson Icon 1 → Lesson 1
               Positioned(
                 top: 20,
                 left: getX(0),
-                child: showDay2Lesson
-                    ? _buildInteractiveLessonIcon(
-                        lesson: day2Lesson,
-                        isCompleted: 2 < _currentDay,
-                      )
-                    : _buildFloatingIcon(
-                        icon: Icons.menu_book,
-                        isCompleted: isCompleted,
-                      ),
+                child: _buildInteractiveLessonIcon(
+                  day: currentDay,
+                  lessonNumber: 1,
+                  isCompleted: isCompleted,
+                ),
               ),
-              // Lesson Icon 2
+              // Lesson Icon 2 → Lesson 2
               Positioned(
                 top: 75,
                 left: getX(1),
-                child: _buildFloatingIcon(
-                  icon: Icons.menu_book,
+                child: _buildInteractiveLessonIcon(
+                  day: currentDay,
+                  lessonNumber: 2,
                   isCompleted: isCompleted,
                 ),
               ),
-              // Lesson Icon 3
+              // Lesson Icon 3 → Lesson 3
               Positioned(
                 top: 130,
                 left: getX(2),
-                child: _buildFloatingIcon(
-                  icon: Icons.menu_book,
+                child: _buildInteractiveLessonIcon(
+                  day: currentDay,
+                  lessonNumber: 3,
                   isCompleted: isCompleted,
                 ),
               ),
-              // Lesson Icon 4
+              // Lesson Icon 4 → Lesson 4
               Positioned(
                 top: 185,
                 left: getX(3),
-                child: _buildFloatingIcon(
-                  icon: Icons.menu_book,
+                child: _buildInteractiveLessonIcon(
+                  day: currentDay,
+                  lessonNumber: 4,
                   isCompleted: isCompleted,
                 ),
               ),
-              // Lesson Icon 5
+              // Lesson Icon 5 → Lesson 5
               Positioned(
                 top: 240,
                 left: getX(4),
-                child: _buildFloatingIcon(
-                  icon: Icons.menu_book,
+                child: _buildInteractiveLessonIcon(
+                  day: currentDay,
+                  lessonNumber: 5,
                   isCompleted: isCompleted,
                 ),
               ),
-              // Test Icon (crown/quiz)
+              // Test Icon (position 6) → Lesson 6 (Test)
               Positioned(
                 top: 295,
                 left: getX(5),
-                child: _buildFloatingIcon(
-                  icon: isTestDay ? Icons.quiz : Icons.workspace_premium,
+                child: _buildInteractiveLessonIcon(
+                  day: currentDay,
+                  lessonNumber: 6,
                   isCompleted: isCompleted,
-                  isMilestone: true,
                 ),
               ),
             ],
@@ -570,18 +566,20 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
   }
 
   Widget _buildInteractiveLessonIcon({
-    required Map<String, dynamic> lesson,
+    required int day,
+    required int lessonNumber,
     required bool isCompleted,
   }) {
-    final day = lesson['day'] as int;
-    final emoji = lesson['emoji'] as String;
+    final lesson = LessonRegistry.getLessonByNumber(day, lessonNumber);
+    final emoji = lesson?.emoji ?? '📚';
     final isLocked = day > _currentDay;
     final isCurrent = day == _currentDay;
+    final hasLesson = lesson != null;
 
     return GestureDetector(
       onTap: () {
         if (!isLocked) {
-          _showLessonPopup(lesson);
+          _showLessonPopup(day, lessonNumber);
         }
       },
       child: Container(
@@ -593,20 +591,20 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
             end: Alignment.bottomRight,
             colors: isCompleted
                 ? [const Color(0xFF10B981), const Color(0xFF059669)]
-                : isCurrent
+                : isCurrent && hasLesson
                     ? [const Color(0xFF8B5CF6), const Color(0xFF6366F1)]
                     : [const Color(0xFF6366F1), const Color(0xFF6366F1).withValues(alpha: 0.8)],
           ),
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: (isCurrent ? const Color(0xFF8B5CF6) : const Color(0xFF6366F1)).withValues(alpha: 0.5),
+              color: (isCurrent && hasLesson ? const Color(0xFF8B5CF6) : const Color(0xFF6366F1)).withValues(alpha: 0.5),
               blurRadius: 16,
               spreadRadius: 2,
               offset: const Offset(0, 4),
             ),
           ],
-          border: isCurrent ? Border.all(color: Colors.white, width: 2) : null,
+          border: isCurrent && hasLesson ? Border.all(color: Colors.white, width: 2) : null,
         ),
         child: Center(
           child: Text(
@@ -618,11 +616,11 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     );
   }
 
-  void _showLessonPopup(Map<String, dynamic> lesson) {
-    final day = lesson['day'] as int;
-    final emoji = lesson['emoji'] as String;
-    final title = lesson['title'] as String;
-    final isCompleted = lesson['completed'] as bool;
+  void _showLessonPopup(int day, int lessonNumber) {
+    final lesson = LessonRegistry.getLessonByNumber(day, lessonNumber);
+    final emoji = lesson?.emoji ?? '📚';
+    final title = lesson?.title ?? 'Lesson $lessonNumber';
+    final isCompleted = false; // TODO: Track completion status
 
     showModalBottomSheet(
       context: context,
@@ -697,16 +695,16 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
             GestureDetector(
               onTap: () {
                 Navigator.pop(context);
-                if (LessonRegistry.hasLesson(day)) {
+                if (LessonRegistry.hasLessonNumber(day, lessonNumber)) {
                   Navigator.pushNamed(
                     context,
                     '/lesson',
-                    arguments: {'day': day},
+                    arguments: {'day': day, 'lessonNumber': lessonNumber},
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Lesson $day coming soon!'),
+                      content: Text('Day $day Lesson $lessonNumber coming soon!'),
                       backgroundColor: const Color(0xFF6366F1),
                     ),
                   );

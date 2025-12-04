@@ -77,6 +77,12 @@ flutter:
     - assets/images/
     - assets/images/lessons/day2/
     - assets/videos/lessons/day2/
+    - assets/videos/lessons/day2/lesson1/
+    - assets/videos/lessons/day2/lesson2/
+    - assets/videos/lessons/day2/lesson3/
+    - assets/videos/lessons/day2/lesson4/
+    - assets/videos/lessons/day2/lesson5/
+    - assets/videos/lessons/day2/test/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

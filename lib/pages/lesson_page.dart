@@ -10,10 +10,12 @@ import '../components/lesson/reward_screen.dart';
 
 class LessonPage extends StatefulWidget {
   final int day;
+  final int lessonNumber;
 
   const LessonPage({
     super.key,
     required this.day,
+    this.lessonNumber = 1,
   });
 
   @override
@@ -32,7 +34,7 @@ class _LessonPageState extends State<LessonPage> {
   }
 
   void _loadLesson() {
-    final lesson = LessonRegistry.getLesson(widget.day);
+    final lesson = LessonRegistry.getLessonByNumber(widget.day, widget.lessonNumber);
     if (lesson != null) {
       setState(() {
         _lessonData = lesson;
@@ -72,7 +74,7 @@ class _LessonPageState extends State<LessonPage> {
               const CircularProgressIndicator(color: Colors.amber),
               const SizedBox(height: 20),
               Text(
-                'Lesson for Day ${widget.day} not found',
+                'Day ${widget.day} Lesson ${widget.lessonNumber} not found',
                 style: const TextStyle(color: Colors.white70),
               ),
               const SizedBox(height: 20),

@@ -55,23 +55,20 @@ class InvestorScoring {
       case 'under_18':
         score += 0;
         break;
-      case '18_24':
+      case '18-24':
         score += 2;
         break;
-      case '25_34':
+      case '25-34':
         score += 4;
         break;
-      case '35_44':
+      case '35-44':
         score += 5;
         break;
-      case '45_54':
+      case '45-54':
         score += 4;
         break;
-      case '55_64':
+      case '55+':
         score += 3;
-        break;
-      case '65_plus':
-        score += 2;
         break;
     }
 
@@ -106,16 +103,16 @@ class InvestorScoring {
       case 'less_1k':
         score += 1;
         break;
-      case '1k_10k':
+      case '1k-10k':
         score += 2;
         break;
-      case '10k_25k':
+      case '10k-25k':
         score += 3;
         break;
-      case '25k_100k':
+      case '25k-100k':
         score += 4;
         break;
-      case '100k_500k':
+      case '100k-500k':
         score += 5;
         break;
       case 'more_500k':
@@ -142,7 +139,7 @@ class InvestorScoring {
       case 'not_comfortable':
         score += 0;
         break;
-      case 'slightly':
+      case 'slightly_comfortable':
         score += 1;
         break;
       case 'comfortable':
@@ -158,13 +155,13 @@ class InvestorScoring {
       case 'less_1_year':
         score += 0;
         break;
-      case '1_3_years':
+      case '1-3_years':
         score += 1;
         break;
-      case '3_7_years':
+      case '3-7_years':
         score += 2;
         break;
-      case 'more_7_years':
+      case '7+_years':
         score += 3;
         break;
     }
@@ -205,53 +202,53 @@ class InvestorScoring {
   static ScoreResult calculateFinancialLiteracy(QuestionnaireAnswers answers) {
     int score = 0;
 
-    // Q10 Market Risk Understanding (0-6 points)
+    // Q10 Market Risk Understanding (0-10 points)
     switch (answers.marketRiskUnderstanding) {
       case 'poor':
         score += 0;
         break;
       case 'basic':
-        score += 2;
+        score += 3;
         break;
       case 'good':
-        score += 4;
+        score += 7;
         break;
       case 'excellent':
-        score += 6;
+        score += 10;
         break;
     }
 
-    // Q11 Saving Discipline (0-4 points)
+    // Q11 Saving Discipline (0-6 points)
     switch (answers.savingHabit) {
       case 'dont_save':
         score += 0;
         break;
-      case 'sometimes':
+      case 'save_sometimes':
         score += 2;
         break;
-      case 'regularly':
-        score += 3;
-        break;
-      case 'fixed_percentage':
+      case 'save_regularly':
         score += 4;
         break;
+      case 'save_fixed':
+        score += 6;
+        break;
     }
 
-    // Q12 Emergency Savings (0-3 points)
+    // Q12 Emergency Savings (0-4 points)
     if (answers.hasEmergencySavings == 'yes') {
-      score += 3;
+      score += 4;
     }
 
-    // Q13 Retirement Planning (0-3 points)
+    // Q13 Retirement Planning (0-5 points)
     switch (answers.retirementPlanning) {
       case 'not_yet':
         score += 0;
         break;
-      case 'pension':
-        score += 2;
+      case 'rely_pension':
+        score += 3;
         break;
       case 'save_regularly':
-        score += 3;
+        score += 5;
         break;
     }
 
@@ -305,27 +302,27 @@ class InvestorScoring {
 
     // Q15 Investment Goal (1-5 points)
     switch (answers.investingGoal) {
-      case 'capital_protection':
+      case 'protection':
         score += 1;
         break;
-      case 'extra_income':
+      case 'income':
         score += 2;
         break;
-      case 'capital_growth':
+      case 'growth':
         score += 3;
         break;
-      case 'long_term_wealth':
+      case 'wealth_building':
         score += 4;
         break;
-      case 'short_term_speculation':
+      case 'speculation':
         score += 5;
         break;
     }
 
-    // Q16 Quantrock Goal (2-4 points)
+    // Q16 Quantrock Goal (1-5 points)
     switch (answers.quantrockGoal) {
       case 'learn':
-        score += 2;
+        score += 1;
         break;
       case 'challenge':
         score += 2;
@@ -337,7 +334,7 @@ class InvestorScoring {
         score += 4;
         break;
       case 'explore_auto':
-        score += 4;
+        score += 5;
         break;
     }
 
@@ -377,35 +374,35 @@ class InvestorScoring {
   static ScoreResult calculateLearningReadiness(QuestionnaireAnswers answers) {
     int score = 0;
 
-    // Q18 Investment Readiness (0-4 points)
+    // Q18 Investment Readiness (0-5 points)
     switch (answers.investmentReadinessText) {
       case 'need_help':
         score += 0;
         break;
-      case 'somewhat':
+      case 'somewhat_prepared':
         score += 2;
         break;
-      case 'prepared':
-        score += 3;
-        break;
-      case 'confident':
+      case 'fully_prepared':
         score += 4;
+        break;
+      case 'very_confident':
+        score += 5;
         break;
     }
 
-    // Q19 Passive Income Knowledge (0-3 points)
+    // Q19 Passive Income Knowledge (0-5 points)
     switch (answers.passiveIncomeKnowledgeText) {
       case 'dont_understand':
         score += 0;
         break;
       case 'basic':
-        score += 1;
-        break;
-      case 'good':
         score += 2;
         break;
-      case 'excellent':
+      case 'good':
         score += 3;
+        break;
+      case 'excellent':
+        score += 5;
         break;
     }
 
@@ -980,12 +977,12 @@ class _InvestorResultsPageState extends State<InvestorResultsPage>
         'hi': '3: उद्देश्य और प्रेरणा'
       },
       'learning_readiness': {
-        'en': '4: Learning Readiness',
-        'ar': '4: الاستعداد للتعلم',
-        'fr': '4: Préparation à l\'Apprentissage',
-        'es': '4: Preparación para Aprender',
-        'zh': '4: 学习准备',
-        'hi': '4: सीखने की तैयारी'
+        'en': '4:Learning Readiness',
+        'ar': '4:الاستعداد للتعلم',
+        'fr': '4:Préparation à l\'Apprentissage',
+        'es': '4:Preparación para Aprender',
+        'zh': '4:学习准备',
+        'hi': '4:सीखने की तैयारी'
       },
       'suggested_portfolio': {
         'en': 'Suggested Portfolio',

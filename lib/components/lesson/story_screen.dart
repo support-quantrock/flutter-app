@@ -88,7 +88,11 @@ class _StoryScreenState extends State<StoryScreen>
       _videoController = VideoPlayerController.asset(widget.screen.videoPath!);
       try {
         await _videoController!.initialize();
-        _videoController!.setLooping(true);
+        _videoController!.setLooping(false); // Play only once
+
+        // Listen for video completion to auto-start narration
+        _videoController!.addListener(_onVideoProgress);
+
         _videoController!.play();
         setState(() {
           _isVideoInitialized = true;
@@ -96,6 +100,19 @@ class _StoryScreenState extends State<StoryScreen>
         });
       } catch (e) {
         debugPrint('Error initializing video: $e');
+      }
+    }
+  }
+
+  void _onVideoProgress() {
+    if (_videoController == null) return;
+    final position = _videoController!.value.position;
+    final duration = _videoController!.value.duration;
+
+    // Check if video has finished
+    if (duration > Duration.zero && position >= duration) {
+      if (!_hasStartedNarration && mounted) {
+        _startNarration();
       }
     }
   }
@@ -119,6 +136,7 @@ class _StoryScreenState extends State<StoryScreen>
     _particleController.dispose();
     _typingController.dispose();
     _tts.stop();
+    _videoController?.removeListener(_onVideoProgress);
     _videoController?.dispose();
     super.dispose();
   }
@@ -150,83 +168,7 @@ class _StoryScreenState extends State<StoryScreen>
                 children: [
                   const Spacer(),
 
-                  // Quote text - tap to start narration
-                  GestureDetector(
-                    onTap: _startNarration,
-                    child: AnimatedBuilder(
-                      animation: _glowAnimation,
-                      builder: (context, child) {
-                        return Container(
-                          padding: const EdgeInsets.all(24),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.05),
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              color: Colors.amber.withValues(alpha: 0.3 * _glowAnimation.value),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.amber.withValues(alpha: 0.2 * _glowAnimation.value),
-                                blurRadius: 20 * _glowAnimation.value,
-                                spreadRadius: 2,
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              // Show tap to listen prompt before narration starts
-                              if (!_hasStartedNarration) ...[
-                                Icon(
-                                  Icons.volume_up,
-                                  color: Colors.amber.withValues(alpha: _glowAnimation.value),
-                                  size: 32,
-                                ),
-                                const SizedBox(height: 12),
-                                Text(
-                                  'Tap to listen',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.amber.withValues(alpha: _glowAnimation.value),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                const SizedBox(height: 16),
-                              ],
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(text: _hasStartedNarration ? _displayedText : _fullText),
-                                    // Blinking cursor while typing
-                                    if (_hasStartedNarration && _displayedText.length < _fullText.length)
-                                      TextSpan(
-                                        text: '|',
-                                        style: TextStyle(
-                                          color: Colors.amber.withValues(alpha: _glowAnimation.value),
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                  color: _hasStartedNarration
-                                      ? Colors.white.withValues(alpha: 0.95)
-                                      : Colors.white.withValues(alpha: 0.5),
-                                  height: 1.6,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // Video player
+                  // Video player (plays first, then triggers narration)
                   if (_isVideoInitialized && _videoController != null)
                     GestureDetector(
                       onTap: _toggleVideo,
@@ -270,6 +212,55 @@ class _StoryScreenState extends State<StoryScreen>
                         ),
                       ),
                     ),
+
+                  const SizedBox(height: 24),
+
+                  // Quote text (appears with typing animation after video ends)
+                  AnimatedBuilder(
+                    animation: _glowAnimation,
+                    builder: (context, child) {
+                      return Container(
+                        padding: const EdgeInsets.all(24),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.05),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: Colors.amber.withValues(alpha: 0.3 * _glowAnimation.value),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.amber.withValues(alpha: 0.2 * _glowAnimation.value),
+                              blurRadius: 20 * _glowAnimation.value,
+                              spreadRadius: 2,
+                            ),
+                          ],
+                        ),
+                        child: Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(text: _hasStartedNarration ? _displayedText : ''),
+                              // Blinking cursor while typing
+                              if (_hasStartedNarration && _displayedText.length < _fullText.length)
+                                TextSpan(
+                                  text: '|',
+                                  style: TextStyle(
+                                    color: Colors.amber.withValues(alpha: _glowAnimation.value),
+                                  ),
+                                ),
+                            ],
+                          ),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white.withValues(alpha: 0.95),
+                            height: 1.6,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
 
                   const SizedBox(height: 16),
 
