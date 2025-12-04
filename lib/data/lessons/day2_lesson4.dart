@@ -10,7 +10,7 @@ final day2Lesson4 = LessonData(
       type: ScreenType.story,
       title: 'The Emotional Rollercoaster',
       imagePath: 'assets/images/lessons/day2/lesson4/story.png',
-      videoPath: 'https://drive.google.com/uc?export=download&id=1XPGwRaFDUB85yyGyvirEd5c5jrvemIC_',
+      videoPath: 'https://drive.usercontent.google.com/download?id=1XPGwRaFDUB85yyGyvirEd5c5jrvemIC_&export=download',
       imagePrompt:
           'cartoon rollercoaster shaped like a volatile stock market chart, cute character holding fear and greed glowing orbs, educational colorful style',
       content: '',

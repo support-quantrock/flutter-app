@@ -10,7 +10,7 @@ final day2Lesson = LessonData(
       type: ScreenType.story,
       title: 'The Gate Awakens',
       imagePath: 'assets/images/lessons/day2/day2_screen1_story.png',
-      videoPath: 'https://drive.google.com/uc?export=download&id=1qFjsb6o4cUEZ9BEzlrWud96lhnGq6ZjP',
+      videoPath: 'https://drive.usercontent.google.com/download?id=1qFjsb6o4cUEZ9BEzlrWud96lhnGq6ZjP&export=download',
       imagePrompt:
           'cartoon ancient stone gate glowing with blue runes in a magical forest, cute small guardian holding glowing lantern, fantasy adventure style, bright colors',
       content: '',

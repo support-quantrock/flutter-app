@@ -10,7 +10,7 @@ final day2Lesson5 = LessonData(
       type: ScreenType.story,
       title: 'The Tiny Coin That Grew',
       imagePath: 'assets/images/lessons/day2/lesson5/story.png',
-      videoPath: 'https://drive.google.com/uc?export=download&id=1-F24tBHi8c-xTfVPT9LcplyubTss4Kox',
+      videoPath: 'https://drive.usercontent.google.com/download?id=1-F24tBHi8c-xTfVPT9LcplyubTss4Kox&export=download',
       imagePrompt:
           'cartoon tiny smiling coin planting itself in soil and growing into a glowing money tree, magical meadow background, cute educational style',
       content: '',

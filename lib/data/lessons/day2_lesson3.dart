@@ -10,7 +10,7 @@ final day2Lesson3 = LessonData(
       type: ScreenType.story,
       title: 'The Sky View',
       imagePath: 'assets/images/lessons/day2/lesson3/story.png',
-      videoPath: 'https://drive.google.com/uc?export=download&id=1Rc7QpVr_B53FZdU0QHh5HPN4NsPuvJWA',
+      videoPath: 'https://drive.usercontent.google.com/download?id=1Rc7QpVr_B53FZdU0QHh5HPN4NsPuvJWA&export=download',
       imagePrompt:
           'cartoon futuristic elevator rising above clouds, showing glowing multi-year financial timeline in the sky, cute robot guide floating next to character, colorful educational style',
       content: '',
