@@ -1,189 +1,180 @@
 import '../../models/lesson_models.dart';
 
-final day2Lesson = LessonData(
+final day2Lesson1 = LessonData(
   day: 2,
-  title: "Entering the Investor's Gate",
-  emoji: '🚪',
+  title: "Consumer vs Investor Mindset",
+  emoji: '🧠',
   screens: [
-    // Screen 1: Story - "The Gate Awakens"
+    // Screen 1: Story
     const LessonScreen(
       type: ScreenType.story,
-      title: 'The Gate Awakens',
-      imagePath: 'assets/images/lessons/day2/day2_screen1_story.png',
-      videoPath: 'https://drive.usercontent.google.com/download?id=1qFjsb6o4cUEZ9BEzlrWud96lhnGq6ZjP&export=download',
+      title: 'The Two Mindsets',
+      imagePath: 'assets/images/lessons/day2/lesson1/story.png',
       imagePrompt:
-          'cartoon ancient stone gate glowing with blue runes in a magical forest, cute small guardian holding glowing lantern, fantasy adventure style, bright colors',
-      content: '',
+          'cartoon split scene showing consumer spending money happily on one side, investor growing money tree on other side, colorful comparison style',
+      content:
+          '''There are two ways to think about money: like a consumer or like an investor.
+
+Consumers spend money. Investors grow money.
+
+Today you will learn the difference and why it matters for your future!''',
     ),
 
-    // Screen 2: Content A - Consumer Mindset
+    // Screen 2: Content - Consumer Mindset
     const LessonScreen(
       type: ScreenType.content,
-      title: 'Consumer Mindset',
-      imagePath: 'assets/images/lessons/day2/day2_screen2_consumer.png',
+      title: 'The Consumer Mindset',
+      imagePath: 'assets/images/lessons/day2/lesson1/content1.png',
       imagePrompt:
-          'cartoon character excitedly buying shiny objects impulsively, emotional spending behavior, bright playful style',
-      content: '''The consumer mindset focuses on the now.
-It follows emotions, not logic.
+          'cartoon character surrounded by shopping bags, impulse buys, instant gratification items, money flying away, colorful but cautionary style',
+      content: '''The consumer mindset focuses on NOW.
 
-Here's how it behaves:''',
+It is driven by emotions and instant gratification.''',
       bullets: [
         BulletPoint(
-          icon: '🔴',
+          icon: '🛍️',
           title: 'Instant Gratification',
           description: 'Buys things immediately for temporary happiness.',
         ),
         BulletPoint(
-          icon: '🔴',
+          icon: '😰',
           title: 'Emotional Spending',
-          description:
-              'Feels excited → buys. Feels stressed → buys. Feels bored → buys.',
+          description: 'Feels stressed? Buy something. Feels happy? Buy something.',
         ),
         BulletPoint(
-          icon: '🔴',
+          icon: '📉',
           title: 'Short-Term Thinking',
-          description:
-              '"What can I enjoy today?" not "What will this become tomorrow?"',
+          description: 'Asks: What can I enjoy today?',
         ),
         BulletPoint(
-          icon: '🔴',
-          title: 'Money Outflow Pattern',
-          description: 'Money comes in → gets spent → disappears → repeat cycle.',
+          icon: '💸',
+          title: 'Money Outflow',
+          description: 'Money comes in and quickly goes out.',
         ),
       ],
     ),
 
-    // Screen 3: Content B - Investor Mindset
+    // Screen 3: Content - Investor Mindset
     const LessonScreen(
       type: ScreenType.content,
-      title: 'Investor Mindset',
-      imagePath: 'assets/images/lessons/day2/day2_screen3_investor.png',
+      title: 'The Investor Mindset',
+      imagePath: 'assets/images/lessons/day2/lesson1/content2.png',
       imagePrompt:
-          'cartoon investor calmly analyzing a simple chart on a glowing tablet, soft educational colors, cute logical style',
-      content: '''The investor mindset is the opposite.
-It focuses on growth, not pleasure.''',
+          'cartoon wise character calmly watching money tree grow, long-term vision chart in background, patient and strategic atmosphere, educational style',
+      content: '''The investor mindset focuses on the FUTURE.
+
+It is driven by logic and long-term growth.''',
       bullets: [
         BulletPoint(
-          icon: '🟢',
+          icon: '🌱',
+          title: 'Delayed Gratification',
+          description: 'Plants seeds today for a harvest tomorrow.',
+        ),
+        BulletPoint(
+          icon: '🧠',
+          title: 'Logical Decisions',
+          description: 'Thinks before spending. Asks: Is this worth it?',
+        ),
+        BulletPoint(
+          icon: '📈',
           title: 'Long-Term Thinking',
-          description: 'Plans for months or years ahead.',
+          description: 'Asks: What will this become in 5 years?',
         ),
         BulletPoint(
-          icon: '🟢',
-          title: 'Value Hunting',
-          description: 'Asks: "What is this worth?" Not: "How shiny is it?"',
-        ),
-        BulletPoint(
-          icon: '🟢',
-          title: 'Logic Over Emotion',
-          description: 'Decisions come from analysis, not moods.',
-        ),
-        BulletPoint(
-          icon: '🟢',
-          title: 'Wealth Creation Pattern',
-          description:
-              'Money comes in → saved → invested → grows → multiplies.',
+          icon: '💰',
+          title: 'Money Growth',
+          description: 'Money comes in, gets invested, and multiplies.',
         ),
       ],
     ),
 
-    // Screen 4: Content C - The Shift Moment
-    const LessonScreen(
-      type: ScreenType.content,
-      title: 'The Shift Moment',
-      imagePath: 'assets/images/lessons/day2/day2_screen4_shift.png',
-      imagePrompt:
-          'cartoon brain split-screen transforming from consumer mindset to investor mindset, glowing blue evolution effect, simple educational style',
-      content:
-          '''The shift from consumer to investor happens with one mindset upgrade:
-
-❌ Consumer Question
-"What can I buy right now?"
-
-✅ Investor Question
-"What can this become over time?"
-
-This shift changes your life because:''',
-      bullets: [
-        BulletPoint(
-          icon: '💡',
-          title: 'You stop chasing pleasure',
-          description: 'And start building wealth.',
-        ),
-        BulletPoint(
-          icon: '💡',
-          title: 'You stop reacting',
-          description: 'And start planning.',
-        ),
-        BulletPoint(
-          icon: '💡',
-          title: 'You stop wasting',
-          description: 'And start investing.',
-        ),
-      ],
-    ),
-
-    // Screen 5: Game - Choose the Right Mindset
+    // Screen 4: Game - Choice
     const LessonScreen(
       type: ScreenType.game,
-      title: 'Choose the Right Mindset',
-      imagePath: 'assets/images/lessons/day2/day2_screen5_game.png',
+      title: 'Mindset Check',
+      imagePath: 'assets/images/lessons/day2/lesson1/game1.png',
       imagePrompt:
-          'cartoon shooting gallery with colorful balloons labeled spend first, save later, invest first — cute educational game style',
+          'cartoon two paths: one leading to empty wallet, other to growing wealth, character choosing direction, colorful decision style',
       gameData: GameData(
-        type: 'balloon',
-        instruction:
-            'Three floating balloons appear! Tap the one that shows the investor mindset.',
+        type: 'choice',
+        instruction: 'Which behavior shows an INVESTOR mindset?',
         options: [
           GameOption(
-            label: 'Buy something right after payday!',
+            label: 'Buy now, think later',
+            emoji: '🛒',
+          ),
+          GameOption(
+            label: 'Save first, spend what is left',
+            emoji: '💎',
+          ),
+        ],
+        correctIndex: 1,
+      ),
+    ),
+
+    // Screen 5: Game - Balloon
+    const LessonScreen(
+      type: ScreenType.game,
+      title: 'Pop the Consumer!',
+      imagePath: 'assets/images/lessons/day2/lesson1/game2.png',
+      imagePrompt:
+          'cartoon colorful balloons with different spending behaviors written on them, fun game atmosphere',
+      gameData: GameData(
+        type: 'balloon',
+        instruction: 'Which is a CONSUMER mindset behavior?',
+        options: [
+          GameOption(
+            label: 'Planning purchases carefully',
+            emoji: '📋',
+          ),
+          GameOption(
+            label: 'Investing before spending',
+            emoji: '📊',
+          ),
+          GameOption(
+            label: 'Buying on impulse',
             emoji: '🛍️',
-          ),
-          GameOption(
-            label: 'Spend everything and save later!',
-            emoji: '💸',
-          ),
-          GameOption(
-            label: 'Invest before spending!',
-            emoji: '📈',
           ),
         ],
         correctIndex: 2,
       ),
     ),
 
-    // Screen 6: Question - Yes or No
+    // Screen 6: Question
     const LessonScreen(
       type: ScreenType.question,
       title: 'Quick Check',
-      imagePath: 'assets/images/lessons/day2/day2_screen6_question.png',
+      imagePath: 'assets/images/lessons/day2/lesson1/question.png',
       imagePrompt:
-          'cartoon characters comparing a short-term impulse icon vs a long-term growth chart, cute educational style',
+          'cartoon thinking character with thought bubbles showing short-term vs long-term, quiz atmosphere',
       questionData: QuestionData(
-        question:
-            'Is long-term thinking more powerful than short-term spending?',
-        options: ['Yes', 'No'],
-        correctIndex: 0,
+        question: 'What question does an INVESTOR ask?',
+        options: [
+          'What can I buy right now?',
+          'What will this become over time?',
+          'How can I impress others?',
+          'What is trending today?',
+        ],
+        correctIndex: 1,
       ),
     ),
 
-    // Screen 7: Mission - Multiple Choice
+    // Screen 7: Mission
     const LessonScreen(
       type: ScreenType.mission,
-      title: 'Your Mission',
-      imagePath: 'assets/images/lessons/day2/day2_screen7_mission.png',
+      title: 'Mindset Mission',
+      imagePath: 'assets/images/lessons/day2/lesson1/mission.png',
       imagePrompt:
-          'cartoon character selecting multiple-choice financial options on a glowing tablet, bright cute style',
+          'cartoon character at crossroads choosing between consumer path and investor path, epic decision moment, bright colors',
       missionData: MissionData(
-        mission:
-            'Which action will help you MOST to start thinking like an investor?',
+        mission: 'What is the FIRST step to think like an investor?',
         options: [
+          'Buy expensive things',
+          'Follow what everyone else does',
           'Set aside money BEFORE spending',
-          'Buy something every payday',
-          'Decide emotionally when shopping',
-          'Focus only on today\'s satisfaction',
+          'Spend everything while you can',
         ],
-        correctIndex: 0,
+        correctIndex: 2,
       ),
     ),
 
@@ -192,8 +183,8 @@ This shift changes your life because:''',
       type: ScreenType.reward,
       rewardData: RewardData(
         coins: 10,
-        badgeName: 'Gate Opener',
-        badgeIcon: '🏅',
+        badgeName: 'Mindset Shifter',
+        badgeIcon: '🧠',
       ),
     ),
   ],

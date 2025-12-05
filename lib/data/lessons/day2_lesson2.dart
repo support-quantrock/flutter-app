@@ -2,37 +2,109 @@ import '../../models/lesson_models.dart';
 
 final day2Lesson2 = LessonData(
   day: 2,
-  title: "Value Over Price (The Investor's Vision)",
+  title: "Value Over Price",
   emoji: '💎',
   screens: [
-    // Screen 1: Story - "The Hall of Shiny Distractions"
+    // Screen 1: Story
     const LessonScreen(
       type: ScreenType.story,
-      title: 'The Hall of Shiny Distractions',
+      title: 'The Hidden Treasure',
       imagePath: 'assets/images/lessons/day2/lesson2/story.png',
-      videoPath: 'https://drive.usercontent.google.com/download?id=1f9khxZNgKJ07piugBRNbogTAdMKW3Tu2&export=download',
       imagePrompt:
-          'cartoon treasure hall filled with shiny objects and glowing distractions, with a wise cartoon owl mentor pointing toward a golden treasure chest labeled VALUE, colorful educational style',
-      content: '',
+          'cartoon treasure room with shiny distracting objects and one glowing true treasure chest labeled VALUE, wise owl pointing to it, adventure style',
+      content:
+          '''In a world full of shiny distractions, investors see something others miss.
+
+They see VALUE, not just price.
+
+Let me teach you how to spot the difference!''',
     ),
 
-    // Screen 2: Game - Price vs Value
+    // Screen 2: Content - Price vs Value
+    const LessonScreen(
+      type: ScreenType.content,
+      title: 'Price vs Value',
+      imagePath: 'assets/images/lessons/day2/lesson2/content1.png',
+      imagePrompt:
+          'cartoon comparison: expensive flashy item with low value vs simple item with high value glowing, educational comparison style',
+      content: '''Price is what you pay. Value is what you get.
+
+They are NOT the same thing!''',
+      bullets: [
+        BulletPoint(
+          icon: '🏷️',
+          title: 'Price',
+          description: 'The number on the tag. What leaves your wallet.',
+        ),
+        BulletPoint(
+          icon: '💎',
+          title: 'Value',
+          description: 'The real worth. What you actually receive.',
+        ),
+        BulletPoint(
+          icon: '⚠️',
+          title: 'The Trap',
+          description: 'High price does not always mean high value.',
+        ),
+        BulletPoint(
+          icon: '🎯',
+          title: 'The Goal',
+          description: 'Find things where value exceeds price.',
+        ),
+      ],
+    ),
+
+    // Screen 3: Content - Seeing Value
+    const LessonScreen(
+      type: ScreenType.content,
+      title: 'How Investors See Value',
+      imagePath: 'assets/images/lessons/day2/lesson2/content2.png',
+      imagePrompt:
+          'cartoon investor with special glasses seeing beyond surface to true value of items, x-ray vision style, educational',
+      content: '''Investors ask different questions than consumers.
+
+They look beyond the surface:''',
+      bullets: [
+        BulletPoint(
+          icon: '🔍',
+          title: 'Look Deeper',
+          description: 'What is this really worth, not what does it cost?',
+        ),
+        BulletPoint(
+          icon: '⏰',
+          title: 'Think Long-Term',
+          description: 'Will this be valuable in 5 years?',
+        ),
+        BulletPoint(
+          icon: '📊',
+          title: 'Compare Fairly',
+          description: 'Is there better value elsewhere?',
+        ),
+        BulletPoint(
+          icon: '🎯',
+          title: 'Focus on Returns',
+          description: 'What will I get back from this?',
+        ),
+      ],
+    ),
+
+    // Screen 4: Game - Choice
     const LessonScreen(
       type: ScreenType.game,
-      title: 'Price vs Value',
-      imagePath: 'assets/images/lessons/day2/lesson2/game1_price_value.png',
+      title: 'Value Hunt',
+      imagePath: 'assets/images/lessons/day2/lesson2/game1.png',
       imagePrompt:
-          'cartoon split image showing price tag on flashy useless item vs glowing valuable item with VALUE label, soft educational colors',
+          'cartoon comparison of expensive toy vs affordable book that teaches skills, value decision game style',
       gameData: GameData(
         type: 'choice',
-        instruction: 'Which one has MORE value?',
+        instruction: 'Which has MORE value for building wealth?',
         options: [
           GameOption(
-            label: 'Diamond toy (\$100)',
-            emoji: '💎',
+            label: 'Expensive designer item (\$500)',
+            emoji: '👜',
           ),
           GameOption(
-            label: 'Book that grows income (\$10)',
+            label: 'Book that teaches investing (\$20)',
             emoji: '📚',
           ),
         ],
@@ -40,75 +112,27 @@ final day2Lesson2 = LessonData(
       ),
     ),
 
-    // Screen 3: Game - Value Is Hidden
+    // Screen 5: Game - Treasure
     const LessonScreen(
       type: ScreenType.game,
-      title: 'Value Is Hidden',
-      imagePath: 'assets/images/lessons/day2/lesson2/game2_hidden_value.png',
+      title: 'Find Real Value!',
+      imagePath: 'assets/images/lessons/day2/lesson2/game2.png',
       imagePrompt:
-          'cartoon seed sprouting into a glowing money tree symbolizing hidden value, cute simple educational style',
-      gameData: GameData(
-        type: 'choice',
-        instruction: 'What does an INVESTOR see that a consumer doesn\'t?',
-        options: [
-          GameOption(
-            label: 'Sparkle, Hype & Trends',
-            emoji: '✨',
-          ),
-          GameOption(
-            label: 'Potential, Growth & Stability',
-            emoji: '🌱',
-          ),
-        ],
-        correctIndex: 1,
-      ),
-    ),
-
-    // Screen 4: Game - The Value Test
-    const LessonScreen(
-      type: ScreenType.game,
-      title: 'The Value Test',
-      imagePath: 'assets/images/lessons/day2/lesson2/game3_value_test.png',
-      imagePrompt:
-          'cartoon glowing checklist with boxes labeled long-term growth, helpful, future reward, cute educational notebook style',
-      gameData: GameData(
-        type: 'choice',
-        instruction: 'Before buying, which question reveals TRUE value?',
-        options: [
-          GameOption(
-            label: 'Is it trendy right now?',
-            emoji: '🔥',
-          ),
-          GameOption(
-            label: 'Will future-me thank me?',
-            emoji: '🎯',
-          ),
-        ],
-        correctIndex: 1,
-      ),
-    ),
-
-    // Screen 5: Game - Choose the True Treasure
-    const LessonScreen(
-      type: ScreenType.game,
-      title: 'Choose the True Treasure',
-      imagePath: 'assets/images/lessons/day2/lesson2/game4_treasure.png',
-      imagePrompt:
-          'cartoon treasure chests labeled price, hype, and value; the value chest glowing gold, colorful and playful educational game style',
+          'cartoon three treasure chests: one fancy but empty, one hyped but fake, one simple but glowing with real gold, adventure style',
       gameData: GameData(
         type: 'treasure',
-        instruction: 'Three treasure chests appear! Tap the one with REAL value.',
+        instruction: 'Which chest contains REAL value?',
         options: [
           GameOption(
-            label: 'High Price!',
+            label: 'Highest Price Tag',
             emoji: '💰',
           ),
           GameOption(
-            label: 'Trending Now!',
-            emoji: '📈',
+            label: 'Most Advertised',
+            emoji: '📺',
           ),
           GameOption(
-            label: 'Real Value Inside',
+            label: 'Best Long-Term Worth',
             emoji: '🏆',
           ),
         ],
@@ -116,41 +140,41 @@ final day2Lesson2 = LessonData(
       ),
     ),
 
-    // Screen 6: Question - Multiple Choice
+    // Screen 6: Question
     const LessonScreen(
       type: ScreenType.question,
       title: 'Quick Check',
       imagePath: 'assets/images/lessons/day2/lesson2/question.png',
       imagePrompt:
-          'cartoon comparison of trendy flashy object vs glowing valuable skill book, cute educational style',
+          'cartoon investor examining items with magnifying glass, value assessment scene, educational style',
       questionData: QuestionData(
-        question: 'Which of the following has REAL value, not fake shine?',
+        question: 'What should an investor focus on when buying?',
         options: [
-          'Fancy packaging',
-          'A trending toy',
-          'A skill that grows income',
-          'A luxury logo',
+          'The brand name',
+          'What friends think',
+          'The real value received',
+          'The biggest discount',
         ],
         correctIndex: 2,
       ),
     ),
 
-    // Screen 7: Mission - Value Check Challenge
+    // Screen 7: Mission
     const LessonScreen(
       type: ScreenType.mission,
-      title: 'Your Mission',
+      title: 'Value Mission',
       imagePath: 'assets/images/lessons/day2/lesson2/mission.png',
       imagePrompt:
-          'cartoon character choosing between options on a glowing decision screen; the valuable option glowing brighter, cute educational art',
+          'cartoon character choosing between flashy options and valuable options, decision moment, bright educational style',
       missionData: MissionData(
-        mission: 'Which of these behaviors helps you become a value-focused investor?',
+        mission: 'Before buying anything, what question should you ask?',
         options: [
-          'Asking "Will this grow my future?"',
-          'Buying anything with a discount',
-          'Following trends',
-          'Choosing the most expensive item',
+          'Is it on sale?',
+          'Will future me thank me for this?',
+          'Does it look expensive?',
+          'Is it popular right now?',
         ],
-        correctIndex: 0,
+        correctIndex: 1,
       ),
     ),
 
@@ -160,7 +184,7 @@ final day2Lesson2 = LessonData(
       rewardData: RewardData(
         coins: 8,
         badgeName: 'Value Hunter',
-        badgeIcon: '🎯',
+        badgeIcon: '💎',
       ),
     ),
   ],

@@ -2,136 +2,111 @@ import '../../models/lesson_models.dart';
 
 final day2Test = LessonData(
   day: 2,
-  title: "The Investor Mindset Exam",
+  title: "Day 2 Final Test",
   emoji: '📝',
   screens: [
-    // Screen 1: Story - "The Hall of Mastery"
-    const LessonScreen(
-      type: ScreenType.story,
-      title: 'The Hall of Mastery',
-      imagePath: 'assets/images/lessons/day2/test/story.png',
-      videoPath: 'assets/videos/lessons/day2/test/story_animation.mp4',
-      imagePrompt:
-          'cartoon glowing exam hall with floating crystal platforms showing investing symbols, cute robot examiner holding a shiny scroll, bright educational style',
-      content: '''You enter a giant glowing hall with floating crystal platforms.
-Each platform displays symbols from today's lessons:
-
-🧠 Mindset
-💰 Value
-📈 Long-term
-🛡 Discipline
-🌱 Compounding
-
-A golden robot examiner floats toward you holding a shining test scroll.
-
-He says:
-
-"To graduate from Day 2…
-You must prove you think like an investor."''',
-    ),
-
-    // Question 1: Consumer vs Investor Mindset
+    // Question 1
     const LessonScreen(
       type: ScreenType.question,
-      title: 'Question 1 of 5',
+      title: 'Test Question 1',
       imagePath: 'assets/images/lessons/day2/test/q1.png',
       imagePrompt:
-          'cartoon character choosing between spending vs investing options, investor choice glowing, cute educational style',
+          'cartoon consumer vs investor mindset comparison, quiz show style, educational',
       questionData: QuestionData(
-        question: 'Which action represents an INVESTOR mindset?',
+        question: 'What is the main difference between consumer and investor mindset?',
         options: [
-          'Spend all salary first',
-          'Buy something after payday',
-          'Invest before spending',
-          'Follow every trend',
+          'Consumers save more money',
+          'Investors focus on long-term growth, consumers on instant spending',
+          'There is no difference',
+          'Investors spend more',
         ],
-        correctIndex: 2,
+        correctIndex: 1,
       ),
     ),
 
-    // Question 2: Value Over Price
+    // Question 2
     const LessonScreen(
       type: ScreenType.question,
-      title: 'Question 2 of 5',
+      title: 'Test Question 2',
       imagePath: 'assets/images/lessons/day2/test/q2.png',
       imagePrompt:
-          'cartoon comparison of glowing valuable asset vs flashy overpriced toy, cute educational art',
+          'cartoon price tag vs value diamond comparison, quiz style',
       questionData: QuestionData(
-        question: 'What has REAL value, not just a high price?',
+        question: 'What is the difference between price and value?',
         options: [
-          'A shiny hype product',
-          'A skill or asset that grows',
-          'A famous logo',
-          'A trending toy',
+          'They are the same thing',
+          'Price is what you pay, value is what you get',
+          'Value is always higher than price',
+          'Price is more important',
         ],
         correctIndex: 1,
       ),
     ),
 
-    // Question 3: Long-Term Vision
+    // Question 3
     const LessonScreen(
-      type: ScreenType.question,
-      title: 'Question 3 of 5',
+      type: ScreenType.mission,
+      title: 'Test Question 3',
       imagePath: 'assets/images/lessons/day2/test/q3.png',
       imagePrompt:
-          'cartoon chart comparing short-term chaotic volatility vs long-term smooth upward growth, educational cute style',
-      questionData: QuestionData(
-        question: 'Which chart shows the TRUE path of wealth growth?',
+          'cartoon timeline showing short-term chaos vs long-term growth, quiz style',
+      missionData: MissionData(
+        mission: 'Why should investors think long-term?',
         options: [
-          'Daily noisy ups and downs',
-          'Weekly chaotic spikes',
-          'Monthly corrections',
-          'Long-term smooth upward trend',
-        ],
-        correctIndex: 3,
-      ),
-    ),
-
-    // Question 4: Emotional Control
-    const LessonScreen(
-      type: ScreenType.question,
-      title: 'Question 4 of 5',
-      imagePath: 'assets/images/lessons/day2/test/q4.png',
-      imagePrompt:
-          'cartoon investor panicking and pressing sell because of small chart drop, cute educational style',
-      questionData: QuestionData(
-        question: 'Which emotion causes beginners to sell too EARLY?',
-        options: [
-          'Greed',
-          'Fear',
-          'Discipline',
-          'Excitement',
+          'To avoid ever checking investments',
+          'Because compounding needs time to work',
+          'Short-term is too easy',
+          'Long-term has no risks',
         ],
         correctIndex: 1,
       ),
     ),
 
-    // Question 5: Compounding
+    // Question 4
     const LessonScreen(
       type: ScreenType.question,
-      title: 'Question 5 of 5',
-      imagePath: 'assets/images/lessons/day2/test/q5.png',
+      title: 'Test Question 4',
+      imagePath: 'assets/images/lessons/day2/test/q4.png',
       imagePrompt:
-          'cartoon compounding growth chart showing early start advantage, cute character celebrating, educational style',
+          'cartoon fear and greed monsters affecting investor decisions, quiz style',
       questionData: QuestionData(
-        question: 'What makes compounding the MOST powerful?',
+        question: 'Which emotion causes investors to buy at the TOP?',
         options: [
-          'Starting late',
-          'One-time investing',
-          'Starting early and investing regularly',
-          'Checking prices daily',
+          'Fear',
+          'Patience',
+          'Greed',
+          'Discipline',
         ],
         correctIndex: 2,
       ),
     ),
 
-    // Reward Screen
+    // Question 5
+    const LessonScreen(
+      type: ScreenType.mission,
+      title: 'Test Question 5',
+      imagePath: 'assets/images/lessons/day2/test/q5.png',
+      imagePrompt:
+          'cartoon compound growth visualization, snowball effect, quiz style',
+      missionData: MissionData(
+        mission: 'What is compounding?',
+        options: [
+          'Money losing value over time',
+          'Money earning money, which earns more money',
+          'Spending more than you earn',
+          'Keeping cash under the mattress',
+        ],
+        correctIndex: 1,
+      ),
+    ),
+
+    // Reward
     const LessonScreen(
       type: ScreenType.reward,
       rewardData: RewardData(
         coins: 15,
-        badgeName: 'Investor Mindset Pro',
-        badgeIcon: '🎓',
+        badgeName: 'Day 2 Complete',
+        badgeIcon: '🧠',
       ),
     ),
   ],

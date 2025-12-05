@@ -2,151 +2,177 @@ import '../../models/lesson_models.dart';
 
 final day2Lesson5 = LessonData(
   day: 2,
-  title: "The Power of Compounding (Small Steps → Big Wealth)",
+  title: "The Power of Compounding",
   emoji: '🌳',
   screens: [
-    // Screen 1: Story - "The Tiny Coin That Grew"
+    // Screen 1: Story
     const LessonScreen(
       type: ScreenType.story,
-      title: 'The Tiny Coin That Grew',
+      title: 'The Magic of Growth',
       imagePath: 'assets/images/lessons/day2/lesson5/story.png',
-      videoPath: 'https://drive.usercontent.google.com/download?id=1-F24tBHi8c-xTfVPT9LcplyubTss4Kox&export=download',
       imagePrompt:
-          'cartoon tiny smiling coin planting itself in soil and growing into a glowing money tree, magical meadow background, cute educational style',
-      content: '',
+          'cartoon tiny seed being planted, growing into massive money tree over time, magical transformation sequence, inspiring educational style',
+      content:
+          '''Einstein called it the eighth wonder of the world: compound interest.
+
+Small amounts, given time, become fortunes.
+
+This is the most powerful force in investing!''',
     ),
 
-    // Screen 2: Game - What Is Compounding?
+    // Screen 2: Content - What is Compounding
     const LessonScreen(
-      type: ScreenType.game,
-      title: 'What Is Compounding?',
-      imagePath: 'assets/images/lessons/day2/lesson5/game1_compounding.png',
+      type: ScreenType.content,
+      title: 'What is Compounding?',
+      imagePath: 'assets/images/lessons/day2/lesson5/content1.png',
       imagePrompt:
-          'cartoon snowball rolling down a hill growing bigger representing compounding, cute colorful educational style',
-      gameData: GameData(
-        type: 'choice',
-        instruction: 'How does compounding work?',
-        options: [
-          GameOption(
-            label: 'Money stays the same forever',
-            emoji: '😐',
-          ),
-          GameOption(
-            label: 'Money earns money, and that earns more',
-            emoji: '❄️',
-          ),
-        ],
-        correctIndex: 1,
-      ),
+          'cartoon snowball rolling downhill getting bigger, coins multiplying exponentially, visual compounding explanation, educational style',
+      content: '''Compounding is when your money earns money, and that money earns more money.
+
+It is like a snowball rolling downhill.''',
+      bullets: [
+        BulletPoint(
+          icon: '💰',
+          title: 'Year 1',
+          description: 'You invest \$100, earn 10% = \$110',
+        ),
+        BulletPoint(
+          icon: '💰',
+          title: 'Year 2',
+          description: '\$110 earns 10% = \$121 (not just \$120!)',
+        ),
+        BulletPoint(
+          icon: '💰',
+          title: 'Year 10',
+          description: '\$100 becomes \$259 without adding more!',
+        ),
+        BulletPoint(
+          icon: '🚀',
+          title: 'Year 30',
+          description: '\$100 becomes \$1,745! That is the power!',
+        ),
+      ],
     ),
 
-    // Screen 3: Game - Why Small Steps Matter
+    // Screen 3: Content - Keys to Compounding
     const LessonScreen(
-      type: ScreenType.game,
-      title: 'Why Small Steps Matter',
-      imagePath: 'assets/images/lessons/day2/lesson5/game2_small_steps.png',
+      type: ScreenType.content,
+      title: 'Keys to Compounding',
+      imagePath: 'assets/images/lessons/day2/lesson5/content2.png',
       imagePrompt:
-          'cartoon small coins stacking gradually into a tall shining tower, symbolizing compounding and small steps, cute educational art style',
-      gameData: GameData(
-        type: 'choice',
-        instruction: 'What do small, regular investments do?',
-        options: [
-          GameOption(
-            label: 'Nothing, they are too small',
-            emoji: '🤷',
-          ),
-          GameOption(
-            label: 'Build habits and multiply over time',
-            emoji: '📈',
-          ),
-        ],
-        correctIndex: 1,
-      ),
+          'cartoon three golden keys: start early, be consistent, be patient, unlocking treasure chest of wealth, educational style',
+      content: '''Three things make compounding work:''',
+      bullets: [
+        BulletPoint(
+          icon: '⏰',
+          title: 'Start Early',
+          description: 'Time is your biggest advantage. Every year counts.',
+        ),
+        BulletPoint(
+          icon: '🔄',
+          title: 'Be Consistent',
+          description: 'Regular small investments beat random large ones.',
+        ),
+        BulletPoint(
+          icon: '🧘',
+          title: 'Be Patient',
+          description: 'The magic happens in later years. Do not quit early.',
+        ),
+        BulletPoint(
+          icon: '📈',
+          title: 'Reinvest',
+          description: 'Let your earnings earn more. Do not withdraw.',
+        ),
+      ],
     ),
 
-    // Screen 4: Game - Time: The Secret Ingredient
+    // Screen 4: Game - Choice
     const LessonScreen(
       type: ScreenType.game,
-      title: 'Time: The Secret Ingredient',
-      imagePath: 'assets/images/lessons/day2/lesson5/game3_time.png',
+      title: 'Compounding Race',
+      imagePath: 'assets/images/lessons/day2/lesson5/game1.png',
       imagePrompt:
-          'cartoon hourglass where sand is tiny coins falling and turning into a growing money tree, cute soft educational style',
+          'cartoon two characters: one starting at 20, other at 30, racing to retirement wealth, time advantage visualization',
       gameData: GameData(
         type: 'choice',
-        instruction: 'Investor A starts at 20, Investor B at 30. Who ends up with more?',
+        instruction: 'Who ends up with MORE money at 60?',
         options: [
           GameOption(
-            label: 'Investor A (started earlier)',
+            label: 'Starts at 20, invests for 40 years',
             emoji: '🏆',
           ),
           GameOption(
-            label: 'Both end up the same',
-            emoji: '🤝',
+            label: 'Starts at 30, invests for 30 years',
+            emoji: '🥈',
           ),
         ],
         correctIndex: 0,
       ),
     ),
 
-    // Screen 5: Game - Choose the Compounding Winner
+    // Screen 5: Game - Treasure
     const LessonScreen(
       type: ScreenType.game,
-      title: 'Choose the Compounding Winner',
-      imagePath: 'assets/images/lessons/day2/lesson5/game4_winner.png',
+      title: 'Find the Secret!',
+      imagePath: 'assets/images/lessons/day2/lesson5/game2.png',
       imagePrompt:
-          'cartoon two characters: one investing small amounts regularly and money growing, the other saving cash but no growth, cute educational style',
+          'cartoon three treasure chests with different investing approaches, one glowing with compounding power, adventure style',
       gameData: GameData(
-        type: 'choice',
-        instruction: 'Who grows wealth faster?',
+        type: 'treasure',
+        instruction: 'Which approach builds the MOST wealth?',
         options: [
           GameOption(
-            label: 'Invests \$10 every week',
-            emoji: '💰',
+            label: 'Save cash under mattress',
+            emoji: '🛏️',
           ),
           GameOption(
-            label: 'Saves \$100 but never invests',
-            emoji: '🏦',
+            label: 'Invest and let it compound',
+            emoji: '🌳',
+          ),
+          GameOption(
+            label: 'Spend everything now',
+            emoji: '🛍️',
           ),
         ],
-        correctIndex: 0,
+        correctIndex: 1,
       ),
     ),
 
-    // Screen 6: Question - Multiple Choice
+    // Screen 6: Question
     const LessonScreen(
       type: ScreenType.question,
       title: 'Quick Check',
       imagePath: 'assets/images/lessons/day2/lesson5/question.png',
       imagePrompt:
-          'cartoon steady upward compounding chart with a happy character pointing at it, cute educational style',
+          'cartoon exponential growth chart with question marks, compounding quiz atmosphere',
       questionData: QuestionData(
-        question: 'What makes compounding MORE powerful?',
+        question: 'What makes compounding more powerful?',
         options: [
-          'Starting late',
-          'Only investing one time',
-          'Starting early and being consistent',
-          'Relying on luck',
+          'Withdrawing profits regularly',
+          'Starting late with more money',
+          'Starting early and being patient',
+          'Checking prices daily',
         ],
         correctIndex: 2,
       ),
     ),
 
-    // Screen 7: Mission - Compounding Challenge
+    // Screen 7: Mission
     const LessonScreen(
       type: ScreenType.mission,
-      title: 'Your Mission',
+      title: 'Compound Mission',
       imagePath: 'assets/images/lessons/day2/lesson5/mission.png',
       imagePrompt:
-          'cartoon character placing small coins into a glowing jar labeled Compounding, cute simple educational style',
+          'cartoon character planting money seeds in garden of wealth, patient farming approach, long-term vision style',
       missionData: MissionData(
-        mission: 'Which action will help you start compounding TODAY?',
+        mission: 'What is the best way to use compounding?',
         options: [
-          'Invest a small amount regularly',
           'Wait until you have a lot of money',
-          'Spend first, save later',
-          'Check the price every hour',
+          'Start small now and be consistent',
+          'Only invest once a year',
+          'Take out profits every month',
         ],
-        correctIndex: 0,
+        correctIndex: 1,
       ),
     ),
 
@@ -154,7 +180,7 @@ final day2Lesson5 = LessonData(
     const LessonScreen(
       type: ScreenType.reward,
       rewardData: RewardData(
-        coins: 7,
+        coins: 10,
         badgeName: 'Compound Master',
         badgeIcon: '🌳',
       ),
