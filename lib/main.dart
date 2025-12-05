@@ -9,8 +9,11 @@ import 'pages/lesson_page.dart';
 import 'pages/challenge_home_page.dart';
 import 'pages/challenge_signup_page.dart';
 import 'pages/dashboard_page.dart';
+import 'services/qp_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await QPService().init();
   runApp(const MyApp());
 }
 

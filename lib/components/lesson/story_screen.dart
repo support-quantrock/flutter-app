@@ -1,8 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:video_player/video_player.dart';
 import '../../models/lesson_models.dart';
+import 'image_placeholder.dart';
 
 class StoryScreen extends StatefulWidget {
   final LessonScreen screen;
@@ -22,21 +22,32 @@ class _StoryScreenState extends State<StoryScreen>
     with TickerProviderStateMixin {
   late AnimationController _glowController;
   late AnimationController _particleController;
-  late AnimationController _typingController;
+  late AnimationController _bubbleController;
+  late AnimationController _mascotController;
+  late AnimationController _imageController;
   late Animation<double> _glowAnimation;
-  VideoPlayerController? _videoController;
-  bool _isVideoInitialized = false;
-  bool _isVideoPlaying = false;
+  late Animation<double> _bubbleAnimation;
+  late Animation<double> _mascotBounce;
+  late Animation<double> _imageScale;
 
   // TTS and typing animation
   final FlutterTts _tts = FlutterTts();
   String _displayedText = '';
   String get _fullText => widget.screen.content ?? '';
   bool _hasStartedNarration = false;
+  int _currentBubbleIndex = 0;
+  List<String> _speechBubbles = [];
 
   @override
   void initState() {
     super.initState();
+
+    // Parse content into speech bubbles (split by double newline or sentence)
+    _speechBubbles = _fullText.split('\n\n').where((s) => s.trim().isNotEmpty).toList();
+    if (_speechBubbles.isEmpty && _fullText.isNotEmpty) {
+      _speechBubbles = [_fullText];
+    }
+
     _glowController = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
@@ -47,322 +58,635 @@ class _StoryScreenState extends State<StoryScreen>
     );
 
     _particleController = AnimationController(
-      duration: const Duration(milliseconds: 3000),
+      duration: const Duration(milliseconds: 4000),
       vsync: this,
     )..repeat();
 
-    // Typing animation controller - 5 seconds to match TTS duration
-    _typingController = AnimationController(
-      duration: const Duration(seconds: 5),
+    // Bubble appear animation
+    _bubbleController = AnimationController(
+      duration: const Duration(milliseconds: 500),
       vsync: this,
-    )..addListener(() {
-      setState(() {
-        final charCount = (_typingController.value * _fullText.length).floor();
-        _displayedText = _fullText.substring(0, charCount);
-      });
-    });
+    );
+    _bubbleAnimation = CurvedAnimation(
+      parent: _bubbleController,
+      curve: Curves.elasticOut,
+    );
 
-    _initVideoPlayer();
+    // Mascot bounce animation
+    _mascotController = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    )..repeat(reverse: true);
+    _mascotBounce = Tween<double>(begin: 0, end: 8).animate(
+      CurvedAnimation(parent: _mascotController, curve: Curves.easeInOut),
+    );
+
+    // Image scale animation
+    _imageController = AnimationController(
+      duration: const Duration(milliseconds: 800),
+      vsync: this,
+    );
+    _imageScale = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(parent: _imageController, curve: Curves.easeOutBack),
+    );
+
     _initTts();
+
+    // Start animations after a short delay
+    Future.delayed(const Duration(milliseconds: 300), () {
+      if (mounted) {
+        _startNarration();
+        _imageController.forward();
+      }
+    });
   }
 
   Future<void> _initTts() async {
     await _tts.setLanguage('en-US');
-    await _tts.setSpeechRate(0.45); // Slower for clarity
+    await _tts.setSpeechRate(0.45);
     await _tts.setVolume(1.0);
     await _tts.setPitch(1.0);
   }
 
-  // Called on user tap - browsers require user interaction for audio
   Future<void> _startNarration() async {
-    if (_hasStartedNarration) return;
+    if (_hasStartedNarration || _speechBubbles.isEmpty) return;
+
     setState(() {
       _hasStartedNarration = true;
+      _currentBubbleIndex = 0;
     });
-    // Skip TTS and typing if content is empty (video has its own audio)
-    if (_fullText.isNotEmpty) {
-      _typingController.forward();
-      await _tts.speak(_fullText);
-    }
+
+    _bubbleController.forward(from: 0);
+    _animateTyping(_speechBubbles[0]);
+
+    // Speak the first bubble
+    await _tts.speak(_speechBubbles[0]);
   }
 
-  Future<void> _initVideoPlayer() async {
-    if (widget.screen.videoPath != null) {
-      final videoPath = widget.screen.videoPath!;
+  void _animateTyping(String text) {
+    _displayedText = '';
+    int charIndex = 0;
 
-      // Support both URL and asset-based videos
-      if (videoPath.startsWith('http://') || videoPath.startsWith('https://')) {
-        _videoController = VideoPlayerController.networkUrl(Uri.parse(videoPath));
-      } else {
-        _videoController = VideoPlayerController.asset(videoPath);
-      }
+    Future.doWhile(() async {
+      if (!mounted || charIndex >= text.length) return false;
 
-      try {
-        await _videoController!.initialize();
-        _videoController!.setLooping(false); // Play only once
-
-        // Listen for video completion to auto-start narration
-        _videoController!.addListener(_onVideoProgress);
-
-        _videoController!.play();
+      await Future.delayed(const Duration(milliseconds: 30));
+      if (mounted) {
         setState(() {
-          _isVideoInitialized = true;
-          _isVideoPlaying = true;
+          charIndex++;
+          _displayedText = text.substring(0, charIndex);
         });
-      } catch (e) {
-        debugPrint('Error initializing video: $e');
       }
-    }
-  }
-
-  void _onVideoProgress() {
-    if (_videoController == null) return;
-    final position = _videoController!.value.position;
-    final duration = _videoController!.value.duration;
-
-    // Check if video has finished
-    if (duration > Duration.zero && position >= duration) {
-      if (!_hasStartedNarration && mounted) {
-        _startNarration();
-      }
-    }
-  }
-
-  void _toggleVideo() {
-    if (_videoController == null || !_isVideoInitialized) return;
-
-    setState(() {
-      if (_isVideoPlaying) {
-        _videoController!.pause();
-      } else {
-        _videoController!.play();
-      }
-      _isVideoPlaying = !_isVideoPlaying;
+      return charIndex < text.length;
     });
+  }
+
+  void _nextBubble() async {
+    if (_currentBubbleIndex < _speechBubbles.length - 1) {
+      await _tts.stop();
+      setState(() {
+        _currentBubbleIndex++;
+      });
+      _bubbleController.forward(from: 0);
+      _animateTyping(_speechBubbles[_currentBubbleIndex]);
+      await _tts.speak(_speechBubbles[_currentBubbleIndex]);
+    } else {
+      // All bubbles shown, allow continue
+      widget.onContinue();
+    }
   }
 
   @override
   void dispose() {
     _glowController.dispose();
     _particleController.dispose();
-    _typingController.dispose();
+    _bubbleController.dispose();
+    _mascotController.dispose();
+    _imageController.dispose();
     _tts.stop();
-    _videoController?.removeListener(_onVideoProgress);
-    _videoController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF0D0D1A),
-            Color(0xFF1A1A2E),
-            Color(0xFF16213E),
-          ],
+    return GestureDetector(
+      onTap: _hasStartedNarration ? _nextBubble : _startNarration,
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              const Color(0xFF1A1A2E),
+              const Color(0xFF16213E),
+              const Color(0xFF0F3460).withValues(alpha: 0.8),
+            ],
+          ),
         ),
-      ),
-      child: Stack(
-        children: [
-          // Animated particles
-          ...List.generate(15, (index) => _buildParticle(index)),
+        child: Stack(
+          children: [
+            // Animated particles
+            ...List.generate(20, (index) => _buildParticle(index)),
 
-          // Main content
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
-              child: Column(
-                children: [
-                  // Video player (plays first, then triggers narration)
-                  if (_isVideoInitialized && _videoController != null)
+            // Main content
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 60, 16, 20),
+                child: Column(
+                  children: [
+                    // Title header
+                    _buildHeader(),
+
+                    const SizedBox(height: 16),
+
+                    // Main story area with mascot and image
                     Expanded(
-                      flex: 3,
-                      child: GestureDetector(
-                        onTap: _toggleVideo,
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.amber.withValues(alpha: 0.3),
-                                blurRadius: 20,
-                                spreadRadius: 2,
-                              ),
-                            ],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
-                            child: Stack(
-                              alignment: Alignment.center,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Mascot on left
+                          _buildMascot(),
+
+                          const SizedBox(width: 12),
+
+                          // Content area (speech bubble + image)
+                          Expanded(
+                            child: Column(
                               children: [
-                                SizedBox.expand(
-                                  child: FittedBox(
-                                    fit: BoxFit.cover,
-                                    child: SizedBox(
-                                      width: _videoController!.value.size.width,
-                                      height: _videoController!.value.size.height,
-                                      child: VideoPlayer(_videoController!),
-                                    ),
-                                  ),
-                                ),
-                                if (!_isVideoPlaying)
-                                  Container(
-                                    width: 70,
-                                    height: 70,
-                                    decoration: BoxDecoration(
-                                      color: Colors.amber.withValues(alpha: 0.9),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: const Icon(
-                                      Icons.play_arrow,
-                                      color: Colors.black,
-                                      size: 50,
-                                    ),
-                                  ),
+                                // Speech bubble
+                                _buildSpeechBubble(),
+
+                                const SizedBox(height: 16),
+
+                                // Animated image
+                                if (widget.screen.imagePath != null || widget.screen.imagePrompt != null)
+                                  Expanded(child: _buildAnimatedImage()),
                               ],
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ),
-
-                  // Only show text box and categories if content is not empty
-                  if (_fullText.isNotEmpty) ...[
-                    const SizedBox(height: 24),
-
-                    // Quote text (appears with typing animation after video ends)
-                    AnimatedBuilder(
-                      animation: _glowAnimation,
-                      builder: (context, child) {
-                        return Container(
-                          padding: const EdgeInsets.all(24),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.05),
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              color: Colors.amber.withValues(alpha: 0.3 * _glowAnimation.value),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.amber.withValues(alpha: 0.2 * _glowAnimation.value),
-                                blurRadius: 20 * _glowAnimation.value,
-                                spreadRadius: 2,
-                              ),
-                            ],
-                          ),
-                          child: Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(text: _hasStartedNarration ? _displayedText : ''),
-                                // Blinking cursor while typing
-                                if (_hasStartedNarration && _displayedText.length < _fullText.length)
-                                  TextSpan(
-                                    text: '|',
-                                    style: TextStyle(
-                                      color: Colors.amber.withValues(alpha: _glowAnimation.value),
-                                    ),
-                                  ),
-                              ],
-                            ),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white.withValues(alpha: 0.95),
-                              height: 1.6,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
-                        );
-                      },
                     ),
 
                     const SizedBox(height: 16),
 
-                    // Categories image (Spending, Saving, Investing)
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.asset(
-                        'assets/images/lessons/day2/day2_screen1_categories.png',
-                        height: 120,
-                        fit: BoxFit.cover,
-                      ),
+                    // Progress dots for speech bubbles
+                    if (_speechBubbles.length > 1)
+                      _buildProgressDots(),
+
+                    const SizedBox(height: 12),
+
+                    // Continue button / Tap hint
+                    _buildBottomArea(),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return AnimatedBuilder(
+      animation: _glowAnimation,
+      builder: (context, child) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.amber.withValues(alpha: 0.2),
+                Colors.orange.withValues(alpha: 0.15),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: Colors.amber.withValues(alpha: 0.4 * _glowAnimation.value),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.amber.withValues(alpha: 0.2 * _glowAnimation.value),
+                blurRadius: 15,
+                spreadRadius: 1,
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('📖', style: TextStyle(fontSize: 24)),
+              const SizedBox(width: 10),
+              Flexible(
+                child: Text(
+                  widget.screen.title ?? 'Story Time',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildMascot() {
+    return AnimatedBuilder(
+      animation: _mascotBounce,
+      builder: (context, child) {
+        return Transform.translate(
+          offset: Offset(0, _mascotBounce.value),
+          child: Column(
+            children: [
+              // Mascot container
+              Container(
+                width: 80,
+                height: 100,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.amber.withValues(alpha: 0.3),
+                      Colors.orange.withValues(alpha: 0.2),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Colors.amber.withValues(alpha: 0.5),
+                    width: 2,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.amber.withValues(alpha: 0.3),
+                      blurRadius: 15,
+                      spreadRadius: 2,
                     ),
                   ],
-
-                  const SizedBox(height: 20),
-
-                  // Continue button
-                  SizedBox(
-                    width: double.infinity,
-                    height: 56,
-                    child: ElevatedButton(
-                      onPressed: widget.onContinue,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.amber,
-                        foregroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
+                ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    // Character face
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Eyes
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _buildEye(),
+                            const SizedBox(width: 12),
+                            _buildEye(),
+                          ],
                         ),
-                        elevation: 8,
-                        shadowColor: Colors.amber.withValues(alpha: 0.5),
-                      ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Continue',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                        const SizedBox(height: 8),
+                        // Smile
+                        Container(
+                          width: 30,
+                          height: 15,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: Colors.amber.shade700,
+                                width: 3,
+                              ),
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(15),
+                              bottomRight: Radius.circular(15),
                             ),
                           ),
-                          SizedBox(width: 8),
-                          Icon(Icons.arrow_forward, size: 20),
+                        ),
+                      ],
+                    ),
+                    // Glasses
+                    Positioned(
+                      top: 25,
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 22,
+                            height: 16,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white70, width: 2),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          Container(width: 6, height: 2, color: Colors.white70),
+                          Container(
+                            width: 22,
+                            height: 16,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white70, width: 2),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
                         ],
                       ),
                     ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 8),
+              // Name tag
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.amber.withValues(alpha: 0.8),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Text(
+                  'Quinn',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
                   ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildEye() {
+    return Container(
+      width: 14,
+      height: 14,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.3),
+            blurRadius: 2,
+          ),
+        ],
+      ),
+      child: Center(
+        child: Container(
+          width: 6,
+          height: 6,
+          decoration: const BoxDecoration(
+            color: Colors.black87,
+            shape: BoxShape.circle,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSpeechBubble() {
+    if (!_hasStartedNarration || _speechBubbles.isEmpty) {
+      return Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Text(
+          'Tap to start...',
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.white.withValues(alpha: 0.6),
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+      );
+    }
+
+    return AnimatedBuilder(
+      animation: _bubbleAnimation,
+      builder: (context, child) {
+        return Transform.scale(
+          scale: 0.8 + (0.2 * _bubbleAnimation.value),
+          child: Opacity(
+            opacity: _bubbleAnimation.value.clamp(0.0, 1.0),
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(4),
+                  topRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.amber.withValues(alpha: 0.3),
+                    blurRadius: 15,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    _displayedText,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Color(0xFF1A1A2E),
+                      height: 1.5,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  // Typing cursor
+                  if (_displayedText.length < (_speechBubbles.isNotEmpty ? _speechBubbles[_currentBubbleIndex].length : 0))
+                    AnimatedBuilder(
+                      animation: _glowAnimation,
+                      builder: (context, child) {
+                        return Opacity(
+                          opacity: _glowAnimation.value,
+                          child: Container(
+                            width: 2,
+                            height: 18,
+                            color: Colors.amber,
+                            margin: const EdgeInsets.only(top: 2),
+                          ),
+                        );
+                      },
+                    ),
                 ],
               ),
             ),
           ),
-        ],
-      ),
+        );
+      },
+    );
+  }
+
+  Widget _buildAnimatedImage() {
+    return AnimatedBuilder(
+      animation: _imageScale,
+      builder: (context, child) {
+        return Transform.scale(
+          scale: _imageScale.value,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.amber.withValues(alpha: 0.3),
+                  blurRadius: 20,
+                  spreadRadius: 2,
+                ),
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: ImagePlaceholder(
+                prompt: widget.screen.imagePrompt ?? '',
+                imagePath: widget.screen.imagePath,
+                height: double.infinity,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildProgressDots() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(_speechBubbles.length, (index) {
+        final isActive = index == _currentBubbleIndex;
+        final isPast = index < _currentBubbleIndex;
+
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          margin: const EdgeInsets.symmetric(horizontal: 4),
+          width: isActive ? 24 : 8,
+          height: 8,
+          decoration: BoxDecoration(
+            color: isActive
+                ? Colors.amber
+                : isPast
+                    ? Colors.amber.withValues(alpha: 0.5)
+                    : Colors.white.withValues(alpha: 0.3),
+            borderRadius: BorderRadius.circular(4),
+            boxShadow: isActive ? [
+              BoxShadow(
+                color: Colors.amber.withValues(alpha: 0.5),
+                blurRadius: 8,
+              ),
+            ] : null,
+          ),
+        );
+      }),
+    );
+  }
+
+  Widget _buildBottomArea() {
+    final isLastBubble = _currentBubbleIndex >= _speechBubbles.length - 1;
+
+    return Column(
+      children: [
+        // Tap hint
+        AnimatedBuilder(
+          animation: _glowAnimation,
+          builder: (context, child) {
+            return Opacity(
+              opacity: 0.5 + (0.5 * _glowAnimation.value),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.touch_app,
+                    color: Colors.white.withValues(alpha: 0.7),
+                    size: 20,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    isLastBubble ? 'Tap to continue' : 'Tap for next',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white.withValues(alpha: 0.7),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+
+        const SizedBox(height: 12),
+
+        // Continue button (shown when all bubbles are read)
+        if (isLastBubble && _hasStartedNarration)
+          SizedBox(
+            width: double.infinity,
+            height: 52,
+            child: ElevatedButton(
+              onPressed: widget.onContinue,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.amber,
+                foregroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                elevation: 8,
+                shadowColor: Colors.amber.withValues(alpha: 0.5),
+              ),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Continue',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Icon(Icons.arrow_forward, size: 20),
+                ],
+              ),
+            ),
+          ),
+      ],
     );
   }
 
   Widget _buildParticle(int index) {
     final random = Random(index);
-    final size = 2.0 + random.nextDouble() * 4;
+    final size = 2.0 + random.nextDouble() * 3;
     final left = random.nextDouble() * MediaQuery.of(context).size.width;
     final startTop = random.nextDouble() * MediaQuery.of(context).size.height;
+    final colors = [Colors.amber, Colors.orange, Colors.yellow, Colors.white];
 
     return AnimatedBuilder(
       animation: _particleController,
       builder: (context, child) {
-        final progress = (_particleController.value + index * 0.1) % 1.0;
-        final top = startTop - (progress * 200);
+        final progress = (_particleController.value + index * 0.05) % 1.0;
+        final top = startTop - (progress * 250);
 
         return Positioned(
           left: left,
           top: top,
           child: Opacity(
-            opacity: (1 - progress) * 0.6,
+            opacity: (1 - progress) * 0.5,
             child: Container(
               width: size,
               height: size,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.amber,
+                color: colors[random.nextInt(colors.length)],
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.amber.withValues(alpha: 0.5),
+                    color: colors[random.nextInt(colors.length)].withValues(alpha: 0.5),
                     blurRadius: size * 2,
                   ),
                 ],

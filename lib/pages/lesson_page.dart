@@ -27,6 +27,10 @@ class _LessonPageState extends State<LessonPage> {
   late LessonData _lessonData;
   bool _isLoaded = false;
 
+  // QP tracking
+  int _correctAnswers = 0;
+  int _totalQuestions = 0;
+
   @override
   void initState() {
     super.initState();
@@ -36,9 +40,29 @@ class _LessonPageState extends State<LessonPage> {
   void _loadLesson() {
     final lesson = LessonRegistry.getLessonByNumber(widget.day, widget.lessonNumber);
     if (lesson != null) {
+      // Count total questions (game, question, mission screens)
+      int questionCount = 0;
+      for (final screen in lesson.screens) {
+        if (screen.type == ScreenType.game ||
+            screen.type == ScreenType.question ||
+            screen.type == ScreenType.mission) {
+          questionCount++;
+        }
+      }
+
       setState(() {
         _lessonData = lesson;
+        _totalQuestions = questionCount;
+        _correctAnswers = 0;
         _isLoaded = true;
+      });
+    }
+  }
+
+  void _onAnswerResult(bool isCorrect) {
+    if (isCorrect) {
+      setState(() {
+        _correctAnswers++;
       });
     }
   }
@@ -221,6 +245,17 @@ class _LessonPageState extends State<LessonPage> {
     );
   }
 
+  // Count content screens up to current index for variant alternation
+  int _getContentScreenVariant() {
+    int contentCount = 0;
+    for (int i = 0; i < _currentScreenIndex; i++) {
+      if (_lessonData.screens[i].type == ScreenType.content) {
+        contentCount++;
+      }
+    }
+    return contentCount % 2; // Alternate between 0 (flip cards) and 1 (swipe gallery)
+  }
+
   Widget _buildScreen(LessonScreen screen) {
     // Determine theme color based on screen content
     Color? themeColor;
@@ -244,30 +279,38 @@ class _LessonPageState extends State<LessonPage> {
           screen: screen,
           onContinue: _goToNextScreen,
           themeColor: themeColor,
+          variant: _getContentScreenVariant(),
         );
 
       case ScreenType.game:
         return GameScreen(
           screen: screen,
           onContinue: _goToNextScreen,
+          onAnswerResult: _onAnswerResult,
         );
 
       case ScreenType.question:
         return QuestionScreen(
           screen: screen,
           onContinue: _goToNextScreen,
+          onAnswerResult: _onAnswerResult,
         );
 
       case ScreenType.mission:
         return MissionScreen(
           screen: screen,
           onContinue: _goToNextScreen,
+          onAnswerResult: _onAnswerResult,
         );
 
       case ScreenType.reward:
         return RewardScreen(
           screen: screen,
           onContinue: _goToNextScreen,
+          day: widget.day,
+          lesson: widget.lessonNumber,
+          correctAnswers: _correctAnswers,
+          totalQuestions: _totalQuestions,
         );
     }
   }
