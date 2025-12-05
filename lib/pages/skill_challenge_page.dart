@@ -13,45 +13,45 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
   String _challengeViewMode = 'global';
   bool _expandedChallenge = false;
 
-  // 28-day challenge state
-  int _currentDay = 2;
+  // 28-day challenge state - all days unlocked for testing
+  int _currentDay = 28;
   final int _totalDays = 28;
   final Set<int> _expandedLessons = {};
 
   final List<Map<String, dynamic>> _lessons = [
-    // Week 1: Lessons 1-5 + Test
-    {'day': 1, 'emoji': '🏪', 'title': 'How to Start the Challenge in the Quantrook Portfolio', 'completed': true, 'type': 'lesson'},
-    {'day': 2, 'emoji': '🚪', 'title': 'Entering the Investor\'s Gate', 'completed': false, 'current': true, 'type': 'lesson'},
-    {'day': 3, 'emoji': '🕯️', 'title': 'Money Rules: Saving, Investing, and Building Wealth', 'completed': false, 'type': 'lesson'},
-    {'day': 4, 'emoji': '🎯', 'title': 'Financial Markets: Stocks, Bonds, Options, and More', 'completed': false, 'type': 'lesson'},
-    {'day': 5, 'emoji': '🏰', 'title': 'Commodity & Metal Markets (Gold, Silver, Oil)', 'completed': false, 'type': 'lesson'},
-    {'day': 6, 'emoji': '📝', 'title': 'Week 1 Assessment: Foundation Basics', 'completed': false, 'type': 'test'},
-    // Week 2: Lessons 7-11 + Test
-    {'day': 7, 'emoji': '📐', 'title': 'Global Currency Markets (Forex)', 'completed': false, 'type': 'lesson'},
-    {'day': 8, 'emoji': '🏆', 'title': 'Financial Derivatives', 'completed': false, 'type': 'lesson'},
-    {'day': 9, 'emoji': '📊', 'title': 'Cryptocurrencies & Blockchain Technology', 'completed': false, 'type': 'lesson'},
-    {'day': 10, 'emoji': '📈', 'title': 'Understanding Web3, DeFi, and NFTs', 'completed': false, 'type': 'lesson'},
-    {'day': 11, 'emoji': '📉', 'title': 'Risk Management & Financial Discipline', 'completed': false, 'type': 'lesson'},
-    {'day': 12, 'emoji': '📝', 'title': 'Week 2 Assessment: Markets & Assets', 'completed': false, 'type': 'test'},
-    // Week 3: Lessons 13-17 + Test
-    {'day': 13, 'emoji': '💹', 'title': 'Technical Analysis Fundamentals', 'completed': false, 'type': 'lesson'},
-    {'day': 14, 'emoji': '📋', 'title': 'Fundamental Analysis Deep Dive', 'completed': false, 'type': 'lesson'},
-    {'day': 15, 'emoji': '🔮', 'title': 'Market Psychology & Behavioral Finance', 'completed': false, 'type': 'lesson'},
-    {'day': 16, 'emoji': '⚖️', 'title': 'Portfolio Diversification Strategies', 'completed': false, 'type': 'lesson'},
-    {'day': 17, 'emoji': '🎪', 'title': 'Trading Strategies for Beginners', 'completed': false, 'type': 'lesson'},
-    {'day': 18, 'emoji': '📝', 'title': 'Week 3 Assessment: Analysis & Strategy', 'completed': false, 'type': 'test'},
-    // Week 4: Lessons 19-23 + Test
-    {'day': 19, 'emoji': '🛡️', 'title': 'Hedging & Risk Mitigation', 'completed': false, 'type': 'lesson'},
-    {'day': 20, 'emoji': '📱', 'title': 'Trading Platforms & Tools', 'completed': false, 'type': 'lesson'},
-    {'day': 21, 'emoji': '🌐', 'title': 'Global Economic Indicators', 'completed': false, 'type': 'lesson'},
-    {'day': 22, 'emoji': '📰', 'title': 'News Trading & Market Events', 'completed': false, 'type': 'lesson'},
-    {'day': 23, 'emoji': '🔄', 'title': 'Swing Trading Techniques', 'completed': false, 'type': 'lesson'},
-    {'day': 24, 'emoji': '📝', 'title': 'Week 4 Assessment: Advanced Trading', 'completed': false, 'type': 'test'},
-    // Final Days: Lessons 25-27 + Final Test
-    {'day': 25, 'emoji': '⚡', 'title': 'Day Trading Essentials', 'completed': false, 'type': 'lesson'},
-    {'day': 26, 'emoji': '🏦', 'title': 'Building Your First Portfolio', 'completed': false, 'type': 'lesson'},
-    {'day': 27, 'emoji': '🚀', 'title': 'Setting Investment Goals & Trading Plan', 'completed': false, 'type': 'lesson'},
-    {'day': 28, 'emoji': '🏅', 'title': 'Final Challenge Assessment', 'completed': false, 'type': 'test'},
+    // Week 1: Getting Started
+    {'day': 1, 'emoji': '🚀', 'title': 'How to Start the Challenge', 'completed': true, 'type': 'lesson'},
+    {'day': 2, 'emoji': '💰', 'title': 'What is Investing?', 'completed': true, 'type': 'lesson'},
+    {'day': 3, 'emoji': '📈', 'title': 'Understanding Stocks', 'completed': true, 'type': 'lesson'},
+    {'day': 4, 'emoji': '📄', 'title': 'Bonds Basics', 'completed': true, 'type': 'lesson'},
+    {'day': 5, 'emoji': '🎯', 'title': 'Mutual Funds & ETFs', 'completed': true, 'type': 'lesson'},
+    {'day': 6, 'emoji': '📊', 'title': 'Introduction to Index Funds', 'completed': true, 'type': 'lesson'},
+    // Week 2: Advanced Assets
+    {'day': 7, 'emoji': '📋', 'title': 'Financial Derivatives', 'completed': true, 'type': 'lesson'},
+    {'day': 8, 'emoji': '₿', 'title': 'Cryptocurrencies & Blockchain', 'completed': true, 'type': 'lesson'},
+    {'day': 9, 'emoji': '🌐', 'title': 'Web3, DeFi & Digital Assets', 'completed': true, 'type': 'lesson'},
+    {'day': 10, 'emoji': '⚠️', 'title': 'Risk Management Basics', 'completed': true, 'type': 'lesson'},
+    {'day': 11, 'emoji': '📉', 'title': 'Introduction to Technical Analysis', 'completed': true, 'type': 'lesson'},
+    {'day': 12, 'emoji': '📈', 'title': 'Advanced Technical Analysis', 'completed': true, 'type': 'lesson'},
+    // Week 3: Analysis & Strategy
+    {'day': 13, 'emoji': '🔍', 'title': 'Fundamental Analysis', 'completed': true, 'type': 'lesson'},
+    {'day': 14, 'emoji': '🌍', 'title': 'Economic Indicators', 'completed': true, 'type': 'lesson'},
+    {'day': 15, 'emoji': '🎯', 'title': 'Portfolio Theory & Allocation', 'completed': true, 'type': 'lesson'},
+    {'day': 16, 'emoji': '📋', 'title': 'Investment Strategies', 'completed': true, 'type': 'lesson'},
+    {'day': 17, 'emoji': '🧠', 'title': 'Investor Psychology', 'completed': true, 'type': 'lesson'},
+    {'day': 18, 'emoji': '🌎', 'title': 'Global Markets', 'completed': true, 'type': 'lesson'},
+    // Week 4: Specialized Topics
+    {'day': 19, 'emoji': '⚖️', 'title': 'Passive vs Active Investing', 'completed': true, 'type': 'lesson'},
+    {'day': 20, 'emoji': '🌱', 'title': 'ESG & Sustainable Investing', 'completed': true, 'type': 'lesson'},
+    {'day': 21, 'emoji': '💵', 'title': 'Taxes and Investing', 'completed': true, 'type': 'lesson'},
+    {'day': 22, 'emoji': '🏖️', 'title': 'Retirement Planning', 'completed': true, 'type': 'lesson'},
+    {'day': 23, 'emoji': '🏠', 'title': 'Real Estate Investing', 'completed': true, 'type': 'lesson'},
+    {'day': 24, 'emoji': '🎨', 'title': 'Alternative Investments', 'completed': true, 'type': 'lesson'},
+    // Final Week: Application
+    {'day': 25, 'emoji': '🔄', 'title': 'Market Cycles & Timing', 'completed': true, 'type': 'lesson'},
+    {'day': 26, 'emoji': '🧰', 'title': 'Investment Tools & Resources', 'completed': true, 'type': 'lesson'},
+    {'day': 27, 'emoji': '📜', 'title': 'Building Your Investment Plan', 'completed': true, 'type': 'lesson'},
+    {'day': 28, 'emoji': '🏆', 'title': 'Final Day: Practical Application', 'completed': false, 'current': true, 'type': 'lesson'},
   ];
 
   final List<Map<String, dynamic>> _groupLeaderboard = [
