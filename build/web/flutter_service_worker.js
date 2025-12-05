@@ -530,7 +530,7 @@ const RESOURCES = {"assets/fonts/MaterialIcons-Regular.otf": "3971ee02560bd782dd
 "version.json": "389a6e6e6f34312743ca5f36467c84b5",
 "main.dart.js": "16c1a3c588ddefd872978ccf6aabca39",
 "manifest.json": "56128fc6ec7568b99d6fc24cfa34a218",
-"flutter_bootstrap.js": "3ae9137a568e0804fd83af8aca938dc0",
+"flutter_bootstrap.js": "b3a7f202f4acb964549e9c8d6b9f9191",
 "flutter.js": "888483df48293866f9f41d3d9274a779",
 "canvaskit/canvaskit.js.symbols": "58832fbed59e00d2190aa295c4d70360",
 "canvaskit/canvaskit.wasm": "07b9f5853202304d3b0749d9306573cc",
