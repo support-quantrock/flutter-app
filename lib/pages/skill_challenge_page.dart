@@ -407,14 +407,28 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.1),
+          gradient: const LinearGradient(
+            colors: [
+              Color(0xFF22C55E), // Green
+              Color(0xFF3B82F6), // Blue
+              Color(0xFFA855F7), // Purple
+            ],
+          ),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Row(
-          children: [
-            _buildTab('Skill Challenge', 'training'),
-            _buildTab('Leaderboard', 'challenge'),
-          ],
+        padding: const EdgeInsets.all(1.5),
+        child: Container(
+          decoration: BoxDecoration(
+            color: const Color(0xFF0A0A0A),
+            borderRadius: BorderRadius.circular(10.5),
+          ),
+          padding: const EdgeInsets.all(4),
+          child: Row(
+            children: [
+              _buildTab('Skill Challenge', 'training'),
+              _buildTab('Leaderboard', 'challenge'),
+            ],
+          ),
         ),
       ),
     );
@@ -425,59 +439,30 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     return Expanded(
       child: GestureDetector(
         onTap: () => setState(() => _activeTab = value),
-        child: isActive
-            ? Container(
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          decoration: BoxDecoration(
+            gradient: isActive
+                ? const LinearGradient(
                     colors: [
                       Color(0xFF22C55E), // Green
                       Color(0xFF3B82F6), // Blue
                       Color(0xFFA855F7), // Purple
                     ],
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  label,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              )
-            : Container(
-                // Gradient border for inactive tab
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [
-                      Color(0xFF22C55E), // Green
-                      Color(0xFF3B82F6), // Blue
-                      Color(0xFFA855F7), // Purple
-                    ],
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Container(
-                  margin: const EdgeInsets.all(1.5),
-                  padding: const EdgeInsets.symmetric(vertical: 12.5),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF0A0A0A),
-                    borderRadius: BorderRadius.circular(10.5),
-                  ),
-                  child: Text(
-                    label,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white70,
-                    ),
-                  ),
-                ),
-              ),
+                  )
+                : null,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            label,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: isActive ? Colors.white : Colors.white70,
+            ),
+          ),
+        ),
       ),
     );
   }
