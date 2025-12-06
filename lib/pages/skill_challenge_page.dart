@@ -656,8 +656,16 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                           : Container(
                               width: 44,
                               height: 44,
-                              decoration: BoxDecoration(
-                                color: _getDayColor(day),
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Color(0xFF818CF8),  // Light indigo
+                                    Color(0xFF6366F1),  // Indigo
+                                    Color(0xFF7C3AED),  // Violet
+                                  ],
+                                ),
                                 shape: BoxShape.circle,
                               ),
                               child: Center(
@@ -1169,15 +1177,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                     width: 44,
                     height: 44,
                     decoration: BoxDecoration(
-                      color: isLocked
-                          ? Colors.grey.withValues(alpha: 0.2)
-                          : isCompleted
-                              ? Colors.white.withValues(alpha: 0.2)
-                              : isFinalTest
-                                  ? Colors.white.withValues(alpha: 0.3)
-                                  : isTest
-                                      ? const Color(0xFFF59E0B).withValues(alpha: 0.2)
-                                      : _getDayColor(day),
+                      color: const Color(0xFF6B7280), // Gray
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
@@ -1189,9 +1189,9 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                                   ? const Icon(Icons.quiz, color: Colors.white, size: 24)
                                   : Text(
                                       emoji,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 22,
-                                        color: isLocked ? Colors.grey : Colors.white,
+                                        color: Colors.white,
                                       ),
                                     ),
                     ),
