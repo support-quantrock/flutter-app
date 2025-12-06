@@ -1392,89 +1392,82 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        children: [
-          // Group/Global toggle - separate line above
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.1),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-            ),
-            child: Center(
-              child: _buildViewModeToggle(viewMode, onViewModeChanged),
-            ),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: gradientColors,
           ),
-          // Main card
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: gradientColors,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          children: [
+            // Group/Global toggle - top right corner
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  _buildViewModeToggle(viewMode, onViewModeChanged),
+                ],
               ),
-              borderRadius: const BorderRadius.vertical(bottom: Radius.circular(20)),
             ),
-            child: Column(
-              children: [
-                // Header section with darker overlay
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.2),
-                  ),
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
+            // Header section with darker overlay
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.2),
+              ),
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Row(
                     children: [
-                      Row(
+                      Column(
                         children: [
-                          Column(
-                            children: [
-                              const Icon(Icons.emoji_events, color: Color(0xFFFBBF24), size: 28),
-                              const SizedBox(height: 4),
-                              Text(
-                                'Rank: 15',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.white.withValues(alpha: 0.8),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(width: 12),
+                          const Icon(Icons.emoji_events, color: Color(0xFFFBBF24), size: 28),
+                          const SizedBox(height: 4),
                           Text(
-                            title,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                            'Rank: 15',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.white.withValues(alpha: 0.8),
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 24),
-                      _buildPodium(leaderboard),
+                      const SizedBox(width: 12),
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                // Arrow divider
-                GestureDetector(
-                  onTap: onExpandToggle,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    child: AnimatedRotation(
-                      turns: expanded ? 0.5 : 0,
-                      duration: const Duration(milliseconds: 200),
-                      child: const Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 28),
-                    ),
-                  ),
-                ),
-                // Always show expanded list
-                _buildExpandedList(leaderboard.skip(3).toList()),
-              ],
+                  const SizedBox(height: 24),
+                  _buildPodium(leaderboard),
+                ],
+              ),
             ),
-          ),
-        ],
+            // Arrow divider
+            GestureDetector(
+              onTap: onExpandToggle,
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: AnimatedRotation(
+                  turns: expanded ? 0.5 : 0,
+                  duration: const Duration(milliseconds: 200),
+                  child: const Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 28),
+                ),
+              ),
+            ),
+            // Always show expanded list
+            _buildExpandedList(leaderboard.skip(3).toList()),
+          ],
+        ),
       ),
     );
   }
