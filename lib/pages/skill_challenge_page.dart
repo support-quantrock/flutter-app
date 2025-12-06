@@ -13,10 +13,191 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
   String _challengeViewMode = 'global';
   bool _expandedChallenge = false;
 
+  // Sponsors state
+  String _activeSponsorTab = 'banking';
+  int _activeSponsorIndex = 0;
+  final PageController _sponsorPageController = PageController();
+
+  // Championship state
+  int _activeChampionshipIndex = 0;
+  final PageController _championshipPageController = PageController();
+  bool _expandedCard1 = false;
+  bool _expandedCard4 = false;
+
   // 28-day challenge state - all days unlocked for testing
   int _currentDay = 28;
   final int _totalDays = 28;
   final Set<int> _expandedLessons = {};
+
+  // Sponsors Data
+  final List<Map<String, dynamic>> _bankingSponsors = [
+    {
+      'id': 1,
+      'title': 'Global Trade Bank',
+      'subtitle': 'Leading international banking solutions for traders and investors worldwide.',
+      'badge': 'Elite',
+      'badgeColor': const Color(0xFFFBBF24),
+      'gradientColors': [const Color(0xFF1E3A8A), const Color(0xFF7C3AED)],
+      'info': [
+        {'icon': Icons.location_on, 'label': 'Location:', 'value': 'New York'},
+        {'icon': Icons.people, 'label': 'Clients:', 'value': '50,000+'},
+        {'icon': Icons.trending_up, 'label': 'Services:', 'value': 'Trading, Banking'},
+        {'icon': Icons.calendar_today, 'label': 'Established:', 'value': '2005'},
+      ],
+    },
+    {
+      'id': 2,
+      'title': 'Quantum Finance',
+      'subtitle': 'Premium financial services with advanced trading infrastructure and support.',
+      'badge': 'Pro',
+      'badgeColor': const Color(0xFF10B981),
+      'gradientColors': [const Color(0xFF064E3B), const Color(0xFF0891B2)],
+      'info': [
+        {'icon': Icons.location_on, 'label': 'Location:', 'value': 'London'},
+        {'icon': Icons.people, 'label': 'Clients:', 'value': '35,000+'},
+        {'icon': Icons.trending_up, 'label': 'Services:', 'value': 'Investment, Wealth'},
+        {'icon': Icons.calendar_today, 'label': 'Established:', 'value': '2010'},
+      ],
+    },
+  ];
+
+  final List<Map<String, dynamic>> _educationalSponsors = [
+    {
+      'id': 3,
+      'title': 'Capital Academy',
+      'subtitle': 'The leading online company in e-learning, providing world-class education.',
+      'badge': 'Elite',
+      'badgeColor': const Color(0xFFFBBF24),
+      'gradientColors': [const Color(0xFF1E3A8A), const Color(0xFF7C3AED)],
+      'info': [
+        {'icon': Icons.location_on, 'label': 'Location:', 'value': 'Dubai'},
+        {'icon': Icons.people, 'label': 'Students:', 'value': '10,000+'},
+        {'icon': Icons.trending_up, 'label': 'Courses:', 'value': 'Trading, Finance'},
+        {'icon': Icons.calendar_today, 'label': 'Established:', 'value': '2018'},
+      ],
+    },
+    {
+      'id': 4,
+      'title': 'Investing Academy',
+      'subtitle': 'The leading education institute in Saudi Arabia for investment excellence.',
+      'badge': 'Pro',
+      'badgeColor': const Color(0xFF10B981),
+      'gradientColors': [const Color(0xFF064E3B), const Color(0xFF0891B2)],
+      'info': [
+        {'icon': Icons.location_on, 'label': 'Location:', 'value': 'Saudi Arabia'},
+        {'icon': Icons.people, 'label': 'Students:', 'value': '5,000+'},
+        {'icon': Icons.trending_up, 'label': 'Courses:', 'value': 'Investment, Markets'},
+        {'icon': Icons.calendar_today, 'label': 'Established:', 'value': '2019'},
+      ],
+    },
+  ];
+
+  final List<Map<String, dynamic>> _mediaSponsors = [
+    {
+      'id': 5,
+      'title': 'Crypto Masters Cup',
+      'subtitle': 'Exclusive cryptocurrency trading competition with cutting-edge analytics.',
+      'badge': 'Premium',
+      'badgeColor': const Color(0xFFF59E0B),
+      'gradientColors': [const Color(0xFF7C2D12), const Color(0xFFDC2626)],
+      'info': [
+        {'icon': Icons.location_on, 'label': 'Location:', 'value': 'Digital'},
+        {'icon': Icons.people, 'label': 'Traders:', 'value': '8,000+'},
+        {'icon': Icons.bar_chart, 'label': 'Assets:', 'value': 'BTC, ETH, ALT'},
+        {'icon': Icons.calendar_today, 'label': 'Launched:', 'value': '2022'},
+      ],
+    },
+    {
+      'id': 6,
+      'title': 'Trade Media Network',
+      'subtitle': 'Global financial news and analysis platform for professional traders.',
+      'badge': 'Premium',
+      'badgeColor': const Color(0xFFF59E0B),
+      'gradientColors': [const Color(0xFF7C2D12), const Color(0xFFDC2626)],
+      'info': [
+        {'icon': Icons.location_on, 'label': 'Location:', 'value': 'Singapore'},
+        {'icon': Icons.people, 'label': 'Readers:', 'value': '2M+'},
+        {'icon': Icons.bar_chart, 'label': 'Coverage:', 'value': 'Stocks, Forex'},
+        {'icon': Icons.calendar_today, 'label': 'Launched:', 'value': '2020'},
+      ],
+    },
+  ];
+
+  // Championship Cards Data
+  final List<Map<String, dynamic>> _challengeCards = [
+    {
+      'id': 1,
+      'title': 'Investment Stage',
+      'subtitle': 'This optional stage is designed for professionals, beginners, and students to practice trading strategies in a simulated environment.',
+      'badge': 'Optional',
+      'badgeColor': const Color(0xFFFBBF24),
+      'avatarIcon': Icons.gps_fixed,
+      'gradientColors': [const Color(0xFF065F46), const Color(0xFF064E3B)],
+      'info': [
+        {'icon': Icons.gps_fixed, 'label': 'Portfolio:', 'value': '\$10K - \$100K'},
+        {'icon': Icons.trending_up, 'label': 'Profit Target:', 'value': '6%'},
+        {'icon': Icons.emoji_events, 'label': 'Min Trades:', 'value': '30'},
+        {'icon': Icons.calendar_today, 'label': 'Daily Loss:', 'value': '5% Max'},
+      ],
+      'details': [
+        'Begin trading at any time (no fixed start date)',
+        'Select portfolio size: \$10,000 – \$50,000 – \$100,000',
+        'Daily loss limit: 5%',
+        'Total loss limit: 10%',
+        'Profit threshold: 6% → victory to the top performer',
+        'Maximum position size: 10% of total portfolio',
+        'Minimum of 30 executed trades',
+        'Required instruments: S&P 500 / Gold / Major Currencies / Bitcoin',
+        'Account leverage: 1:1',
+      ],
+    },
+    {
+      'id': 4,
+      'title': 'Skill Challenge',
+      'subtitle': 'Test your trading expertise through progressive challenges. Develop advanced strategies and compete with traders worldwide.',
+      'badge': 'Expert',
+      'badgeColor': const Color(0xFF8B5CF6),
+      'avatarIcon': Icons.military_tech,
+      'gradientColors': [const Color(0xFF4C1D95), const Color(0xFF5B21B6)],
+      'info': [
+        {'icon': Icons.emoji_events, 'label': 'Levels:', 'value': '5 Stages'},
+        {'icon': Icons.emoji_events, 'label': 'Win Rate:', 'value': '65%+'},
+        {'icon': Icons.gps_fixed, 'label': 'Challenges:', 'value': '50+'},
+        {'icon': Icons.trending_up, 'label': 'Rewards:', 'value': 'Exclusive'},
+      ],
+      'details': [
+        'Progressive difficulty across 5 challenge levels',
+        'Master technical analysis and chart patterns',
+        'Achieve minimum 65% win rate to advance',
+        'Complete 50+ specialized trading challenges',
+        'Earn exclusive badges and recognition',
+        'Access to advanced trading tools and indicators',
+        'Compete on global skill leaderboard',
+        'Unlock premium educational content',
+        'Connect with expert traders and mentors',
+      ],
+    },
+  ];
+
+  List<Map<String, dynamic>> get _currentSponsors {
+    switch (_activeSponsorTab) {
+      case 'banking':
+        return _bankingSponsors;
+      case 'educational':
+        return _educationalSponsors;
+      case 'media':
+        return _mediaSponsors;
+      default:
+        return _bankingSponsors;
+    }
+  }
+
+  @override
+  void dispose() {
+    _sponsorPageController.dispose();
+    _championshipPageController.dispose();
+    super.dispose();
+  }
 
   final List<Map<String, dynamic>> _lessons = [
     // Week 1: Getting Started
@@ -121,6 +302,10 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                         expanded: _expandedChallenge,
                         onExpandToggle: () => setState(() => _expandedChallenge = !_expandedChallenge),
                       ),
+                      const SizedBox(height: 24),
+                      _buildSponsorsSection(),
+                      const SizedBox(height: 24),
+                      _buildChampionshipStagesSection(),
                     ],
                     const SizedBox(height: 32),
                   ],
@@ -1494,6 +1679,585 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  // ==================== SPONSORS SECTION ====================
+  Widget _buildSponsorsSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Section Header
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFBBF24).withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(Icons.handshake, color: Color(0xFFFBBF24), size: 20),
+              ),
+              const SizedBox(width: 12),
+              const Text(
+                'Sponsors',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 16),
+
+        // Sponsor Tabs
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              children: [
+                _buildSponsorTab('Banking', 'banking'),
+                _buildSponsorTab('Educational', 'educational'),
+                _buildSponsorTab('Media', 'media'),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+
+        // Sponsor Cards Carousel
+        SizedBox(
+          height: 280,
+          child: PageView.builder(
+            controller: _sponsorPageController,
+            itemCount: _currentSponsors.length,
+            onPageChanged: (index) {
+              setState(() => _activeSponsorIndex = index);
+            },
+            itemBuilder: (context, index) {
+              return _buildSponsorCard(_currentSponsors[index]);
+            },
+          ),
+        ),
+
+        // Pagination Dots
+        const SizedBox(height: 12),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+            _currentSponsors.length,
+            (index) => Container(
+              width: index == _activeSponsorIndex ? 24 : 8,
+              height: 8,
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              decoration: BoxDecoration(
+                color: index == _activeSponsorIndex
+                    ? const Color(0xFF8B5CF6)
+                    : Colors.white.withValues(alpha: 0.3),
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSponsorTab(String label, String value) {
+    final isActive = _activeSponsorTab == value;
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            _activeSponsorTab = value;
+            _activeSponsorIndex = 0;
+            _sponsorPageController.jumpToPage(0);
+          });
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          decoration: BoxDecoration(
+            gradient: isActive
+                ? const LinearGradient(
+                    colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+                  )
+                : null,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Text(
+            label,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: isActive ? Colors.white : Colors.white70,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSponsorCard(Map<String, dynamic> sponsor) {
+    final List<Color> gradientColors = sponsor['gradientColors'] as List<Color>;
+    final List<Map<String, dynamic>> info = sponsor['info'] as List<Map<String, dynamic>>;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: gradientColors,
+          ),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.2),
+            width: 1,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Badge
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: (sponsor['badgeColor'] as Color).withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: sponsor['badgeColor'] as Color),
+                ),
+                child: Text(
+                  sponsor['badge'],
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: sponsor['badgeColor'] as Color,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Avatar and Title Row
+              Row(
+                children: [
+                  Container(
+                    width: 56,
+                    height: 56,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Icon(Icons.emoji_events, color: Color(0xFFFBBF24), size: 32),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          sponsor['title'],
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          sponsor['subtitle'],
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.white.withValues(alpha: 0.7),
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+
+              // Info Grid
+              Row(
+                children: [
+                  Expanded(child: _buildInfoItem(info[0])),
+                  Expanded(child: _buildInfoItem(info[1])),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(child: _buildInfoItem(info[2])),
+                  Expanded(child: _buildInfoItem(info[3])),
+                ],
+              ),
+              const SizedBox(height: 16),
+
+              // Visit Button
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Text(
+                  'Visit',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoItem(Map<String, dynamic> info) {
+    return Row(
+      children: [
+        Icon(info['icon'] as IconData, color: const Color(0xFF3B82F6), size: 16),
+        const SizedBox(width: 6),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                info['label'],
+                style: TextStyle(
+                  fontSize: 10,
+                  color: Colors.white.withValues(alpha: 0.6),
+                ),
+              ),
+              Text(
+                info['value'],
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  // ==================== CHAMPIONSHIP STAGES SECTION ====================
+  Widget _buildChampionshipStagesSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Section Header
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF8B5CF6).withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(Icons.military_tech, color: Color(0xFF8B5CF6), size: 20),
+              ),
+              const SizedBox(width: 12),
+              const Expanded(
+                child: Text(
+                  'Quantrock Championship Stages',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 16),
+
+        // Challenge Cards Carousel
+        SizedBox(
+          height: 420,
+          child: PageView.builder(
+            controller: _championshipPageController,
+            itemCount: _challengeCards.length,
+            onPageChanged: (index) {
+              setState(() => _activeChampionshipIndex = index);
+            },
+            itemBuilder: (context, index) {
+              return _buildChallengeCard(_challengeCards[index]);
+            },
+          ),
+        ),
+
+        // Pagination Dots
+        const SizedBox(height: 12),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+            _challengeCards.length,
+            (index) => Container(
+              width: index == _activeChampionshipIndex ? 24 : 8,
+              height: 8,
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              decoration: BoxDecoration(
+                color: index == _activeChampionshipIndex
+                    ? const Color(0xFF8B5CF6)
+                    : Colors.white.withValues(alpha: 0.3),
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildChallengeCard(Map<String, dynamic> card) {
+    final List<Color> gradientColors = card['gradientColors'] as List<Color>;
+    final List<Map<String, dynamic>> info = card['info'] as List<Map<String, dynamic>>;
+    final List<String> details = card['details'] as List<String>;
+    final int cardId = card['id'] as int;
+    final bool isExpanded = cardId == 1 ? _expandedCard1 : _expandedCard4;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: gradientColors,
+          ),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.2),
+            width: 1,
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Badge
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: (card['badgeColor'] as Color).withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: card['badgeColor'] as Color),
+                  ),
+                  child: Text(
+                    card['badge'],
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: card['badgeColor'] as Color,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+
+                // Avatar and Title Row
+                Row(
+                  children: [
+                    Container(
+                      width: 56,
+                      height: 56,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Icon(card['avatarIcon'] as IconData, color: const Color(0xFFFBBF24), size: 32),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            card['title'],
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            card['subtitle'],
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white.withValues(alpha: 0.7),
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+
+                // Info Grid
+                Row(
+                  children: [
+                    Expanded(child: _buildInfoItem(info[0])),
+                    Expanded(child: _buildInfoItem(info[1])),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(child: _buildInfoItem(info[2])),
+                    Expanded(child: _buildInfoItem(info[3])),
+                  ],
+                ),
+                const SizedBox(height: 16),
+
+                // Join Button
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Text(
+                    'Join',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                // Expand Button
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      if (cardId == 1) {
+                        _expandedCard1 = !_expandedCard1;
+                      } else {
+                        _expandedCard4 = !_expandedCard4;
+                      }
+                    });
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          isExpanded ? 'Hide Details' : 'Show Details',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.white.withValues(alpha: 0.7),
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        AnimatedRotation(
+                          turns: isExpanded ? 0.5 : 0,
+                          duration: const Duration(milliseconds: 200),
+                          child: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Colors.white.withValues(alpha: 0.7),
+                            size: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Expanded Details
+                if (isExpanded) ...[
+                  const SizedBox(height: 12),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.3),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          cardId == 1 ? 'Stage Requirements' : 'Skill Challenge Details',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        ...details.map((item) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 6,
+                                height: 6,
+                                margin: const EdgeInsets.only(top: 6, right: 10),
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFF22C55E),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  item,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.white.withValues(alpha: 0.8),
+                                    height: 1.4,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
+                      ],
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
