@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../models/lesson_models.dart';
 import '../../services/sound_service.dart';
+import '../../utils/responsive.dart';
 import 'image_placeholder.dart';
 
 class QuestionScreen extends StatefulWidget {
@@ -161,6 +162,7 @@ class _QuestionScreenState extends State<QuestionScreen>
 
   @override
   Widget build(BuildContext context) {
+    Responsive.init(context);
     final questionData = widget.screen.questionData;
     if (questionData == null) {
       return const Center(child: Text('No question data'));
@@ -187,58 +189,59 @@ class _QuestionScreenState extends State<QuestionScreen>
           ...List.generate(15, (index) => _buildParticle(index)),
 
           SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 60, 16, 20),
-              child: Column(
-                children: [
-                  // Battle header
-                  _buildBattleHeader(),
+            child: Responsive.constrain(
+              Padding(
+                padding: EdgeInsets.fromLTRB(Responsive.horizontalPadding, Responsive.scale(60), Responsive.horizontalPadding, Responsive.scale(20)),
+                child: Column(
+                  children: [
+                    // Battle header
+                    _buildBattleHeader(),
 
-                  const SizedBox(height: 16),
+                    SizedBox(height: Responsive.scale(16)),
 
-                  // Question area
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          // Image
-                          if (widget.screen.imagePrompt != null)
-                            AnimatedBuilder(
-                              animation: _questionRevealController,
-                              builder: (context, child) {
-                                return Opacity(
-                                  opacity: _questionRevealController.value,
-                                  child: Transform.translate(
-                                    offset: Offset(0, _questionSlide.value),
-                                    child: ImagePlaceholder(
-                                      prompt: widget.screen.imagePrompt!,
-                                      imagePath: widget.screen.imagePath,
-                                      height: 140,
+                    // Question area
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            // Image
+                            if (widget.screen.imagePrompt != null)
+                              AnimatedBuilder(
+                                animation: _questionRevealController,
+                                builder: (context, child) {
+                                  return Opacity(
+                                    opacity: _questionRevealController.value,
+                                    child: Transform.translate(
+                                      offset: Offset(0, _questionSlide.value),
+                                      child: ImagePlaceholder(
+                                        prompt: widget.screen.imagePrompt!,
+                                        imagePath: widget.screen.imagePath,
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
+                                  );
+                                },
+                              ),
 
-                          const SizedBox(height: 20),
+                            SizedBox(height: Responsive.scale(20)),
 
-                          // Question card
-                          _buildQuestionCard(questionData),
+                            // Question card
+                            _buildQuestionCard(questionData),
 
-                          const SizedBox(height: 24),
+                            SizedBox(height: Responsive.scale(24)),
 
-                          // Options
-                          ...List.generate(questionData.options.length, (index) {
-                            return _buildBattleOption(index, questionData);
-                          }),
-                        ],
+                            // Options
+                            ...List.generate(questionData.options.length, (index) {
+                              return _buildBattleOption(index, questionData);
+                            }),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
 
-                  // Feedback overlay
-                  if (_showFeedback) _buildFeedbackBadge(),
-                ],
+                    // Feedback overlay
+                    if (_showFeedback) _buildFeedbackBadge(),
+                  ],
+                ),
               ),
             ),
           ),

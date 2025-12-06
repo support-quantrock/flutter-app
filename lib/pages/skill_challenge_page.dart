@@ -29,6 +29,30 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
   final int _totalDays = 28;
   final Set<int> _expandedLessons = {};
 
+  // Get day color based on slider gradient (green -> blue -> purple)
+  Color _getDayColor(int day) {
+    // Days 1-9: Green shades
+    // Days 10-19: Blue shades
+    // Days 20-28: Purple shades
+    if (day <= 9) {
+      return const Color(0xFF22C55E); // Green
+    } else if (day <= 19) {
+      return const Color(0xFF3B82F6); // Blue
+    } else {
+      return const Color(0xFFA855F7); // Purple
+    }
+  }
+
+  Color _getDayColorLight(int day) {
+    if (day <= 9) {
+      return const Color(0xFFDCFCE7); // Light green
+    } else if (day <= 19) {
+      return const Color(0xFFDBEAFE); // Light blue
+    } else {
+      return const Color(0xFFF3E8FF); // Light purple
+    }
+  }
+
   // Sponsors Data
   final List<Map<String, dynamic>> _bankingSponsors = [
     {
@@ -233,6 +257,8 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     {'day': 26, 'emoji': '🧰', 'title': 'Investment Tools & Resources', 'completed': true, 'type': 'lesson'},
     {'day': 27, 'emoji': '📜', 'title': 'Building Your Investment Plan', 'completed': true, 'type': 'lesson'},
     {'day': 28, 'emoji': '🏆', 'title': 'Final Day: Practical Application', 'completed': false, 'current': true, 'type': 'lesson'},
+    // Ultimate Final Test - covers all 28 days
+    {'day': 0, 'emoji': '👑', 'title': 'Ultimate Investment Mastery Test', 'completed': false, 'type': 'finalTest'},
   ];
 
   final List<Map<String, dynamic>> _groupLeaderboard = [
@@ -1015,9 +1041,10 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     final title = lesson['title'] as String;
     final isCompleted = lesson['completed'] as bool;
     final isCurrent = lesson['current'] == true;
-    final isLocked = day > _currentDay;
+    final isLocked = day > _currentDay && day != 0; // Final test (day 0) is never locked
     final isExpanded = _expandedLessons.contains(day);
     final isTest = lesson['type'] == 'test';
+    final isFinalTest = lesson['type'] == 'finalTest';
     final isDay2 = day == 2; // Day 2 is a header only - lesson is in floating icon
 
     return GestureDetector(
@@ -1043,34 +1070,44 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                       end: Alignment.bottomRight,
                       colors: [Color(0xFF10B981), Color(0xFF059669)],
                     )
-                  : isTest
+                  : isFinalTest
                       ? const LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
-                          colors: [Color(0xFFFEF3C7), Color(0xFFFDE68A)],
+                          colors: [Color(0xFF7C3AED), Color(0xFFFBBF24)],
                         )
-                      : null,
+                      : isTest
+                          ? const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [Color(0xFFFEF3C7), Color(0xFFFDE68A)],
+                            )
+                          : null,
           color: isLocked
               ? Colors.white.withValues(alpha: 0.05)
               : isCompleted
                   ? null
-                  : isTest
+                  : (isTest || isFinalTest)
                       ? null
                       : Colors.white,
           borderRadius: BorderRadius.circular(16),
           border: isCompleted
               ? Border.all(color: const Color(0xFF10B981), width: 2)
-              : isTest && !isLocked
-                  ? Border.all(color: const Color(0xFFF59E0B), width: 2)
-                  : null,
+              : isFinalTest
+                  ? Border.all(color: const Color(0xFF7C3AED), width: 2)
+                  : isTest && !isLocked
+                      ? Border.all(color: const Color(0xFFF59E0B), width: 2)
+                      : null,
           boxShadow: !isLocked
               ? [
                   BoxShadow(
                     color: isCompleted
                         ? const Color(0xFF10B981).withValues(alpha: 0.3)
-                        : isTest
-                            ? const Color(0xFFF59E0B).withValues(alpha: 0.3)
-                            : Colors.black.withValues(alpha: 0.1),
+                        : isFinalTest
+                            ? const Color(0xFF7C3AED).withValues(alpha: 0.4)
+                            : isTest
+                                ? const Color(0xFFF59E0B).withValues(alpha: 0.3)
+                                : Colors.black.withValues(alpha: 0.1),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -1092,23 +1129,27 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                           ? Colors.grey.withValues(alpha: 0.2)
                           : isCompleted
                               ? Colors.white.withValues(alpha: 0.2)
-                              : isTest
-                                  ? const Color(0xFFF59E0B).withValues(alpha: 0.2)
-                                  : const Color(0xFFF0F4FF),
+                              : isFinalTest
+                                  ? Colors.white.withValues(alpha: 0.3)
+                                  : isTest
+                                      ? const Color(0xFFF59E0B).withValues(alpha: 0.2)
+                                      : const Color(0xFFF0F4FF),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
                       child: isCompleted
                           ? const Icon(Icons.check, color: Colors.white, size: 24)
-                          : isTest && !isLocked
-                              ? const Icon(Icons.quiz, color: Color(0xFFF59E0B), size: 24)
-                              : Text(
-                                  emoji,
-                                  style: TextStyle(
-                                    fontSize: 22,
-                                    color: isLocked ? Colors.grey : null,
-                                  ),
-                                ),
+                          : isFinalTest
+                              ? const Icon(Icons.emoji_events, color: Colors.white, size: 24)
+                              : isTest && !isLocked
+                                  ? const Icon(Icons.quiz, color: Color(0xFFF59E0B), size: 24)
+                                  : Text(
+                                      emoji,
+                                      style: TextStyle(
+                                        fontSize: 22,
+                                        color: isLocked ? Colors.grey : null,
+                                      ),
+                                    ),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -1120,15 +1161,15 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                           ? Colors.grey.withValues(alpha: 0.2)
                           : isCompleted
                               ? Colors.white.withValues(alpha: 0.2)
-                              : isTest
-                                  ? const Color(0xFFF59E0B).withValues(alpha: 0.3)
-                                  : isCurrent
-                                      ? const Color(0xFFFEF3C7)
-                                      : const Color(0xFFE0E7FF),
+                              : isFinalTest
+                                  ? Colors.white.withValues(alpha: 0.3)
+                                  : isTest
+                                      ? const Color(0xFFF59E0B).withValues(alpha: 0.3)
+                                      : _getDayColorLight(day),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      isTest ? 'TEST' : 'Day ${day.toString().padLeft(2, '0')}',
+                      isFinalTest ? 'FINAL' : isTest ? 'TEST' : 'Day ${day.toString().padLeft(2, '0')}',
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.bold,
@@ -1136,11 +1177,11 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                             ? Colors.grey
                             : isCompleted
                                 ? Colors.white
-                                : isTest
-                                    ? const Color(0xFFB45309)
-                                    : isCurrent
-                                        ? const Color(0xFFD97706)
-                                        : const Color(0xFF4338CA),
+                                : isFinalTest
+                                    ? Colors.white
+                                    : isTest
+                                        ? const Color(0xFFB45309)
+                                        : _getDayColor(day),
                       ),
                     ),
                   ),
@@ -1151,14 +1192,16 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                       title,
                       style: TextStyle(
                         fontSize: 13,
-                        fontWeight: isTest ? FontWeight.w600 : FontWeight.w500,
+                        fontWeight: (isTest || isFinalTest) ? FontWeight.w600 : FontWeight.w500,
                         color: isLocked
                             ? Colors.grey
                             : isCompleted
                                 ? Colors.white
-                                : isTest
-                                    ? const Color(0xFFB45309)
-                                    : const Color(0xFF1F2937),
+                                : isFinalTest
+                                    ? Colors.white
+                                    : isTest
+                                        ? const Color(0xFFB45309)
+                                        : const Color(0xFF1F2937),
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -1184,7 +1227,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                       duration: const Duration(milliseconds: 200),
                       child: Icon(
                         Icons.keyboard_arrow_down,
-                        color: isTest ? const Color(0xFFB45309) : Colors.grey.shade600,
+                        color: isFinalTest ? Colors.white : isTest ? const Color(0xFFB45309) : Colors.grey.shade600,
                         size: 24,
                       ),
                     ),
@@ -1196,9 +1239,9 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.fromLTRB(14, 0, 14, 14),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  color: isFinalTest ? const Color(0xFF1A1A2E) : Colors.white,
+                  borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(16),
                     bottomRight: Radius.circular(16),
                   ),
@@ -1206,22 +1249,24 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Divider(color: Colors.grey.shade200),
+                    Divider(color: isFinalTest ? Colors.white24 : Colors.grey.shade200),
                     const SizedBox(height: 12),
                     Text(
-                      'Lesson Overview',
+                      isFinalTest ? 'Ultimate Challenge' : 'Lesson Overview',
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: Colors.grey.shade600,
+                        color: isFinalTest ? Colors.white70 : Colors.grey.shade600,
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      _getLessonDescription(day),
+                      isFinalTest
+                          ? '28 questions covering all topics from the challenge. Prove your investment mastery and earn 100 QP!'
+                          : _getLessonDescription(day),
                       style: TextStyle(
                         fontSize: 13,
-                        color: Colors.grey.shade700,
+                        color: isFinalTest ? Colors.white70 : Colors.grey.shade700,
                         height: 1.5,
                       ),
                     ),
@@ -1231,8 +1276,14 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              // Navigate to lesson if available
-                              if (LessonRegistry.hasLesson(day)) {
+                              // Navigate to lesson/test
+                              if (isFinalTest) {
+                                Navigator.pushNamed(
+                                  context,
+                                  '/lesson',
+                                  arguments: {'day': 0, 'lessonNumber': 1},
+                                );
+                              } else if (LessonRegistry.hasLesson(day)) {
                                 Navigator.pushNamed(
                                   context,
                                   '/lesson',
@@ -1252,9 +1303,11 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
-                                  colors: isTest
-                                      ? [const Color(0xFFF59E0B), const Color(0xFFD97706)]
-                                      : [const Color(0xFF6366F1), const Color(0xFF8B5CF6)],
+                                  colors: isFinalTest
+                                      ? [const Color(0xFF7C3AED), const Color(0xFFFBBF24)]
+                                      : isTest
+                                          ? [const Color(0xFFF59E0B), const Color(0xFFD97706)]
+                                          : [const Color(0xFF6366F1), const Color(0xFF8B5CF6)],
                                 ),
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -1264,17 +1317,19 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                                   Icon(
                                     isCompleted
                                         ? Icons.replay
-                                        : isTest
-                                            ? Icons.quiz
-                                            : Icons.play_arrow,
+                                        : isFinalTest
+                                            ? Icons.emoji_events
+                                            : isTest
+                                                ? Icons.quiz
+                                                : Icons.play_arrow,
                                     color: Colors.white,
                                     size: 20,
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
                                     isCompleted
-                                        ? (isTest ? 'Review Test' : 'Review Lesson')
-                                        : (isTest ? 'Start Test' : 'Start Lesson'),
+                                        ? (isFinalTest ? 'Retake Final' : isTest ? 'Review Test' : 'Review Lesson')
+                                        : (isFinalTest ? 'Take Final Test' : isTest ? 'Start Test' : 'Start Lesson'),
                                     style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
@@ -1431,6 +1486,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           _buildToggleOption('Group', viewMode == 'group', () => onChanged('group')),
           _buildToggleOption('Global', viewMode == 'global', () => onChanged('global')),

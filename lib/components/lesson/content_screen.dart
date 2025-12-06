@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../models/lesson_models.dart';
 import '../../services/sound_service.dart';
+import '../../utils/responsive.dart';
 
 class ContentScreen extends StatefulWidget {
   final LessonScreen screen;
@@ -114,6 +115,8 @@ class _ContentScreenState extends State<ContentScreen>
 
   // ==================== FLIP CARDS VARIANT ====================
   Widget _buildFlipCards(Color primaryColor) {
+    Responsive.init(context);
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -133,47 +136,49 @@ class _ContentScreenState extends State<ContentScreen>
           ...List.generate(15, (index) => _buildParticle(index, primaryColor)),
 
           SafeArea(
-            child: Column(
-              children: [
-                // Header with title
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 60, 16, 0),
-                  child: _buildHeader(primaryColor),
-                ),
+            child: Responsive.constrain(
+              Column(
+                children: [
+                  // Header with title
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(Responsive.horizontalPadding, Responsive.scale(60), Responsive.horizontalPadding, 0),
+                    child: _buildHeader(primaryColor),
+                  ),
 
-                const SizedBox(height: 16),
+                  SizedBox(height: Responsive.scale(16)),
 
-                // Progress dots
-                _buildProgressDots(primaryColor),
+                  // Progress dots
+                  _buildProgressDots(primaryColor),
 
-                const SizedBox(height: 20),
+                  SizedBox(height: Responsive.scale(20)),
 
-                // Main content area
-                Expanded(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      children: [
-                        // Content text
-                        if (widget.screen.content != null)
-                          _buildContentText(primaryColor),
+                  // Main content area
+                  Expanded(
+                    child: SingleChildScrollView(
+                      padding: EdgeInsets.symmetric(horizontal: Responsive.horizontalPadding),
+                      child: Column(
+                        children: [
+                          // Content text
+                          if (widget.screen.content != null)
+                            _buildContentText(primaryColor),
 
-                        const SizedBox(height: 20),
+                          SizedBox(height: Responsive.scale(20)),
 
-                        // Flip cards grid
-                        if (widget.screen.bullets != null)
-                          _buildFlipCardsGrid(primaryColor),
-                      ],
+                          // Flip cards grid
+                          if (widget.screen.bullets != null)
+                            _buildFlipCardsGrid(primaryColor),
+                        ],
+                      ),
                     ),
                   ),
-                ),
 
-                // Continue button
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: _buildContinueButton(primaryColor),
-                ),
-              ],
+                  // Continue button
+                  Padding(
+                    padding: EdgeInsets.all(Responsive.horizontalPadding),
+                    child: _buildContinueButton(primaryColor),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -247,8 +252,9 @@ class _ContentScreenState extends State<ContentScreen>
 
   Widget _buildFlipCard(int index, BulletPoint bullet, Color cardColor) {
     final controller = _flipControllers[index]!;
-    final screenWidth = MediaQuery.of(context).size.width;
-    final cardWidth = (screenWidth - 44) / 2; // 2 cards per row with spacing
+    final columns = Responsive.gridColumns(mobile: 2, tablet: 3, desktop: 4);
+    final spacing = Responsive.scale(12);
+    final cardWidth = Responsive.cardWidth(columns: columns, spacing: spacing);
 
     return GestureDetector(
       onTap: () => _flipCard(index),
@@ -408,6 +414,7 @@ class _ContentScreenState extends State<ContentScreen>
 
   // ==================== SWIPE GALLERY VARIANT ====================
   Widget _buildSwipeGallery(Color primaryColor) {
+    Responsive.init(context);
     final bullets = widget.screen.bullets ?? [];
 
     return Container(
@@ -429,63 +436,65 @@ class _ContentScreenState extends State<ContentScreen>
           ...List.generate(15, (index) => _buildParticle(index, primaryColor)),
 
           SafeArea(
-            child: Column(
-              children: [
-                // Header
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 60, 16, 0),
-                  child: _buildHeader(primaryColor),
-                ),
-
-                const SizedBox(height: 12),
-
-                // Content text
-                if (widget.screen.content != null)
+            child: Responsive.constrain(
+              Column(
+                children: [
+                  // Header
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: _buildContentText(primaryColor),
+                    padding: EdgeInsets.fromLTRB(Responsive.horizontalPadding, Responsive.scale(60), Responsive.horizontalPadding, 0),
+                    child: _buildHeader(primaryColor),
                   ),
 
-                const SizedBox(height: 20),
+                  SizedBox(height: Responsive.scale(12)),
 
-                // Swipe gallery
-                Expanded(
-                  child: PageView.builder(
-                    controller: _pageController,
-                    onPageChanged: (index) {
-                      setState(() {
-                        _currentPage = index;
-                        if (index == bullets.length - 1) {
-                          _allRevealed = true;
-                        }
-                      });
-                      SoundService().playReveal();
-                    },
-                    itemCount: bullets.length,
-                    itemBuilder: (context, index) {
-                      return _buildGalleryCard(
-                        bullets[index],
-                        index,
-                        primaryColor,
-                      );
-                    },
+                  // Content text
+                  if (widget.screen.content != null)
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Responsive.horizontalPadding),
+                      child: _buildContentText(primaryColor),
+                    ),
+
+                  SizedBox(height: Responsive.scale(20)),
+
+                  // Swipe gallery
+                  Expanded(
+                    child: PageView.builder(
+                      controller: _pageController,
+                      onPageChanged: (index) {
+                        setState(() {
+                          _currentPage = index;
+                          if (index == bullets.length - 1) {
+                            _allRevealed = true;
+                          }
+                        });
+                        SoundService().playReveal();
+                      },
+                      itemCount: bullets.length,
+                      itemBuilder: (context, index) {
+                        return _buildGalleryCard(
+                          bullets[index],
+                          index,
+                          primaryColor,
+                        );
+                      },
+                    ),
                   ),
-                ),
 
-                // Page indicators
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: _buildPageIndicators(bullets.length, primaryColor),
-                ),
+                  // Page indicators
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: Responsive.scale(16)),
+                    child: _buildPageIndicators(bullets.length, primaryColor),
+                  ),
 
-                // Swipe hint or Continue button
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                  child: _currentPage < bullets.length - 1
-                      ? _buildSwipeHint()
-                      : _buildContinueButton(primaryColor),
-                ),
-              ],
+                  // Swipe hint or Continue button
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(Responsive.horizontalPadding, 0, Responsive.horizontalPadding, Responsive.horizontalPadding),
+                    child: _currentPage < bullets.length - 1
+                        ? _buildSwipeHint()
+                        : _buildContinueButton(primaryColor),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

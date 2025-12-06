@@ -195,6 +195,8 @@ import 'day28_lesson3.dart';
 import 'day28_lesson4.dart';
 import 'day28_lesson5.dart';
 import 'day28_test.dart';
+// Final Comprehensive Test
+import 'final_test.dart';
 
 class LessonRegistry {
   // Map key format: "day-lesson" e.g., "2-1" for Day 2 Lesson 1
@@ -395,7 +397,14 @@ class LessonRegistry {
     '28-4': day28Lesson4,
     '28-5': day28Lesson5,
     '28-6': day28Test,
+    // Ultimate Final Test - covers all 28 days
+    '0-1': finalTest,
   };
+
+  // Get the comprehensive final test
+  static LessonData? getFinalTest() {
+    return _lessons['0-1'];
+  }
 
   // Legacy method - gets first lesson of day
   static LessonData? getLesson(int day) {

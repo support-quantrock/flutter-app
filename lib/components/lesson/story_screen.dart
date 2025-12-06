@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import '../../models/lesson_models.dart';
+import '../../utils/responsive.dart';
 import 'image_placeholder.dart';
 
 class StoryScreen extends StatefulWidget {
@@ -169,6 +170,8 @@ class _StoryScreenState extends State<StoryScreen>
 
   @override
   Widget build(BuildContext context) {
+    Responsive.init(context);
+
     return GestureDetector(
       onTap: _hasStartedNarration ? _nextBubble : _startNarration,
       child: Container(
@@ -190,55 +193,40 @@ class _StoryScreenState extends State<StoryScreen>
 
             // Main content
             SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 60, 16, 20),
-                child: Column(
-                  children: [
-                    // Title header
-                    _buildHeader(),
+              child: Responsive.constrain(
+                Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    Responsive.horizontalPadding,
+                    Responsive.scale(60),
+                    Responsive.horizontalPadding,
+                    Responsive.verticalPadding,
+                  ),
+                  child: Column(
+                    children: [
+                      // Title header
+                      _buildHeader(),
 
-                    const SizedBox(height: 16),
+                      SizedBox(height: Responsive.scale(16)),
 
-                    // Main story area with mascot and image
-                    Expanded(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Mascot on left
-                          _buildMascot(),
-
-                          const SizedBox(width: 12),
-
-                          // Content area (speech bubble + image)
-                          Expanded(
-                            child: Column(
-                              children: [
-                                // Speech bubble
-                                _buildSpeechBubble(),
-
-                                const SizedBox(height: 16),
-
-                                // Animated image
-                                if (widget.screen.imagePath != null || widget.screen.imagePrompt != null)
-                                  Expanded(child: _buildAnimatedImage()),
-                              ],
-                            ),
-                          ),
-                        ],
+                      // Main story area with mascot and image
+                      Expanded(
+                        child: Responsive.isTablet
+                            ? _buildTabletLayout()
+                            : _buildMobileLayout(),
                       ),
-                    ),
 
-                    const SizedBox(height: 16),
+                      SizedBox(height: Responsive.scale(16)),
 
-                    // Progress dots for speech bubbles
-                    if (_speechBubbles.length > 1)
-                      _buildProgressDots(),
+                      // Progress dots for speech bubbles
+                      if (_speechBubbles.length > 1)
+                        _buildProgressDots(),
 
-                    const SizedBox(height: 12),
+                      SizedBox(height: Responsive.scale(12)),
 
-                    // Continue button / Tap hint
-                    _buildBottomArea(),
-                  ],
+                      // Continue button / Tap hint
+                      _buildBottomArea(),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -248,12 +236,70 @@ class _StoryScreenState extends State<StoryScreen>
     );
   }
 
+  Widget _buildMobileLayout() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Mascot on left
+        _buildMascot(),
+
+        SizedBox(width: Responsive.scale(12)),
+
+        // Content area (speech bubble + image)
+        Expanded(
+          child: Column(
+            children: [
+              // Speech bubble
+              _buildSpeechBubble(),
+
+              SizedBox(height: Responsive.scale(16)),
+
+              // Animated image
+              if (widget.screen.imagePath != null || widget.screen.imagePrompt != null)
+                Expanded(child: _buildAnimatedImage()),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTabletLayout() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Mascot on left
+        _buildMascot(),
+
+        SizedBox(width: Responsive.scale(20)),
+
+        // Speech bubble in middle
+        Expanded(
+          flex: 2,
+          child: _buildSpeechBubble(),
+        ),
+
+        SizedBox(width: Responsive.scale(20)),
+
+        // Image on right
+        if (widget.screen.imagePath != null || widget.screen.imagePrompt != null)
+          Expanded(
+            flex: 3,
+            child: _buildAnimatedImage(),
+          ),
+      ],
+    );
+  }
+
   Widget _buildHeader() {
     return AnimatedBuilder(
       animation: _glowAnimation,
       builder: (context, child) {
         return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: EdgeInsets.symmetric(
+            horizontal: Responsive.scale(20),
+            vertical: Responsive.scale(10),
+          ),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -261,7 +307,7 @@ class _StoryScreenState extends State<StoryScreen>
                 Colors.orange.withValues(alpha: 0.15),
               ],
             ),
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(Responsive.scale(20)),
             border: Border.all(
               color: Colors.amber.withValues(alpha: 0.4 * _glowAnimation.value),
             ),
@@ -276,13 +322,13 @@ class _StoryScreenState extends State<StoryScreen>
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text('📖', style: TextStyle(fontSize: 24)),
-              const SizedBox(width: 10),
+              Text('📖', style: TextStyle(fontSize: Responsive.fontSize(24))),
+              SizedBox(width: Responsive.scale(10)),
               Flexible(
                 child: Text(
                   widget.screen.title ?? 'Story Time',
-                  style: const TextStyle(
-                    fontSize: 18,
+                  style: TextStyle(
+                    fontSize: Responsive.fontSize(18),
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -297,6 +343,9 @@ class _StoryScreenState extends State<StoryScreen>
   }
 
   Widget _buildMascot() {
+    final mascotWidth = Responsive.mascotWidth;
+    final mascotHeight = mascotWidth * 1.25;
+
     return AnimatedBuilder(
       animation: _mascotBounce,
       builder: (context, child) {
@@ -306,8 +355,8 @@ class _StoryScreenState extends State<StoryScreen>
             children: [
               // Mascot container
               Container(
-                width: 80,
-                height: 100,
+                width: mascotWidth,
+                height: mascotHeight,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -317,7 +366,7 @@ class _StoryScreenState extends State<StoryScreen>
                       Colors.orange.withValues(alpha: 0.2),
                     ],
                   ),
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(Responsive.scale(20)),
                   border: Border.all(
                     color: Colors.amber.withValues(alpha: 0.5),
                     width: 2,
@@ -342,15 +391,15 @@ class _StoryScreenState extends State<StoryScreen>
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             _buildEye(),
-                            const SizedBox(width: 12),
+                            SizedBox(width: Responsive.scale(12)),
                             _buildEye(),
                           ],
                         ),
-                        const SizedBox(height: 8),
+                        SizedBox(height: Responsive.scale(8)),
                         // Smile
                         Container(
-                          width: 30,
-                          height: 15,
+                          width: Responsive.scale(30),
+                          height: Responsive.scale(15),
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
@@ -358,9 +407,9 @@ class _StoryScreenState extends State<StoryScreen>
                                 width: 3,
                               ),
                             ),
-                            borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(15),
-                              bottomRight: Radius.circular(15),
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(Responsive.scale(15)),
+                              bottomRight: Radius.circular(Responsive.scale(15)),
                             ),
                           ),
                         ),
@@ -368,21 +417,21 @@ class _StoryScreenState extends State<StoryScreen>
                     ),
                     // Glasses
                     Positioned(
-                      top: 25,
+                      top: mascotHeight * 0.25,
                       child: Row(
                         children: [
                           Container(
-                            width: 22,
-                            height: 16,
+                            width: Responsive.scale(22),
+                            height: Responsive.scale(16),
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.white70, width: 2),
                               borderRadius: BorderRadius.circular(4),
                             ),
                           ),
-                          Container(width: 6, height: 2, color: Colors.white70),
+                          Container(width: Responsive.scale(6), height: 2, color: Colors.white70),
                           Container(
-                            width: 22,
-                            height: 16,
+                            width: Responsive.scale(22),
+                            height: Responsive.scale(16),
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.white70, width: 2),
                               borderRadius: BorderRadius.circular(4),
@@ -394,18 +443,21 @@ class _StoryScreenState extends State<StoryScreen>
                   ],
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: Responsive.scale(8)),
               // Name tag
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: EdgeInsets.symmetric(
+                  horizontal: Responsive.scale(8),
+                  vertical: Responsive.scale(4),
+                ),
                 decoration: BoxDecoration(
                   color: Colors.amber.withValues(alpha: 0.8),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(Responsive.scale(8)),
                 ),
-                child: const Text(
+                child: Text(
                   'Quinn',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: Responsive.fontSize(12),
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
                   ),
@@ -419,9 +471,10 @@ class _StoryScreenState extends State<StoryScreen>
   }
 
   Widget _buildEye() {
+    final eyeSize = Responsive.scale(14);
     return Container(
-      width: 14,
-      height: 14,
+      width: eyeSize,
+      height: eyeSize,
       decoration: BoxDecoration(
         color: Colors.white,
         shape: BoxShape.circle,
@@ -434,8 +487,8 @@ class _StoryScreenState extends State<StoryScreen>
       ),
       child: Center(
         child: Container(
-          width: 6,
-          height: 6,
+          width: eyeSize * 0.43,
+          height: eyeSize * 0.43,
           decoration: const BoxDecoration(
             color: Colors.black87,
             shape: BoxShape.circle,
@@ -448,15 +501,15 @@ class _StoryScreenState extends State<StoryScreen>
   Widget _buildSpeechBubble() {
     if (!_hasStartedNarration || _speechBubbles.isEmpty) {
       return Container(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(Responsive.scale(16)),
         decoration: BoxDecoration(
           color: Colors.white.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(Responsive.scale(16)),
         ),
         child: Text(
           'Tap to start...',
           style: TextStyle(
-            fontSize: 16,
+            fontSize: Responsive.fontSize(16),
             color: Colors.white.withValues(alpha: 0.6),
             fontStyle: FontStyle.italic,
           ),
@@ -472,14 +525,14 @@ class _StoryScreenState extends State<StoryScreen>
           child: Opacity(
             opacity: _bubbleAnimation.value.clamp(0.0, 1.0),
             child: Container(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(Responsive.scale(16)),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(4),
-                  topRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(Responsive.scale(4)),
+                  topRight: Radius.circular(Responsive.scale(20)),
+                  bottomLeft: Radius.circular(Responsive.scale(20)),
+                  bottomRight: Radius.circular(Responsive.scale(20)),
                 ),
                 boxShadow: [
                   BoxShadow(
@@ -495,9 +548,9 @@ class _StoryScreenState extends State<StoryScreen>
                 children: [
                   Text(
                     _displayedText,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Color(0xFF1A1A2E),
+                    style: TextStyle(
+                      fontSize: Responsive.fontSize(16),
+                      color: const Color(0xFF1A1A2E),
                       height: 1.5,
                       fontWeight: FontWeight.w500,
                     ),
@@ -511,9 +564,9 @@ class _StoryScreenState extends State<StoryScreen>
                           opacity: _glowAnimation.value,
                           child: Container(
                             width: 2,
-                            height: 18,
+                            height: Responsive.scale(18),
                             color: Colors.amber,
-                            margin: const EdgeInsets.only(top: 2),
+                            margin: EdgeInsets.only(top: Responsive.scale(2)),
                           ),
                         );
                       },
@@ -535,7 +588,7 @@ class _StoryScreenState extends State<StoryScreen>
           scale: _imageScale.value,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(Responsive.scale(16)),
               boxShadow: [
                 BoxShadow(
                   color: Colors.amber.withValues(alpha: 0.3),
@@ -545,11 +598,10 @@ class _StoryScreenState extends State<StoryScreen>
               ],
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(Responsive.scale(16)),
               child: ImagePlaceholder(
                 prompt: widget.screen.imagePrompt ?? '',
                 imagePath: widget.screen.imagePath,
-                height: double.infinity,
               ),
             ),
           ),
@@ -567,16 +619,16 @@ class _StoryScreenState extends State<StoryScreen>
 
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),
-          margin: const EdgeInsets.symmetric(horizontal: 4),
-          width: isActive ? 24 : 8,
-          height: 8,
+          margin: EdgeInsets.symmetric(horizontal: Responsive.scale(4)),
+          width: isActive ? Responsive.scale(24) : Responsive.scale(8),
+          height: Responsive.scale(8),
           decoration: BoxDecoration(
             color: isActive
                 ? Colors.amber
                 : isPast
                     ? Colors.amber.withValues(alpha: 0.5)
                     : Colors.white.withValues(alpha: 0.3),
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(Responsive.scale(4)),
             boxShadow: isActive ? [
               BoxShadow(
                 color: Colors.amber.withValues(alpha: 0.5),
@@ -606,13 +658,13 @@ class _StoryScreenState extends State<StoryScreen>
                   Icon(
                     Icons.touch_app,
                     color: Colors.white.withValues(alpha: 0.7),
-                    size: 20,
+                    size: Responsive.iconSize(mobile: 20),
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: Responsive.scale(8)),
                   Text(
                     isLastBubble ? 'Tap to continue' : 'Tap for next',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: Responsive.fontSize(14),
                       color: Colors.white.withValues(alpha: 0.7),
                     ),
                   ),
@@ -622,36 +674,36 @@ class _StoryScreenState extends State<StoryScreen>
           },
         ),
 
-        const SizedBox(height: 12),
+        SizedBox(height: Responsive.scale(12)),
 
         // Continue button (shown when all bubbles are read)
         if (isLastBubble && _hasStartedNarration)
           SizedBox(
             width: double.infinity,
-            height: 52,
+            height: Responsive.buttonHeight(),
             child: ElevatedButton(
               onPressed: widget.onContinue,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.amber,
                 foregroundColor: Colors.black,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(Responsive.scale(16)),
                 ),
                 elevation: 8,
                 shadowColor: Colors.amber.withValues(alpha: 0.5),
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'Continue',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: Responsive.fontSize(18),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(width: 8),
-                  Icon(Icons.arrow_forward, size: 20),
+                  SizedBox(width: Responsive.scale(8)),
+                  Icon(Icons.arrow_forward, size: Responsive.iconSize(mobile: 20)),
                 ],
               ),
             ),
@@ -663,8 +715,8 @@ class _StoryScreenState extends State<StoryScreen>
   Widget _buildParticle(int index) {
     final random = Random(index);
     final size = 2.0 + random.nextDouble() * 3;
-    final left = random.nextDouble() * MediaQuery.of(context).size.width;
-    final startTop = random.nextDouble() * MediaQuery.of(context).size.height;
+    final left = random.nextDouble() * Responsive.screenWidth;
+    final startTop = random.nextDouble() * Responsive.screenHeight;
     final colors = [Colors.amber, Colors.orange, Colors.yellow, Colors.white];
 
     return AnimatedBuilder(

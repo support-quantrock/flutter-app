@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/lesson_models.dart';
 import '../../services/sound_service.dart';
 import '../../services/qp_service.dart';
+import '../../utils/responsive.dart';
 
 class RewardScreen extends StatefulWidget {
   final LessonScreen screen;
@@ -164,19 +165,22 @@ class _RewardScreenState extends State<RewardScreen>
     final rewardData = widget.screen.rewardData;
     final qpService = QPService();
 
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF1A1A2E),
-            Color(0xFF16213E),
-            Color(0xFF0F172A),
-          ],
+    return GestureDetector(
+      onTap: widget.onContinue,
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF1A1A2E),
+              Color(0xFF16213E),
+              Color(0xFF0F172A),
+            ],
+          ),
         ),
-      ),
-      child: Stack(
+        child: Stack(
         children: [
           // Fireworks background
           _buildFireworks(),
@@ -226,6 +230,7 @@ class _RewardScreenState extends State<RewardScreen>
           // Level up overlay
           if (_showLevelUp) _buildLevelUpOverlay(),
         ],
+      ),
       ),
     );
   }

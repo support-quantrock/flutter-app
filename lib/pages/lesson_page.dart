@@ -73,8 +73,32 @@ class _LessonPageState extends State<LessonPage> {
         _currentScreenIndex++;
       });
     } else {
-      // Lesson complete - return to skill challenge
-      Navigator.of(context).pop(true); // true = completed
+      // Lesson complete - navigate to next lesson
+      _navigateToNextLesson();
+    }
+  }
+
+  void _navigateToNextLesson() {
+    int nextLessonNum = widget.lessonNumber + 1;
+    int nextDay = widget.day;
+
+    // If completed lesson 5 (last regular lesson), move to next day lesson 1
+    // Lesson 6 is the test, which is accessed separately
+    if (nextLessonNum > 5) {
+      nextDay = widget.day + 1;
+      nextLessonNum = 1;
+    }
+
+    // Check if next lesson exists (max day is 28)
+    if (nextDay <= 28 && LessonRegistry.hasLessonNumber(nextDay, nextLessonNum)) {
+      Navigator.pushReplacementNamed(
+        context,
+        '/lesson',
+        arguments: {'day': nextDay, 'lessonNumber': nextLessonNum},
+      );
+    } else {
+      // No more lessons, go back to skill challenge
+      Navigator.of(context).pop(true);
     }
   }
 

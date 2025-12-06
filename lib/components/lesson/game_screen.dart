@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../models/lesson_models.dart';
 import '../../services/sound_service.dart';
+import '../../utils/responsive.dart';
 
 enum GameType { balloon, swipe, spinner, quickTap }
 
@@ -214,6 +215,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    Responsive.init(context);
     final gameData = widget.screen.gameData;
     if (gameData == null) {
       return const Center(child: Text('No game data'));
@@ -237,30 +239,32 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           ...List.generate(15, (index) => _buildParticle(index)),
 
           SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 60, 16, 20),
-              child: Column(
-                children: [
-                  // Game header
-                  _buildHeader(),
+            child: Responsive.constrain(
+              Padding(
+                padding: EdgeInsets.fromLTRB(Responsive.horizontalPadding, Responsive.scale(60), Responsive.horizontalPadding, Responsive.scale(20)),
+                child: Column(
+                  children: [
+                    // Game header
+                    _buildHeader(),
 
-                  const SizedBox(height: 16),
+                    SizedBox(height: Responsive.scale(16)),
 
-                  // Instruction
-                  _buildInstruction(gameData),
+                    // Instruction
+                    _buildInstruction(gameData),
 
-                  const SizedBox(height: 20),
+                    SizedBox(height: Responsive.scale(20)),
 
-                  // Game area based on type
-                  Expanded(
-                    child: _buildGameArea(gameData),
-                  ),
+                    // Game area based on type
+                    Expanded(
+                      child: _buildGameArea(gameData),
+                    ),
 
-                  const SizedBox(height: 12),
+                    SizedBox(height: Responsive.scale(12)),
 
-                  // Hint text
-                  _buildHint(),
-                ],
+                    // Hint text
+                    _buildHint(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -584,8 +588,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             child: Transform.rotate(
               angle: _swipeOffset * 0.001,
               child: Container(
-                width: 250,
-                height: 300,
+                width: Responsive.gameElementSize,
+                height: Responsive.gameElementSize * 1.2,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
@@ -677,14 +681,15 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   // ==================== SPINNER GAME ====================
   Widget _buildSpinnerGame(GameData gameData) {
+    final spinnerSize = Responsive.gameElementSize;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GestureDetector(
           onTap: _isSpinning ? null : () => _startSpin(gameData),
           child: Container(
-            width: 250,
-            height: 250,
+            width: spinnerSize,
+            height: spinnerSize,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: RadialGradient(
