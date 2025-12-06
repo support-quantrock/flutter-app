@@ -303,9 +303,9 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                         onExpandToggle: () => setState(() => _expandedChallenge = !_expandedChallenge),
                       ),
                       const SizedBox(height: 24),
-                      _buildSponsorsSection(),
-                      const SizedBox(height: 24),
                       _buildChampionshipStagesSection(),
+                      const SizedBox(height: 24),
+                      _buildSponsorsSection(),
                     ],
                     const SizedBox(height: 32),
                   ],
@@ -630,7 +630,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
           const SizedBox(width: 12),
           const Expanded(
             child: Text(
-              '28 day Skill challenge',
+              '28 days skills',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -1337,23 +1337,39 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: gradientColors,
+      child: Column(
+        children: [
+          // Group/Global toggle - separate line above
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.1),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+            ),
+            child: Center(
+              child: _buildViewModeToggle(viewMode, onViewModeChanged),
+            ),
           ),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // Main card
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: gradientColors,
+              ),
+              borderRadius: const BorderRadius.vertical(bottom: Radius.circular(20)),
+            ),
+            child: Column(
+              children: [
+                // Header section with darker overlay
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black.withValues(alpha: 0.2),
+                  ),
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
                     children: [
                       Row(
                         children: [
@@ -1381,28 +1397,29 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                           ),
                         ],
                       ),
-                      _buildViewModeToggle(viewMode, onViewModeChanged),
+                      const SizedBox(height: 24),
+                      _buildPodium(leaderboard),
                     ],
                   ),
-                  const SizedBox(height: 24),
-                  _buildPodium(leaderboard),
-                ],
-              ),
-            ),
-            GestureDetector(
-              onTap: onExpandToggle,
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: AnimatedRotation(
-                  turns: expanded ? 0.5 : 0,
-                  duration: const Duration(milliseconds: 200),
-                  child: const Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 28),
                 ),
-              ),
+                // Arrow divider
+                GestureDetector(
+                  onTap: onExpandToggle,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: AnimatedRotation(
+                      turns: expanded ? 0.5 : 0,
+                      duration: const Duration(milliseconds: 200),
+                      child: const Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 28),
+                    ),
+                  ),
+                ),
+                // Always show expanded list
+                _buildExpandedList(leaderboard.skip(3).toList()),
+              ],
             ),
-            if (expanded) _buildExpandedList(leaderboard.skip(3).toList()),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
