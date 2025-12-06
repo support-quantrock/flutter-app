@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
-const API_KEY = 'AIzaSyDDp4VcoAF_aZuIULx7Ubngaw2_ZHIFPaA';
-const MODEL = 'gemini-2.0-flash-exp';
+const API_KEY = 'AIzaSyD0Sfs9pFrXPhZ9FBt46Flldz3NMGKmr50';
+const MODEL = 'gemini-2.5-flash-image-preview';
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
 
 const prompts = JSON.parse(fs.readFileSync('/home/user/myapp/scripts/image_prompts.json', 'utf-8'));
