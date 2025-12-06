@@ -1658,36 +1658,69 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                 padding: const EdgeInsets.all(14),
                 child: Row(
                   children: [
-                    // Emoji icon or check for completed
-                    Container(
-                      width: 44,
-                      height: 44,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF6B7280), // Gray
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Center(
-                        child: isCompleted
-                            ? const Icon(
-                                Icons.check,
-                                color: Colors.white,
-                                size: 24,
+                    // Icon with conditional background
+                    isCompleted
+                        ? Container(
+                            width: 44,
+                            height: 44,
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [
+                                  Color(0xFF22C55E), // Green
+                                  Color(0xFF3B82F6), // Blue
+                                  Color(0xFFA855F7), // Purple
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Center(
+                              child: Icon(Icons.check, color: Colors.white, size: 24),
+                            ),
+                          )
+                        : (isCurrent && !isLocked)
+                            ? Container(
+                                width: 44,
+                                height: 44,
+                                decoration: BoxDecoration(
+                                  gradient: const LinearGradient(
+                                    colors: [
+                                      Color(0xFF22C55E), // Green
+                                      Color(0xFF3B82F6), // Blue
+                                      Color(0xFFA855F7), // Purple
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                padding: const EdgeInsets.all(2),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF8B5CF6), // Purple
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Center(
+                                    child: isFinalTest
+                                        ? const Icon(Icons.emoji_events, color: Colors.white, size: 24)
+                                        : isTest
+                                            ? const Icon(Icons.quiz, color: Colors.white, size: 24)
+                                            : Icon(icon, color: Colors.white, size: 22),
+                                  ),
+                                ),
                               )
-                            : isFinalTest
-                            ? const Icon(
-                                Icons.emoji_events,
-                                color: Colors.white,
-                                size: 24,
-                              )
-                            : isTest && !isLocked
-                            ? const Icon(
-                                Icons.quiz,
-                                color: Colors.white,
-                                size: 24,
-                              )
-                            : Icon(icon, color: Colors.white, size: 22),
-                      ),
-                    ),
+                            : Container(
+                                width: 44,
+                                height: 44,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF8B5CF6), // Purple
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Center(
+                                  child: isFinalTest
+                                      ? const Icon(Icons.emoji_events, color: Colors.white, size: 24)
+                                      : isTest && !isLocked
+                                          ? const Icon(Icons.quiz, color: Colors.white, size: 24)
+                                          : Icon(icon, color: Colors.white, size: 22),
+                                ),
+                              ),
                     const SizedBox(width: 12),
                     // Day badge
                     Container(
