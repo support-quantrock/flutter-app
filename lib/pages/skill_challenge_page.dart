@@ -262,29 +262,29 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
   ];
 
   final List<Map<String, dynamic>> _groupLeaderboard = [
-    {'rank': 1, 'name': 'Jake Thompson', 'profit': '+20.1%', 'trades': 40, 'country': 'US', 'profitAmount': '\$60,300', 'equity': '\$360,300'},
-    {'rank': 2, 'name': 'Aiko Yamamoto', 'profit': '+18.4%', 'trades': 36, 'country': 'JP', 'profitAmount': '\$55,200', 'equity': '\$355,200'},
-    {'rank': 3, 'name': 'Felix Schmidt', 'profit': '+16.7%', 'trades': 32, 'country': 'DE', 'profitAmount': '\$50,100', 'equity': '\$350,100'},
-    {'rank': 4, 'name': 'Isabella Rossi', 'profit': '+15.2%', 'trades': 30, 'country': 'IT', 'profitAmount': '\$45,600', 'equity': '\$345,600'},
-    {'rank': 5, 'name': 'Noah Williams', 'profit': '+14.5%', 'trades': 28, 'country': 'GB', 'profitAmount': '\$43,500', 'equity': '\$343,500'},
-    {'rank': 6, 'name': 'Sophie Laurent', 'profit': '+13.7%', 'trades': 26, 'country': 'FR', 'profitAmount': '\$41,100', 'equity': '\$341,100'},
-    {'rank': 7, 'name': 'Lucas Silva', 'profit': '+12.8%', 'trades': 24, 'country': 'ES', 'profitAmount': '\$38,400', 'equity': '\$338,400'},
-    {'rank': 8, 'name': 'Emma Nguyen', 'profit': '+11.9%', 'trades': 22, 'country': 'AU', 'profitAmount': '\$35,700', 'equity': '\$335,700'},
-    {'rank': 9, 'name': 'Oliver Park', 'profit': '+11.2%', 'trades': 20, 'country': 'CA', 'profitAmount': '\$33,600', 'equity': '\$333,600'},
-    {'rank': 10, 'name': 'Chloe Kim', 'profit': '+10.5%', 'trades': 18, 'country': 'US', 'profitAmount': '\$31,500', 'equity': '\$331,500'},
+    {'rank': 1, 'name': 'Jake Thompson', 'profit': '+20.1%', 'trades': 40, 'country': 'US', 'profitAmount': '\$60,300', 'equity': '\$360,300', 'premium': true},
+    {'rank': 2, 'name': 'Aiko Yamamoto', 'profit': '+18.4%', 'trades': 36, 'country': 'JP', 'profitAmount': '\$55,200', 'equity': '\$355,200', 'premium': true},
+    {'rank': 3, 'name': 'Felix Schmidt', 'profit': '+16.7%', 'trades': 32, 'country': 'DE', 'profitAmount': '\$50,100', 'equity': '\$350,100', 'premium': false},
+    {'rank': 4, 'name': 'Isabella Rossi', 'profit': '+15.2%', 'trades': 30, 'country': 'IT', 'profitAmount': '\$45,600', 'equity': '\$345,600', 'premium': true},
+    {'rank': 5, 'name': 'Noah Williams', 'profit': '+14.5%', 'trades': 28, 'country': 'GB', 'profitAmount': '\$43,500', 'equity': '\$343,500', 'premium': false},
+    {'rank': 6, 'name': 'Sophie Laurent', 'profit': '+13.7%', 'trades': 26, 'country': 'FR', 'profitAmount': '\$41,100', 'equity': '\$341,100', 'premium': true},
+    {'rank': 7, 'name': 'Lucas Silva', 'profit': '+12.8%', 'trades': 24, 'country': 'ES', 'profitAmount': '\$38,400', 'equity': '\$338,400', 'premium': false},
+    {'rank': 8, 'name': 'Emma Nguyen', 'profit': '+11.9%', 'trades': 22, 'country': 'AU', 'profitAmount': '\$35,700', 'equity': '\$335,700', 'premium': true},
+    {'rank': 9, 'name': 'Oliver Park', 'profit': '+11.2%', 'trades': 20, 'country': 'CA', 'profitAmount': '\$33,600', 'equity': '\$333,600', 'premium': false},
+    {'rank': 10, 'name': 'Chloe Kim', 'profit': '+10.5%', 'trades': 18, 'country': 'US', 'profitAmount': '\$31,500', 'equity': '\$331,500', 'premium': true},
   ];
 
   final List<Map<String, dynamic>> _challengeLeaderboard = [
-    {'rank': 1, 'name': 'Sarah Chen', 'profit': '+24.5%', 'trades': 47, 'country': 'US', 'profitAmount': '\$73,500', 'equity': '\$373,500'},
-    {'rank': 2, 'name': 'Alex Morgan', 'profit': '+18.2%', 'trades': 52, 'country': 'GB', 'profitAmount': '\$54,600', 'equity': '\$354,600'},
-    {'rank': 3, 'name': 'Jordan Smith', 'profit': '+15.8%', 'trades': 41, 'country': 'US', 'profitAmount': '\$47,400', 'equity': '\$347,400'},
-    {'rank': 4, 'name': 'Michael Brown', 'profit': '+14.1%', 'trades': 39, 'country': 'CA', 'profitAmount': '\$42,300', 'equity': '\$342,300'},
-    {'rank': 5, 'name': 'Emma Wilson', 'profit': '+13.5%', 'trades': 35, 'country': 'AU', 'profitAmount': '\$40,500', 'equity': '\$340,500'},
-    {'rank': 6, 'name': 'David Martinez', 'profit': '+12.8%', 'trades': 42, 'country': 'ES', 'profitAmount': '\$38,400', 'equity': '\$338,400'},
-    {'rank': 7, 'name': 'Sophia Garcia', 'profit': '+11.9%', 'trades': 31, 'country': 'IT', 'profitAmount': '\$35,700', 'equity': '\$335,700'},
-    {'rank': 8, 'name': 'James Anderson', 'profit': '+11.2%', 'trades': 37, 'country': 'GB', 'profitAmount': '\$33,600', 'equity': '\$333,600'},
-    {'rank': 9, 'name': 'Olivia Taylor', 'profit': '+10.7%', 'trades': 33, 'country': 'US', 'profitAmount': '\$32,100', 'equity': '\$332,100'},
-    {'rank': 10, 'name': 'Daniel Thomas', 'profit': '+10.3%', 'trades': 29, 'country': 'DE', 'profitAmount': '\$30,900', 'equity': '\$330,900'},
+    {'rank': 1, 'name': 'Sarah Chen', 'profit': '+24.5%', 'trades': 47, 'country': 'US', 'profitAmount': '\$73,500', 'equity': '\$373,500', 'premium': true},
+    {'rank': 2, 'name': 'Alex Morgan', 'profit': '+18.2%', 'trades': 52, 'country': 'GB', 'profitAmount': '\$54,600', 'equity': '\$354,600', 'premium': false},
+    {'rank': 3, 'name': 'Jordan Smith', 'profit': '+15.8%', 'trades': 41, 'country': 'US', 'profitAmount': '\$47,400', 'equity': '\$347,400', 'premium': true},
+    {'rank': 4, 'name': 'Michael Brown', 'profit': '+14.1%', 'trades': 39, 'country': 'CA', 'profitAmount': '\$42,300', 'equity': '\$342,300', 'premium': true},
+    {'rank': 5, 'name': 'Emma Wilson', 'profit': '+13.5%', 'trades': 35, 'country': 'AU', 'profitAmount': '\$40,500', 'equity': '\$340,500', 'premium': false},
+    {'rank': 6, 'name': 'David Martinez', 'profit': '+12.8%', 'trades': 42, 'country': 'ES', 'profitAmount': '\$38,400', 'equity': '\$338,400', 'premium': true},
+    {'rank': 7, 'name': 'Sophia Garcia', 'profit': '+11.9%', 'trades': 31, 'country': 'IT', 'profitAmount': '\$35,700', 'equity': '\$335,700', 'premium': false},
+    {'rank': 8, 'name': 'James Anderson', 'profit': '+11.2%', 'trades': 37, 'country': 'GB', 'profitAmount': '\$33,600', 'equity': '\$333,600', 'premium': true},
+    {'rank': 9, 'name': 'Olivia Taylor', 'profit': '+10.7%', 'trades': 33, 'country': 'US', 'profitAmount': '\$32,100', 'equity': '\$332,100', 'premium': false},
+    {'rank': 10, 'name': 'Daniel Thomas', 'profit': '+10.3%', 'trades': 29, 'country': 'DE', 'profitAmount': '\$30,900', 'equity': '\$330,900', 'premium': true},
   ];
 
   String _getCountryFlag(String countryCode) {
@@ -1518,18 +1518,6 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                     ],
                   ),
                 ),
-                // Arrow divider
-                GestureDetector(
-                  onTap: onExpandToggle,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    child: AnimatedRotation(
-                      turns: expanded ? 0.5 : 0,
-                      duration: const Duration(milliseconds: 200),
-                      child: const Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 28),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
@@ -1735,7 +1723,15 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.1),
+        gradient: const LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            Color(0xFF818CF8),  // Light indigo
+            Color(0xFF6366F1),  // Indigo
+            Color(0xFF7C3AED),  // Violet
+          ],
+        ),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -1767,25 +1763,73 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      item['name'],
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          item['name'],
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                          decoration: BoxDecoration(
+                            color: item['rank'] % 2 == 0
+                                ? const Color(0xFF10B981).withValues(alpha: 0.3)
+                                : const Color(0xFF3B82F6).withValues(alpha: 0.3),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Text(
+                            item['rank'] % 2 == 0 ? 'Learning Challenge' : 'Investing Challenge',
+                            style: TextStyle(
+                              fontSize: 9,
+                              fontWeight: FontWeight.w500,
+                              color: item['rank'] % 2 == 0
+                                  ? const Color(0xFF10B981)
+                                  : const Color(0xFF60A5FA),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 2),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
-                        item['country'],
-                        style: const TextStyle(fontSize: 10, color: Colors.white70),
-                      ),
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.2),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            item['country'],
+                            style: const TextStyle(fontSize: 10, color: Colors.white70),
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: item['premium'] == true
+                                ? const Color(0xFFFBBF24).withValues(alpha: 0.3)
+                                : Colors.white.withValues(alpha: 0.15),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            item['premium'] == true ? 'Premium' : 'Standard',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: item['premium'] == true
+                                  ? const Color(0xFFFBBF24)
+                                  : Colors.white60,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -1811,6 +1855,8 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                   ),
                   Column(
                     children: [
+                      const Text(' ⟶ ', style: TextStyle(fontSize: 20, color: Colors.white70, height: 1)),
+                      const SizedBox(height: 2),
                       Text(
                         '90 days',
                         style: TextStyle(
@@ -1818,7 +1864,6 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                           color: Colors.white.withValues(alpha: 0.5),
                         ),
                       ),
-                      const Text(' ⟶ ', style: TextStyle(fontSize: 12, color: Colors.white70)),
                     ],
                   ),
                   const Text(
