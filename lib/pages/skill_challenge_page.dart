@@ -414,13 +414,35 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               Color(0xFFA855F7), // Purple
             ],
           ),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(14),
+          boxShadow: [
+            // Outer glow
+            BoxShadow(
+              color: const Color(0xFF3B82F6).withValues(alpha: 0.3),
+              blurRadius: 12,
+              spreadRadius: 1,
+            ),
+            // Bottom shadow for depth
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.4),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
-        padding: const EdgeInsets.all(1.5),
+        padding: const EdgeInsets.all(2),
         child: Container(
           decoration: BoxDecoration(
-            color: const Color(0xFF0A0A0A),
-            borderRadius: BorderRadius.circular(10.5),
+            color: const Color(0xFF1A1A2E),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              // Inner shadow (top-left highlight)
+              BoxShadow(
+                color: Colors.white.withValues(alpha: 0.05),
+                blurRadius: 1,
+                offset: const Offset(1, 1),
+              ),
+            ],
           ),
           padding: const EdgeInsets.all(4),
           child: Row(
@@ -439,28 +461,84 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     return Expanded(
       child: GestureDetector(
         onTap: () => setState(() => _activeTab = value),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 10),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
             gradient: isActive
                 ? const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                     colors: [
+                      Color(0xFF34D399), // Lighter green top
                       Color(0xFF22C55E), // Green
                       Color(0xFF3B82F6), // Blue
                       Color(0xFFA855F7), // Purple
                     ],
+                    stops: [0.0, 0.3, 0.6, 1.0],
                   )
                 : null,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: isActive
+                ? [
+                    // Raised shadow
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.5),
+                      blurRadius: 6,
+                      offset: const Offset(0, 3),
+                    ),
+                    // Glow effect
+                    BoxShadow(
+                      color: const Color(0xFF3B82F6).withValues(alpha: 0.4),
+                      blurRadius: 8,
+                      spreadRadius: -2,
+                    ),
+                  ]
+                : null,
           ),
-          child: Text(
-            label,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: isActive ? Colors.white : Colors.white70,
-            ),
+          child: Stack(
+            children: [
+              // Highlight overlay for 3D effect
+              if (isActive)
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: 12,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.white.withValues(alpha: 0.25),
+                          Colors.white.withValues(alpha: 0.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              Center(
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: isActive ? Colors.white : Colors.white54,
+                    shadows: isActive
+                        ? [
+                            Shadow(
+                              color: Colors.black.withValues(alpha: 0.3),
+                              offset: const Offset(0, 1),
+                              blurRadius: 2,
+                            ),
+                          ]
+                        : null,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -1044,61 +1122,59 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
           });
         }
       },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        decoration: BoxDecoration(
-          gradient: isLocked
-              ? null
-              : isCompleted
-                  ? const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [Color(0xFF10B981), Color(0xFF059669)],
-                    )
-                  : isFinalTest
-                      ? const LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [Color(0xFF7C3AED), Color(0xFFFBBF24)],
-                        )
-                      : isTest
-                          ? const LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [Color(0xFFFEF3C7), Color(0xFFFDE68A)],
-                            )
-                          : null,
-          color: isLocked
-              ? Colors.white.withValues(alpha: 0.05)
-              : isCompleted
-                  ? null
-                  : (isTest || isFinalTest)
-                      ? null
-                      : Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: isCompleted
-              ? Border.all(color: const Color(0xFF10B981), width: 2)
-              : isFinalTest
-                  ? Border.all(color: const Color(0xFF7C3AED), width: 2)
-                  : isTest && !isLocked
-                      ? Border.all(color: const Color(0xFFF59E0B), width: 2)
-                      : null,
-          boxShadow: !isLocked
-              ? [
+      child: Container(
+        decoration: isCompleted
+            ? BoxDecoration(
+                // Completed: gradient fill
+                gradient: const LinearGradient(
+                  colors: [
+                    Color(0xFF22C55E), // Green
+                    Color(0xFF3B82F6), // Blue
+                    Color(0xFFA855F7), // Purple
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
                   BoxShadow(
-                    color: isCompleted
-                        ? const Color(0xFF10B981).withValues(alpha: 0.3)
-                        : isFinalTest
-                            ? const Color(0xFF7C3AED).withValues(alpha: 0.4)
-                            : isTest
-                                ? const Color(0xFFF59E0B).withValues(alpha: 0.3)
-                                : Colors.black.withValues(alpha: 0.1),
-                    blurRadius: 10,
+                    color: const Color(0xFF3B82F6).withValues(alpha: 0.4),
+                    blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),
-                ]
+                ],
+              )
+            : isLocked
+                ? BoxDecoration(
+                    // Locked: solid gray
+                    color: const Color(0xFF2A2A3E),
+                    borderRadius: BorderRadius.circular(16),
+                  )
+                : BoxDecoration(
+                    // Active: gradient border with gray inside
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color(0xFF22C55E), // Green
+                        Color(0xFF3B82F6), // Blue
+                        Color(0xFFA855F7), // Purple
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF3B82F6).withValues(alpha: 0.3),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+        padding: (!isCompleted && !isLocked) ? const EdgeInsets.all(2) : null,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          decoration: (!isCompleted && !isLocked)
+              ? BoxDecoration(
+                  color: const Color(0xFF1E1E2E),
+                  borderRadius: BorderRadius.circular(14),
+                )
               : null,
-        ),
         child: Column(
           children: [
             Padding(
@@ -1345,6 +1421,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                 ),
               ),
           ],
+        ),
         ),
       ),
     );

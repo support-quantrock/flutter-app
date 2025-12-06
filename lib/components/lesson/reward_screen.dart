@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../models/lesson_models.dart';
 import '../../services/sound_service.dart';
 import '../../services/qp_service.dart';
-import '../../utils/responsive.dart';
 
 class RewardScreen extends StatefulWidget {
   final LessonScreen screen;

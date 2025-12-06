@@ -1,4 +1,5 @@
 /// App State Models for Stream-based State Management
+library;
 
 /// User Progress State
 class UserProgressState {

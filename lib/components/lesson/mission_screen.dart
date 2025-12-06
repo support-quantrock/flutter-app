@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../models/lesson_models.dart';
 import '../../services/sound_service.dart';
-import '../../utils/responsive.dart';
 import 'image_placeholder.dart';
 
 class MissionScreen extends StatefulWidget {
