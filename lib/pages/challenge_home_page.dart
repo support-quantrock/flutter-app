@@ -25,7 +25,7 @@ class _ChallengeHomePageState extends State<ChallengeHomePage>
       'beginners': {'en': 'Beginners', 'ar': 'المبتدئين'},
       'qualifiers': {'en': 'Qualifiers', 'ar': 'المؤهلين'},
       'learn_challenge': {'en': 'Learn Challenge', 'ar': 'تحدي التعلم'},
-      'invest_challenge': {'en': 'Invest Challenge', 'ar': 'تحدي الاستثمار'},
+      'invest_challenge': {'en': 'Leaderboard', 'ar': 'لوحة المتصدرين'},
       'free_simulator': {'en': 'Free Simulator Training (Optional)', 'ar': 'تدريب محاكي مجاني (اختياري)'},
       'premium_exclusive': {'en': 'Exclusively for Premium Pro Members', 'ar': 'حصرياً لأعضاء بريميوم برو'},
       'learn_description': {'en': 'Designed for beginners who want to build a solid foundation in trading and gradually develop essential investment skills. It\'s ideal for newcomers, university students, and even high-school learners who wish to practice trading safely through a free, risk-free virtual portfolio simulator.', 'ar': 'مصمم للمبتدئين الذين يرغبون في بناء أساس متين في التداول وتطوير مهارات الاستثمار الأساسية تدريجياً. إنه مثالي للوافدين الجدد وطلاب الجامعات وحتى طلاب المدارس الثانوية الذين يرغبون في ممارسة التداول بأمان من خلال محاكي محفظة افتراضية مجاني وخالي من المخاطر.'},

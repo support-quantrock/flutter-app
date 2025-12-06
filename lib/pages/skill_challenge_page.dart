@@ -202,7 +202,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
         child: Row(
           children: [
             _buildTab('Skill Challenge', 'training'),
-            _buildTab('Invest Challenge', 'challenge'),
+            _buildTab('Leaderboard', 'challenge'),
           ],
         ),
       ),
