@@ -58,29 +58,47 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     {
       'id': 1,
       'title': 'Global Trade Bank',
-      'subtitle': 'Leading international banking solutions for traders and investors worldwide.',
+      'subtitle':
+          'Leading international banking solutions for traders and investors worldwide.',
       'badge': 'Elite',
       'badgeColor': const Color(0xFFFBBF24),
       'gradientColors': [const Color(0xFF1E3A8A), const Color(0xFF7C3AED)],
       'info': [
         {'icon': Icons.location_on, 'label': 'Location:', 'value': 'New York'},
         {'icon': Icons.people, 'label': 'Clients:', 'value': '50,000+'},
-        {'icon': Icons.trending_up, 'label': 'Services:', 'value': 'Trading, Banking'},
-        {'icon': Icons.calendar_today, 'label': 'Established:', 'value': '2005'},
+        {
+          'icon': Icons.trending_up,
+          'label': 'Services:',
+          'value': 'Trading, Banking',
+        },
+        {
+          'icon': Icons.calendar_today,
+          'label': 'Established:',
+          'value': '2005',
+        },
       ],
     },
     {
       'id': 2,
       'title': 'Quantum Finance',
-      'subtitle': 'Premium financial services with advanced trading infrastructure and support.',
+      'subtitle':
+          'Premium financial services with advanced trading infrastructure and support.',
       'badge': 'Pro',
       'badgeColor': const Color(0xFF10B981),
       'gradientColors': [const Color(0xFF064E3B), const Color(0xFF0891B2)],
       'info': [
         {'icon': Icons.location_on, 'label': 'Location:', 'value': 'London'},
         {'icon': Icons.people, 'label': 'Clients:', 'value': '35,000+'},
-        {'icon': Icons.trending_up, 'label': 'Services:', 'value': 'Investment, Wealth'},
-        {'icon': Icons.calendar_today, 'label': 'Established:', 'value': '2010'},
+        {
+          'icon': Icons.trending_up,
+          'label': 'Services:',
+          'value': 'Investment, Wealth',
+        },
+        {
+          'icon': Icons.calendar_today,
+          'label': 'Established:',
+          'value': '2010',
+        },
       ],
     },
   ];
@@ -89,29 +107,51 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     {
       'id': 3,
       'title': 'Capital Academy',
-      'subtitle': 'The leading online company in e-learning, providing world-class education.',
+      'subtitle':
+          'The leading online company in e-learning, providing world-class education.',
       'badge': 'Elite',
       'badgeColor': const Color(0xFFFBBF24),
       'gradientColors': [const Color(0xFF1E3A8A), const Color(0xFF7C3AED)],
       'info': [
         {'icon': Icons.location_on, 'label': 'Location:', 'value': 'Dubai'},
         {'icon': Icons.people, 'label': 'Students:', 'value': '10,000+'},
-        {'icon': Icons.trending_up, 'label': 'Courses:', 'value': 'Trading, Finance'},
-        {'icon': Icons.calendar_today, 'label': 'Established:', 'value': '2018'},
+        {
+          'icon': Icons.trending_up,
+          'label': 'Courses:',
+          'value': 'Trading, Finance',
+        },
+        {
+          'icon': Icons.calendar_today,
+          'label': 'Established:',
+          'value': '2018',
+        },
       ],
     },
     {
       'id': 4,
       'title': 'Investing Academy',
-      'subtitle': 'The leading education institute in Saudi Arabia for investment excellence.',
+      'subtitle':
+          'The leading education institute in Saudi Arabia for investment excellence.',
       'badge': 'Pro',
       'badgeColor': const Color(0xFF10B981),
       'gradientColors': [const Color(0xFF064E3B), const Color(0xFF0891B2)],
       'info': [
-        {'icon': Icons.location_on, 'label': 'Location:', 'value': 'Saudi Arabia'},
+        {
+          'icon': Icons.location_on,
+          'label': 'Location:',
+          'value': 'Saudi Arabia',
+        },
         {'icon': Icons.people, 'label': 'Students:', 'value': '5,000+'},
-        {'icon': Icons.trending_up, 'label': 'Courses:', 'value': 'Investment, Markets'},
-        {'icon': Icons.calendar_today, 'label': 'Established:', 'value': '2019'},
+        {
+          'icon': Icons.trending_up,
+          'label': 'Courses:',
+          'value': 'Investment, Markets',
+        },
+        {
+          'icon': Icons.calendar_today,
+          'label': 'Established:',
+          'value': '2019',
+        },
       ],
     },
   ];
@@ -120,7 +160,8 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     {
       'id': 5,
       'title': 'Crypto Masters Cup',
-      'subtitle': 'Exclusive cryptocurrency trading competition with cutting-edge analytics.',
+      'subtitle':
+          'Exclusive cryptocurrency trading competition with cutting-edge analytics.',
       'badge': 'Premium',
       'badgeColor': const Color(0xFFF59E0B),
       'gradientColors': [const Color(0xFF7C2D12), const Color(0xFFDC2626)],
@@ -134,14 +175,19 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     {
       'id': 6,
       'title': 'Trade Media Network',
-      'subtitle': 'Global financial news and analysis platform for professional traders.',
+      'subtitle':
+          'Global financial news and analysis platform for professional traders.',
       'badge': 'Premium',
       'badgeColor': const Color(0xFFF59E0B),
       'gradientColors': [const Color(0xFF7C2D12), const Color(0xFFDC2626)],
       'info': [
         {'icon': Icons.location_on, 'label': 'Location:', 'value': 'Singapore'},
         {'icon': Icons.people, 'label': 'Readers:', 'value': '2M+'},
-        {'icon': Icons.bar_chart, 'label': 'Coverage:', 'value': 'Stocks, Forex'},
+        {
+          'icon': Icons.bar_chart,
+          'label': 'Coverage:',
+          'value': 'Stocks, Forex',
+        },
         {'icon': Icons.calendar_today, 'label': 'Launched:', 'value': '2020'},
       ],
     },
@@ -152,16 +198,25 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     {
       'id': 1,
       'title': 'Investment Stage',
-      'subtitle': 'This optional stage is designed for professionals, beginners, and students to practice trading strategies in a simulated environment.',
+      'subtitle':
+          'This optional stage is designed for professionals, beginners, and students to practice trading strategies in a simulated environment.',
       'badge': 'Optional',
       'badgeColor': const Color(0xFFFBBF24),
       'avatarIcon': Icons.gps_fixed,
       'gradientColors': [const Color(0xFF065F46), const Color(0xFF064E3B)],
       'info': [
-        {'icon': Icons.gps_fixed, 'label': 'Portfolio:', 'value': '\$10K - \$100K'},
+        {
+          'icon': Icons.gps_fixed,
+          'label': 'Portfolio:',
+          'value': '\$10K - \$100K',
+        },
         {'icon': Icons.trending_up, 'label': 'Profit Target:', 'value': '6%'},
         {'icon': Icons.emoji_events, 'label': 'Min Trades:', 'value': '30'},
-        {'icon': Icons.calendar_today, 'label': 'Daily Loss:', 'value': '5% Max'},
+        {
+          'icon': Icons.calendar_today,
+          'label': 'Daily Loss:',
+          'value': '5% Max',
+        },
       ],
       'details': [
         'Begin trading at any time (no fixed start date)',
@@ -178,7 +233,8 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     {
       'id': 4,
       'title': 'Skill Challenge',
-      'subtitle': 'Test your trading expertise through progressive challenges. Develop advanced strategies and compete with traders worldwide.',
+      'subtitle':
+          'Test your trading expertise through progressive challenges. Develop advanced strategies and compete with traders worldwide.',
       'badge': 'Expert',
       'badgeColor': const Color(0xFF8B5CF6),
       'avatarIcon': Icons.military_tech,
@@ -225,76 +281,438 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
 
   final List<Map<String, dynamic>> _lessons = [
     // Week 1: Getting Started
-    {'day': 1, 'emoji': '🚀', 'title': 'How to Start the Challenge', 'completed': true, 'type': 'lesson'},
-    {'day': 2, 'emoji': '💰', 'title': 'What is Investing?', 'completed': true, 'type': 'lesson'},
-    {'day': 3, 'emoji': '📈', 'title': 'Understanding Stocks', 'completed': true, 'type': 'lesson'},
-    {'day': 4, 'emoji': '📄', 'title': 'Bonds Basics', 'completed': true, 'type': 'lesson'},
-    {'day': 5, 'emoji': '🎯', 'title': 'Mutual Funds & ETFs', 'completed': true, 'type': 'lesson'},
-    {'day': 6, 'emoji': '📊', 'title': 'Introduction to Index Funds', 'completed': true, 'type': 'lesson'},
+    {
+      'day': 1,
+      'icon': Icons.rocket_launch,
+      'title': 'How to Start the Challenge',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 2,
+      'icon': Icons.monetization_on,
+      'title': 'What is Investing?',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 3,
+      'icon': Icons.trending_up,
+      'title': 'Understanding Stocks',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 4,
+      'icon': Icons.description,
+      'title': 'Bonds Basics',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 5,
+      'icon': Icons.gps_fixed,
+      'title': 'Mutual Funds & ETFs',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 6,
+      'icon': Icons.bar_chart,
+      'title': 'Introduction to Index Funds',
+      'completed': true,
+      'type': 'lesson',
+    },
     // Week 2: Advanced Assets
-    {'day': 7, 'emoji': '📋', 'title': 'Financial Derivatives', 'completed': true, 'type': 'lesson'},
-    {'day': 8, 'emoji': '₿', 'title': 'Cryptocurrencies & Blockchain', 'completed': true, 'type': 'lesson'},
-    {'day': 9, 'emoji': '🌐', 'title': 'Web3, DeFi & Digital Assets', 'completed': true, 'type': 'lesson'},
-    {'day': 10, 'emoji': '⚠️', 'title': 'Risk Management Basics', 'completed': true, 'type': 'lesson'},
-    {'day': 11, 'emoji': '📉', 'title': 'Introduction to Technical Analysis', 'completed': true, 'type': 'lesson'},
-    {'day': 12, 'emoji': '📈', 'title': 'Advanced Technical Analysis', 'completed': true, 'type': 'lesson'},
+    {
+      'day': 7,
+      'icon': Icons.assignment,
+      'title': 'Financial Derivatives',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 8,
+      'icon': Icons.currency_bitcoin,
+      'title': 'Cryptocurrencies & Blockchain',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 9,
+      'icon': Icons.language,
+      'title': 'Web3, DeFi & Digital Assets',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 10,
+      'icon': Icons.warning,
+      'title': 'Risk Management Basics',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 11,
+      'icon': Icons.trending_down,
+      'title': 'Introduction to Technical Analysis',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 12,
+      'icon': Icons.show_chart,
+      'title': 'Advanced Technical Analysis',
+      'completed': true,
+      'type': 'lesson',
+    },
     // Week 3: Analysis & Strategy
-    {'day': 13, 'emoji': '🔍', 'title': 'Fundamental Analysis', 'completed': true, 'type': 'lesson'},
-    {'day': 14, 'emoji': '🌍', 'title': 'Economic Indicators', 'completed': true, 'type': 'lesson'},
-    {'day': 15, 'emoji': '🎯', 'title': 'Portfolio Theory & Allocation', 'completed': true, 'type': 'lesson'},
-    {'day': 16, 'emoji': '📋', 'title': 'Investment Strategies', 'completed': true, 'type': 'lesson'},
-    {'day': 17, 'emoji': '🧠', 'title': 'Investor Psychology', 'completed': true, 'type': 'lesson'},
-    {'day': 18, 'emoji': '🌎', 'title': 'Global Markets', 'completed': true, 'type': 'lesson'},
+    {
+      'day': 13,
+      'icon': Icons.search,
+      'title': 'Fundamental Analysis',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 14,
+      'icon': Icons.public,
+      'title': 'Economic Indicators',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 15,
+      'icon': Icons.track_changes,
+      'title': 'Portfolio Theory & Allocation',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 16,
+      'icon': Icons.list_alt,
+      'title': 'Investment Strategies',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 17,
+      'icon': Icons.psychology,
+      'title': 'Investor Psychology',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 18,
+      'icon': Icons.travel_explore,
+      'title': 'Global Markets',
+      'completed': true,
+      'type': 'lesson',
+    },
     // Week 4: Specialized Topics
-    {'day': 19, 'emoji': '⚖️', 'title': 'Passive vs Active Investing', 'completed': true, 'type': 'lesson'},
-    {'day': 20, 'emoji': '🌱', 'title': 'ESG & Sustainable Investing', 'completed': true, 'type': 'lesson'},
-    {'day': 21, 'emoji': '💵', 'title': 'Taxes and Investing', 'completed': true, 'type': 'lesson'},
-    {'day': 22, 'emoji': '🏖️', 'title': 'Retirement Planning', 'completed': true, 'type': 'lesson'},
-    {'day': 23, 'emoji': '🏠', 'title': 'Real Estate Investing', 'completed': true, 'type': 'lesson'},
-    {'day': 24, 'emoji': '🎨', 'title': 'Alternative Investments', 'completed': true, 'type': 'lesson'},
+    {
+      'day': 19,
+      'icon': Icons.balance,
+      'title': 'Passive vs Active Investing',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 20,
+      'icon': Icons.eco,
+      'title': 'ESG & Sustainable Investing',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 21,
+      'icon': Icons.payments,
+      'title': 'Taxes and Investing',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 22,
+      'icon': Icons.beach_access,
+      'title': 'Retirement Planning',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 23,
+      'icon': Icons.home,
+      'title': 'Real Estate Investing',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 24,
+      'icon': Icons.palette,
+      'title': 'Alternative Investments',
+      'completed': true,
+      'type': 'lesson',
+    },
     // Final Week: Application
-    {'day': 25, 'emoji': '🔄', 'title': 'Market Cycles & Timing', 'completed': true, 'type': 'lesson'},
-    {'day': 26, 'emoji': '🧰', 'title': 'Investment Tools & Resources', 'completed': true, 'type': 'lesson'},
-    {'day': 27, 'emoji': '📜', 'title': 'Building Your Investment Plan', 'completed': true, 'type': 'lesson'},
-    {'day': 28, 'emoji': '🏆', 'title': 'Final Day: Practical Application', 'completed': false, 'current': true, 'type': 'lesson'},
+    {
+      'day': 25,
+      'icon': Icons.autorenew,
+      'title': 'Market Cycles & Timing',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 26,
+      'icon': Icons.construction,
+      'title': 'Investment Tools & Resources',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 27,
+      'icon': Icons.article,
+      'title': 'Building Your Investment Plan',
+      'completed': true,
+      'type': 'lesson',
+    },
+    {
+      'day': 28,
+      'icon': Icons.emoji_events,
+      'title': 'Final Day: Practical Application',
+      'completed': false,
+      'current': true,
+      'type': 'lesson',
+    },
     // Ultimate Final Test - covers all 28 days
-    {'day': 0, 'emoji': '👑', 'title': 'Ultimate Investment Mastery Test', 'completed': false, 'type': 'finalTest'},
+    {
+      'day': 0,
+      'icon': Icons.workspace_premium,
+      'title': 'Ultimate Investment Mastery Test',
+      'completed': false,
+      'type': 'finalTest',
+    },
   ];
 
   final List<Map<String, dynamic>> _groupLeaderboard = [
-    {'rank': 1, 'name': 'Jake Thompson', 'profit': '+20.1%', 'trades': 40, 'country': 'US', 'profitAmount': '\$60,300', 'equity': '\$360,300', 'premium': true},
-    {'rank': 2, 'name': 'Aiko Yamamoto', 'profit': '+18.4%', 'trades': 36, 'country': 'JP', 'profitAmount': '\$55,200', 'equity': '\$355,200', 'premium': true},
-    {'rank': 3, 'name': 'Felix Schmidt', 'profit': '+16.7%', 'trades': 32, 'country': 'DE', 'profitAmount': '\$50,100', 'equity': '\$350,100', 'premium': false},
-    {'rank': 4, 'name': 'Isabella Rossi', 'profit': '+15.2%', 'trades': 30, 'country': 'IT', 'profitAmount': '\$45,600', 'equity': '\$345,600', 'premium': true},
-    {'rank': 5, 'name': 'Noah Williams', 'profit': '+14.5%', 'trades': 28, 'country': 'GB', 'profitAmount': '\$43,500', 'equity': '\$343,500', 'premium': false},
-    {'rank': 6, 'name': 'Sophie Laurent', 'profit': '+13.7%', 'trades': 26, 'country': 'FR', 'profitAmount': '\$41,100', 'equity': '\$341,100', 'premium': true},
-    {'rank': 7, 'name': 'Lucas Silva', 'profit': '+12.8%', 'trades': 24, 'country': 'ES', 'profitAmount': '\$38,400', 'equity': '\$338,400', 'premium': false},
-    {'rank': 8, 'name': 'Emma Nguyen', 'profit': '+11.9%', 'trades': 22, 'country': 'AU', 'profitAmount': '\$35,700', 'equity': '\$335,700', 'premium': true},
-    {'rank': 9, 'name': 'Oliver Park', 'profit': '+11.2%', 'trades': 20, 'country': 'CA', 'profitAmount': '\$33,600', 'equity': '\$333,600', 'premium': false},
-    {'rank': 10, 'name': 'Chloe Kim', 'profit': '+10.5%', 'trades': 18, 'country': 'US', 'profitAmount': '\$31,500', 'equity': '\$331,500', 'premium': true},
+    {
+      'rank': 1,
+      'name': 'Jake Thompson',
+      'profit': '+20.1%',
+      'trades': 40,
+      'country': 'US',
+      'profitAmount': '\$60,300',
+      'equity': '\$360,300',
+      'premium': true,
+    },
+    {
+      'rank': 2,
+      'name': 'Aiko Yamamoto',
+      'profit': '+18.4%',
+      'trades': 36,
+      'country': 'JP',
+      'profitAmount': '\$55,200',
+      'equity': '\$355,200',
+      'premium': true,
+    },
+    {
+      'rank': 3,
+      'name': 'Felix Schmidt',
+      'profit': '+16.7%',
+      'trades': 32,
+      'country': 'DE',
+      'profitAmount': '\$50,100',
+      'equity': '\$350,100',
+      'premium': false,
+    },
+    {
+      'rank': 4,
+      'name': 'Isabella Rossi',
+      'profit': '+15.2%',
+      'trades': 30,
+      'country': 'IT',
+      'profitAmount': '\$45,600',
+      'equity': '\$345,600',
+      'premium': true,
+    },
+    {
+      'rank': 5,
+      'name': 'Noah Williams',
+      'profit': '+14.5%',
+      'trades': 28,
+      'country': 'GB',
+      'profitAmount': '\$43,500',
+      'equity': '\$343,500',
+      'premium': false,
+    },
+    {
+      'rank': 6,
+      'name': 'Sophie Laurent',
+      'profit': '+13.7%',
+      'trades': 26,
+      'country': 'FR',
+      'profitAmount': '\$41,100',
+      'equity': '\$341,100',
+      'premium': true,
+    },
+    {
+      'rank': 7,
+      'name': 'Lucas Silva',
+      'profit': '+12.8%',
+      'trades': 24,
+      'country': 'ES',
+      'profitAmount': '\$38,400',
+      'equity': '\$338,400',
+      'premium': false,
+    },
+    {
+      'rank': 8,
+      'name': 'Emma Nguyen',
+      'profit': '+11.9%',
+      'trades': 22,
+      'country': 'AU',
+      'profitAmount': '\$35,700',
+      'equity': '\$335,700',
+      'premium': true,
+    },
+    {
+      'rank': 9,
+      'name': 'Oliver Park',
+      'profit': '+11.2%',
+      'trades': 20,
+      'country': 'CA',
+      'profitAmount': '\$33,600',
+      'equity': '\$333,600',
+      'premium': false,
+    },
+    {
+      'rank': 10,
+      'name': 'Chloe Kim',
+      'profit': '+10.5%',
+      'trades': 18,
+      'country': 'US',
+      'profitAmount': '\$31,500',
+      'equity': '\$331,500',
+      'premium': true,
+    },
   ];
 
   final List<Map<String, dynamic>> _challengeLeaderboard = [
-    {'rank': 1, 'name': 'Sarah Chen', 'profit': '+24.5%', 'trades': 47, 'country': 'US', 'profitAmount': '\$73,500', 'equity': '\$373,500', 'premium': true},
-    {'rank': 2, 'name': 'Alex Morgan', 'profit': '+18.2%', 'trades': 52, 'country': 'GB', 'profitAmount': '\$54,600', 'equity': '\$354,600', 'premium': false},
-    {'rank': 3, 'name': 'Jordan Smith', 'profit': '+15.8%', 'trades': 41, 'country': 'US', 'profitAmount': '\$47,400', 'equity': '\$347,400', 'premium': true},
-    {'rank': 4, 'name': 'Michael Brown', 'profit': '+14.1%', 'trades': 39, 'country': 'CA', 'profitAmount': '\$42,300', 'equity': '\$342,300', 'premium': true},
-    {'rank': 5, 'name': 'Emma Wilson', 'profit': '+13.5%', 'trades': 35, 'country': 'AU', 'profitAmount': '\$40,500', 'equity': '\$340,500', 'premium': false},
-    {'rank': 6, 'name': 'David Martinez', 'profit': '+12.8%', 'trades': 42, 'country': 'ES', 'profitAmount': '\$38,400', 'equity': '\$338,400', 'premium': true},
-    {'rank': 7, 'name': 'Sophia Garcia', 'profit': '+11.9%', 'trades': 31, 'country': 'IT', 'profitAmount': '\$35,700', 'equity': '\$335,700', 'premium': false},
-    {'rank': 8, 'name': 'James Anderson', 'profit': '+11.2%', 'trades': 37, 'country': 'GB', 'profitAmount': '\$33,600', 'equity': '\$333,600', 'premium': true},
-    {'rank': 9, 'name': 'Olivia Taylor', 'profit': '+10.7%', 'trades': 33, 'country': 'US', 'profitAmount': '\$32,100', 'equity': '\$332,100', 'premium': false},
-    {'rank': 10, 'name': 'Daniel Thomas', 'profit': '+10.3%', 'trades': 29, 'country': 'DE', 'profitAmount': '\$30,900', 'equity': '\$330,900', 'premium': true},
+    {
+      'rank': 1,
+      'name': 'Sarah Chen',
+      'profit': '+24.5%',
+      'trades': 47,
+      'country': 'US',
+      'profitAmount': '\$73,500',
+      'equity': '\$373,500',
+      'premium': true,
+    },
+    {
+      'rank': 2,
+      'name': 'Alex Morgan',
+      'profit': '+18.2%',
+      'trades': 52,
+      'country': 'GB',
+      'profitAmount': '\$54,600',
+      'equity': '\$354,600',
+      'premium': false,
+    },
+    {
+      'rank': 3,
+      'name': 'Jordan Smith',
+      'profit': '+15.8%',
+      'trades': 41,
+      'country': 'US',
+      'profitAmount': '\$47,400',
+      'equity': '\$347,400',
+      'premium': true,
+    },
+    {
+      'rank': 4,
+      'name': 'Michael Brown',
+      'profit': '+14.1%',
+      'trades': 39,
+      'country': 'CA',
+      'profitAmount': '\$42,300',
+      'equity': '\$342,300',
+      'premium': true,
+    },
+    {
+      'rank': 5,
+      'name': 'Emma Wilson',
+      'profit': '+13.5%',
+      'trades': 35,
+      'country': 'AU',
+      'profitAmount': '\$40,500',
+      'equity': '\$340,500',
+      'premium': false,
+    },
+    {
+      'rank': 6,
+      'name': 'David Martinez',
+      'profit': '+12.8%',
+      'trades': 42,
+      'country': 'ES',
+      'profitAmount': '\$38,400',
+      'equity': '\$338,400',
+      'premium': true,
+    },
+    {
+      'rank': 7,
+      'name': 'Sophia Garcia',
+      'profit': '+11.9%',
+      'trades': 31,
+      'country': 'IT',
+      'profitAmount': '\$35,700',
+      'equity': '\$335,700',
+      'premium': false,
+    },
+    {
+      'rank': 8,
+      'name': 'James Anderson',
+      'profit': '+11.2%',
+      'trades': 37,
+      'country': 'GB',
+      'profitAmount': '\$33,600',
+      'equity': '\$333,600',
+      'premium': true,
+    },
+    {
+      'rank': 9,
+      'name': 'Olivia Taylor',
+      'profit': '+10.7%',
+      'trades': 33,
+      'country': 'US',
+      'profitAmount': '\$32,100',
+      'equity': '\$332,100',
+      'premium': false,
+    },
+    {
+      'rank': 10,
+      'name': 'Daniel Thomas',
+      'profit': '+10.3%',
+      'trades': 29,
+      'country': 'DE',
+      'profitAmount': '\$30,900',
+      'equity': '\$330,900',
+      'premium': true,
+    },
   ];
 
   String _getCountryFlag(String countryCode) {
     final flags = {
-      'US': '🇺🇸', 'GB': '🇬🇧', 'CN': '🇨🇳', 'DE': '🇩🇪', 'FR': '🇫🇷',
-      'CA': '🇨🇦', 'AU': '🇦🇺', 'JP': '🇯🇵', 'IT': '🇮🇹', 'ES': '🇪🇸',
+      'US': '🇺🇸',
+      'GB': '🇬🇧',
+      'CN': '🇨🇳',
+      'DE': '🇩🇪',
+      'FR': '🇫🇷',
+      'CA': '🇨🇦',
+      'AU': '🇦🇺',
+      'JP': '🇯🇵',
+      'IT': '🇮🇹',
+      'ES': '🇪🇸',
     };
     return flags[countryCode] ?? '🏳️';
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -321,12 +739,20 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                     if (_activeTab == 'challenge') ...[
                       _buildLeaderboardCard(
                         title: 'Challenge Leaderboard',
-                        gradientColors: [const Color(0xFF7C3AED), const Color(0xFF4C1D95)],
-                        leaderboard: _challengeViewMode == 'global' ? _challengeLeaderboard : _groupLeaderboard,
+                        gradientColors: [
+                          const Color(0xFF7C3AED),
+                          const Color(0xFF4C1D95),
+                        ],
+                        leaderboard: _challengeViewMode == 'global'
+                            ? _challengeLeaderboard
+                            : _groupLeaderboard,
                         viewMode: _challengeViewMode,
-                        onViewModeChanged: (mode) => setState(() => _challengeViewMode = mode),
+                        onViewModeChanged: (mode) =>
+                            setState(() => _challengeViewMode = mode),
                         expanded: _expandedChallenge,
-                        onExpandToggle: () => setState(() => _expandedChallenge = !_expandedChallenge),
+                        onExpandToggle: () => setState(
+                          () => _expandedChallenge = !_expandedChallenge,
+                        ),
                       ),
                       const SizedBox(height: 24),
                       _buildChampionshipStagesSection(),
@@ -420,7 +846,12 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
           boxShadow: [
             // Outer glow
             BoxShadow(
-              color: const Color(0xFF3B82F6).withValues(alpha: 0.3),
+              color: const Color.fromARGB(
+                0,
+                59,
+                131,
+                246,
+              ).withValues(alpha: 0.3),
               blurRadius: 12,
               spreadRadius: 1,
             ),
@@ -440,7 +871,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
             boxShadow: [
               // Inner shadow (top-left highlight)
               BoxShadow(
-                color: Colors.white.withValues(alpha: 0.05),
+                color: const Color.fromARGB(0, 255, 255, 255).withValues(alpha: 0.05),
                 blurRadius: 1,
                 offset: const Offset(1, 1),
               ),
@@ -507,7 +938,9 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                   child: Container(
                     height: 12,
                     decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(10),
+                      ),
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
@@ -661,16 +1094,20 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
                                   colors: [
-                                    Color(0xFF818CF8),  // Light indigo
-                                    Color(0xFF6366F1),  // Indigo
-                                    Color(0xFF7C3AED),  // Violet
+                                    Color(0xFF818CF8), // Light indigo
+                                    Color(0xFF6366F1), // Indigo
+                                    Color(0xFF7C3AED), // Violet
                                   ],
                                 ),
                                 shape: BoxShape.circle,
                               ),
                               child: Center(
                                 child: isCompleted
-                                    ? const Icon(Icons.check, color: Colors.white, size: 20)
+                                    ? const Icon(
+                                        Icons.check,
+                                        color: Colors.white,
+                                        size: 20,
+                                      )
                                     : Text(
                                         'D$day',
                                         style: const TextStyle(
@@ -705,7 +1142,11 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               ),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Icon(Icons.emoji_events, color: Colors.white, size: 24),
+            child: const Icon(
+              Icons.emoji_events,
+              color: Colors.white,
+              size: 24,
+            ),
           ),
           const SizedBox(width: 12),
           const Expanded(
@@ -750,7 +1191,11 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                 color: Colors.white.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.info_outline, color: Colors.white70, size: 20),
+              child: const Icon(
+                Icons.info_outline,
+                color: Colors.white70,
+                size: 20,
+              ),
             ),
           ),
         ],
@@ -869,13 +1314,48 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     );
   }
 
+  IconData _emojiToIcon(String emoji) {
+    const emojiIconMap = {
+      '🚀': Icons.rocket_launch,
+      '💰': Icons.monetization_on,
+      '📈': Icons.trending_up,
+      '📄': Icons.description,
+      '🎯': Icons.gps_fixed,
+      '📊': Icons.bar_chart,
+      '📋': Icons.assignment,
+      '₿': Icons.currency_bitcoin,
+      '🌐': Icons.language,
+      '⚠️': Icons.warning,
+      '📉': Icons.trending_down,
+      '🔍': Icons.search,
+      '🌍': Icons.public,
+      '🧠': Icons.psychology,
+      '🌎': Icons.travel_explore,
+      '⚖️': Icons.balance,
+      '🌱': Icons.eco,
+      '💵': Icons.payments,
+      '🏖️': Icons.beach_access,
+      '🏠': Icons.home,
+      '🎨': Icons.palette,
+      '🔄': Icons.autorenew,
+      '🧰': Icons.construction,
+      '📜': Icons.article,
+      '🏆': Icons.emoji_events,
+      '👑': Icons.workspace_premium,
+      '📚': Icons.menu_book,
+      '✅': Icons.check_circle,
+      '📝': Icons.edit_note,
+    };
+    return emojiIconMap[emoji] ?? Icons.school;
+  }
+
   Widget _buildInteractiveLessonIcon({
     required int day,
     required int lessonNumber,
     required bool isCompleted,
   }) {
     final lesson = LessonRegistry.getLessonByNumber(day, lessonNumber);
-    final emoji = lesson?.emoji ?? '📚';
+    final icon = _emojiToIcon(lesson?.emoji ?? '📚');
     final isLocked = day > _currentDay;
     final isCurrent = day == _currentDay;
     final hasLesson = lesson != null;
@@ -896,33 +1376,37 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
             colors: isCompleted
                 ? [const Color(0xFF10B981), const Color(0xFF059669)]
                 : isCurrent && hasLesson
-                    ? [const Color(0xFF8B5CF6), const Color(0xFF6366F1)]
-                    : [const Color(0xFF6366F1), const Color(0xFF6366F1).withValues(alpha: 0.8)],
+                ? [const Color(0xFF8B5CF6), const Color(0xFF6366F1)]
+                : [
+                    const Color(0xFF6366F1),
+                    const Color(0xFF6366F1).withValues(alpha: 0.8),
+                  ],
           ),
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: (isCurrent && hasLesson ? const Color(0xFF8B5CF6) : const Color(0xFF6366F1)).withValues(alpha: 0.5),
+              color:
+                  (isCurrent && hasLesson
+                          ? const Color(0xFF8B5CF6)
+                          : const Color(0xFF6366F1))
+                      .withValues(alpha: 0.5),
               blurRadius: 16,
               spreadRadius: 2,
               offset: const Offset(0, 4),
             ),
           ],
-          border: isCurrent && hasLesson ? Border.all(color: Colors.white, width: 2) : null,
+          border: isCurrent && hasLesson
+              ? Border.all(color: Colors.white, width: 2)
+              : null,
         ),
-        child: Center(
-          child: Text(
-            emoji,
-            style: const TextStyle(fontSize: 20),
-          ),
-        ),
+        child: Center(child: Icon(icon, color: Colors.white, size: 20)),
       ),
     );
   }
 
   void _showLessonPopup(int day, int lessonNumber) {
     final lesson = LessonRegistry.getLessonByNumber(day, lessonNumber);
-    final emoji = lesson?.emoji ?? '📚';
+    final icon = _emojiToIcon(lesson?.emoji ?? '📚');
     final title = lesson?.title ?? 'Lesson $lessonNumber';
     final isCompleted = false; // TODO: Track completion status
 
@@ -956,7 +1440,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Center(
-                child: Text(emoji, style: const TextStyle(fontSize: 32)),
+                child: Icon(icon, color: Colors.white, size: 32),
               ),
             ),
             const SizedBox(height: 16),
@@ -1008,7 +1492,9 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Day $day Lesson $lessonNumber coming soon!'),
+                      content: Text(
+                        'Day $day Lesson $lessonNumber coming soon!',
+                      ),
                       backgroundColor: const Color(0xFF6366F1),
                     ),
                   );
@@ -1074,32 +1560,32 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: (isMilestone ? const Color(0xFF8B5CF6) : color).withValues(alpha: 0.5),
+            color: (isMilestone ? const Color(0xFF8B5CF6) : color).withValues(
+              alpha: 0.5,
+            ),
             blurRadius: 16,
             spreadRadius: 2,
             offset: const Offset(0, 4),
           ),
         ],
       ),
-      child: Icon(
-        icon,
-        color: Colors.white,
-        size: 24,
-      ),
+      child: Icon(icon, color: Colors.white, size: 24),
     );
   }
 
   Widget _buildLessonCard(Map<String, dynamic> lesson) {
     final day = lesson['day'] as int;
-    final emoji = lesson['emoji'] as String;
+    final icon = lesson['icon'] as IconData;
     final title = lesson['title'] as String;
     final isCompleted = lesson['completed'] as bool;
     final isCurrent = lesson['current'] == true;
-    final isLocked = day > _currentDay && day != 0; // Final test (day 0) is never locked
+    final isLocked =
+        day > _currentDay && day != 0; // Final test (day 0) is never locked
     final isTest = lesson['type'] == 'test';
     final isFinalTest = lesson['type'] == 'finalTest';
     final isExpanded = isFinalTest || _expandedLessons.contains(day);
-    final isDay2 = day == 2; // Day 2 is a header only - lesson is in floating icon
+    final isDay2 =
+        day == 2; // Day 2 is a header only - lesson is in floating icon
 
     return GestureDetector(
       onTap: () {
@@ -1134,29 +1620,29 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                 ],
               )
             : isLocked
-                ? BoxDecoration(
-                    // Locked: solid gray
-                    color: const Color(0xFF2A2A3E),
-                    borderRadius: BorderRadius.circular(16),
-                  )
-                : BoxDecoration(
-                    // Active: gradient border with gray inside
-                    gradient: const LinearGradient(
-                      colors: [
-                        Color(0xFF22C55E), // Green
-                        Color(0xFF3B82F6), // Blue
-                        Color(0xFFA855F7), // Purple
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFF3B82F6).withValues(alpha: 0.3),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
+            ? BoxDecoration(
+                // Locked: solid gray
+                color: const Color(0xFF2A2A3E),
+                borderRadius: BorderRadius.circular(16),
+              )
+            : BoxDecoration(
+                // Active: gradient border with gray inside
+                gradient: const LinearGradient(
+                  colors: [
+                    Color(0xFF22C55E), // Green
+                    Color(0xFF3B82F6), // Blue
+                    Color(0xFFA855F7), // Purple
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF3B82F6).withValues(alpha: 0.3),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
                   ),
+                ],
+              ),
         padding: (!isCompleted && !isLocked) ? const EdgeInsets.all(2) : null,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
@@ -1166,245 +1652,291 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                   borderRadius: BorderRadius.circular(14),
                 )
               : null,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(14),
-              child: Row(
-                children: [
-                  // Emoji icon or check for completed
-                  Container(
-                    width: 44,
-                    height: 44,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF6B7280), // Gray
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Center(
-                      child: isCompleted
-                          ? const Icon(Icons.check, color: Colors.white, size: 24)
-                          : isFinalTest
-                              ? const Icon(Icons.emoji_events, color: Colors.white, size: 24)
-                              : isTest && !isLocked
-                                  ? const Icon(Icons.quiz, color: Colors.white, size: 24)
-                                  : Text(
-                                      emoji,
-                                      style: const TextStyle(
-                                        fontSize: 22,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  // Day badge
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: isLocked
-                          ? Colors.grey.withValues(alpha: 0.2)
-                          : isCompleted
-                              ? Colors.white.withValues(alpha: 0.2)
-                              : isFinalTest
-                                  ? Colors.white.withValues(alpha: 0.3)
-                                  : isTest
-                                      ? const Color(0xFFF59E0B).withValues(alpha: 0.3)
-                                      : _getDayColorLight(day),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      isFinalTest ? 'FINAL' : isTest ? 'TEST' : 'Day ${day.toString().padLeft(2, '0')}',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                        color: isLocked
-                            ? Colors.grey
-                            : isCompleted
-                                ? Colors.white
-                                : isFinalTest
-                                    ? Colors.white
-                                    : isTest
-                                        ? const Color(0xFFB45309)
-                                        : _getDayColor(day),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  // Title
-                  Expanded(
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: (isTest || isFinalTest) ? FontWeight.w600 : FontWeight.w500,
-                        color: isLocked
-                            ? Colors.grey
-                            : isCompleted
-                                ? Colors.white
-                                : isFinalTest
-                                    ? Colors.white
-                                    : isTest
-                                        ? const Color(0xFFB45309)
-                                        : const Color(0xFF1F2937),
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  // Arrow or lock icon (not shown for Day 2)
-                  if (isLocked)
-                    Icon(
-                      Icons.lock,
-                      color: Colors.grey.withValues(alpha: 0.5),
-                      size: 20,
-                    )
-                  else if (isCompleted)
-                    const Icon(
-                      Icons.check_circle,
-                      color: Colors.white,
-                      size: 24,
-                    )
-                  else if (!isDay2)
-                    AnimatedRotation(
-                      turns: isExpanded ? 0.5 : 0,
-                      duration: const Duration(milliseconds: 200),
-                      child: Icon(
-                        Icons.keyboard_arrow_down,
-                        color: isFinalTest ? Colors.white : isTest ? const Color(0xFFB45309) : Colors.grey.shade600,
-                        size: 24,
-                      ),
-                    ),
-                ],
-              ),
-            ),
-            // Expanded content (not shown for Day 2)
-            if (isExpanded && !isLocked && !isDay2)
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.fromLTRB(14, 0, 14, 14),
-                decoration: BoxDecoration(
-                  color: isFinalTest ? const Color(0xFF1A1A2E) : Colors.white,
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(14),
+                child: Row(
                   children: [
-                    Divider(color: isFinalTest ? Colors.white24 : Colors.grey.shade200),
-                    const SizedBox(height: 12),
-                    Text(
-                      isFinalTest ? 'Ultimate Challenge' : 'Lesson Overview',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: isFinalTest ? Colors.white70 : Colors.grey.shade600,
+                    // Emoji icon or check for completed
+                    Container(
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF6B7280), // Gray
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Center(
+                        child: isCompleted
+                            ? const Icon(
+                                Icons.check,
+                                color: Colors.white,
+                                size: 24,
+                              )
+                            : isFinalTest
+                            ? const Icon(
+                                Icons.emoji_events,
+                                color: Colors.white,
+                                size: 24,
+                              )
+                            : isTest && !isLocked
+                            ? const Icon(
+                                Icons.quiz,
+                                color: Colors.white,
+                                size: 24,
+                              )
+                            : Icon(icon, color: Colors.white, size: 22),
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      isFinalTest
-                          ? '28 questions covering all topics from the challenge. Prove your investment mastery and earn 100 QP!'
-                          : _getLessonDescription(day),
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: isFinalTest ? Colors.white70 : Colors.grey.shade700,
-                        height: 1.5,
+                    const SizedBox(width: 12),
+                    // Day badge
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isLocked
+                            ? Colors.grey.withValues(alpha: 0.2)
+                            : isCompleted
+                            ? Colors.white.withValues(alpha: 0.2)
+                            : isFinalTest
+                            ? Colors.white.withValues(alpha: 0.3)
+                            : isTest
+                            ? const Color(0xFFF59E0B).withValues(alpha: 0.3)
+                            : _getDayColorLight(day),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        isFinalTest
+                            ? 'FINAL'
+                            : isTest
+                            ? 'TEST'
+                            : 'Day ${day.toString().padLeft(2, '0')}',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: isLocked
+                              ? Colors.grey
+                              : isCompleted
+                              ? Colors.white
+                              : isFinalTest
+                              ? Colors.white
+                              : isTest
+                              ? const Color(0xFFB45309)
+                              : _getDayColor(day),
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              // Navigate to lesson/test
-                              if (isFinalTest) {
-                                Navigator.pushNamed(
-                                  context,
-                                  '/lesson',
-                                  arguments: {'day': 0, 'lessonNumber': 1},
-                                );
-                              } else if (LessonRegistry.hasLesson(day)) {
-                                Navigator.pushNamed(
-                                  context,
-                                  '/lesson',
-                                  arguments: {'day': day},
-                                );
-                              } else {
-                                // Show coming soon message
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('Lesson $day coming soon!'),
-                                    backgroundColor: const Color(0xFF6366F1),
-                                  ),
-                                );
-                              }
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: isFinalTest
-                                      ? [const Color(0xFF7C3AED), const Color(0xFFFBBF24)]
-                                      : isTest
-                                          ? [const Color(0xFFF59E0B), const Color(0xFFD97706)]
-                                          : [const Color(0xFF6366F1), const Color(0xFF8B5CF6)],
-                                ),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    isCompleted
-                                        ? Icons.replay
-                                        : isFinalTest
-                                            ? Icons.emoji_events
-                                            : isTest
-                                                ? Icons.quiz
-                                                : Icons.play_arrow,
-                                    color: Colors.white,
-                                    size: 20,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    isCompleted
-                                        ? (isFinalTest ? 'Retake Final' : isTest ? 'Review Test' : 'Review Lesson')
-                                        : (isFinalTest ? 'Take Final Test' : isTest ? 'Start Test' : 'Start Lesson'),
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                    const SizedBox(width: 8),
+                    // Title
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: (isTest || isFinalTest)
+                              ? FontWeight.w600
+                              : FontWeight.w500,
+                          color: isLocked
+                              ? Colors.grey
+                              : isCompleted
+                              ? Colors.white
+                              : isFinalTest
+                              ? Colors.white
+                              : isTest
+                              ? const Color(0xFFB45309)
+                              : const Color(0xFF1F2937),
                         ),
-                        const SizedBox(width: 12),
-                        Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade100,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Icon(
-                            Icons.bookmark_border,
-                            color: Colors.grey.shade600,
-                            size: 20,
-                          ),
-                        ),
-                      ],
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
+                    const SizedBox(width: 8),
+                    // Arrow or lock icon (not shown for Day 2)
+                    if (isLocked)
+                      Icon(
+                        Icons.lock,
+                        color: Colors.grey.withValues(alpha: 0.5),
+                        size: 20,
+                      )
+                    else if (isCompleted)
+                      const Icon(
+                        Icons.check_circle,
+                        color: Colors.white,
+                        size: 24,
+                      )
+                    else if (!isDay2)
+                      AnimatedRotation(
+                        turns: isExpanded ? 0.5 : 0,
+                        duration: const Duration(milliseconds: 200),
+                        child: Icon(
+                          Icons.keyboard_arrow_down,
+                          color: isFinalTest
+                              ? Colors.white
+                              : isTest
+                              ? const Color(0xFFB45309)
+                              : Colors.grey.shade600,
+                          size: 24,
+                        ),
+                      ),
                   ],
                 ),
               ),
-          ],
-        ),
+              // Expanded content (not shown for Day 2)
+              if (isExpanded && !isLocked && !isDay2)
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.fromLTRB(14, 0, 14, 14),
+                  decoration: BoxDecoration(
+                    color: isFinalTest ? const Color(0xFF1A1A2E) : Colors.white,
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(16),
+                      bottomRight: Radius.circular(16),
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Divider(
+                        color: isFinalTest
+                            ? Colors.white24
+                            : Colors.grey.shade200,
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        isFinalTest ? 'Ultimate Challenge' : 'Lesson Overview',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: isFinalTest
+                              ? Colors.white70
+                              : Colors.grey.shade600,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        isFinalTest
+                            ? '28 questions covering all topics from the challenge. Prove your investment mastery and earn 100 QP!'
+                            : _getLessonDescription(day),
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: isFinalTest
+                              ? Colors.white70
+                              : Colors.grey.shade700,
+                          height: 1.5,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                // Navigate to lesson/test
+                                if (isFinalTest) {
+                                  Navigator.pushNamed(
+                                    context,
+                                    '/lesson',
+                                    arguments: {'day': 0, 'lessonNumber': 1},
+                                  );
+                                } else if (LessonRegistry.hasLesson(day)) {
+                                  Navigator.pushNamed(
+                                    context,
+                                    '/lesson',
+                                    arguments: {'day': day},
+                                  );
+                                } else {
+                                  // Show coming soon message
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Lesson $day coming soon!'),
+                                      backgroundColor: const Color(0xFF6366F1),
+                                    ),
+                                  );
+                                }
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12,
+                                ),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: isFinalTest
+                                        ? [
+                                            const Color(0xFF7C3AED),
+                                            const Color(0xFFFBBF24),
+                                          ]
+                                        : isTest
+                                        ? [
+                                            const Color(0xFFF59E0B),
+                                            const Color(0xFFD97706),
+                                          ]
+                                        : [
+                                            const Color(0xFF6366F1),
+                                            const Color(0xFF8B5CF6),
+                                          ],
+                                  ),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      isCompleted
+                                          ? Icons.replay
+                                          : isFinalTest
+                                          ? Icons.emoji_events
+                                          : isTest
+                                          ? Icons.quiz
+                                          : Icons.play_arrow,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      isCompleted
+                                          ? (isFinalTest
+                                                ? 'Retake Final'
+                                                : isTest
+                                                ? 'Review Test'
+                                                : 'Review Lesson')
+                                          : (isFinalTest
+                                                ? 'Take Final Test'
+                                                : isTest
+                                                ? 'Start Test'
+                                                : 'Start Lesson'),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade100,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Icon(
+                              Icons.bookmark_border,
+                              color: Colors.grey.shade600,
+                              size: 20,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
@@ -1423,7 +1955,8 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
       9: 'Discover Web3 technologies, decentralized finance (DeFi), NFTs, and the future of digital ownership and finance.',
       10: 'Master risk management strategies and develop financial discipline to protect your investments and maximize returns.',
     };
-    return descriptions[day] ?? 'Explore advanced investment concepts and strategies to enhance your trading skills.';
+    return descriptions[day] ??
+        'Explore advanced investment concepts and strategies to enhance your trading skills.';
   }
 
   Widget _buildLeaderboardCard({
@@ -1446,9 +1979,9 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color(0xFF818CF8),  // Light indigo
-                  Color(0xFF6366F1),  // Indigo
-                  Color(0xFF7C3AED),  // Violet
+                  Color(0xFF818CF8), // Light indigo
+                  Color(0xFF6366F1), // Indigo
+                  Color(0xFF7C3AED), // Violet
                 ],
               ),
               borderRadius: BorderRadius.circular(20),
@@ -1472,7 +2005,11 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                             width: 2,
                           ),
                         ),
-                        child: const Icon(Icons.person, color: Colors.white70, size: 20),
+                        child: const Icon(
+                          Icons.person,
+                          color: Colors.white70,
+                          size: 20,
+                        ),
                       ),
                       const SizedBox(width: 8),
                       // Your rank
@@ -1495,11 +2032,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                     color: Colors.black.withValues(alpha: 0.2),
                   ),
                   padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      _buildPodium(leaderboard),
-                    ],
-                  ),
+                  child: Column(children: [_buildPodium(leaderboard)]),
                 ),
               ],
             ),
@@ -1531,8 +2064,16 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildToggleOption('Group', viewMode == 'group', () => onChanged('group')),
-          _buildToggleOption('Global', viewMode == 'global', () => onChanged('global')),
+          _buildToggleOption(
+            'Group',
+            viewMode == 'group',
+            () => onChanged('group'),
+          ),
+          _buildToggleOption(
+            'Global',
+            viewMode == 'global',
+            () => onChanged('global'),
+          ),
         ],
       ),
     );
@@ -1572,7 +2113,11 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     );
   }
 
-  Widget _buildPodiumPosition(Map<String, dynamic> data, int rank, double height) {
+  Widget _buildPodiumPosition(
+    Map<String, dynamic> data,
+    int rank,
+    double height,
+  ) {
     final colors = {
       1: const Color(0xFFFBBF24),
       2: const Color(0xFFC0C0C0),
@@ -1650,7 +2195,10 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                 color: Colors.white.withValues(alpha: 0.8),
               ),
             ),
-            const Text(' → ', style: TextStyle(fontSize: 10, color: Colors.white70)),
+            const Text(
+              ' → ',
+              style: TextStyle(fontSize: 10, color: Colors.white70),
+            ),
             Text(
               data['equity'],
               style: const TextStyle(
@@ -1680,10 +2228,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               ),
               Text(
                 data['profit'],
-                style: const TextStyle(
-                  fontSize: 10,
-                  color: Color(0xFF4ADE80),
-                ),
+                style: const TextStyle(fontSize: 10, color: Color(0xFF4ADE80)),
               ),
             ],
           ),
@@ -1693,10 +2238,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
 
     // Move 1st position up
     if (rank == 1) {
-      return Transform.translate(
-        offset: const Offset(0, -15),
-        child: content,
-      );
+      return Transform.translate(offset: const Offset(0, -15), child: content);
     }
     return content;
   }
@@ -1719,8 +2261,8 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
           colors: [
-            Color(0xFF1E3A8A),  // Dark blue
-            Color(0xFF7C3AED),  // Violet
+            Color(0xFF1E3A8A), // Dark blue
+            Color(0xFF7C3AED), // Violet
           ],
         ),
         borderRadius: BorderRadius.circular(16),
@@ -1766,15 +2308,22 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 3,
+                          ),
                           decoration: BoxDecoration(
                             color: item['rank'] % 2 == 0
                                 ? const Color(0xFF10B981).withValues(alpha: 0.3)
-                                : const Color(0xFF3B82F6).withValues(alpha: 0.3),
+                                : const Color(
+                                    0xFF3B82F6,
+                                  ).withValues(alpha: 0.3),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Text(
-                            item['rank'] % 2 == 0 ? 'Learning Challenge' : 'Investing Challenge',
+                            item['rank'] % 2 == 0
+                                ? 'Learning Challenge'
+                                : 'Investing Challenge',
                             style: TextStyle(
                               fontSize: 9,
                               fontWeight: FontWeight.w500,
@@ -1790,19 +2339,28 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                     Row(
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.white.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
                             item['country'],
-                            style: const TextStyle(fontSize: 10, color: Colors.white70),
+                            style: const TextStyle(
+                              fontSize: 10,
+                              color: Colors.white70,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 6),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: item['premium'] == true
                                 ? const Color(0xFFFBBF24).withValues(alpha: 0.3)
@@ -1854,7 +2412,14 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                         ),
                       ),
                       const SizedBox(height: 2),
-                      const Text(' ⟶ ', style: TextStyle(fontSize: 32, color: Colors.white70, height: 0.8)),
+                      const Text(
+                        ' ⟶ ',
+                        style: TextStyle(
+                          fontSize: 32,
+                          color: Colors.white70,
+                          height: 0.8,
+                        ),
+                      ),
                     ],
                   ),
                   const Text(
@@ -1908,7 +2473,11 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                   color: const Color(0xFFFBBF24).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(Icons.handshake, color: Color(0xFFFBBF24), size: 20),
+                child: const Icon(
+                  Icons.handshake,
+                  color: Color(0xFFFBBF24),
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
               const Text(
@@ -1997,7 +2566,11 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
           decoration: BoxDecoration(
             gradient: isActive
                 ? const LinearGradient(
-                    colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+                    colors: [
+                      Color(0xFF22C55E),
+                      Color(0xFF3B82F6),
+                      Color(0xFFA855F7),
+                    ],
                   )
                 : null,
             borderRadius: BorderRadius.circular(12),
@@ -2018,7 +2591,8 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
 
   Widget _buildSponsorCard(Map<String, dynamic> sponsor) {
     final List<Color> gradientColors = sponsor['gradientColors'] as List<Color>;
-    final List<Map<String, dynamic>> info = sponsor['info'] as List<Map<String, dynamic>>;
+    final List<Map<String, dynamic>> info =
+        sponsor['info'] as List<Map<String, dynamic>>;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -2042,9 +2616,14 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
             children: [
               // Badge
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
-                  color: (sponsor['badgeColor'] as Color).withValues(alpha: 0.2),
+                  color: (sponsor['badgeColor'] as Color).withValues(
+                    alpha: 0.2,
+                  ),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: sponsor['badgeColor'] as Color),
                 ),
@@ -2069,7 +2648,11 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                       color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    child: const Icon(Icons.emoji_events, color: Color(0xFFFBBF24), size: 32),
+                    child: const Icon(
+                      Icons.emoji_events,
+                      color: Color(0xFFFBBF24),
+                      size: 32,
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -2145,7 +2728,11 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
   Widget _buildInfoItem(Map<String, dynamic> info) {
     return Row(
       children: [
-        Icon(info['icon'] as IconData, color: const Color(0xFF3B82F6), size: 16),
+        Icon(
+          info['icon'] as IconData,
+          color: const Color(0xFF3B82F6),
+          size: 16,
+        ),
         const SizedBox(width: 6),
         Expanded(
           child: Column(
@@ -2189,7 +2776,11 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                   color: const Color(0xFF8B5CF6).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(Icons.military_tech, color: Color(0xFF8B5CF6), size: 20),
+                child: const Icon(
+                  Icons.military_tech,
+                  color: Color(0xFF8B5CF6),
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
               const Expanded(
@@ -2247,7 +2838,8 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
 
   Widget _buildChallengeCard(Map<String, dynamic> card) {
     final List<Color> gradientColors = card['gradientColors'] as List<Color>;
-    final List<Map<String, dynamic>> info = card['info'] as List<Map<String, dynamic>>;
+    final List<Map<String, dynamic>> info =
+        card['info'] as List<Map<String, dynamic>>;
     final List<String> details = card['details'] as List<String>;
     final int cardId = card['id'] as int;
     final bool isExpanded = cardId == 1 ? _expandedCard1 : _expandedCard4;
@@ -2275,7 +2867,10 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               children: [
                 // Badge
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: (card['badgeColor'] as Color).withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(20),
@@ -2302,7 +2897,11 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                         color: Colors.white.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: Icon(card['avatarIcon'] as IconData, color: const Color(0xFFFBBF24), size: 32),
+                      child: Icon(
+                        card['avatarIcon'] as IconData,
+                        color: const Color(0xFFFBBF24),
+                        size: 32,
+                      ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
@@ -2356,7 +2955,11 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      colors: [Color(0xFF22C55E), Color(0xFF3B82F6), Color(0xFFA855F7)],
+                      colors: [
+                        Color(0xFF22C55E),
+                        Color(0xFF3B82F6),
+                        Color(0xFFA855F7),
+                      ],
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -2424,7 +3027,9 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          cardId == 1 ? 'Stage Requirements' : 'Skill Challenge Details',
+                          cardId == 1
+                              ? 'Stage Requirements'
+                              : 'Skill Challenge Details',
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -2432,33 +3037,40 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                           ),
                         ),
                         const SizedBox(height: 12),
-                        ...details.map((item) => Padding(
-                          padding: const EdgeInsets.only(bottom: 8),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 6,
-                                height: 6,
-                                margin: const EdgeInsets.only(top: 6, right: 10),
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFF22C55E),
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  item,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.white.withValues(alpha: 0.8),
-                                    height: 1.4,
+                        ...details.map(
+                          (item) => Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 6,
+                                  height: 6,
+                                  margin: const EdgeInsets.only(
+                                    top: 6,
+                                    right: 10,
+                                  ),
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFF22C55E),
+                                    shape: BoxShape.circle,
                                   ),
                                 ),
-                              ),
-                            ],
+                                Expanded(
+                                  child: Text(
+                                    item,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.white.withValues(
+                                        alpha: 0.8,
+                                      ),
+                                      height: 1.4,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        )),
+                        ),
                       ],
                     ),
                   ),
@@ -2470,5 +3082,4 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
       ),
     );
   }
-
 }
