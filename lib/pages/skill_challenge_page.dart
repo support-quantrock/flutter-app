@@ -2323,8 +2323,11 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Rank number and challenge badge row
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 width: 32,
@@ -2344,51 +2347,49 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 3,
+                ),
+                decoration: BoxDecoration(
+                  color: item['rank'] % 2 == 0
+                      ? const Color(0xFF10B981).withValues(alpha: 0.3)
+                      : const Color(0xFF3B82F6).withValues(alpha: 0.3),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  item['rank'] % 2 == 0
+                      ? 'Learning Challenge'
+                      : 'Investing Challenge',
+                  style: TextStyle(
+                    fontSize: 9,
+                    fontWeight: FontWeight.w500,
+                    color: item['rank'] % 2 == 0
+                        ? const Color(0xFF10B981)
+                        : const Color(0xFF60A5FA),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          // Avatar and details row
+          Row(
+            children: [
               const Icon(Icons.account_circle, color: Colors.white54, size: 36),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          item['name'],
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 3,
-                          ),
-                          decoration: BoxDecoration(
-                            color: item['rank'] % 2 == 0
-                                ? const Color(0xFF10B981).withValues(alpha: 0.3)
-                                : const Color(
-                                    0xFF3B82F6,
-                                  ).withValues(alpha: 0.3),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: Text(
-                            item['rank'] % 2 == 0
-                                ? 'Learning Challenge'
-                                : 'Investing Challenge',
-                            style: TextStyle(
-                              fontSize: 9,
-                              fontWeight: FontWeight.w500,
-                              color: item['rank'] % 2 == 0
-                                  ? const Color(0xFF10B981)
-                                  : const Color(0xFF60A5FA),
-                            ),
-                          ),
-                        ),
-                      ],
+                    Text(
+                      item['name'],
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
                     ),
                     const SizedBox(height: 2),
                     Row(
