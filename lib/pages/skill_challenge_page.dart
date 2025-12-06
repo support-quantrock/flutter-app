@@ -399,31 +399,59 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     return Expanded(
       child: GestureDetector(
         onTap: () => setState(() => _activeTab = value),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          decoration: BoxDecoration(
-            gradient: isActive
-                ? const LinearGradient(
+        child: isActive
+            ? Container(
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
                     colors: [
                       Color(0xFF22C55E), // Green
                       Color(0xFF3B82F6), // Blue
                       Color(0xFFA855F7), // Purple
                     ],
-                  )
-                : null,
-            color: isActive ? null : Colors.transparent,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Text(
-            label,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: isActive ? Colors.white : Colors.white70,
-            ),
-          ),
-        ),
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  label,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              )
+            : Container(
+                // Gradient border for inactive tab
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color(0xFF22C55E), // Green
+                      Color(0xFF3B82F6), // Blue
+                      Color(0xFFA855F7), // Purple
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Container(
+                  margin: const EdgeInsets.all(1.5),
+                  padding: const EdgeInsets.symmetric(vertical: 12.5),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF0A0A0A),
+                    borderRadius: BorderRadius.circular(10.5),
+                  ),
+                  child: Text(
+                    label,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white70,
+                    ),
+                  ),
+                ),
+              ),
       ),
     );
   }
