@@ -1105,9 +1105,9 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     final isCompleted = lesson['completed'] as bool;
     final isCurrent = lesson['current'] == true;
     final isLocked = day > _currentDay && day != 0; // Final test (day 0) is never locked
-    final isExpanded = _expandedLessons.contains(day);
     final isTest = lesson['type'] == 'test';
     final isFinalTest = lesson['type'] == 'finalTest';
+    final isExpanded = isFinalTest || _expandedLessons.contains(day);
     final isDay2 = day == 2; // Day 2 is a header only - lesson is in floating icon
 
     return GestureDetector(
@@ -1454,82 +1454,99 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: gradientColors,
-          ),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Column(
-          children: [
-            // Group/Global toggle - top right corner
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  _buildViewModeToggle(viewMode, onViewModeChanged),
+      child: Column(
+        children: [
+          // Main card with podium
+          Container(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF818CF8),  // Light indigo
+                  Color(0xFF6366F1),  // Indigo
+                  Color(0xFF7C3AED),  // Violet
                 ],
               ),
+              borderRadius: BorderRadius.circular(20),
             ),
-            // Header section with darker overlay
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha: 0.2),
-              ),
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Row(
+            child: Column(
+              children: [
+                // Avatar, rank and Group/Global toggle row
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                  child: Row(
                     children: [
-                      Column(
-                        children: [
-                          const Icon(Icons.emoji_events, color: Color(0xFFFBBF24), size: 28),
-                          const SizedBox(height: 4),
-                          Text(
-                            'Rank: 15',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.white.withValues(alpha: 0.8),
-                            ),
+                      // Avatar placeholder
+                      Container(
+                        width: 36,
+                        height: 36,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.2),
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.3),
+                            width: 2,
                           ),
-                        ],
+                        ),
+                        child: const Icon(Icons.person, color: Colors.white70, size: 20),
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 8),
+                      // Your rank
                       Text(
-                        title,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                        'Your Rank: 15',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white.withValues(alpha: 0.9),
                         ),
                       ),
+                      const Spacer(),
+                      _buildViewModeToggle(viewMode, onViewModeChanged),
                     ],
                   ),
-                  const SizedBox(height: 24),
-                  _buildPodium(leaderboard),
-                ],
-              ),
-            ),
-            // Arrow divider
-            GestureDetector(
-              onTap: onExpandToggle,
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: AnimatedRotation(
-                  turns: expanded ? 0.5 : 0,
-                  duration: const Duration(milliseconds: 200),
-                  child: const Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 28),
                 ),
+                // Header section with podium
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black.withValues(alpha: 0.2),
+                  ),
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      _buildPodium(leaderboard),
+                    ],
+                  ),
+                ),
+                // Arrow divider
+                GestureDetector(
+                  onTap: onExpandToggle,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: AnimatedRotation(
+                      turns: expanded ? 0.5 : 0,
+                      duration: const Duration(milliseconds: 200),
+                      child: const Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 28),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Expanded list - separate from main card
+          const SizedBox(height: 12),
+          Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFF1E1E2E),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.1),
+                width: 1,
               ),
             ),
-            // Always show expanded list
-            _buildExpandedList(leaderboard.skip(3).toList()),
-          ],
-        ),
+            child: _buildExpandedList(leaderboard.skip(3).toList()),
+          ),
+        ],
       ),
     );
   }
