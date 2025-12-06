@@ -217,7 +217,16 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 14),
           decoration: BoxDecoration(
-            color: isActive ? Colors.white : Colors.transparent,
+            gradient: isActive
+                ? const LinearGradient(
+                    colors: [
+                      Color(0xFF22C55E), // Green
+                      Color(0xFF3B82F6), // Blue
+                      Color(0xFFA855F7), // Purple
+                    ],
+                  )
+                : null,
+            color: isActive ? null : Colors.transparent,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Text(
@@ -226,7 +235,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: isActive ? const Color(0xFF0F172A) : Colors.white70,
+              color: isActive ? Colors.white : Colors.white70,
             ),
           ),
         ),
@@ -271,29 +280,8 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
               ),
             ],
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFF10B981), Color(0xFF059669)],
-              ),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: const Row(
-              children: [
-                Icon(Icons.trending_up, color: Colors.white, size: 16),
-                SizedBox(width: 6),
-                Text(
-                  'QIPA',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // QIPA badge hidden
+          const SizedBox.shrink(),
         ],
       ),
     );
@@ -327,56 +315,79 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                   },
                   child: Column(
                     children: [
-                      Container(
-                        width: 44,
-                        height: 44,
-                        decoration: BoxDecoration(
-                          gradient: isCurrent
-                              ? const LinearGradient(
-                                  colors: [Color(0xFF8B5CF6), Color(0xFF6366F1)],
-                                )
-                              : isCompleted
-                                  ? const LinearGradient(
-                                      colors: [Color(0xFF10B981), Color(0xFF059669)],
-                                    )
-                                  : null,
-                          color: !isCurrent && !isCompleted
-                              ? Colors.white.withValues(alpha: 0.1)
-                              : null,
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: isCurrent
-                                ? const Color(0xFF8B5CF6)
-                                : isCompleted
-                                    ? const Color(0xFF10B981)
-                                    : Colors.white.withValues(alpha: 0.3),
-                            width: 2,
-                          ),
-                          boxShadow: isCurrent
-                              ? [
-                                  BoxShadow(
-                                    color: const Color(0xFF8B5CF6).withValues(alpha: 0.4),
-                                    blurRadius: 12,
-                                    offset: const Offset(0, 4),
+                      // Day circle with gradient border for current day
+                      isCurrent
+                          ? Container(
+                              width: 48,
+                              height: 48,
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xFF22C55E), // Green
+                                    Color(0xFF3B82F6), // Blue
+                                    Color(0xFFA855F7), // Purple
+                                  ],
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: Container(
+                                  width: 42,
+                                  height: 42,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFF6B7280), // Gray
+                                    shape: BoxShape.circle,
                                   ),
-                                ]
-                              : null,
-                        ),
-                        child: Center(
-                          child: isCompleted
-                              ? const Icon(Icons.check, color: Colors.white, size: 20)
-                              : Text(
-                                  'D$day',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: isCurrent
-                                        ? Colors.white
-                                        : Colors.white.withValues(alpha: 0.6),
+                                  child: Center(
+                                    child: Text(
+                                      'D$day',
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                        ),
-                      ),
+                              ),
+                            )
+                          : Container(
+                              width: 44,
+                              height: 44,
+                              decoration: BoxDecoration(
+                                gradient: isCompleted
+                                    ? const LinearGradient(
+                                        colors: [
+                                          Color(0xFF22C55E), // Green
+                                          Color(0xFF3B82F6), // Blue
+                                          Color(0xFFA855F7), // Purple
+                                        ],
+                                      )
+                                    : null,
+                                color: !isCompleted
+                                    ? Colors.white.withValues(alpha: 0.1)
+                                    : null,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: isCompleted
+                                      ? const Color(0xFF22C55E)
+                                      : Colors.white.withValues(alpha: 0.3),
+                                  width: 2,
+                                ),
+                              ),
+                              child: Center(
+                                child: isCompleted
+                                    ? const Icon(Icons.check, color: Colors.white, size: 20)
+                                    : Text(
+                                        'D$day',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white.withValues(alpha: 0.6),
+                                        ),
+                                      ),
+                              ),
+                            ),
                     ],
                   ),
                 ),
