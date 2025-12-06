@@ -408,6 +408,8 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
       child: Container(
         decoration: BoxDecoration(
           gradient: const LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
             colors: [
               Color(0xFF22C55E), // Green
               Color(0xFF3B82F6), // Blue
@@ -467,15 +469,13 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
           decoration: BoxDecoration(
             gradient: isActive
                 ? const LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
                     colors: [
-                      Color(0xFF34D399), // Lighter green top
                       Color(0xFF22C55E), // Green
                       Color(0xFF3B82F6), // Blue
                       Color(0xFFA855F7), // Purple
                     ],
-                    stops: [0.0, 0.3, 0.6, 1.0],
                   )
                 : null,
             borderRadius: BorderRadius.circular(10),
@@ -657,35 +657,18 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                               width: 44,
                               height: 44,
                               decoration: BoxDecoration(
-                                gradient: isCompleted
-                                    ? const LinearGradient(
-                                        colors: [
-                                          Color(0xFF22C55E), // Green
-                                          Color(0xFF3B82F6), // Blue
-                                          Color(0xFFA855F7), // Purple
-                                        ],
-                                      )
-                                    : null,
-                                color: !isCompleted
-                                    ? Colors.white.withValues(alpha: 0.1)
-                                    : null,
+                                color: _getDayColor(day),
                                 shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: isCompleted
-                                      ? const Color(0xFF22C55E)
-                                      : Colors.white.withValues(alpha: 0.3),
-                                  width: 2,
-                                ),
                               ),
                               child: Center(
                                 child: isCompleted
                                     ? const Icon(Icons.check, color: Colors.white, size: 20)
                                     : Text(
                                         'D$day',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.white.withValues(alpha: 0.6),
+                                          color: Colors.white,
                                         ),
                                       ),
                               ),
@@ -1194,7 +1177,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                                   ? Colors.white.withValues(alpha: 0.3)
                                   : isTest
                                       ? const Color(0xFFF59E0B).withValues(alpha: 0.2)
-                                      : const Color(0xFFF0F4FF),
+                                      : _getDayColor(day),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
@@ -1203,12 +1186,12 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                           : isFinalTest
                               ? const Icon(Icons.emoji_events, color: Colors.white, size: 24)
                               : isTest && !isLocked
-                                  ? const Icon(Icons.quiz, color: Color(0xFFF59E0B), size: 24)
+                                  ? const Icon(Icons.quiz, color: Colors.white, size: 24)
                                   : Text(
                                       emoji,
                                       style: TextStyle(
                                         fontSize: 22,
-                                        color: isLocked ? Colors.grey : null,
+                                        color: isLocked ? Colors.grey : Colors.white,
                                       ),
                                     ),
                     ),
@@ -1596,7 +1579,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
       3: const Color(0xFFCD7F32),
     };
 
-    return Column(
+    final content = Column(
       children: [
         Stack(
           alignment: Alignment.topCenter,
@@ -1707,6 +1690,15 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
         ),
       ],
     );
+
+    // Move 1st position up
+    if (rank == 1) {
+      return Transform.translate(
+        offset: const Offset(0, -15),
+        child: content,
+      );
+    }
+    return content;
   }
 
   Widget _buildExpandedList(List<Map<String, dynamic>> items) {
@@ -1727,8 +1719,7 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
           colors: [
-            Color(0xFF818CF8),  // Light indigo
-            Color(0xFF6366F1),  // Indigo
+            Color(0xFF1E3A8A),  // Dark blue
             Color(0xFF7C3AED),  // Violet
           ],
         ),
@@ -1855,8 +1846,6 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                   ),
                   Column(
                     children: [
-                      const Text(' ⟶ ', style: TextStyle(fontSize: 20, color: Colors.white70, height: 1)),
-                      const SizedBox(height: 2),
                       Text(
                         '90 days',
                         style: TextStyle(
@@ -1864,6 +1853,8 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
                           color: Colors.white.withValues(alpha: 0.5),
                         ),
                       ),
+                      const SizedBox(height: 2),
+                      const Text(' ⟶ ', style: TextStyle(fontSize: 32, color: Colors.white70, height: 0.8)),
                     ],
                   ),
                   const Text(
