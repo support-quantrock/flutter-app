@@ -1355,7 +1355,6 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
     required bool isCompleted,
   }) {
     final lesson = LessonRegistry.getLessonByNumber(day, lessonNumber);
-    final icon = _emojiToIcon(lesson?.emoji ?? '📚');
     final isLocked = day > _currentDay;
     final isCurrent = day == _currentDay;
     final hasLesson = lesson != null;
@@ -1366,41 +1365,64 @@ class _SkillChallengePageState extends State<SkillChallengePage> {
           _showLessonPopup(day, lessonNumber);
         }
       },
-      child: Container(
-        width: 50,
-        height: 50,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: isCompleted
-                ? [const Color(0xFF10B981), const Color(0xFF059669)]
-                : isCurrent && hasLesson
-                ? [const Color(0xFF8B5CF6), const Color(0xFF6366F1)]
-                : [
-                    const Color(0xFF6366F1),
-                    const Color(0xFF6366F1).withValues(alpha: 0.8),
+      child: isCompleted
+          ? Container(
+              width: 50,
+              height: 50,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF22C55E), // Green
+                    Color(0xFF3B82F6), // Blue
+                    Color(0xFFA855F7), // Purple
                   ],
-          ),
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color:
-                  (isCurrent && hasLesson
-                          ? const Color(0xFF8B5CF6)
-                          : const Color(0xFF6366F1))
-                      .withValues(alpha: 0.5),
-              blurRadius: 16,
-              spreadRadius: 2,
-              offset: const Offset(0, 4),
-            ),
-          ],
-          border: isCurrent && hasLesson
-              ? Border.all(color: Colors.white, width: 2)
-              : null,
-        ),
-        child: Center(child: Icon(icon, color: Colors.white, size: 20)),
-      ),
+                ),
+                shape: BoxShape.circle,
+              ),
+              child: const Center(child: Icon(Icons.check, color: Colors.white, size: 24)),
+            )
+          : (isCurrent && hasLesson)
+              ? Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xFF22C55E), // Green
+                        Color(0xFF3B82F6), // Blue
+                        Color(0xFFA855F7), // Purple
+                      ],
+                    ),
+                    shape: BoxShape.circle,
+                  ),
+                  padding: const EdgeInsets.all(2),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color(0xFF8B5CF6),
+                          Color(0xFF6366F1),
+                        ],
+                      ),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Center(child: Icon(Icons.menu_book, color: Colors.white, size: 20)),
+                  ),
+                )
+              : Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xFF8B5CF6),
+                        Color(0xFF6366F1),
+                      ],
+                    ),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(child: Icon(Icons.lock, color: Colors.white.withValues(alpha: 0.5), size: 20)),
+                ),
     );
   }
 
