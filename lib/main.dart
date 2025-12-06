@@ -10,10 +10,17 @@ import 'pages/challenge_home_page.dart';
 import 'pages/challenge_signup_page.dart';
 import 'pages/dashboard_page.dart';
 import 'services/qp_service.dart';
+import 'state/index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize services
   await QPService().init();
+
+  // Initialize stream-based state management
+  await appStore.init();
+
   runApp(const MyApp());
 }
 

@@ -4,6 +4,7 @@ import 'forecast_page.dart';
 import 'tracker_page.dart';
 import 'skill_challenge_page.dart';
 import 'portfolio_page.dart';
+import '../state/index.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -13,8 +14,6 @@ class MainNavigation extends StatefulWidget {
 }
 
 class _MainNavigationState extends State<MainNavigation> {
-  int _currentIndex = 4; // Portfolio is default (index 4)
-
   final List<Widget> _pages = [
     const AiPicksPage(),
     const ForecastPage(),
@@ -25,46 +24,50 @@ class _MainNavigationState extends State<MainNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
-      ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: const Color(0xFF0A0A0A),
-          border: Border(
-            top: BorderSide(
-              color: Colors.white.withValues(alpha: 0.1),
-              width: 1,
+    return NavigationBuilder(
+      builder: (context, navState) {
+        return Scaffold(
+          body: IndexedStack(
+            index: navState.currentTabIndex,
+            children: _pages,
+          ),
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFF0A0A0A),
+              border: Border(
+                top: BorderSide(
+                  color: Colors.white.withValues(alpha: 0.1),
+                  width: 1,
+                ),
+              ),
+            ),
+            child: SafeArea(
+              top: false,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildNavItem(0, Icons.auto_awesome, 'AI Picks', navState.currentTabIndex),
+                    _buildNavItem(1, Icons.insights, 'Forecast', navState.currentTabIndex),
+                    _buildNavItem(2, Icons.track_changes, 'Tracker', navState.currentTabIndex),
+                    _buildNavItem(3, Icons.emoji_events, 'Challenge', navState.currentTabIndex),
+                    _buildNavItem(4, Icons.account_balance_wallet, 'Portfolio', navState.currentTabIndex),
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-        child: SafeArea(
-          top: false,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildNavItem(0, Icons.auto_awesome, 'AI Picks'),
-                _buildNavItem(1, Icons.insights, 'Forecast'),
-                _buildNavItem(2, Icons.track_changes, 'Tracker'),
-                _buildNavItem(3, Icons.emoji_events, 'Challenge'),
-                _buildNavItem(4, Icons.account_balance_wallet, 'Portfolio'),
-              ],
-            ),
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 
-  Widget _buildNavItem(int index, IconData icon, String label) {
-    final isSelected = _currentIndex == index;
+  Widget _buildNavItem(int index, IconData icon, String label, int currentIndex) {
+    final isSelected = currentIndex == index;
 
     return GestureDetector(
-      onTap: () => setState(() => _currentIndex = index),
+      onTap: () => appStore.setCurrentTab(index),
       behavior: HitTestBehavior.opaque,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
